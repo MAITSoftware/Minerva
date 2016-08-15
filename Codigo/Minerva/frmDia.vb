@@ -46,7 +46,6 @@
 
     Private Sub frmDia_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al cargar desactivar el scroll horizontal y poner el nombre del día
-
         pnlDias.HorizontalScroll.Maximum = 0
         pnlDias.AutoScroll = False
         pnlDias.VerticalScroll.Visible = False

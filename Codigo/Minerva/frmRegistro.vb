@@ -8,7 +8,7 @@
         frmIngresarRegistro.Dispose()
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnCancelar.Click
+    Private Sub btnCancelar_Click(sender As Object, e As EventArgs) Handles btnCancelar.Click
         ' al clickear cancelar, volver a la ventana inicial
         frmIngresarRegistro.Show()
         Me.Dispose()
@@ -60,7 +60,6 @@
         ' al cargar ventana, iniciar animacion
         timerAnimacion.Start()
     End Sub
-
 
     Private Sub btnEntrar_Click(sender As Object, e As EventArgs) Handles btnEntrar.Click
         ' al clickear entrar, notifica si hay error o no, en caso de que no sea así
