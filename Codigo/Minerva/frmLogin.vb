@@ -78,6 +78,10 @@ Public Class frmLogin
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
+                If Not reader("habilitada") Then
+                    MsgBox("Acceso no autorizado" & vbCrLf & "El administrador aún debe confirmar su registro", MsgBoxStyle.Information, "Minerva · Registro a confirmar")
+                    Return
+                End If
                 accesoDenegado = False
             End While
             reader.Close()
