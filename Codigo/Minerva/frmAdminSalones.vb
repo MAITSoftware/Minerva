@@ -13,6 +13,7 @@ Public Class frmAdminSalones
 
     Private Sub cargarSalones()
         pnlSalones.Controls.Clear()
+        totalSalones = 0
         Dim conexion As New DB()
         Using cmd As New MySqlCommand()
             With cmd
@@ -120,6 +121,7 @@ Public Class frmAdminSalones
                 .CommandType = CommandType.Text
                 .Parameters.AddWithValue("@id", sender.Tag)
             End With
+            totalSalones -= 1
             cmd.ExecuteNonQuery()
             conexion.Close() 'Cierra la conexión
             cargarSalones()
