@@ -41,14 +41,13 @@ Partial Class frmAdminSalones
         Me.lblComentarios = New System.Windows.Forms.Label()
         Me.btnCancelarEdicion = New System.Windows.Forms.Button()
         Me.lblCapacidad = New System.Windows.Forms.Label()
-        Me.txtCapacidad = New System.Windows.Forms.TextBox()
         Me.pnlFondo = New System.Windows.Forms.Panel()
         Me.lblCantidadSalones = New System.Windows.Forms.Label()
-        Me.pnlSalones = New System.Windows.Forms.FlowLayoutPanel()
         Me.pnlSalonPlantilla = New System.Windows.Forms.Panel()
         Me.btnSalonPlantilla = New System.Windows.Forms.Button()
         Me.btnEliminarPlantilla = New System.Windows.Forms.Button()
         Me.btnEditarPlantilla = New System.Windows.Forms.Button()
+        Me.pnlSalones = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmbTurno1 = New System.Windows.Forms.ComboBox()
         Me.cmbTurno2 = New System.Windows.Forms.ComboBox()
         Me.cmbTurno5 = New System.Windows.Forms.ComboBox()
@@ -56,10 +55,12 @@ Partial Class frmAdminSalones
         Me.btnNuevoSalon = New System.Windows.Forms.Button()
         Me.lblObligatorioID = New System.Windows.Forms.Label()
         Me.lblObligatorioPlanta = New System.Windows.Forms.Label()
+        Me.numCapacidad = New System.Windows.Forms.NumericUpDown()
         lblSalones = New System.Windows.Forms.Label()
         lblTitulo = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
         Me.pnlSalonPlantilla.SuspendLayout()
+        CType(Me.numCapacidad, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblSalones
@@ -272,16 +273,6 @@ Partial Class frmAdminSalones
         Me.lblCapacidad.TabIndex = 34
         Me.lblCapacidad.Text = "Capacidad"
         '
-        'txtCapacidad
-        '
-        Me.txtCapacidad.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.txtCapacidad.Location = New System.Drawing.Point(26, 239)
-        Me.txtCapacidad.Name = "txtCapacidad"
-        Me.txtCapacidad.Size = New System.Drawing.Size(114, 34)
-        Me.txtCapacidad.TabIndex = 35
-        Me.txtCapacidad.Text = "0"
-        Me.txtCapacidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
         'pnlFondo
         '
         Me.pnlFondo.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer))
@@ -296,23 +287,14 @@ Partial Class frmAdminSalones
         '
         'lblCantidadSalones
         '
-        Me.lblCantidadSalones.AutoSize = True
         Me.lblCantidadSalones.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer))
         Me.lblCantidadSalones.Font = New System.Drawing.Font("Corbel", 20.0!, System.Drawing.FontStyle.Bold)
         Me.lblCantidadSalones.ForeColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(243, Byte), Integer), CType(CType(102, Byte), Integer))
         Me.lblCantidadSalones.Location = New System.Drawing.Point(269, 18)
         Me.lblCantidadSalones.Name = "lblCantidadSalones"
-        Me.lblCantidadSalones.Size = New System.Drawing.Size(45, 33)
+        Me.lblCantidadSalones.Size = New System.Drawing.Size(89, 40)
         Me.lblCantidadSalones.TabIndex = 34
         Me.lblCantidadSalones.Text = "(0)"
-        '
-        'pnlSalones
-        '
-        Me.pnlSalones.AutoScroll = True
-        Me.pnlSalones.Location = New System.Drawing.Point(21, 61)
-        Me.pnlSalones.Name = "pnlSalones"
-        Me.pnlSalones.Size = New System.Drawing.Size(337, 413)
-        Me.pnlSalones.TabIndex = 33
         '
         'pnlSalonPlantilla
         '
@@ -371,6 +353,14 @@ Partial Class frmAdminSalones
         Me.btnEditarPlantilla.Text = "Editar"
         Me.btnEditarPlantilla.UseVisualStyleBackColor = False
         '
+        'pnlSalones
+        '
+        Me.pnlSalones.AutoScroll = True
+        Me.pnlSalones.Location = New System.Drawing.Point(21, 61)
+        Me.pnlSalones.Name = "pnlSalones"
+        Me.pnlSalones.Size = New System.Drawing.Size(337, 413)
+        Me.pnlSalones.TabIndex = 33
+        '
         'cmbTurno1
         '
         Me.cmbTurno1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -388,7 +378,7 @@ Partial Class frmAdminSalones
         Me.cmbTurno2.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbTurno2.FormattingEnabled = True
         Me.cmbTurno2.Items.AddRange(New Object() {"Sin asignar", "Multiuso", "Grupo 1", "Grupo 2", "Grupo 3"})
-        Me.cmbTurno2.Location = New System.Drawing.Point(319, 239)
+        Me.cmbTurno2.Location = New System.Drawing.Point(319, 240)
         Me.cmbTurno2.Name = "cmbTurno2"
         Me.cmbTurno2.Size = New System.Drawing.Size(121, 34)
         Me.cmbTurno2.TabIndex = 39
@@ -451,10 +441,20 @@ Partial Class frmAdminSalones
         Me.lblObligatorioPlanta.TabIndex = 42
         Me.lblObligatorioPlanta.Text = "*"
         '
+        'numCapacidad
+        '
+        Me.numCapacidad.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.numCapacidad.Location = New System.Drawing.Point(26, 240)
+        Me.numCapacidad.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
+        Me.numCapacidad.Name = "numCapacidad"
+        Me.numCapacidad.Size = New System.Drawing.Size(120, 34)
+        Me.numCapacidad.TabIndex = 43
+        '
         'frmAdminSalones
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.numCapacidad)
         Me.Controls.Add(Me.lblSalonesAsignados)
         Me.Controls.Add(Me.lblObligatorioPlanta)
         Me.Controls.Add(Me.lblObligatorioID)
@@ -463,7 +463,6 @@ Partial Class frmAdminSalones
         Me.Controls.Add(Me.cmbTurno2)
         Me.Controls.Add(Me.cmbTurno5)
         Me.Controls.Add(Me.cmbTurno1)
-        Me.Controls.Add(Me.txtCapacidad)
         Me.Controls.Add(Me.lblCapacidad)
         Me.Controls.Add(Me.btnCancelarEdicion)
         Me.Controls.Add(Me.lblNuevoSalon)
@@ -487,6 +486,7 @@ Partial Class frmAdminSalones
         Me.pnlFondo.ResumeLayout(False)
         Me.pnlFondo.PerformLayout()
         Me.pnlSalonPlantilla.ResumeLayout(False)
+        CType(Me.numCapacidad, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -507,7 +507,6 @@ Partial Class frmAdminSalones
     Friend WithEvents lblComentarios As System.Windows.Forms.Label
     Friend WithEvents btnCancelarEdicion As System.Windows.Forms.Button
     Friend WithEvents lblCapacidad As System.Windows.Forms.Label
-    Friend WithEvents txtCapacidad As System.Windows.Forms.TextBox
     Friend WithEvents pnlFondo As System.Windows.Forms.Panel
     Friend WithEvents pnlSalones As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents cmbTurno1 As System.Windows.Forms.ComboBox
@@ -523,5 +522,6 @@ Partial Class frmAdminSalones
     Friend WithEvents lblObligatorioID As System.Windows.Forms.Label
     Friend WithEvents lblObligatorioPlanta As System.Windows.Forms.Label
     Friend WithEvents lblCantidadSalones As System.Windows.Forms.Label
+    Friend WithEvents numCapacidad As System.Windows.Forms.NumericUpDown
 
 End Class

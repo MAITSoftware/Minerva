@@ -9,11 +9,18 @@ Public Class frmAdminSalones
 
     Private Sub frmAdminSalones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cargarSalones()
+
+        controlesHabilitados(True)
+
+        Call New ToolTip().SetToolTip(lblObligatorioID, "Dato obligatorio")
+        Call New ToolTip().SetToolTip(lblObligatorioPlanta, "Dato obligatorio")
     End Sub
 
     Private Sub cargarSalones()
         pnlSalones.Controls.Clear()
         totalSalones = 0
+        lblCantidadSalones.Text = "(" + totalSalones.ToString() + ")"
+
         Dim conexion As New DB()
         Using cmd As New MySqlCommand()
             With cmd
@@ -99,20 +106,40 @@ Public Class frmAdminSalones
     End Sub
 
     Private Sub verSalon(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        previsualizarSalon(sender.Tag)
+    End Sub
+
+    Private Sub previsualizarSalon(ByVal salon As String)
         btnNuevoSalon.Visible = True
         btnAgregar.Visible = False
         btnCancelarEdicion.Visible = False
+
         salonPreview.Enabled = True
-        salonPreview = sender
+        salonPreview = Nothing
+        For Each pnl As Panel In pnlSalones.Controls
+            For Each x As Button In pnl.Controls
+                If x.Text.Equals(salon) Then
+                    If IsNothing(salonPreview) Then
+                        salonPreview = x
+                    End If
+                End If
+            Next
+        Next
+
         salonPreview.Enabled = False
 
         lblNuevoSalon.Text = "Previsualizar salón"
 
         controlesHabilitados(False)
-
-        cargarDatos(sender.Tag)
+        cargarDatos(salon)
     End Sub
+
     Private Sub eliminarSalon(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar el salón '" + sender.Tag + "'?", "Eliminar salón", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If result = DialogResult.No Then
+            Return
+        End If
+
         Dim conexion As New DB()
         Using cmd As New MySqlCommand()
             With cmd
@@ -126,8 +153,10 @@ Public Class frmAdminSalones
             conexion.Close() 'Cierra la conexión
             cargarSalones()
             btnNuevoSalon_Click(Nothing, Nothing)
+            MessageBox.Show("Salón '" + sender.tag + "' eliminado.", "Salón eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End Using
     End Sub
+
     Private Sub cargarDatos(ByVal idSalon As String)
         Dim conexion As New DB()
         Using cmd As New MySqlCommand()
@@ -141,7 +170,7 @@ Public Class frmAdminSalones
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
                 txtIDSalon.Text = reader("id")
-                txtCapacidad.Text = reader("capacidad")
+                numCapacidad.Value = Integer.Parse(reader("capacidad"))
                 txtComentarios.Text = reader("comentarios").ToString()
                 cmbPlanta.SelectedIndex = cmbPlanta.FindStringExact(reader("planta"))
                 cmbTurno1.SelectedIndex = cmbTurno1.FindStringExact(reader("turno1"))
@@ -161,19 +190,19 @@ Public Class frmAdminSalones
         cmbPlanta.Enabled = habilitado
         cmbPlanta.SelectedIndex = -1
         cmbTurno1.Enabled = habilitado
-        cmbTurno1.SelectedIndex = -1
+        cmbTurno1.SelectedIndex = 0
         cmbTurno2.Enabled = habilitado
-        cmbTurno2.SelectedIndex = -1
+        cmbTurno2.SelectedIndex = 0
         cmbTurno3.Enabled = habilitado
-        cmbTurno3.SelectedIndex = -1
+        cmbTurno3.SelectedIndex = 0
         cmbTurno4.Enabled = habilitado
-        cmbTurno4.SelectedIndex = -1
+        cmbTurno4.SelectedIndex = 0
         cmbTurno5.Enabled = habilitado
-        cmbTurno5.SelectedIndex = -1
+        cmbTurno5.SelectedIndex = 0
         txtComentarios.Enabled = habilitado
         txtComentarios.Text = ""
-        txtCapacidad.Enabled = habilitado
-        txtCapacidad.Text = ""
+        numCapacidad.Enabled = habilitado
+        numCapacidad.Value = 0
     End Sub
 
     Private Sub btnNuevoSalon_Click(sender As Object, e As EventArgs) Handles btnNuevoSalon.Click, btnCancelarEdicion.Click
@@ -188,57 +217,67 @@ Public Class frmAdminSalones
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
-        Dim conexion As New DB()
-        If btnAgregar.Text.Equals("Agregar salón") Then
-            Using cmd As New MySqlCommand()
-                With cmd
-                    .Connection = conexion.Conn
-                    .CommandText = "INSERT INTO `salon` VALUES  (@id, @planta, @capacidad, @turno1, @turno2, @turno3, @turno4, @turno5, @comentarios);"
-                    .CommandType = CommandType.Text
-                    .Parameters.AddWithValue("@id", txtIDSalon.Text)
-                    .Parameters.AddWithValue("@planta", cmbPlanta.Text)
-                    .Parameters.AddWithValue("@capacidad", txtCapacidad.Text)
-                    .Parameters.AddWithValue("@turno1", cmbTurno1.Text)
-                    .Parameters.AddWithValue("@turno2", cmbTurno2.Text)
-                    .Parameters.AddWithValue("@turno3", cmbTurno3.Text)
-                    .Parameters.AddWithValue("@turno4", cmbTurno4.Text)
-                    .Parameters.AddWithValue("@turno5", cmbTurno5.Text)
-                    .Parameters.AddWithValue("@comentarios", txtComentarios.Text)
-                End With
+        checkDatos()
+    End Sub
 
-                Try
-                    cmd.ExecuteNonQuery()
-                    conexion.Close()
-                Catch ex As Exception
-                    MsgBox(ex.ToString())
-                End Try
-            End Using
-        Else
-            Using cmd As New MySqlCommand()
-                With cmd
-                    .Connection = conexion.Conn
-                    .CommandText = "UPDATE `salon` SET planta=@planta, capacidad=@capacidad, turno1=@turno1, turno2=@turno2, turno3=@turno3, turno4=@turno4, turno5=@turno5, comentarios=@comentarios WHERE id=@id;"
-                    .CommandType = CommandType.Text
-                    .Parameters.AddWithValue("@planta", cmbPlanta.Text)
-                    .Parameters.AddWithValue("@capacidad", txtCapacidad.Text)
-                    .Parameters.AddWithValue("@turno1", cmbTurno1.Text)
-                    .Parameters.AddWithValue("@turno2", cmbTurno2.Text)
-                    .Parameters.AddWithValue("@turno3", cmbTurno3.Text)
-                    .Parameters.AddWithValue("@turno4", cmbTurno4.Text)
-                    .Parameters.AddWithValue("@turno5", cmbTurno5.Text)
-                    .Parameters.AddWithValue("@comentarios", txtComentarios.Text)
-                    .Parameters.AddWithValue("@id", txtIDSalon.Text)
-                End With
-
-                Try
-                    cmd.ExecuteNonQuery()
-                    conexion.Close()
-                Catch ex As Exception
-                    MsgBox(ex.ToString())
-                End Try
-            End Using
+    Private Sub checkDatos()
+        If String.IsNullOrWhiteSpace(txtIDSalon.Text) Then
+            MessageBox.Show("Error", "Debe ingresar un ID de salón.", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            Return
         End If
-        cargarSalones()
-        btnNuevoSalon_Click(Nothing, Nothing)
+
+        If String.IsNullOrWhiteSpace(cmbPlanta.Text) Then
+            MessageBox.Show("Error", "Debe ingresar la planta del salón.", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            Return
+        End If
+
+        actualizarDB()
+    End Sub
+
+    Private Sub actualizarDB()
+        Dim conexion As New DB()
+
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandType = CommandType.Text
+
+                If btnAgregar.Text.Equals("Agregar salón") Then
+                    .CommandText = "INSERT INTO `salon` VALUES  (@id, @planta, @capacidad, @turno1, @turno2, @turno3, @turno4, @turno5, @comentarios);"
+                Else
+                    .CommandText = "UPDATE `salon` SET planta=@planta, capacidad=@capacidad, turno1=@turno1, turno2=@turno2, turno3=@turno3, turno4=@turno4, turno5=@turno5, comentarios=@comentarios WHERE id=@id;"
+                End If
+
+                .Parameters.AddWithValue("@id", txtIDSalon.Text)
+                .Parameters.AddWithValue("@planta", cmbPlanta.Text)
+                .Parameters.AddWithValue("@capacidad", numCapacidad.Value.ToString())
+                .Parameters.AddWithValue("@turno1", cmbTurno1.Text)
+                .Parameters.AddWithValue("@turno2", cmbTurno2.Text)
+                .Parameters.AddWithValue("@turno3", cmbTurno3.Text)
+                .Parameters.AddWithValue("@turno4", cmbTurno4.Text)
+                .Parameters.AddWithValue("@turno5", cmbTurno5.Text)
+                .Parameters.AddWithValue("@comentarios", txtComentarios.Text)
+            End With
+
+            Try
+                cmd.ExecuteNonQuery()
+                conexion.Close()
+
+                cargarSalones()
+                If btnAgregar.Text.Equals("Agregar salón") Then
+                    MessageBox.Show("Salón agregado correctamente", "Salón agregado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                Else
+                    MessageBox.Show("Información de salón actualizada correctamente", "Salón actualizado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                End If
+                previsualizarSalon(txtIDSalon.Text)
+            Catch ex As Exception
+                If ex.ToString().Contains("Duplicate") Then
+                    MessageBox.Show("Ya existe un salón con ese ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Else
+                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+            End Try
+        End Using
+
     End Sub
 End Class
