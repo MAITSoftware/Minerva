@@ -1,4 +1,7 @@
-﻿Public Class frmRegistro
+﻿Imports MySql.Data.MySqlClient
+Imports System.Data
+
+Public Class frmRegistro
     ' Datos de prueba: Si el usuario no es ignacio, este va a existir siempre.
 
     Dim estadoAnimacion As Boolean = False
@@ -61,19 +64,30 @@
         timerAnimacion.Start()
     End Sub
 
-    Private Sub btnEntrar_Click(sender As Object, e As EventArgs) Handles btnEntrar.Click
-        ' al clickear entrar, notifica si hay error o no, en caso de que no sea así
-        ' el usuario deberá esperar a que el administrador confirme el registro
+    Private Sub Registro(sender As Object, e As EventArgs) Handles btnEntrar.Click
+        Dim conexion As New DB()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "INSERT INTO `usuario` VALUES (@id, @passwd, @x, @y);"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@id", txtUsuario.Text)
+                .Parameters.AddWithValue("@passwd", txtContraseña.Text)
+                .Parameters.AddWithValue("@x", False) ' No está habilitada
+                .Parameters.AddWithValue("@y", False) ' No es admin
+            End With
 
-        If Not txtUsuario.Text.Equals("ignacio") Then
-            pnlError.Visible = True
-            Return
-        End If
-        ' Ejecutar registro
-
-        Me.Hide()
-        MsgBox("Gracias por registrarse. " & vbCrLf & "El administrador deberá confirmar su registro", MsgBoxStyle.Information, "Minerva · Confirmación de registro")
-        frmIngresarRegistro.Show()
-        Me.Dispose()
+            Try
+                cmd.ExecuteNonQuery()
+                conexion.Close()
+                MsgBox("Gracias por registrarse. " & vbCrLf & "El administrador deberá confirmar su registro", MsgBoxStyle.Information, "Minerva · Confirmación de registro")
+                Me.Hide()
+                frmIngresarRegistro.Show()
+                Me.Dispose()
+            Catch ex As Exception
+                pnlError.Visible = True
+                conexion.Close()
+            End Try
+        End Using
     End Sub
 End Class

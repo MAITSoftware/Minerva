@@ -64,7 +64,6 @@ Public Class frmLogin
         timerAnimacion.Start()
     End Sub
 
-
     Private Sub Login(sender As Object, e As EventArgs) Handles btnEntrar.Click
         Dim accesoDenegado As Boolean = True
         Dim conexion As New DB()
@@ -92,6 +91,5 @@ Public Class frmLogin
             minerva.Show()
             Me.Hide()
         End If
-
     End Sub
 End Class
