@@ -1,4 +1,7 @@
-﻿Public Class frmLogin
+﻿Imports MySql.Data.MySqlClient
+Imports System.Data
+
+Public Class frmLogin
     ' Datos de prueba: mismo usuario y misma contraseña = acceso
     ' Otros datos: error
 
@@ -62,15 +65,33 @@
     End Sub
 
 
-    Private Sub btnEntrar_Click(sender As Object, e As EventArgs) Handles btnEntrar.Click
-        ' al clickear entrar checkea que los datos estén correctos y abre el programa
-        If Not txtUsuario.Text.Equals(txtContraseña.Text) Then
+    Private Sub Login(sender As Object, e As EventArgs) Handles btnEntrar.Click
+        Dim accesoDenegado As Boolean = True
+        Dim conexion As New DB()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT * FROM `usuario` WHERE id=@id AND passwd=@passwd;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@id", txtUsuario.Text)
+                .Parameters.AddWithValue("@passwd", txtContraseña.Text)
+            End With
 
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                accesoDenegado = False
+            End While
+            reader.Close()
+            conexion.Close()
+        End Using
+
+        If accesoDenegado Then
             pnlError.Visible = True
-            Return
+        Else
+            Dim minerva As New frmMain(False)
+            minerva.Show()
+            Me.Hide()
         End If
-        Dim minerva As New frmMain(False)
-        minerva.Show()
-        Me.Hide()
+
     End Sub
 End Class
