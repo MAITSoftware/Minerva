@@ -80,6 +80,8 @@ Public Class frmLogin
             While reader.Read()
                 If Not reader("habilitada") Then
                     MsgBox("Acceso no autorizado" & vbCrLf & "El administrador aún debe confirmar su registro", MsgBoxStyle.Information, "Minerva · Registro a confirmar")
+                    lblDatosInc.Text = "Cuenta no autorizada"
+                    pnlError.Visible = True
                     Return
                 End If
                 accesoDenegado = False
@@ -89,6 +91,7 @@ Public Class frmLogin
         End Using
 
         If accesoDenegado Then
+            lblDatosInc.Text = "Datos incorrectos!"
             pnlError.Visible = True
         Else
             Dim minerva As New frmMain(False)

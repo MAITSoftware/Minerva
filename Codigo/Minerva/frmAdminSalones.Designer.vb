@@ -30,7 +30,7 @@ Partial Class frmAdminSalones
         Me.lblIDSalon = New System.Windows.Forms.Label()
         Me.cmbPlanta = New System.Windows.Forms.ComboBox()
         Me.lblPlanta = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.lblSalonesAsignados = New System.Windows.Forms.Label()
         Me.lblTurno1 = New System.Windows.Forms.Label()
         Me.lblTurno3 = New System.Windows.Forms.Label()
         Me.lblTurno2 = New System.Windows.Forms.Label()
@@ -39,36 +39,38 @@ Partial Class frmAdminSalones
         Me.lblTurno5 = New System.Windows.Forms.Label()
         Me.txtComentarios = New System.Windows.Forms.TextBox()
         Me.lblComentarios = New System.Windows.Forms.Label()
-        Me.Button30 = New System.Windows.Forms.Button()
+        Me.btnCancelarEdicion = New System.Windows.Forms.Button()
         Me.lblCapacidad = New System.Windows.Forms.Label()
         Me.txtCapacidad = New System.Windows.Forms.TextBox()
         Me.pnlFondo = New System.Windows.Forms.Panel()
+        Me.lblCantidadSalones = New System.Windows.Forms.Label()
         Me.pnlSalones = New System.Windows.Forms.FlowLayoutPanel()
-        Me.pnlsalon = New System.Windows.Forms.Panel()
-        Me.btnEliminar = New System.Windows.Forms.Button()
-        Me.btnEditar = New System.Windows.Forms.Button()
-        Me.btnSalon = New System.Windows.Forms.Button()
+        Me.pnlSalonPlantilla = New System.Windows.Forms.Panel()
+        Me.btnSalonPlantilla = New System.Windows.Forms.Button()
+        Me.btnEliminarPlantilla = New System.Windows.Forms.Button()
+        Me.btnEditarPlantilla = New System.Windows.Forms.Button()
         Me.cmbTurno1 = New System.Windows.Forms.ComboBox()
         Me.cmbTurno2 = New System.Windows.Forms.ComboBox()
         Me.cmbTurno5 = New System.Windows.Forms.ComboBox()
         Me.cmbTurno3 = New System.Windows.Forms.ComboBox()
         Me.btnNuevoSalon = New System.Windows.Forms.Button()
+        Me.lblObligatorioID = New System.Windows.Forms.Label()
+        Me.lblObligatorioPlanta = New System.Windows.Forms.Label()
         lblSalones = New System.Windows.Forms.Label()
         lblTitulo = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
-        Me.pnlSalones.SuspendLayout()
-        Me.pnlsalon.SuspendLayout()
+        Me.pnlSalonPlantilla.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblSalones
         '
         lblSalones.AutoSize = True
         lblSalones.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer))
-        lblSalones.Font = New System.Drawing.Font("Corbel", 28.0!, System.Drawing.FontStyle.Bold)
+        lblSalones.Font = New System.Drawing.Font("Corbel", 27.0!, System.Drawing.FontStyle.Bold)
         lblSalones.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
         lblSalones.Location = New System.Drawing.Point(13, 12)
         lblSalones.Name = "lblSalones"
-        lblSalones.Size = New System.Drawing.Size(278, 46)
+        lblSalones.Size = New System.Drawing.Size(264, 44)
         lblSalones.TabIndex = 2
         lblSalones.Text = "Lista de salones"
         '
@@ -86,6 +88,7 @@ Partial Class frmAdminSalones
         'lblNuevoSalon
         '
         Me.lblNuevoSalon.AutoSize = True
+        Me.lblNuevoSalon.BackColor = System.Drawing.Color.Transparent
         Me.lblNuevoSalon.Font = New System.Drawing.Font("Corbel", 28.0!)
         Me.lblNuevoSalon.ForeColor = System.Drawing.Color.PaleGreen
         Me.lblNuevoSalon.Location = New System.Drawing.Point(17, 58)
@@ -102,17 +105,16 @@ Partial Class frmAdminSalones
         Me.btnAgregar.Name = "btnAgregar"
         Me.btnAgregar.Size = New System.Drawing.Size(154, 29)
         Me.btnAgregar.TabIndex = 4
-        Me.btnAgregar.Text = "Confirmar"
+        Me.btnAgregar.Text = "Agregar salón"
         Me.btnAgregar.UseVisualStyleBackColor = True
         '
         'txtIDSalon
         '
-        Me.txtIDSalon.Font = New System.Drawing.Font("Corbel", 18.0!)
+        Me.txtIDSalon.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.txtIDSalon.Location = New System.Drawing.Point(26, 161)
         Me.txtIDSalon.Name = "txtIDSalon"
-        Me.txtIDSalon.Size = New System.Drawing.Size(99, 37)
+        Me.txtIDSalon.Size = New System.Drawing.Size(114, 34)
         Me.txtIDSalon.TabIndex = 6
-        Me.txtIDSalon.Text = "15"
         Me.txtIDSalon.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblIDSalon
@@ -120,7 +122,7 @@ Partial Class frmAdminSalones
         Me.lblIDSalon.AutoSize = True
         Me.lblIDSalon.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblIDSalon.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblIDSalon.Location = New System.Drawing.Point(26, 129)
+        Me.lblIDSalon.Location = New System.Drawing.Point(21, 129)
         Me.lblIDSalon.Name = "lblIDSalon"
         Me.lblIDSalon.Size = New System.Drawing.Size(99, 29)
         Me.lblIDSalon.TabIndex = 7
@@ -129,12 +131,12 @@ Partial Class frmAdminSalones
         'cmbPlanta
         '
         Me.cmbPlanta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbPlanta.Font = New System.Drawing.Font("Corbel", 18.0!)
+        Me.cmbPlanta.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbPlanta.FormattingEnabled = True
         Me.cmbPlanta.Items.AddRange(New Object() {"Alta", "Baja", "Exterior"})
-        Me.cmbPlanta.Location = New System.Drawing.Point(161, 161)
+        Me.cmbPlanta.Location = New System.Drawing.Point(160, 161)
         Me.cmbPlanta.Name = "cmbPlanta"
-        Me.cmbPlanta.Size = New System.Drawing.Size(121, 37)
+        Me.cmbPlanta.Size = New System.Drawing.Size(121, 34)
         Me.cmbPlanta.TabIndex = 11
         '
         'lblPlanta
@@ -142,29 +144,30 @@ Partial Class frmAdminSalones
         Me.lblPlanta.AutoSize = True
         Me.lblPlanta.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblPlanta.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblPlanta.Location = New System.Drawing.Point(156, 129)
+        Me.lblPlanta.Location = New System.Drawing.Point(155, 129)
         Me.lblPlanta.Name = "lblPlanta"
         Me.lblPlanta.Size = New System.Drawing.Size(79, 29)
         Me.lblPlanta.TabIndex = 12
         Me.lblPlanta.Text = "Planta"
         '
-        'Label5
+        'lblSalonesAsignados
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.Label5.Location = New System.Drawing.Point(314, 129)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(126, 29)
-        Me.Label5.TabIndex = 16
-        Me.Label5.Text = "Asignado a"
+        Me.lblSalonesAsignados.AutoSize = True
+        Me.lblSalonesAsignados.BackColor = System.Drawing.Color.Transparent
+        Me.lblSalonesAsignados.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblSalonesAsignados.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
+        Me.lblSalonesAsignados.Location = New System.Drawing.Point(294, 96)
+        Me.lblSalonesAsignados.Name = "lblSalonesAsignados"
+        Me.lblSalonesAsignados.Size = New System.Drawing.Size(126, 29)
+        Me.lblSalonesAsignados.TabIndex = 16
+        Me.lblSalonesAsignados.Text = "Asignado a"
         '
         'lblTurno1
         '
         Me.lblTurno1.AutoSize = True
         Me.lblTurno1.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblTurno1.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblTurno1.Location = New System.Drawing.Point(314, 164)
+        Me.lblTurno1.Location = New System.Drawing.Point(314, 129)
         Me.lblTurno1.Name = "lblTurno1"
         Me.lblTurno1.Size = New System.Drawing.Size(89, 29)
         Me.lblTurno1.TabIndex = 17
@@ -175,7 +178,7 @@ Partial Class frmAdminSalones
         Me.lblTurno3.AutoSize = True
         Me.lblTurno3.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblTurno3.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblTurno3.Location = New System.Drawing.Point(314, 316)
+        Me.lblTurno3.Location = New System.Drawing.Point(314, 275)
         Me.lblTurno3.Name = "lblTurno3"
         Me.lblTurno3.Size = New System.Drawing.Size(89, 29)
         Me.lblTurno3.TabIndex = 19
@@ -186,7 +189,7 @@ Partial Class frmAdminSalones
         Me.lblTurno2.AutoSize = True
         Me.lblTurno2.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblTurno2.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblTurno2.Location = New System.Drawing.Point(314, 239)
+        Me.lblTurno2.Location = New System.Drawing.Point(314, 202)
         Me.lblTurno2.Name = "lblTurno2"
         Me.lblTurno2.Size = New System.Drawing.Size(89, 29)
         Me.lblTurno2.TabIndex = 21
@@ -195,12 +198,12 @@ Partial Class frmAdminSalones
         'cmbTurno4
         '
         Me.cmbTurno4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbTurno4.Font = New System.Drawing.Font("Corbel", 18.0!)
+        Me.cmbTurno4.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbTurno4.FormattingEnabled = True
-        Me.cmbTurno4.Items.AddRange(New Object() {"Multiuso", "Grupo 1", "Grupo 2", "Grupo 3"})
-        Me.cmbTurno4.Location = New System.Drawing.Point(461, 196)
+        Me.cmbTurno4.Items.AddRange(New Object() {"Sin asignar", "Multiuso", "Grupo 1", "Grupo 2", "Grupo 3"})
+        Me.cmbTurno4.Location = New System.Drawing.Point(461, 161)
         Me.cmbTurno4.Name = "cmbTurno4"
-        Me.cmbTurno4.Size = New System.Drawing.Size(121, 37)
+        Me.cmbTurno4.Size = New System.Drawing.Size(121, 34)
         Me.cmbTurno4.TabIndex = 24
         '
         'lblTurno4
@@ -208,7 +211,7 @@ Partial Class frmAdminSalones
         Me.lblTurno4.AutoSize = True
         Me.lblTurno4.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblTurno4.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblTurno4.Location = New System.Drawing.Point(456, 164)
+        Me.lblTurno4.Location = New System.Drawing.Point(456, 129)
         Me.lblTurno4.Name = "lblTurno4"
         Me.lblTurno4.Size = New System.Drawing.Size(90, 29)
         Me.lblTurno4.TabIndex = 23
@@ -219,7 +222,7 @@ Partial Class frmAdminSalones
         Me.lblTurno5.AutoSize = True
         Me.lblTurno5.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblTurno5.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblTurno5.Location = New System.Drawing.Point(456, 239)
+        Me.lblTurno5.Location = New System.Drawing.Point(456, 202)
         Me.lblTurno5.Name = "lblTurno5"
         Me.lblTurno5.Size = New System.Drawing.Size(89, 29)
         Me.lblTurno5.TabIndex = 25
@@ -227,10 +230,12 @@ Partial Class frmAdminSalones
         '
         'txtComentarios
         '
-        Me.txtComentarios.Location = New System.Drawing.Point(25, 354)
+        Me.txtComentarios.AcceptsReturn = True
+        Me.txtComentarios.Location = New System.Drawing.Point(25, 339)
+        Me.txtComentarios.MaxLength = 2000
         Me.txtComentarios.Multiline = True
         Me.txtComentarios.Name = "txtComentarios"
-        Me.txtComentarios.Size = New System.Drawing.Size(256, 114)
+        Me.txtComentarios.Size = New System.Drawing.Size(256, 129)
         Me.txtComentarios.TabIndex = 27
         '
         'lblComentarios
@@ -238,30 +243,30 @@ Partial Class frmAdminSalones
         Me.lblComentarios.AutoSize = True
         Me.lblComentarios.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblComentarios.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblComentarios.Location = New System.Drawing.Point(20, 322)
+        Me.lblComentarios.Location = New System.Drawing.Point(16, 307)
         Me.lblComentarios.Name = "lblComentarios"
         Me.lblComentarios.Size = New System.Drawing.Size(262, 29)
         Me.lblComentarios.TabIndex = 28
         Me.lblComentarios.Text = "Comentarios adicionales"
         '
-        'Button30
+        'btnCancelarEdicion
         '
-        Me.Button30.AutoSize = True
-        Me.Button30.Font = New System.Drawing.Font("Corbel", 12.0!)
-        Me.Button30.Location = New System.Drawing.Point(461, 445)
-        Me.Button30.Name = "Button30"
-        Me.Button30.Size = New System.Drawing.Size(154, 29)
-        Me.Button30.TabIndex = 30
-        Me.Button30.Text = "Cancelar edición"
-        Me.Button30.UseVisualStyleBackColor = True
-        Me.Button30.Visible = False
+        Me.btnCancelarEdicion.AutoSize = True
+        Me.btnCancelarEdicion.Font = New System.Drawing.Font("Corbel", 12.0!)
+        Me.btnCancelarEdicion.Location = New System.Drawing.Point(461, 445)
+        Me.btnCancelarEdicion.Name = "btnCancelarEdicion"
+        Me.btnCancelarEdicion.Size = New System.Drawing.Size(154, 29)
+        Me.btnCancelarEdicion.TabIndex = 30
+        Me.btnCancelarEdicion.Text = "Cancelar edición"
+        Me.btnCancelarEdicion.UseVisualStyleBackColor = True
+        Me.btnCancelarEdicion.Visible = False
         '
         'lblCapacidad
         '
         Me.lblCapacidad.AutoSize = True
         Me.lblCapacidad.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblCapacidad.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblCapacidad.Location = New System.Drawing.Point(21, 229)
+        Me.lblCapacidad.Location = New System.Drawing.Point(21, 202)
         Me.lblCapacidad.Name = "lblCapacidad"
         Me.lblCapacidad.Size = New System.Drawing.Size(119, 29)
         Me.lblCapacidad.TabIndex = 34
@@ -269,17 +274,19 @@ Partial Class frmAdminSalones
         '
         'txtCapacidad
         '
-        Me.txtCapacidad.Font = New System.Drawing.Font("Corbel", 18.0!)
-        Me.txtCapacidad.Location = New System.Drawing.Point(26, 261)
+        Me.txtCapacidad.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.txtCapacidad.Location = New System.Drawing.Point(26, 239)
         Me.txtCapacidad.Name = "txtCapacidad"
-        Me.txtCapacidad.Size = New System.Drawing.Size(99, 37)
+        Me.txtCapacidad.Size = New System.Drawing.Size(114, 34)
         Me.txtCapacidad.TabIndex = 35
-        Me.txtCapacidad.Text = "15"
+        Me.txtCapacidad.Text = "0"
         Me.txtCapacidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'pnlFondo
         '
         Me.pnlFondo.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer))
+        Me.pnlFondo.Controls.Add(Me.lblCantidadSalones)
+        Me.pnlFondo.Controls.Add(Me.pnlSalonPlantilla)
         Me.pnlFondo.Controls.Add(Me.pnlSalones)
         Me.pnlFondo.Controls.Add(lblSalones)
         Me.pnlFondo.Location = New System.Drawing.Point(639, 0)
@@ -287,99 +294,125 @@ Partial Class frmAdminSalones
         Me.pnlFondo.Size = New System.Drawing.Size(365, 501)
         Me.pnlFondo.TabIndex = 36
         '
+        'lblCantidadSalones
+        '
+        Me.lblCantidadSalones.AutoSize = True
+        Me.lblCantidadSalones.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer))
+        Me.lblCantidadSalones.Font = New System.Drawing.Font("Corbel", 20.0!, System.Drawing.FontStyle.Bold)
+        Me.lblCantidadSalones.ForeColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(243, Byte), Integer), CType(CType(102, Byte), Integer))
+        Me.lblCantidadSalones.Location = New System.Drawing.Point(269, 18)
+        Me.lblCantidadSalones.Name = "lblCantidadSalones"
+        Me.lblCantidadSalones.Size = New System.Drawing.Size(45, 33)
+        Me.lblCantidadSalones.TabIndex = 34
+        Me.lblCantidadSalones.Text = "(0)"
+        '
         'pnlSalones
         '
         Me.pnlSalones.AutoScroll = True
-        Me.pnlSalones.Controls.Add(Me.pnlsalon)
         Me.pnlSalones.Location = New System.Drawing.Point(21, 61)
         Me.pnlSalones.Name = "pnlSalones"
         Me.pnlSalones.Size = New System.Drawing.Size(337, 413)
         Me.pnlSalones.TabIndex = 33
         '
-        'pnlsalon
+        'pnlSalonPlantilla
         '
-        Me.pnlsalon.Controls.Add(Me.btnEliminar)
-        Me.pnlsalon.Controls.Add(Me.btnEditar)
-        Me.pnlsalon.Controls.Add(Me.btnSalon)
-        Me.pnlsalon.Location = New System.Drawing.Point(3, 3)
-        Me.pnlsalon.Name = "pnlsalon"
-        Me.pnlsalon.Size = New System.Drawing.Size(305, 56)
-        Me.pnlsalon.TabIndex = 0
+        Me.pnlSalonPlantilla.Controls.Add(Me.btnSalonPlantilla)
+        Me.pnlSalonPlantilla.Controls.Add(Me.btnEliminarPlantilla)
+        Me.pnlSalonPlantilla.Controls.Add(Me.btnEditarPlantilla)
+        Me.pnlSalonPlantilla.Location = New System.Drawing.Point(0, 0)
+        Me.pnlSalonPlantilla.Name = "pnlSalonPlantilla"
+        Me.pnlSalonPlantilla.Size = New System.Drawing.Size(305, 56)
+        Me.pnlSalonPlantilla.TabIndex = 0
+        Me.pnlSalonPlantilla.Visible = False
         '
-        'btnEliminar
+        'btnSalonPlantilla
         '
-        Me.btnEliminar.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnEliminar.Font = New System.Drawing.Font("Corbel", 10.0!)
-        Me.btnEliminar.Location = New System.Drawing.Point(213, 28)
-        Me.btnEliminar.Name = "btnEliminar"
-        Me.btnEliminar.Size = New System.Drawing.Size(89, 23)
-        Me.btnEliminar.TabIndex = 2
-        Me.btnEliminar.Text = "Eliminar"
-        Me.btnEliminar.UseVisualStyleBackColor = False
+        Me.btnSalonPlantilla.BackColor = System.Drawing.SystemColors.GrayText
+        Me.btnSalonPlantilla.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSalonPlantilla.FlatAppearance.BorderColor = System.Drawing.Color.Tomato
+        Me.btnSalonPlantilla.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSalonPlantilla.Font = New System.Drawing.Font("Corbel", 18.0!)
+        Me.btnSalonPlantilla.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.btnSalonPlantilla.Location = New System.Drawing.Point(0, 3)
+        Me.btnSalonPlantilla.Name = "btnSalonPlantilla"
+        Me.btnSalonPlantilla.Size = New System.Drawing.Size(207, 48)
+        Me.btnSalonPlantilla.TabIndex = 0
+        Me.btnSalonPlantilla.Text = "Template salón"
+        Me.btnSalonPlantilla.UseVisualStyleBackColor = False
         '
-        'btnEditar
+        'btnEliminarPlantilla
         '
-        Me.btnEditar.Font = New System.Drawing.Font("Corbel", 10.0!)
-        Me.btnEditar.Location = New System.Drawing.Point(213, 3)
-        Me.btnEditar.Name = "btnEditar"
-        Me.btnEditar.Size = New System.Drawing.Size(89, 23)
-        Me.btnEditar.TabIndex = 1
-        Me.btnEditar.Text = "Editar"
-        Me.btnEditar.UseVisualStyleBackColor = True
+        Me.btnEliminarPlantilla.BackColor = System.Drawing.Color.Firebrick
+        Me.btnEliminarPlantilla.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnEliminarPlantilla.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.btnEliminarPlantilla.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnEliminarPlantilla.Font = New System.Drawing.Font("Corbel", 10.0!)
+        Me.btnEliminarPlantilla.ForeColor = System.Drawing.Color.White
+        Me.btnEliminarPlantilla.Location = New System.Drawing.Point(213, 28)
+        Me.btnEliminarPlantilla.Name = "btnEliminarPlantilla"
+        Me.btnEliminarPlantilla.Size = New System.Drawing.Size(89, 23)
+        Me.btnEliminarPlantilla.TabIndex = 2
+        Me.btnEliminarPlantilla.Text = "Eliminar"
+        Me.btnEliminarPlantilla.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.btnEliminarPlantilla.UseVisualStyleBackColor = False
         '
-        'btnSalon
+        'btnEditarPlantilla
         '
-        Me.btnSalon.Font = New System.Drawing.Font("Corbel", 18.0!)
-        Me.btnSalon.Location = New System.Drawing.Point(0, 3)
-        Me.btnSalon.Name = "btnSalon"
-        Me.btnSalon.Size = New System.Drawing.Size(207, 48)
-        Me.btnSalon.TabIndex = 0
-        Me.btnSalon.Text = "Salón 1"
-        Me.btnSalon.UseVisualStyleBackColor = True
+        Me.btnEditarPlantilla.BackColor = System.Drawing.Color.SteelBlue
+        Me.btnEditarPlantilla.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnEditarPlantilla.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.btnEditarPlantilla.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnEditarPlantilla.Font = New System.Drawing.Font("Corbel", 10.0!)
+        Me.btnEditarPlantilla.ForeColor = System.Drawing.Color.White
+        Me.btnEditarPlantilla.Location = New System.Drawing.Point(213, 3)
+        Me.btnEditarPlantilla.Name = "btnEditarPlantilla"
+        Me.btnEditarPlantilla.Size = New System.Drawing.Size(89, 23)
+        Me.btnEditarPlantilla.TabIndex = 1
+        Me.btnEditarPlantilla.Text = "Editar"
+        Me.btnEditarPlantilla.UseVisualStyleBackColor = False
         '
         'cmbTurno1
         '
         Me.cmbTurno1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbTurno1.Font = New System.Drawing.Font("Corbel", 18.0!)
+        Me.cmbTurno1.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbTurno1.FormattingEnabled = True
-        Me.cmbTurno1.Items.AddRange(New Object() {"Multiuso", "Grupo 1", "Grupo 2", "Grupo 3"})
-        Me.cmbTurno1.Location = New System.Drawing.Point(319, 196)
+        Me.cmbTurno1.Items.AddRange(New Object() {"Sin asignar", "Multiuso", "Grupo 1", "Grupo 2", "Grupo 3"})
+        Me.cmbTurno1.Location = New System.Drawing.Point(319, 161)
         Me.cmbTurno1.Name = "cmbTurno1"
-        Me.cmbTurno1.Size = New System.Drawing.Size(121, 37)
+        Me.cmbTurno1.Size = New System.Drawing.Size(121, 34)
         Me.cmbTurno1.TabIndex = 37
         '
         'cmbTurno2
         '
         Me.cmbTurno2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbTurno2.Font = New System.Drawing.Font("Corbel", 18.0!)
+        Me.cmbTurno2.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbTurno2.FormattingEnabled = True
-        Me.cmbTurno2.Items.AddRange(New Object() {"Multiuso", "Grupo 1", "Grupo 2", "Grupo 3"})
-        Me.cmbTurno2.Location = New System.Drawing.Point(319, 271)
+        Me.cmbTurno2.Items.AddRange(New Object() {"Sin asignar", "Multiuso", "Grupo 1", "Grupo 2", "Grupo 3"})
+        Me.cmbTurno2.Location = New System.Drawing.Point(319, 239)
         Me.cmbTurno2.Name = "cmbTurno2"
-        Me.cmbTurno2.Size = New System.Drawing.Size(121, 37)
+        Me.cmbTurno2.Size = New System.Drawing.Size(121, 34)
         Me.cmbTurno2.TabIndex = 39
         '
         'cmbTurno5
         '
         Me.cmbTurno5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbTurno5.Font = New System.Drawing.Font("Corbel", 18.0!)
+        Me.cmbTurno5.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbTurno5.FormattingEnabled = True
-        Me.cmbTurno5.Items.AddRange(New Object() {"Multiuso", "Grupo 1", "Grupo 2", "Grupo 3"})
-        Me.cmbTurno5.Location = New System.Drawing.Point(461, 271)
+        Me.cmbTurno5.Items.AddRange(New Object() {"Sin asignar", "Multiuso", "Grupo 1", "Grupo 2", "Grupo 3"})
+        Me.cmbTurno5.Location = New System.Drawing.Point(461, 239)
         Me.cmbTurno5.Name = "cmbTurno5"
-        Me.cmbTurno5.Size = New System.Drawing.Size(121, 37)
+        Me.cmbTurno5.Size = New System.Drawing.Size(121, 34)
         Me.cmbTurno5.TabIndex = 38
         '
         'cmbTurno3
         '
         Me.cmbTurno3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbTurno3.Font = New System.Drawing.Font("Corbel", 18.0!)
+        Me.cmbTurno3.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbTurno3.FormattingEnabled = True
-        Me.cmbTurno3.Items.AddRange(New Object() {"Multiuso", "Grupo 1", "Grupo 2", "Grupo 3"})
-        Me.cmbTurno3.Location = New System.Drawing.Point(319, 354)
+        Me.cmbTurno3.Items.AddRange(New Object() {"Sin asignar", "Multiuso", "Grupo 1", "Grupo 2", "Grupo 3"})
+        Me.cmbTurno3.Location = New System.Drawing.Point(319, 309)
         Me.cmbTurno3.Name = "cmbTurno3"
-        Me.cmbTurno3.Size = New System.Drawing.Size(121, 37)
+        Me.cmbTurno3.Size = New System.Drawing.Size(121, 34)
         Me.cmbTurno3.TabIndex = 40
         '
         'btnNuevoSalon
@@ -394,10 +427,37 @@ Partial Class frmAdminSalones
         Me.btnNuevoSalon.UseVisualStyleBackColor = True
         Me.btnNuevoSalon.Visible = False
         '
+        'lblObligatorioID
+        '
+        Me.lblObligatorioID.BackColor = System.Drawing.Color.Transparent
+        Me.lblObligatorioID.Cursor = System.Windows.Forms.Cursors.Help
+        Me.lblObligatorioID.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblObligatorioID.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
+        Me.lblObligatorioID.Location = New System.Drawing.Point(122, 132)
+        Me.lblObligatorioID.Name = "lblObligatorioID"
+        Me.lblObligatorioID.Size = New System.Drawing.Size(23, 23)
+        Me.lblObligatorioID.TabIndex = 41
+        Me.lblObligatorioID.Text = "*"
+        '
+        'lblObligatorioPlanta
+        '
+        Me.lblObligatorioPlanta.BackColor = System.Drawing.Color.Transparent
+        Me.lblObligatorioPlanta.Cursor = System.Windows.Forms.Cursors.Help
+        Me.lblObligatorioPlanta.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblObligatorioPlanta.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
+        Me.lblObligatorioPlanta.Location = New System.Drawing.Point(261, 132)
+        Me.lblObligatorioPlanta.Name = "lblObligatorioPlanta"
+        Me.lblObligatorioPlanta.Size = New System.Drawing.Size(23, 23)
+        Me.lblObligatorioPlanta.TabIndex = 42
+        Me.lblObligatorioPlanta.Text = "*"
+        '
         'frmAdminSalones
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.lblSalonesAsignados)
+        Me.Controls.Add(Me.lblObligatorioPlanta)
+        Me.Controls.Add(Me.lblObligatorioID)
         Me.Controls.Add(Me.btnNuevoSalon)
         Me.Controls.Add(Me.cmbTurno3)
         Me.Controls.Add(Me.cmbTurno2)
@@ -405,7 +465,7 @@ Partial Class frmAdminSalones
         Me.Controls.Add(Me.cmbTurno1)
         Me.Controls.Add(Me.txtCapacidad)
         Me.Controls.Add(Me.lblCapacidad)
-        Me.Controls.Add(Me.Button30)
+        Me.Controls.Add(Me.btnCancelarEdicion)
         Me.Controls.Add(Me.lblNuevoSalon)
         Me.Controls.Add(Me.lblComentarios)
         Me.Controls.Add(Me.txtComentarios)
@@ -415,7 +475,6 @@ Partial Class frmAdminSalones
         Me.Controls.Add(Me.lblTurno2)
         Me.Controls.Add(Me.lblTurno3)
         Me.Controls.Add(Me.lblTurno1)
-        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.lblPlanta)
         Me.Controls.Add(Me.cmbPlanta)
         Me.Controls.Add(Me.lblIDSalon)
@@ -427,8 +486,7 @@ Partial Class frmAdminSalones
         Me.Size = New System.Drawing.Size(1004, 493)
         Me.pnlFondo.ResumeLayout(False)
         Me.pnlFondo.PerformLayout()
-        Me.pnlSalones.ResumeLayout(False)
-        Me.pnlsalon.ResumeLayout(False)
+        Me.pnlSalonPlantilla.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -438,7 +496,7 @@ Partial Class frmAdminSalones
     Friend WithEvents lblIDSalon As System.Windows.Forms.Label
     Friend WithEvents cmbPlanta As System.Windows.Forms.ComboBox
     Friend WithEvents lblPlanta As System.Windows.Forms.Label
-    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents lblSalonesAsignados As System.Windows.Forms.Label
     Friend WithEvents lblTurno1 As System.Windows.Forms.Label
     Friend WithEvents lblTurno3 As System.Windows.Forms.Label
     Friend WithEvents lblTurno2 As System.Windows.Forms.Label
@@ -447,7 +505,7 @@ Partial Class frmAdminSalones
     Friend WithEvents lblTurno5 As System.Windows.Forms.Label
     Friend WithEvents txtComentarios As System.Windows.Forms.TextBox
     Friend WithEvents lblComentarios As System.Windows.Forms.Label
-    Friend WithEvents Button30 As System.Windows.Forms.Button
+    Friend WithEvents btnCancelarEdicion As System.Windows.Forms.Button
     Friend WithEvents lblCapacidad As System.Windows.Forms.Label
     Friend WithEvents txtCapacidad As System.Windows.Forms.TextBox
     Friend WithEvents pnlFondo As System.Windows.Forms.Panel
@@ -456,11 +514,14 @@ Partial Class frmAdminSalones
     Friend WithEvents cmbTurno2 As System.Windows.Forms.ComboBox
     Friend WithEvents cmbTurno5 As System.Windows.Forms.ComboBox
     Friend WithEvents cmbTurno3 As System.Windows.Forms.ComboBox
-    Friend WithEvents pnlsalon As System.Windows.Forms.Panel
-    Friend WithEvents btnEliminar As System.Windows.Forms.Button
-    Friend WithEvents btnEditar As System.Windows.Forms.Button
-    Friend WithEvents btnSalon As System.Windows.Forms.Button
+    Friend WithEvents pnlSalonPlantilla As System.Windows.Forms.Panel
+    Friend WithEvents btnEliminarPlantilla As System.Windows.Forms.Button
+    Friend WithEvents btnEditarPlantilla As System.Windows.Forms.Button
     Friend WithEvents btnNuevoSalon As System.Windows.Forms.Button
     Friend WithEvents lblNuevoSalon As System.Windows.Forms.Label
+    Friend WithEvents btnSalonPlantilla As System.Windows.Forms.Button
+    Friend WithEvents lblObligatorioID As System.Windows.Forms.Label
+    Friend WithEvents lblObligatorioPlanta As System.Windows.Forms.Label
+    Friend WithEvents lblCantidadSalones As System.Windows.Forms.Label
 
 End Class

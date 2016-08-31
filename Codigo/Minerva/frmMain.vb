@@ -3,7 +3,7 @@
     Dim cuentaInvitado As Boolean = True
     Dim estadoAnimacion As Boolean = False
 
-    Public Sub New(Optional ByVal invitado As Boolean = True)
+    Public Sub New(Optional ByVal invitado As Boolean = False)
         'inicia el programa, en caso de que sea invitado lo detecta
         InitializeComponent()
         Me.cuentaInvitado = invitado
