@@ -222,12 +222,12 @@ Public Class frmAdminSalones
 
     Private Sub checkDatos()
         If String.IsNullOrWhiteSpace(txtIDSalon.Text) Then
-            MessageBox.Show("Error", "Debe ingresar un ID de salón.", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            MessageBox.Show("Debe ingresar un ID de salón.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
         End If
 
         If String.IsNullOrWhiteSpace(cmbPlanta.Text) Then
-            MessageBox.Show("Error", "Debe ingresar la planta del salón.", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            MessageBox.Show("Debe ingresar la planta del salón.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
         End If
 
