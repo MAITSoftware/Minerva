@@ -14,29 +14,9 @@ Public Class frmAdminGrupos
         Call New ToolTip().SetToolTip(lblObligatorio1, "Dato obligatorio")
         Call New ToolTip().SetToolTip(lblObligatorio2, "Dato obligatorio")
         Call New ToolTip().SetToolTip(lblObligatorio3, "Dato obligatorio")
-        Call New ToolTip().SetToolTip(lblObligatorio4, "Dato obligatorio")
         Call New ToolTip().SetToolTip(lblObligatorio5, "Dato obligatorio")
         Call New ToolTip().SetToolTip(lblObligatorio6, "Dato obligatorio")
 
-        cargarSalones()
-    End Sub
-
-    Private Sub cargarSalones()
-        Dim conexion As New DB()
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `salon`;"
-                .CommandType = CommandType.Text
-            End With
-
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            While reader.Read()
-                cmbSalon.Items.Add(reader("id"))
-            End While
-            reader.Close()
-            conexion.Close()
-        End Using
     End Sub
 
     Private Sub cargarGrupos()
@@ -141,12 +121,8 @@ Public Class frmAdminGrupos
         cmbCurso.SelectedIndex = -1
         cmbOrientacion.Enabled = habilitado
         cmbOrientacion.SelectedIndex = -1
-        cmbSalon.Enabled = habilitado
-        cmbSalon.SelectedIndex = -1
         numGrado.Enabled = habilitado
         numGrado.Value = 1
-        numAlumnos.Enabled = habilitado
-        numAlumnos.Value = 1
     End Sub
 
     Private Sub btnNuevoGrupo_Click(sender As Object, e As EventArgs) Handles btnNuevoGrupo.Click, btnCancelarEdicion.Click
@@ -177,11 +153,6 @@ Public Class frmAdminGrupos
 
         If String.IsNullOrWhiteSpace(cmbOrientacion.Text) Then
             MessageBox.Show("Debe seleccionar una orientación.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-            Return
-        End If
-
-        If String.IsNullOrWhiteSpace(cmbSalon.Text) Then
-            MessageBox.Show("Debe seleccionar un salón.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
         End If
 
@@ -230,18 +201,16 @@ Public Class frmAdminGrupos
                 .CommandType = CommandType.Text
 
                 If btnAgregar.Text.Equals("Agregar grupo") Then
-                    .CommandText = "INSERT INTO `grupo` VALUES  (@id, @grado, @curso, @turno, @salon, @orientacion, @cantAlumnos);"
+                    .CommandText = "INSERT INTO `grupo` VALUES  (@id, @grado, @curso, @turno, @orientacion);"
                 Else
-                    .CommandText = "UPDATE `grupo` SET grado=@grado, curso=@curso, turno=@turno, salon=@salon, orientacion=@orientacion, cantAlumnos=@cantAlumnos WHERE id=@id and turno=@turno and grado=@grado;"
+                    .CommandText = "UPDATE `grupo` SET grado=@grado, curso=@curso, turno=@turno, orientacion=@orientacion, WHERE id=@id and turno=@turno and grado=@grado;"
                 End If
 
                 .Parameters.AddWithValue("@grado", numGrado.Value.ToString())
                 .Parameters.AddWithValue("@id", txtIDGrupo.Text)
                 .Parameters.AddWithValue("@curso", cmbCurso.Text)
                 .Parameters.AddWithValue("@turno", cmbTurno.Text)
-                .Parameters.AddWithValue("@salon", cmbSalon.Text)
                 .Parameters.AddWithValue("@orientacion", cmbOrientacion.Text)
-                .Parameters.AddWithValue("@cantAlumnos", numAlumnos.Value.ToString())
             End With
 
             Try
@@ -312,10 +281,8 @@ Public Class frmAdminGrupos
                 txtIDGrupo.Text = reader("id")
                 numGrado.Value = Integer.Parse(reader("grado"))
                 cmbCurso.SelectedIndex = cmbCurso.FindStringExact(reader("curso"))
-                cmbSalon.SelectedIndex = cmbSalon.FindStringExact(reader("salon"))
                 cmbTurno.SelectedIndex = cmbTurno.FindStringExact(reader("turno"))
                 cmbOrientacion.SelectedIndex = cmbOrientacion.FindStringExact(reader("orientacion"))
-                numAlumnos.Value = Integer.Parse(reader("cantAlumnos"))
             End While
             reader.Close()
             conexion.Close()

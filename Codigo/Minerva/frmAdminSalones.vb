@@ -170,7 +170,6 @@ Public Class frmAdminSalones
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
                 txtIDSalon.Text = reader("id")
-                numCapacidad.Value = Integer.Parse(reader("capacidad"))
                 txtComentarios.Text = reader("comentarios").ToString()
                 cmbPlanta.SelectedIndex = cmbPlanta.FindStringExact(reader("planta"))
                 cmbTurno1.SelectedIndex = cmbTurno1.FindStringExact(reader("turno1"))
@@ -201,8 +200,6 @@ Public Class frmAdminSalones
         cmbTurno5.SelectedIndex = 0
         txtComentarios.Enabled = habilitado
         txtComentarios.Text = ""
-        numCapacidad.Enabled = habilitado
-        numCapacidad.Value = 0
     End Sub
 
     Private Sub btnNuevoSalon_Click(sender As Object, e As EventArgs) Handles btnNuevoSalon.Click, btnCancelarEdicion.Click
@@ -243,14 +240,13 @@ Public Class frmAdminSalones
                 .CommandType = CommandType.Text
 
                 If btnAgregar.Text.Equals("Agregar salón") Then
-                    .CommandText = "INSERT INTO `salon` VALUES  (@id, @planta, @capacidad, @turno1, @turno2, @turno3, @turno4, @turno5, @comentarios);"
+                    .CommandText = "INSERT INTO `salon` VALUES  (@id, @planta, @turno1, @turno2, @turno3, @turno4, @turno5, @comentarios);"
                 Else
-                    .CommandText = "UPDATE `salon` SET planta=@planta, capacidad=@capacidad, turno1=@turno1, turno2=@turno2, turno3=@turno3, turno4=@turno4, turno5=@turno5, comentarios=@comentarios WHERE id=@id;"
+                    .CommandText = "UPDATE `salon` SET planta=@planta,turno1=@turno1, turno2=@turno2, turno3=@turno3, turno4=@turno4, turno5=@turno5, comentarios=@comentarios WHERE id=@id;"
                 End If
 
                 .Parameters.AddWithValue("@id", txtIDSalon.Text)
                 .Parameters.AddWithValue("@planta", cmbPlanta.Text)
-                .Parameters.AddWithValue("@capacidad", numCapacidad.Value.ToString())
                 .Parameters.AddWithValue("@turno1", cmbTurno1.Text)
                 .Parameters.AddWithValue("@turno2", cmbTurno2.Text)
                 .Parameters.AddWithValue("@turno3", cmbTurno3.Text)

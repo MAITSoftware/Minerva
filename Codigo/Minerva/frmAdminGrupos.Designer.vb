@@ -25,11 +25,8 @@ Partial Class frmAdminGrupos
         Dim lblTitulo As System.Windows.Forms.Label
         Dim lblGrupos As System.Windows.Forms.Label
         Me.lblIDGrupo = New System.Windows.Forms.Label()
-        Me.lblSalon = New System.Windows.Forms.Label()
-        Me.cmbSalon = New System.Windows.Forms.ComboBox()
         Me.cmbTurno = New System.Windows.Forms.ComboBox()
         Me.lblTurno = New System.Windows.Forms.Label()
-        Me.lblCantAlumnos = New System.Windows.Forms.Label()
         Me.txtIDGrupo = New System.Windows.Forms.TextBox()
         Me.cmbCurso = New System.Windows.Forms.ComboBox()
         Me.lblCurso = New System.Windows.Forms.Label()
@@ -40,10 +37,8 @@ Partial Class frmAdminGrupos
         Me.lblObligatorio1 = New System.Windows.Forms.Label()
         Me.lblObligatorio3 = New System.Windows.Forms.Label()
         Me.lblObligatorio5 = New System.Windows.Forms.Label()
-        Me.lblObligatorio4 = New System.Windows.Forms.Label()
         Me.lblObligatorio6 = New System.Windows.Forms.Label()
         Me.lblObligatorio2 = New System.Windows.Forms.Label()
-        Me.numAlumnos = New System.Windows.Forms.NumericUpDown()
         Me.btnNuevoGrupo = New System.Windows.Forms.Button()
         Me.lblNuevoGrupo = New System.Windows.Forms.Label()
         Me.btnCancelarEdicion = New System.Windows.Forms.Button()
@@ -55,12 +50,13 @@ Partial Class frmAdminGrupos
         Me.btnGrupoPlantilla = New System.Windows.Forms.Button()
         Me.btnEliminarPlantilla = New System.Windows.Forms.Button()
         Me.btnEditarPlantilla = New System.Windows.Forms.Button()
+        Me.imgAgustina = New System.Windows.Forms.PictureBox()
         lblTitulo = New System.Windows.Forms.Label()
         lblGrupos = New System.Windows.Forms.Label()
         CType(Me.numGrado, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numAlumnos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlFondo.SuspendLayout()
         Me.pnlGrupoPlantilla.SuspendLayout()
+        CType(Me.imgAgustina, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblTitulo
@@ -97,28 +93,6 @@ Partial Class frmAdminGrupos
         Me.lblIDGrupo.TabIndex = 67
         Me.lblIDGrupo.Text = "ID Grupo"
         '
-        'lblSalon
-        '
-        Me.lblSalon.AutoSize = True
-        Me.lblSalon.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblSalon.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblSalon.Location = New System.Drawing.Point(180, 221)
-        Me.lblSalon.Name = "lblSalon"
-        Me.lblSalon.Size = New System.Drawing.Size(71, 29)
-        Me.lblSalon.TabIndex = 69
-        Me.lblSalon.Text = "Salón"
-        '
-        'cmbSalon
-        '
-        Me.cmbSalon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbSalon.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.cmbSalon.FormattingEnabled = True
-        Me.cmbSalon.Items.AddRange(New Object() {"Sin asignar"})
-        Me.cmbSalon.Location = New System.Drawing.Point(184, 253)
-        Me.cmbSalon.Name = "cmbSalon"
-        Me.cmbSalon.Size = New System.Drawing.Size(140, 34)
-        Me.cmbSalon.TabIndex = 75
-        '
         'cmbTurno
         '
         Me.cmbTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -140,17 +114,6 @@ Partial Class frmAdminGrupos
         Me.lblTurno.Size = New System.Drawing.Size(72, 29)
         Me.lblTurno.TabIndex = 76
         Me.lblTurno.Text = "Turno"
-        '
-        'lblCantAlumnos
-        '
-        Me.lblCantAlumnos.AutoSize = True
-        Me.lblCantAlumnos.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblCantAlumnos.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblCantAlumnos.Location = New System.Drawing.Point(20, 316)
-        Me.lblCantAlumnos.Name = "lblCantAlumnos"
-        Me.lblCantAlumnos.Size = New System.Drawing.Size(163, 29)
-        Me.lblCantAlumnos.TabIndex = 78
-        Me.lblCantAlumnos.Text = "Cant. Alumnos"
         '
         'txtIDGrupo
         '
@@ -189,7 +152,7 @@ Partial Class frmAdminGrupos
         Me.cmbOrientacion.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbOrientacion.FormattingEnabled = True
         Me.cmbOrientacion.Items.AddRange(New Object() {"Informática", "Ciclo Básico"})
-        Me.cmbOrientacion.Location = New System.Drawing.Point(373, 253)
+        Me.cmbOrientacion.Location = New System.Drawing.Point(184, 259)
         Me.cmbOrientacion.Name = "cmbOrientacion"
         Me.cmbOrientacion.Size = New System.Drawing.Size(140, 34)
         Me.cmbOrientacion.TabIndex = 84
@@ -199,7 +162,7 @@ Partial Class frmAdminGrupos
         Me.lblOrientacion.AutoSize = True
         Me.lblOrientacion.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblOrientacion.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblOrientacion.Location = New System.Drawing.Point(368, 221)
+        Me.lblOrientacion.Location = New System.Drawing.Point(179, 227)
         Me.lblOrientacion.Name = "lblOrientacion"
         Me.lblOrientacion.Size = New System.Drawing.Size(134, 29)
         Me.lblOrientacion.TabIndex = 83
@@ -263,25 +226,13 @@ Partial Class frmAdminGrupos
         Me.lblObligatorio5.TabIndex = 90
         Me.lblObligatorio5.Text = "*"
         '
-        'lblObligatorio4
-        '
-        Me.lblObligatorio4.BackColor = System.Drawing.Color.Transparent
-        Me.lblObligatorio4.Cursor = System.Windows.Forms.Cursors.Help
-        Me.lblObligatorio4.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblObligatorio4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio4.Location = New System.Drawing.Point(301, 224)
-        Me.lblObligatorio4.Name = "lblObligatorio4"
-        Me.lblObligatorio4.Size = New System.Drawing.Size(23, 23)
-        Me.lblObligatorio4.TabIndex = 91
-        Me.lblObligatorio4.Text = "*"
-        '
         'lblObligatorio6
         '
         Me.lblObligatorio6.BackColor = System.Drawing.Color.Transparent
         Me.lblObligatorio6.Cursor = System.Windows.Forms.Cursors.Help
         Me.lblObligatorio6.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblObligatorio6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio6.Location = New System.Drawing.Point(499, 224)
+        Me.lblObligatorio6.Location = New System.Drawing.Point(310, 230)
         Me.lblObligatorio6.Name = "lblObligatorio6"
         Me.lblObligatorio6.Size = New System.Drawing.Size(23, 23)
         Me.lblObligatorio6.TabIndex = 92
@@ -298,15 +249,6 @@ Partial Class frmAdminGrupos
         Me.lblObligatorio2.Size = New System.Drawing.Size(23, 23)
         Me.lblObligatorio2.TabIndex = 93
         Me.lblObligatorio2.Text = "*"
-        '
-        'numAlumnos
-        '
-        Me.numAlumnos.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.numAlumnos.Location = New System.Drawing.Point(27, 348)
-        Me.numAlumnos.Maximum = New Decimal(New Integer() {50, 0, 0, 0})
-        Me.numAlumnos.Name = "numAlumnos"
-        Me.numAlumnos.Size = New System.Drawing.Size(120, 34)
-        Me.numAlumnos.TabIndex = 94
         '
         'btnNuevoGrupo
         '
@@ -445,20 +387,29 @@ Partial Class frmAdminGrupos
         Me.btnEditarPlantilla.Text = "Editar"
         Me.btnEditarPlantilla.UseVisualStyleBackColor = False
         '
+        'imgAgustina
+        '
+        Me.imgAgustina.BackgroundImage = Global.Minerva.My.Resources.Resources.IMG_0412
+        Me.imgAgustina.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgAgustina.Location = New System.Drawing.Point(334, 281)
+        Me.imgAgustina.Name = "imgAgustina"
+        Me.imgAgustina.Size = New System.Drawing.Size(105, 193)
+        Me.imgAgustina.TabIndex = 101
+        Me.imgAgustina.TabStop = False
+        '
         'frmAdminGrupos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.imgAgustina)
         Me.Controls.Add(Me.btnCancelarEdicion)
         Me.Controls.Add(Me.btnAgregar)
         Me.Controls.Add(Me.btnNuevoGrupo)
         Me.Controls.Add(Me.lblNuevoGrupo)
         Me.Controls.Add(lblTitulo)
-        Me.Controls.Add(Me.numAlumnos)
         Me.Controls.Add(Me.lblObligatorio2)
         Me.Controls.Add(Me.lblObligatorio6)
-        Me.Controls.Add(Me.lblObligatorio4)
         Me.Controls.Add(Me.lblObligatorio5)
         Me.Controls.Add(Me.lblObligatorio3)
         Me.Controls.Add(Me.lblObligatorio1)
@@ -469,30 +420,24 @@ Partial Class frmAdminGrupos
         Me.Controls.Add(Me.cmbCurso)
         Me.Controls.Add(Me.lblCurso)
         Me.Controls.Add(Me.txtIDGrupo)
-        Me.Controls.Add(Me.lblCantAlumnos)
         Me.Controls.Add(Me.cmbTurno)
         Me.Controls.Add(Me.lblTurno)
-        Me.Controls.Add(Me.cmbSalon)
         Me.Controls.Add(Me.lblIDGrupo)
-        Me.Controls.Add(Me.lblSalon)
         Me.Controls.Add(Me.pnlFondo)
         Me.Name = "frmAdminGrupos"
         Me.Size = New System.Drawing.Size(1004, 493)
         CType(Me.numGrado, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numAlumnos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlFondo.ResumeLayout(False)
         Me.pnlFondo.PerformLayout()
         Me.pnlGrupoPlantilla.ResumeLayout(False)
+        CType(Me.imgAgustina, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents lblIDGrupo As System.Windows.Forms.Label
-    Friend WithEvents lblSalon As System.Windows.Forms.Label
-    Friend WithEvents cmbSalon As System.Windows.Forms.ComboBox
     Friend WithEvents cmbTurno As System.Windows.Forms.ComboBox
     Friend WithEvents lblTurno As System.Windows.Forms.Label
-    Friend WithEvents lblCantAlumnos As System.Windows.Forms.Label
     Friend WithEvents txtIDGrupo As System.Windows.Forms.TextBox
     Friend WithEvents cmbCurso As System.Windows.Forms.ComboBox
     Friend WithEvents lblCurso As System.Windows.Forms.Label
@@ -503,10 +448,8 @@ Partial Class frmAdminGrupos
     Friend WithEvents lblObligatorio1 As System.Windows.Forms.Label
     Friend WithEvents lblObligatorio3 As System.Windows.Forms.Label
     Friend WithEvents lblObligatorio5 As System.Windows.Forms.Label
-    Friend WithEvents lblObligatorio4 As System.Windows.Forms.Label
     Friend WithEvents lblObligatorio6 As System.Windows.Forms.Label
     Friend WithEvents lblObligatorio2 As System.Windows.Forms.Label
-    Friend WithEvents numAlumnos As System.Windows.Forms.NumericUpDown
     Friend WithEvents btnNuevoGrupo As System.Windows.Forms.Button
     Friend WithEvents lblNuevoGrupo As System.Windows.Forms.Label
     Friend WithEvents btnCancelarEdicion As System.Windows.Forms.Button
@@ -518,5 +461,6 @@ Partial Class frmAdminGrupos
     Friend WithEvents btnEliminarPlantilla As System.Windows.Forms.Button
     Friend WithEvents btnEditarPlantilla As System.Windows.Forms.Button
     Friend WithEvents pnlGrupos As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents imgAgustina As System.Windows.Forms.PictureBox
 
 End Class
