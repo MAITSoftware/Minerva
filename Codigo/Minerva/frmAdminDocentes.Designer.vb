@@ -22,9 +22,11 @@ Partial Class frmAdminDocentes
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim lblDocentes As System.Windows.Forms.Label
         Dim lblTitulo As System.Windows.Forms.Label
-        Me.txtCargo = New System.Windows.Forms.ComboBox()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAdminDocentes))
+        Me.cmbCargo = New System.Windows.Forms.ComboBox()
         Me.lblCargo = New System.Windows.Forms.Label()
         Me.lblNombre = New System.Windows.Forms.Label()
         Me.txtNombre = New System.Windows.Forms.TextBox()
@@ -32,22 +34,22 @@ Partial Class frmAdminDocentes
         Me.lblCi = New System.Windows.Forms.Label()
         Me.txtCI = New System.Windows.Forms.TextBox()
         Me.lblHsSemanales = New System.Windows.Forms.Label()
-        Me.lblOrientacion = New System.Windows.Forms.Label()
+        Me.lblAsignatura = New System.Windows.Forms.Label()
         Me.lblArea = New System.Windows.Forms.Label()
         Me.txtApellido = New System.Windows.Forms.TextBox()
         Me.lblAsignaturas = New System.Windows.Forms.Label()
         Me.lblGrado = New System.Windows.Forms.Label()
         Me.cmbGrupo = New System.Windows.Forms.ComboBox()
         Me.lblGrupo = New System.Windows.Forms.Label()
-        Me.btnAgregar = New System.Windows.Forms.Button()
+        Me.btnAgregarMateria = New System.Windows.Forms.Button()
         Me.pnlFondo = New System.Windows.Forms.Panel()
-        Me.lblCantidadDocentes = New System.Windows.Forms.Label()
         Me.pnlDocentePlantilla = New System.Windows.Forms.Panel()
         Me.btnDocentePlantilla = New System.Windows.Forms.Button()
         Me.btnEliminarPlantilla = New System.Windows.Forms.Button()
         Me.btnEditarPlantilla = New System.Windows.Forms.Button()
+        Me.lblCantidadDocentes = New System.Windows.Forms.Label()
         Me.pnlDocentes = New System.Windows.Forms.FlowLayoutPanel()
-        Me.btnNuevoSalon = New System.Windows.Forms.Button()
+        Me.btnNuevoDocente = New System.Windows.Forms.Button()
         Me.lblNuevoDocente = New System.Windows.Forms.Label()
         Me.lblObligatorio1 = New System.Windows.Forms.Label()
         Me.lblObligatorio2 = New System.Windows.Forms.Label()
@@ -55,7 +57,7 @@ Partial Class frmAdminDocentes
         Me.lblObligatorio4 = New System.Windows.Forms.Label()
         Me.lblObligatorio5 = New System.Windows.Forms.Label()
         Me.btnCancelarEdicion = New System.Windows.Forms.Button()
-        Me.btnAgregarDocentes = New System.Windows.Forms.Button()
+        Me.btnAgregarDocente = New System.Windows.Forms.Button()
         Me.numGrado = New System.Windows.Forms.NumericUpDown()
         Me.numHsSemanales = New System.Windows.Forms.NumericUpDown()
         Me.lstAsignaturas = New System.Windows.Forms.ListView()
@@ -65,12 +67,20 @@ Partial Class frmAdminDocentes
         Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cmbArea = New System.Windows.Forms.ComboBox()
         Me.cmbOrientacion = New System.Windows.Forms.ComboBox()
+        Me.btnEliminarAsignatura = New System.Windows.Forms.PictureBox()
+        Me.btnAgregarAsignatura = New System.Windows.Forms.PictureBox()
+        Me.mnuEdicionDocente = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.DatosDelDocenteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MateriasDelDocenteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         lblDocentes = New System.Windows.Forms.Label()
         lblTitulo = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
         Me.pnlDocentePlantilla.SuspendLayout()
         CType(Me.numGrado, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numHsSemanales, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnEliminarAsignatura, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnAgregarAsignatura, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.mnuEdicionDocente.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblDocentes
@@ -96,16 +106,16 @@ Partial Class frmAdminDocentes
         lblTitulo.TabIndex = 104
         lblTitulo.Text = "Gestión de docentes"
         '
-        'txtCargo
+        'cmbCargo
         '
-        Me.txtCargo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.txtCargo.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.txtCargo.FormattingEnabled = True
-        Me.txtCargo.Items.AddRange(New Object() {"Cargo 1", "Cargo 2"})
-        Me.txtCargo.Location = New System.Drawing.Point(29, 220)
-        Me.txtCargo.Name = "txtCargo"
-        Me.txtCargo.Size = New System.Drawing.Size(121, 34)
-        Me.txtCargo.TabIndex = 77
+        Me.cmbCargo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbCargo.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.cmbCargo.FormattingEnabled = True
+        Me.cmbCargo.Items.AddRange(New Object() {"Cargo 1", "Cargo 2"})
+        Me.cmbCargo.Location = New System.Drawing.Point(29, 220)
+        Me.cmbCargo.Name = "cmbCargo"
+        Me.cmbCargo.Size = New System.Drawing.Size(121, 34)
+        Me.cmbCargo.TabIndex = 77
         '
         'lblCargo
         '
@@ -172,29 +182,31 @@ Partial Class frmAdminDocentes
         Me.lblHsSemanales.AutoSize = True
         Me.lblHsSemanales.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblHsSemanales.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblHsSemanales.Location = New System.Drawing.Point(436, 368)
+        Me.lblHsSemanales.Location = New System.Drawing.Point(435, 376)
         Me.lblHsSemanales.Name = "lblHsSemanales"
         Me.lblHsSemanales.Size = New System.Drawing.Size(162, 29)
         Me.lblHsSemanales.TabIndex = 88
         Me.lblHsSemanales.Text = "Hs. Semanales"
         '
-        'lblOrientacion
+        'lblAsignatura
         '
-        Me.lblOrientacion.AutoSize = True
-        Me.lblOrientacion.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblOrientacion.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblOrientacion.Location = New System.Drawing.Point(436, 289)
-        Me.lblOrientacion.Name = "lblOrientacion"
-        Me.lblOrientacion.Size = New System.Drawing.Size(134, 29)
-        Me.lblOrientacion.TabIndex = 86
-        Me.lblOrientacion.Text = "Orientación"
+        Me.lblAsignatura.AutoSize = True
+        Me.lblAsignatura.Cursor = System.Windows.Forms.Cursors.Default
+        Me.lblAsignatura.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblAsignatura.ForeColor = System.Drawing.Color.PaleGreen
+        Me.lblAsignatura.Location = New System.Drawing.Point(435, 297)
+        Me.lblAsignatura.Name = "lblAsignatura"
+        Me.lblAsignatura.Size = New System.Drawing.Size(125, 29)
+        Me.lblAsignatura.TabIndex = 86
+        Me.lblAsignatura.Text = "Asignatura"
         '
         'lblArea
         '
         Me.lblArea.AutoSize = True
+        Me.lblArea.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblArea.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblArea.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblArea.Location = New System.Drawing.Point(286, 289)
+        Me.lblArea.Location = New System.Drawing.Point(285, 297)
         Me.lblArea.Name = "lblArea"
         Me.lblArea.Size = New System.Drawing.Size(61, 29)
         Me.lblArea.TabIndex = 84
@@ -213,7 +225,7 @@ Partial Class frmAdminDocentes
         Me.lblAsignaturas.AutoSize = True
         Me.lblAsignaturas.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblAsignaturas.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblAsignaturas.Location = New System.Drawing.Point(20, 273)
+        Me.lblAsignaturas.Location = New System.Drawing.Point(21, 281)
         Me.lblAsignaturas.Name = "lblAsignaturas"
         Me.lblAsignaturas.Size = New System.Drawing.Size(229, 29)
         Me.lblAsignaturas.TabIndex = 79
@@ -232,10 +244,11 @@ Partial Class frmAdminDocentes
         '
         'cmbGrupo
         '
+        Me.cmbGrupo.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbGrupo.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbGrupo.FormattingEnabled = True
         Me.cmbGrupo.Items.AddRange(New Object() {"2ºBG", "3ºBG"})
-        Me.cmbGrupo.Location = New System.Drawing.Point(291, 400)
+        Me.cmbGrupo.Location = New System.Drawing.Point(290, 407)
         Me.cmbGrupo.Name = "cmbGrupo"
         Me.cmbGrupo.Size = New System.Drawing.Size(121, 34)
         Me.cmbGrupo.TabIndex = 95
@@ -243,46 +256,37 @@ Partial Class frmAdminDocentes
         'lblGrupo
         '
         Me.lblGrupo.AutoSize = True
+        Me.lblGrupo.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblGrupo.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblGrupo.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblGrupo.Location = New System.Drawing.Point(286, 368)
+        Me.lblGrupo.Location = New System.Drawing.Point(285, 376)
         Me.lblGrupo.Name = "lblGrupo"
         Me.lblGrupo.Size = New System.Drawing.Size(76, 29)
         Me.lblGrupo.TabIndex = 94
         Me.lblGrupo.Text = "Grupo"
         '
-        'btnAgregar
+        'btnAgregarMateria
         '
-        Me.btnAgregar.Font = New System.Drawing.Font("Corbel", 12.0!)
-        Me.btnAgregar.Location = New System.Drawing.Point(462, 448)
-        Me.btnAgregar.Name = "btnAgregar"
-        Me.btnAgregar.Size = New System.Drawing.Size(132, 29)
-        Me.btnAgregar.TabIndex = 102
-        Me.btnAgregar.Text = "Agregar materia"
-        Me.btnAgregar.UseVisualStyleBackColor = True
+        Me.btnAgregarMateria.Cursor = System.Windows.Forms.Cursors.Default
+        Me.btnAgregarMateria.Font = New System.Drawing.Font("Corbel", 12.0!)
+        Me.btnAgregarMateria.Location = New System.Drawing.Point(461, 453)
+        Me.btnAgregarMateria.Name = "btnAgregarMateria"
+        Me.btnAgregarMateria.Size = New System.Drawing.Size(132, 29)
+        Me.btnAgregarMateria.TabIndex = 102
+        Me.btnAgregarMateria.Text = "Agregar materia"
+        Me.btnAgregarMateria.UseVisualStyleBackColor = True
         '
         'pnlFondo
         '
         Me.pnlFondo.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer))
+        Me.pnlFondo.Controls.Add(Me.pnlDocentePlantilla)
         Me.pnlFondo.Controls.Add(Me.lblCantidadDocentes)
         Me.pnlFondo.Controls.Add(lblDocentes)
-        Me.pnlFondo.Controls.Add(Me.pnlDocentePlantilla)
         Me.pnlFondo.Controls.Add(Me.pnlDocentes)
         Me.pnlFondo.Location = New System.Drawing.Point(639, 0)
         Me.pnlFondo.Name = "pnlFondo"
         Me.pnlFondo.Size = New System.Drawing.Size(365, 501)
         Me.pnlFondo.TabIndex = 103
-        '
-        'lblCantidadDocentes
-        '
-        Me.lblCantidadDocentes.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer))
-        Me.lblCantidadDocentes.Font = New System.Drawing.Font("Corbel", 20.0!, System.Drawing.FontStyle.Bold)
-        Me.lblCantidadDocentes.ForeColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(243, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblCantidadDocentes.Location = New System.Drawing.Point(292, 18)
-        Me.lblCantidadDocentes.Name = "lblCantidadDocentes"
-        Me.lblCantidadDocentes.Size = New System.Drawing.Size(89, 40)
-        Me.lblCantidadDocentes.TabIndex = 34
-        Me.lblCantidadDocentes.Text = "(0)"
         '
         'pnlDocentePlantilla
         '
@@ -301,7 +305,7 @@ Partial Class frmAdminDocentes
         Me.btnDocentePlantilla.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnDocentePlantilla.FlatAppearance.BorderColor = System.Drawing.Color.Tomato
         Me.btnDocentePlantilla.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnDocentePlantilla.Font = New System.Drawing.Font("Corbel", 18.0!)
+        Me.btnDocentePlantilla.Font = New System.Drawing.Font("Corbel", 12.0!)
         Me.btnDocentePlantilla.ForeColor = System.Drawing.SystemColors.ButtonFace
         Me.btnDocentePlantilla.Location = New System.Drawing.Point(0, 3)
         Me.btnDocentePlantilla.Name = "btnDocentePlantilla"
@@ -341,6 +345,17 @@ Partial Class frmAdminDocentes
         Me.btnEditarPlantilla.Text = "Editar"
         Me.btnEditarPlantilla.UseVisualStyleBackColor = False
         '
+        'lblCantidadDocentes
+        '
+        Me.lblCantidadDocentes.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer))
+        Me.lblCantidadDocentes.Font = New System.Drawing.Font("Corbel", 20.0!, System.Drawing.FontStyle.Bold)
+        Me.lblCantidadDocentes.ForeColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(243, Byte), Integer), CType(CType(102, Byte), Integer))
+        Me.lblCantidadDocentes.Location = New System.Drawing.Point(292, 18)
+        Me.lblCantidadDocentes.Name = "lblCantidadDocentes"
+        Me.lblCantidadDocentes.Size = New System.Drawing.Size(89, 40)
+        Me.lblCantidadDocentes.TabIndex = 34
+        Me.lblCantidadDocentes.Text = "(0)"
+        '
         'pnlDocentes
         '
         Me.pnlDocentes.AutoScroll = True
@@ -349,17 +364,17 @@ Partial Class frmAdminDocentes
         Me.pnlDocentes.Size = New System.Drawing.Size(337, 413)
         Me.pnlDocentes.TabIndex = 33
         '
-        'btnNuevoSalon
+        'btnNuevoDocente
         '
-        Me.btnNuevoSalon.AutoSize = True
-        Me.btnNuevoSalon.Font = New System.Drawing.Font("Corbel", 12.0!)
-        Me.btnNuevoSalon.Location = New System.Drawing.Point(378, 21)
-        Me.btnNuevoSalon.Name = "btnNuevoSalon"
-        Me.btnNuevoSalon.Size = New System.Drawing.Size(121, 29)
-        Me.btnNuevoSalon.TabIndex = 106
-        Me.btnNuevoSalon.Text = "Nuevo docente"
-        Me.btnNuevoSalon.UseVisualStyleBackColor = True
-        Me.btnNuevoSalon.Visible = False
+        Me.btnNuevoDocente.AutoSize = True
+        Me.btnNuevoDocente.Font = New System.Drawing.Font("Corbel", 12.0!)
+        Me.btnNuevoDocente.Location = New System.Drawing.Point(378, 21)
+        Me.btnNuevoDocente.Name = "btnNuevoDocente"
+        Me.btnNuevoDocente.Size = New System.Drawing.Size(121, 29)
+        Me.btnNuevoDocente.TabIndex = 106
+        Me.btnNuevoDocente.Text = "Nuevo docente"
+        Me.btnNuevoDocente.UseVisualStyleBackColor = True
+        Me.btnNuevoDocente.Visible = False
         '
         'lblNuevoDocente
         '
@@ -445,16 +460,16 @@ Partial Class frmAdminDocentes
         Me.btnCancelarEdicion.UseVisualStyleBackColor = True
         Me.btnCancelarEdicion.Visible = False
         '
-        'btnAgregarDocentes
+        'btnAgregarDocente
         '
-        Me.btnAgregarDocentes.AutoSize = True
-        Me.btnAgregarDocentes.Font = New System.Drawing.Font("Corbel", 12.0!)
-        Me.btnAgregarDocentes.Location = New System.Drawing.Point(462, 174)
-        Me.btnAgregarDocentes.Name = "btnAgregarDocentes"
-        Me.btnAgregarDocentes.Size = New System.Drawing.Size(154, 29)
-        Me.btnAgregarDocentes.TabIndex = 112
-        Me.btnAgregarDocentes.Text = "Agregar docente"
-        Me.btnAgregarDocentes.UseVisualStyleBackColor = True
+        Me.btnAgregarDocente.AutoSize = True
+        Me.btnAgregarDocente.Font = New System.Drawing.Font("Corbel", 12.0!)
+        Me.btnAgregarDocente.Location = New System.Drawing.Point(462, 174)
+        Me.btnAgregarDocente.Name = "btnAgregarDocente"
+        Me.btnAgregarDocente.Size = New System.Drawing.Size(154, 29)
+        Me.btnAgregarDocente.TabIndex = 112
+        Me.btnAgregarDocente.Text = "Agregar docente"
+        Me.btnAgregarDocente.UseVisualStyleBackColor = True
         '
         'numGrado
         '
@@ -466,8 +481,9 @@ Partial Class frmAdminDocentes
         '
         'numHsSemanales
         '
+        Me.numHsSemanales.Cursor = System.Windows.Forms.Cursors.Default
         Me.numHsSemanales.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.numHsSemanales.Location = New System.Drawing.Point(441, 400)
+        Me.numHsSemanales.Location = New System.Drawing.Point(440, 407)
         Me.numHsSemanales.Name = "numHsSemanales"
         Me.numHsSemanales.Size = New System.Drawing.Size(106, 34)
         Me.numHsSemanales.TabIndex = 115
@@ -476,7 +492,7 @@ Partial Class frmAdminDocentes
         '
         Me.lstAsignaturas.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4})
         Me.lstAsignaturas.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.lstAsignaturas.Location = New System.Drawing.Point(32, 305)
+        Me.lstAsignaturas.Location = New System.Drawing.Point(29, 313)
         Me.lstAsignaturas.Name = "lstAsignaturas"
         Me.lstAsignaturas.Size = New System.Drawing.Size(219, 145)
         Me.lstAsignaturas.TabIndex = 116
@@ -490,7 +506,7 @@ Partial Class frmAdminDocentes
         '
         'ColumnHeader2
         '
-        Me.ColumnHeader2.Text = "Orientación"
+        Me.ColumnHeader2.Text = "Asignatura"
         Me.ColumnHeader2.Width = 70
         '
         'ColumnHeader3
@@ -504,53 +520,100 @@ Partial Class frmAdminDocentes
         '
         'cmbArea
         '
+        Me.cmbArea.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbArea.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbArea.FormattingEnabled = True
         Me.cmbArea.Items.AddRange(New Object() {"1 - Caca", "2 - Caca"})
-        Me.cmbArea.Location = New System.Drawing.Point(291, 321)
+        Me.cmbArea.Location = New System.Drawing.Point(290, 329)
         Me.cmbArea.Name = "cmbArea"
         Me.cmbArea.Size = New System.Drawing.Size(121, 34)
         Me.cmbArea.TabIndex = 117
         '
         'cmbOrientacion
         '
+        Me.cmbOrientacion.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbOrientacion.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbOrientacion.FormattingEnabled = True
         Me.cmbOrientacion.Items.AddRange(New Object() {"123 - Caca", "493 - Hola"})
-        Me.cmbOrientacion.Location = New System.Drawing.Point(441, 321)
+        Me.cmbOrientacion.Location = New System.Drawing.Point(440, 329)
         Me.cmbOrientacion.Name = "cmbOrientacion"
         Me.cmbOrientacion.Size = New System.Drawing.Size(121, 34)
         Me.cmbOrientacion.TabIndex = 118
+        '
+        'btnEliminarAsignatura
+        '
+        Me.btnEliminarAsignatura.BackColor = System.Drawing.Color.Transparent
+        Me.btnEliminarAsignatura.BackgroundImage = Global.Minerva.My.Resources.Resources.borrar_normal
+        Me.btnEliminarAsignatura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btnEliminarAsignatura.Cursor = System.Windows.Forms.Cursors.Default
+        Me.btnEliminarAsignatura.Enabled = False
+        Me.btnEliminarAsignatura.Location = New System.Drawing.Point(254, 387)
+        Me.btnEliminarAsignatura.Name = "btnEliminarAsignatura"
+        Me.btnEliminarAsignatura.Size = New System.Drawing.Size(25, 25)
+        Me.btnEliminarAsignatura.TabIndex = 120
+        Me.btnEliminarAsignatura.TabStop = False
+        '
+        'btnAgregarAsignatura
+        '
+        Me.btnAgregarAsignatura.BackColor = System.Drawing.Color.Transparent
+        Me.btnAgregarAsignatura.BackgroundImage = CType(resources.GetObject("btnAgregarAsignatura.BackgroundImage"), System.Drawing.Image)
+        Me.btnAgregarAsignatura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btnAgregarAsignatura.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnAgregarAsignatura.Location = New System.Drawing.Point(254, 356)
+        Me.btnAgregarAsignatura.Name = "btnAgregarAsignatura"
+        Me.btnAgregarAsignatura.Size = New System.Drawing.Size(25, 25)
+        Me.btnAgregarAsignatura.TabIndex = 119
+        Me.btnAgregarAsignatura.TabStop = False
+        '
+        'mnuEdicionDocente
+        '
+        Me.mnuEdicionDocente.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatosDelDocenteToolStripMenuItem, Me.MateriasDelDocenteToolStripMenuItem})
+        Me.mnuEdicionDocente.Name = "ContextMenuStrip1"
+        Me.mnuEdicionDocente.Size = New System.Drawing.Size(202, 48)
+        '
+        'DatosDelDocenteToolStripMenuItem
+        '
+        Me.DatosDelDocenteToolStripMenuItem.Name = "DatosDelDocenteToolStripMenuItem"
+        Me.DatosDelDocenteToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
+        Me.DatosDelDocenteToolStripMenuItem.Text = "Datos del docente"
+        '
+        'MateriasDelDocenteToolStripMenuItem
+        '
+        Me.MateriasDelDocenteToolStripMenuItem.Name = "MateriasDelDocenteToolStripMenuItem"
+        Me.MateriasDelDocenteToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
+        Me.MateriasDelDocenteToolStripMenuItem.Text = "Asignaturas del docente"
         '
         'frmAdminDocentes
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
-        Me.Controls.Add(Me.cmbOrientacion)
-        Me.Controls.Add(Me.cmbArea)
-        Me.Controls.Add(Me.lstAsignaturas)
-        Me.Controls.Add(Me.numHsSemanales)
-        Me.Controls.Add(Me.numGrado)
-        Me.Controls.Add(Me.btnCancelarEdicion)
-        Me.Controls.Add(Me.btnAgregarDocentes)
-        Me.Controls.Add(Me.lblObligatorio5)
-        Me.Controls.Add(Me.lblObligatorio4)
-        Me.Controls.Add(Me.lblObligatorio3)
-        Me.Controls.Add(Me.lblObligatorio2)
-        Me.Controls.Add(Me.lblObligatorio1)
-        Me.Controls.Add(Me.btnNuevoSalon)
-        Me.Controls.Add(Me.lblNuevoDocente)
-        Me.Controls.Add(lblTitulo)
-        Me.Controls.Add(Me.btnAgregar)
-        Me.Controls.Add(Me.cmbGrupo)
-        Me.Controls.Add(Me.lblGrupo)
-        Me.Controls.Add(Me.lblGrado)
-        Me.Controls.Add(Me.lblHsSemanales)
-        Me.Controls.Add(Me.lblOrientacion)
-        Me.Controls.Add(Me.lblArea)
-        Me.Controls.Add(Me.txtApellido)
         Me.Controls.Add(Me.lblAsignaturas)
-        Me.Controls.Add(Me.txtCargo)
+        Me.Controls.Add(Me.numHsSemanales)
+        Me.Controls.Add(Me.cmbOrientacion)
+        Me.Controls.Add(Me.numGrado)
+        Me.Controls.Add(Me.btnEliminarAsignatura)
+        Me.Controls.Add(Me.btnCancelarEdicion)
+        Me.Controls.Add(Me.cmbArea)
+        Me.Controls.Add(Me.btnAgregarDocente)
+        Me.Controls.Add(Me.lstAsignaturas)
+        Me.Controls.Add(Me.lblObligatorio5)
+        Me.Controls.Add(Me.btnAgregarAsignatura)
+        Me.Controls.Add(Me.lblObligatorio4)
+        Me.Controls.Add(Me.lblGrupo)
+        Me.Controls.Add(Me.lblObligatorio3)
+        Me.Controls.Add(Me.cmbGrupo)
+        Me.Controls.Add(Me.lblObligatorio2)
+        Me.Controls.Add(Me.lblArea)
+        Me.Controls.Add(Me.lblObligatorio1)
+        Me.Controls.Add(Me.lblAsignatura)
+        Me.Controls.Add(Me.btnNuevoDocente)
+        Me.Controls.Add(Me.lblHsSemanales)
+        Me.Controls.Add(Me.lblNuevoDocente)
+        Me.Controls.Add(Me.btnAgregarMateria)
+        Me.Controls.Add(lblTitulo)
+        Me.Controls.Add(Me.lblGrado)
+        Me.Controls.Add(Me.txtApellido)
+        Me.Controls.Add(Me.cmbCargo)
         Me.Controls.Add(Me.lblCargo)
         Me.Controls.Add(Me.lblNombre)
         Me.Controls.Add(Me.txtNombre)
@@ -565,11 +628,14 @@ Partial Class frmAdminDocentes
         Me.pnlDocentePlantilla.ResumeLayout(False)
         CType(Me.numGrado, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numHsSemanales, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnEliminarAsignatura, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnAgregarAsignatura, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.mnuEdicionDocente.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents txtCargo As System.Windows.Forms.ComboBox
+    Friend WithEvents cmbCargo As System.Windows.Forms.ComboBox
     Friend WithEvents lblCargo As System.Windows.Forms.Label
     Friend WithEvents lblNombre As System.Windows.Forms.Label
     Friend WithEvents txtNombre As System.Windows.Forms.TextBox
@@ -577,14 +643,14 @@ Partial Class frmAdminDocentes
     Friend WithEvents lblCi As System.Windows.Forms.Label
     Friend WithEvents txtCI As System.Windows.Forms.TextBox
     Friend WithEvents lblHsSemanales As System.Windows.Forms.Label
-    Friend WithEvents lblOrientacion As System.Windows.Forms.Label
+    Friend WithEvents lblAsignatura As System.Windows.Forms.Label
     Friend WithEvents lblArea As System.Windows.Forms.Label
     Friend WithEvents txtApellido As System.Windows.Forms.TextBox
     Friend WithEvents lblAsignaturas As System.Windows.Forms.Label
     Friend WithEvents lblGrado As System.Windows.Forms.Label
     Friend WithEvents cmbGrupo As System.Windows.Forms.ComboBox
     Friend WithEvents lblGrupo As System.Windows.Forms.Label
-    Friend WithEvents btnAgregar As System.Windows.Forms.Button
+    Friend WithEvents btnAgregarMateria As System.Windows.Forms.Button
     Friend WithEvents pnlFondo As System.Windows.Forms.Panel
     Friend WithEvents lblCantidadDocentes As System.Windows.Forms.Label
     Friend WithEvents pnlDocentePlantilla As System.Windows.Forms.Panel
@@ -592,7 +658,7 @@ Partial Class frmAdminDocentes
     Friend WithEvents btnEliminarPlantilla As System.Windows.Forms.Button
     Friend WithEvents btnEditarPlantilla As System.Windows.Forms.Button
     Friend WithEvents pnlDocentes As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents btnNuevoSalon As System.Windows.Forms.Button
+    Friend WithEvents btnNuevoDocente As System.Windows.Forms.Button
     Friend WithEvents lblNuevoDocente As System.Windows.Forms.Label
     Friend WithEvents lblObligatorio1 As System.Windows.Forms.Label
     Friend WithEvents lblObligatorio2 As System.Windows.Forms.Label
@@ -600,7 +666,7 @@ Partial Class frmAdminDocentes
     Friend WithEvents lblObligatorio4 As System.Windows.Forms.Label
     Friend WithEvents lblObligatorio5 As System.Windows.Forms.Label
     Friend WithEvents btnCancelarEdicion As System.Windows.Forms.Button
-    Friend WithEvents btnAgregarDocentes As System.Windows.Forms.Button
+    Friend WithEvents btnAgregarDocente As System.Windows.Forms.Button
     Friend WithEvents numGrado As System.Windows.Forms.NumericUpDown
     Friend WithEvents numHsSemanales As System.Windows.Forms.NumericUpDown
     Friend WithEvents lstAsignaturas As System.Windows.Forms.ListView
@@ -610,5 +676,10 @@ Partial Class frmAdminDocentes
     Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
     Friend WithEvents cmbArea As System.Windows.Forms.ComboBox
     Friend WithEvents cmbOrientacion As System.Windows.Forms.ComboBox
+    Friend WithEvents btnAgregarAsignatura As System.Windows.Forms.PictureBox
+    Friend WithEvents btnEliminarAsignatura As System.Windows.Forms.PictureBox
+    Friend WithEvents mnuEdicionDocente As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents DatosDelDocenteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MateriasDelDocenteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

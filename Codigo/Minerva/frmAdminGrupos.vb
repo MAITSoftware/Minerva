@@ -5,7 +5,7 @@ Public Class frmAdminGrupos
     ' Clase principal para la administración de grupos
 
     Dim totalGrupos As Integer = 0
-    Dim grupoPreview As Object = New Button()
+    Dim prevSelect As String
 
     Private Sub frmAdminGrupos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cargarGrupos()
@@ -17,6 +17,9 @@ Public Class frmAdminGrupos
         Call New ToolTip().SetToolTip(lblObligatorio5, "Dato obligatorio")
         Call New ToolTip().SetToolTip(lblObligatorio6, "Dato obligatorio")
 
+        rellenarCombos()
+
+        cmbOrientacion.Enabled = False
     End Sub
 
     Private Sub cargarGrupos()
@@ -28,24 +31,24 @@ Public Class frmAdminGrupos
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `grupo`;"
+                .CommandText = "SELECT *, Turno.Nombre as 'nombreTurno' FROM `Grupo`, `Turno` WHERE Grupo.IDTurno=Turno.ID;"
                 .CommandType = CommandType.Text
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                agregarGrupo(reader("id"), reader("grado").ToString(), reader("turno"), reader("grado").ToString() & " " & reader("id") & ControlChars.NewLine & " (" & reader("turno") & ")")
+                agregarGrupo(reader("ID"), reader("Trayecto").ToString(), reader("IDTurno"), reader("Trayecto").ToString() & " " & reader("ID") & ControlChars.NewLine & " (" & reader("nombreTurno") & ")", reader("nombreTurno"))
             End While
             reader.Close()
             conexion.Close()
         End Using
     End Sub
 
-    Private Sub agregarGrupo(ByVal idGrupo As String, ByVal grado As String, ByVal turno As String, ByVal idTexto As String)
+    Private Sub agregarGrupo(ByVal IDGrupo As String, ByVal Trayecto As String, ByVal IDTurno As String, ByVal idTexto As String, ByVal nombreTurno As String)
         ' Basicamente copio la plantilla a un nuevo panel
         Dim pnlTemporal As New Panel
         Dim btnGrupo As New Button
-        Dim btnEditar, btnEliminar As New Button
+        Dim btnEliminar As New Button
 
         pnlTemporal.Size = pnlGrupoPlantilla.Size
         btnGrupo.Size = btnGrupoPlantilla.Size
@@ -59,19 +62,8 @@ Public Class frmAdminGrupos
         btnGrupo.Cursor = btnGrupoPlantilla.Cursor
         btnGrupo.Font = btnGrupoPlantilla.Font
 
-        btnGrupo.Tag = {idGrupo, grado, turno}
+        btnGrupo.Tag = {IDGrupo, Trayecto, IDTurno, nombreTurno}
         AddHandler btnGrupo.Click, AddressOf verGrupo
-
-        btnEditar.Size = btnEditarPlantilla.Size
-        btnEditar.FlatStyle = btnEditarPlantilla.FlatStyle
-        btnEditar.ForeColor = btnEditarPlantilla.ForeColor
-        btnEditar.Text = btnEditarPlantilla.Text
-        btnEditar.BackColor = btnEditarPlantilla.BackColor
-        btnEditar.Location = btnEditarPlantilla.Location
-        btnEditar.Cursor = btnEditarPlantilla.Cursor
-
-        btnEditar.Tag = {idGrupo, grado, turno}
-        AddHandler btnEditar.Click, AddressOf editarGrupo
 
         btnEliminar.Size = btnEliminarPlantilla.Size
         btnEliminar.FlatStyle = btnEliminarPlantilla.FlatStyle
@@ -81,10 +73,9 @@ Public Class frmAdminGrupos
         btnEliminar.Location = btnEliminarPlantilla.Location
         btnEliminar.Cursor = btnEliminarPlantilla.Cursor
 
-        btnEliminar.Tag = {idGrupo, grado, turno}
+        btnEliminar.Tag = {IDGrupo, Trayecto, IDTurno, nombreTurno}
         AddHandler btnEliminar.Click, AddressOf eliminarGrupo
 
-        pnlTemporal.Controls.Add(btnEditar)
         pnlTemporal.Controls.Add(btnEliminar)
         pnlTemporal.Controls.Add(btnGrupo)
 
@@ -94,29 +85,14 @@ Public Class frmAdminGrupos
         lblCantidadGrupos.Text = "(" + totalGrupos.ToString() + ")"
     End Sub
 
-    Private Sub editarGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        grupoPreview.Enabled = True
-        grupoPreview = sender.Parent
-        grupoPreview.Enabled = False
-        lblNuevoGrupo.Text = "Editar grupo"
-        btnCancelarEdicion.Visible = True
-        btnAgregar.Visible = True
-        btnNuevoGrupo.Visible = False
-        btnAgregar.Text = "Guardar cambios"
-
-        controlesHabilitados(True)
-        cargarDatos(sender.Tag)
-        txtIDGrupo.Enabled = False
-        numGrado.Enabled = False
-        cmbTurno.Enabled = False
-    End Sub
-
     Private Sub controlesHabilitados(ByVal habilitado As Boolean)
         txtIDGrupo.Enabled = habilitado
         txtIDGrupo.Text = ""
 
         cmbTurno.Enabled = habilitado
         cmbTurno.SelectedIndex = -1
+
+        prevSelect = ""
         cmbCurso.Enabled = habilitado
         cmbCurso.SelectedIndex = -1
         cmbOrientacion.Enabled = habilitado
@@ -125,15 +101,13 @@ Public Class frmAdminGrupos
         numGrado.Value = 1
     End Sub
 
-    Private Sub btnNuevoGrupo_Click(sender As Object, e As EventArgs) Handles btnNuevoGrupo.Click, btnCancelarEdicion.Click
+    Private Sub btnNuevoGrupo_Click(sender As Object, e As EventArgs) Handles btnNuevoGrupo.Click
         controlesHabilitados(True)
         lblNuevoGrupo.Text = "Nuevo grupo"
         btnNuevoGrupo.Visible = False
         btnAgregar.Visible = True
         btnAgregar.Text = "Agregar grupo"
-        btnCancelarEdicion.Visible = False
-        grupoPreview.Enabled = True
-        grupoPreview = New Button()
+        cmbOrientacion.Enabled = False
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
@@ -166,7 +140,7 @@ Public Class frmAdminGrupos
 
     Private Sub eliminarGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim grupo As String
-        grupo = sender.Tag(1) + " " + sender.Tag(0) + " (" + sender.Tag(2) + ")"
+        grupo = sender.Tag(1) + " " + sender.Tag(0) + " (" + sender.Tag(3) + ")"
         Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar el grupo '" + grupo + "'?", "Eliminar grupo", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.No Then
             Return
@@ -176,11 +150,11 @@ Public Class frmAdminGrupos
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "DELETE FROM `grupo` WHERE id=@id and turno=@turno and grado=@grado;"
+                .CommandText = "DELETE FROM `Grupo` WHERE ID=@ID and IDTurno=@IDTurno and Trayecto=@Trayecto;"
                 .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@id", sender.Tag(0))
-                .Parameters.AddWithValue("@turno", sender.Tag(2))
-                .Parameters.AddWithValue("@grado", sender.Tag(1))
+                .Parameters.AddWithValue("@ID", sender.Tag(0))
+                .Parameters.AddWithValue("@IDTurno", sender.Tag(2))
+                .Parameters.AddWithValue("@Trayecto", sender.Tag(1))
             End With
             totalGrupos -= 1
             cmd.ExecuteNonQuery()
@@ -199,18 +173,13 @@ Public Class frmAdminGrupos
             With cmd
                 .Connection = conexion.Conn
                 .CommandType = CommandType.Text
-
-                If btnAgregar.Text.Equals("Agregar grupo") Then
-                    .CommandText = "INSERT INTO `grupo` VALUES  (@id, @grado, @curso, @turno, @orientacion);"
-                Else
-                    .CommandText = "UPDATE `grupo` SET grado=@grado, curso=@curso, turno=@turno, orientacion=@orientacion, WHERE id=@id and turno=@turno and grado=@grado;"
-                End If
-
-                .Parameters.AddWithValue("@grado", numGrado.Value.ToString())
-                .Parameters.AddWithValue("@id", txtIDGrupo.Text)
-                .Parameters.AddWithValue("@curso", cmbCurso.Text)
-                .Parameters.AddWithValue("@turno", cmbTurno.Text)
-                .Parameters.AddWithValue("@orientacion", cmbOrientacion.Text)
+                .CommandText = "INSERT INTO `Grupo` VALUES  (@ID, @Trayecto, @IDTurno, @IDCurso, @IDOrientación, Null);"
+                Console.WriteLine(cmbTurno.SelectedIndex)
+                .Parameters.AddWithValue("@ID", txtIDGrupo.Text)
+                .Parameters.AddWithValue("@Trayecto", numGrado.Value.ToString())
+                .Parameters.AddWithValue("@IDCurso", cmbCurso.Text.Substring(0, cmbCurso.Text.IndexOf(" (")).Trim())
+                .Parameters.AddWithValue("@IDTurno", cmbTurno.SelectedIndex + 1)
+                .Parameters.AddWithValue("@IDOrientación", cmbOrientacion.Text.Substring(0, cmbOrientacion.Text.IndexOf(" (")).Trim())
             End With
 
             Try
@@ -218,18 +187,15 @@ Public Class frmAdminGrupos
                 conexion.Close()
 
                 cargarGrupos()
-                If btnAgregar.Text.Equals("Agregar grupo") Then
-                    MessageBox.Show("Grupo agregado correctamente", "Grupo agregado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-                Else
-                    MessageBox.Show("Información de grupo actualizada correctamente", "Grupo actualizado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-                End If
+                MessageBox.Show("Grupo agregado correctamente", "Grupo agregado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
                 btnNuevoGrupo_Click(Nothing, Nothing)
             Catch ex As Exception
                 If ex.ToString().Contains("Duplicate") Then
-                    MessageBox.Show("Ya existe un grupo con el mismo grado y ID en dicho turno.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("Ya existe un grupo con el mismo trayecto y ID en dicho turno.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Else
                     MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 End If
+                Console.WriteLine(ex.ToString())
             End Try
         End Using
     End Sub
@@ -241,23 +207,6 @@ Public Class frmAdminGrupos
     Private Sub previsualizarGrupo(ByVal id As String, ByVal grado As String, ByVal turno As String)
         btnNuevoGrupo.Visible = True
         btnAgregar.Visible = False
-        btnCancelarEdicion.Visible = False
-
-        grupoPreview.Enabled = True
-        grupoPreview = Nothing
-        For Each pnl As Panel In pnlGrupos.Controls
-            For Each x As Button In pnl.Controls
-                Dim txt As String = grado & " " & id & ControlChars.NewLine & " (" + turno + ")"
-                If x.Text.Equals(txt) Then
-                    If IsNothing(grupoPreview) Then
-                        grupoPreview = x
-                    End If
-                End If
-            Next
-        Next
-
-        grupoPreview.Enabled = False
-
         lblNuevoGrupo.Text = "Previsualizar grupo"
 
         controlesHabilitados(False)
@@ -269,24 +218,95 @@ Public Class frmAdminGrupos
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `grupo` where id=@id and turno=@turno and grado=@grado;"
+                .CommandText = "SELECT *, Curso.Nombre as 'nombreCurso', Orientación.Nombre as 'nombreOrientación' FROM `Grupo`, `Curso`, `Orientación` WHERE Grupo.ID=@ID and Grupo.IDTurno=@IDTurno and Grupo.Trayecto=@Trayecto and Curso.ID=Grupo.IDCurso and Orientación.ID=Grupo.IDOrientación;"
                 .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@id", grupo(0))
-                .Parameters.AddWithValue("@grado", grupo(1))
-                .Parameters.AddWithValue("@turno", grupo(2))
+                .Parameters.AddWithValue("@ID", grupo(0))
+                .Parameters.AddWithValue("@Trayecto", grupo(1))
+                .Parameters.AddWithValue("@IDTurno", grupo(2))
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                txtIDGrupo.Text = reader("id")
-                numGrado.Value = Integer.Parse(reader("grado"))
-                cmbCurso.SelectedIndex = cmbCurso.FindStringExact(reader("curso"))
-                cmbTurno.SelectedIndex = cmbTurno.FindStringExact(reader("turno"))
-                cmbOrientacion.SelectedIndex = cmbOrientacion.FindStringExact(reader("orientacion"))
+                txtIDGrupo.Text = reader("ID")
+                numGrado.Value = Integer.Parse(reader("Trayecto"))
+                cmbCurso.SelectedIndex = cmbCurso.FindStringExact(reader("IDCurso").ToString() & " (" & reader("nombreCurso") & ")")
+                cargarOrientaciones()
+                cmbTurno.SelectedIndex = reader("IDTurno") - 1
+                cmbOrientacion.SelectedIndex = cmbOrientacion.FindStringExact(reader("IDOrientación").ToString() & " (" & reader("nombreOrientación") & ")")
+                cmbOrientacion.Enabled = False
             End While
             reader.Close()
             conexion.Close()
         End Using
     End Sub
 
+    Private Sub rellenarCombos()
+        ' Llena los combos con los datos de la DB.
+        Dim conexion As New DB()
+
+        ' Primero los cursos
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT * FROM `Curso`;"
+                .CommandType = CommandType.Text
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                cmbCurso.Items.Add(reader("ID").ToString() & " (" & reader("Nombre") & ")")
+            End While
+            reader.Close()
+        End Using
+
+        ' Segundo los turnos
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT * FROM `Turno`;"
+                .CommandType = CommandType.Text
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                cmbTurno.Items.Add(reader("Nombre"))
+            End While
+            reader.Close()
+            conexion.Close()
+        End Using
+    End Sub
+
+    Private Sub cargarOrientaciones()
+        Dim conexion As New DB()
+        cmbOrientacion.Items.Clear()
+        ' Por último las orientaciones
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT * FROM `Orientación` WHERE IDCurso=@IDCurso;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@IDCurso", cmbCurso.Text.Substring(0, cmbCurso.Text.IndexOf(" (")).Trim())
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                cmbOrientacion.Items.Add(reader("ID").ToString() & " (" & reader("Nombre") & ")")
+            End While
+            reader.Close()
+            conexion.Close()
+        End Using
+    End Sub
+
+    Private Sub cmbCurso_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCurso.SelectedIndexChanged
+        If cmbCurso.Text.Equals(prevSelect) Then
+            Return
+        End If
+        cmbOrientacion.SelectedIndex = -1
+        cargarOrientaciones()
+        cmbOrientacion.Enabled = False
+        If Not String.IsNullOrWhiteSpace(cmbCurso.Text) Then
+            cmbOrientacion.Enabled = True
+        End If
+        prevSelect = cmbCurso.Text
+    End Sub
 End Class

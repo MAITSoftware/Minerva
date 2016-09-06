@@ -28,11 +28,9 @@ Partial Class frmAdminGrupos
         Me.cmbTurno = New System.Windows.Forms.ComboBox()
         Me.lblTurno = New System.Windows.Forms.Label()
         Me.txtIDGrupo = New System.Windows.Forms.TextBox()
-        Me.cmbCurso = New System.Windows.Forms.ComboBox()
         Me.lblCurso = New System.Windows.Forms.Label()
-        Me.cmbOrientacion = New System.Windows.Forms.ComboBox()
         Me.lblOrientacion = New System.Windows.Forms.Label()
-        Me.lblGrado = New System.Windows.Forms.Label()
+        Me.lblTrayecto = New System.Windows.Forms.Label()
         Me.numGrado = New System.Windows.Forms.NumericUpDown()
         Me.lblObligatorio1 = New System.Windows.Forms.Label()
         Me.lblObligatorio3 = New System.Windows.Forms.Label()
@@ -41,22 +39,20 @@ Partial Class frmAdminGrupos
         Me.lblObligatorio2 = New System.Windows.Forms.Label()
         Me.btnNuevoGrupo = New System.Windows.Forms.Button()
         Me.lblNuevoGrupo = New System.Windows.Forms.Label()
-        Me.btnCancelarEdicion = New System.Windows.Forms.Button()
         Me.btnAgregar = New System.Windows.Forms.Button()
         Me.pnlFondo = New System.Windows.Forms.Panel()
         Me.lblCantidadGrupos = New System.Windows.Forms.Label()
         Me.pnlGrupos = New System.Windows.Forms.FlowLayoutPanel()
         Me.pnlGrupoPlantilla = New System.Windows.Forms.Panel()
-        Me.btnGrupoPlantilla = New System.Windows.Forms.Button()
         Me.btnEliminarPlantilla = New System.Windows.Forms.Button()
-        Me.btnEditarPlantilla = New System.Windows.Forms.Button()
-        Me.imgAgustina = New System.Windows.Forms.PictureBox()
+        Me.btnGrupoPlantilla = New System.Windows.Forms.Button()
+        Me.cmbCurso = New System.Windows.Forms.ComboBox()
+        Me.cmbOrientacion = New System.Windows.Forms.ComboBox()
         lblTitulo = New System.Windows.Forms.Label()
         lblGrupos = New System.Windows.Forms.Label()
         CType(Me.numGrado, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlFondo.SuspendLayout()
         Me.pnlGrupoPlantilla.SuspendLayout()
-        CType(Me.imgAgustina, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblTitulo
@@ -98,7 +94,6 @@ Partial Class frmAdminGrupos
         Me.cmbTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbTurno.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbTurno.FormattingEnabled = True
-        Me.cmbTurno.Items.AddRange(New Object() {"Matutino", "Vespertino", "Nocturno"})
         Me.cmbTurno.Location = New System.Drawing.Point(25, 253)
         Me.cmbTurno.Name = "cmbTurno"
         Me.cmbTurno.Size = New System.Drawing.Size(116, 34)
@@ -124,60 +119,38 @@ Partial Class frmAdminGrupos
         Me.txtIDGrupo.TabIndex = 80
         Me.txtIDGrupo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'cmbCurso
-        '
-        Me.cmbCurso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbCurso.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.cmbCurso.FormattingEnabled = True
-        Me.cmbCurso.Items.AddRange(New Object() {"EMT", "CBT"})
-        Me.cmbCurso.Location = New System.Drawing.Point(373, 161)
-        Me.cmbCurso.Name = "cmbCurso"
-        Me.cmbCurso.Size = New System.Drawing.Size(140, 34)
-        Me.cmbCurso.TabIndex = 82
-        '
         'lblCurso
         '
         Me.lblCurso.AutoSize = True
         Me.lblCurso.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblCurso.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblCurso.Location = New System.Drawing.Point(368, 129)
+        Me.lblCurso.Location = New System.Drawing.Point(352, 129)
         Me.lblCurso.Name = "lblCurso"
         Me.lblCurso.Size = New System.Drawing.Size(71, 29)
         Me.lblCurso.TabIndex = 81
         Me.lblCurso.Text = "Curso"
-        '
-        'cmbOrientacion
-        '
-        Me.cmbOrientacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbOrientacion.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.cmbOrientacion.FormattingEnabled = True
-        Me.cmbOrientacion.Items.AddRange(New Object() {"Informática", "Ciclo Básico"})
-        Me.cmbOrientacion.Location = New System.Drawing.Point(184, 259)
-        Me.cmbOrientacion.Name = "cmbOrientacion"
-        Me.cmbOrientacion.Size = New System.Drawing.Size(140, 34)
-        Me.cmbOrientacion.TabIndex = 84
         '
         'lblOrientacion
         '
         Me.lblOrientacion.AutoSize = True
         Me.lblOrientacion.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblOrientacion.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblOrientacion.Location = New System.Drawing.Point(179, 227)
+        Me.lblOrientacion.Location = New System.Drawing.Point(179, 221)
         Me.lblOrientacion.Name = "lblOrientacion"
         Me.lblOrientacion.Size = New System.Drawing.Size(134, 29)
         Me.lblOrientacion.TabIndex = 83
         Me.lblOrientacion.Text = "Orientación"
         '
-        'lblGrado
+        'lblTrayecto
         '
-        Me.lblGrado.AutoSize = True
-        Me.lblGrado.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblGrado.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblGrado.Location = New System.Drawing.Point(20, 129)
-        Me.lblGrado.Name = "lblGrado"
-        Me.lblGrado.Size = New System.Drawing.Size(75, 29)
-        Me.lblGrado.TabIndex = 86
-        Me.lblGrado.Text = "Grado"
+        Me.lblTrayecto.AutoSize = True
+        Me.lblTrayecto.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblTrayecto.ForeColor = System.Drawing.Color.PaleGreen
+        Me.lblTrayecto.Location = New System.Drawing.Point(20, 129)
+        Me.lblTrayecto.Name = "lblTrayecto"
+        Me.lblTrayecto.Size = New System.Drawing.Size(102, 29)
+        Me.lblTrayecto.TabIndex = 86
+        Me.lblTrayecto.Text = "Trayecto"
         '
         'numGrado
         '
@@ -220,7 +193,7 @@ Partial Class frmAdminGrupos
         Me.lblObligatorio5.Cursor = System.Windows.Forms.Cursors.Help
         Me.lblObligatorio5.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblObligatorio5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio5.Location = New System.Drawing.Point(490, 132)
+        Me.lblObligatorio5.Location = New System.Drawing.Point(474, 132)
         Me.lblObligatorio5.Name = "lblObligatorio5"
         Me.lblObligatorio5.Size = New System.Drawing.Size(23, 23)
         Me.lblObligatorio5.TabIndex = 90
@@ -232,7 +205,7 @@ Partial Class frmAdminGrupos
         Me.lblObligatorio6.Cursor = System.Windows.Forms.Cursors.Help
         Me.lblObligatorio6.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblObligatorio6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio6.Location = New System.Drawing.Point(310, 230)
+        Me.lblObligatorio6.Location = New System.Drawing.Point(400, 227)
         Me.lblObligatorio6.Name = "lblObligatorio6"
         Me.lblObligatorio6.Size = New System.Drawing.Size(23, 23)
         Me.lblObligatorio6.TabIndex = 92
@@ -274,18 +247,6 @@ Partial Class frmAdminGrupos
         Me.lblNuevoGrupo.TabIndex = 96
         Me.lblNuevoGrupo.Text = "Nuevo grupo"
         '
-        'btnCancelarEdicion
-        '
-        Me.btnCancelarEdicion.AutoSize = True
-        Me.btnCancelarEdicion.Font = New System.Drawing.Font("Corbel", 12.0!)
-        Me.btnCancelarEdicion.Location = New System.Drawing.Point(461, 445)
-        Me.btnCancelarEdicion.Name = "btnCancelarEdicion"
-        Me.btnCancelarEdicion.Size = New System.Drawing.Size(154, 29)
-        Me.btnCancelarEdicion.TabIndex = 99
-        Me.btnCancelarEdicion.Text = "Cancelar edición"
-        Me.btnCancelarEdicion.UseVisualStyleBackColor = True
-        Me.btnCancelarEdicion.Visible = False
-        '
         'btnAgregar
         '
         Me.btnAgregar.AutoSize = True
@@ -300,10 +261,10 @@ Partial Class frmAdminGrupos
         'pnlFondo
         '
         Me.pnlFondo.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer))
+        Me.pnlFondo.Controls.Add(Me.pnlGrupoPlantilla)
         Me.pnlFondo.Controls.Add(Me.lblCantidadGrupos)
         Me.pnlFondo.Controls.Add(Me.pnlGrupos)
         Me.pnlFondo.Controls.Add(lblGrupos)
-        Me.pnlFondo.Controls.Add(Me.pnlGrupoPlantilla)
         Me.pnlFondo.Location = New System.Drawing.Point(639, 0)
         Me.pnlFondo.Name = "pnlFondo"
         Me.pnlFondo.Size = New System.Drawing.Size(365, 501)
@@ -331,13 +292,28 @@ Partial Class frmAdminGrupos
         'pnlGrupoPlantilla
         '
         Me.pnlGrupoPlantilla.Controls.Add(Me.btnEliminarPlantilla)
-        Me.pnlGrupoPlantilla.Controls.Add(Me.btnEditarPlantilla)
         Me.pnlGrupoPlantilla.Controls.Add(Me.btnGrupoPlantilla)
         Me.pnlGrupoPlantilla.Location = New System.Drawing.Point(0, 0)
         Me.pnlGrupoPlantilla.Name = "pnlGrupoPlantilla"
         Me.pnlGrupoPlantilla.Size = New System.Drawing.Size(305, 56)
         Me.pnlGrupoPlantilla.TabIndex = 0
         Me.pnlGrupoPlantilla.Visible = False
+        '
+        'btnEliminarPlantilla
+        '
+        Me.btnEliminarPlantilla.BackColor = System.Drawing.Color.Firebrick
+        Me.btnEliminarPlantilla.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnEliminarPlantilla.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.btnEliminarPlantilla.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnEliminarPlantilla.Font = New System.Drawing.Font("Corbel", 10.0!)
+        Me.btnEliminarPlantilla.ForeColor = System.Drawing.Color.White
+        Me.btnEliminarPlantilla.Location = New System.Drawing.Point(213, 16)
+        Me.btnEliminarPlantilla.Name = "btnEliminarPlantilla"
+        Me.btnEliminarPlantilla.Size = New System.Drawing.Size(89, 23)
+        Me.btnEliminarPlantilla.TabIndex = 2
+        Me.btnEliminarPlantilla.Text = "Eliminar"
+        Me.btnEliminarPlantilla.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.btnEliminarPlantilla.UseVisualStyleBackColor = False
         '
         'btnGrupoPlantilla
         '
@@ -356,54 +332,34 @@ Partial Class frmAdminGrupos
         Me.btnGrupoPlantilla.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.btnGrupoPlantilla.UseVisualStyleBackColor = False
         '
-        'btnEliminarPlantilla
+        'cmbCurso
         '
-        Me.btnEliminarPlantilla.BackColor = System.Drawing.Color.Firebrick
-        Me.btnEliminarPlantilla.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnEliminarPlantilla.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.btnEliminarPlantilla.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnEliminarPlantilla.Font = New System.Drawing.Font("Corbel", 10.0!)
-        Me.btnEliminarPlantilla.ForeColor = System.Drawing.Color.White
-        Me.btnEliminarPlantilla.Location = New System.Drawing.Point(213, 28)
-        Me.btnEliminarPlantilla.Name = "btnEliminarPlantilla"
-        Me.btnEliminarPlantilla.Size = New System.Drawing.Size(89, 23)
-        Me.btnEliminarPlantilla.TabIndex = 2
-        Me.btnEliminarPlantilla.Text = "Eliminar"
-        Me.btnEliminarPlantilla.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.btnEliminarPlantilla.UseVisualStyleBackColor = False
+        Me.cmbCurso.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbCurso.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.cmbCurso.FormattingEnabled = True
+        Me.cmbCurso.Location = New System.Drawing.Point(357, 161)
+        Me.cmbCurso.Name = "cmbCurso"
+        Me.cmbCurso.Size = New System.Drawing.Size(140, 34)
+        Me.cmbCurso.TabIndex = 119
         '
-        'btnEditarPlantilla
+        'cmbOrientacion
         '
-        Me.btnEditarPlantilla.BackColor = System.Drawing.Color.SteelBlue
-        Me.btnEditarPlantilla.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnEditarPlantilla.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.btnEditarPlantilla.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnEditarPlantilla.Font = New System.Drawing.Font("Corbel", 10.0!)
-        Me.btnEditarPlantilla.ForeColor = System.Drawing.Color.White
-        Me.btnEditarPlantilla.Location = New System.Drawing.Point(213, 3)
-        Me.btnEditarPlantilla.Name = "btnEditarPlantilla"
-        Me.btnEditarPlantilla.Size = New System.Drawing.Size(89, 23)
-        Me.btnEditarPlantilla.TabIndex = 1
-        Me.btnEditarPlantilla.Text = "Editar"
-        Me.btnEditarPlantilla.UseVisualStyleBackColor = False
-        '
-        'imgAgustina
-        '
-        Me.imgAgustina.BackgroundImage = Global.Minerva.My.Resources.Resources.IMG_0412
-        Me.imgAgustina.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.imgAgustina.Location = New System.Drawing.Point(334, 281)
-        Me.imgAgustina.Name = "imgAgustina"
-        Me.imgAgustina.Size = New System.Drawing.Size(105, 193)
-        Me.imgAgustina.TabIndex = 101
-        Me.imgAgustina.TabStop = False
+        Me.cmbOrientacion.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbOrientacion.Enabled = False
+        Me.cmbOrientacion.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.cmbOrientacion.FormattingEnabled = True
+        Me.cmbOrientacion.Location = New System.Drawing.Point(184, 253)
+        Me.cmbOrientacion.Name = "cmbOrientacion"
+        Me.cmbOrientacion.Size = New System.Drawing.Size(239, 34)
+        Me.cmbOrientacion.TabIndex = 120
         '
         'frmAdminGrupos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
-        Me.Controls.Add(Me.imgAgustina)
-        Me.Controls.Add(Me.btnCancelarEdicion)
+        Me.Controls.Add(Me.cmbOrientacion)
+        Me.Controls.Add(Me.cmbCurso)
         Me.Controls.Add(Me.btnAgregar)
         Me.Controls.Add(Me.btnNuevoGrupo)
         Me.Controls.Add(Me.lblNuevoGrupo)
@@ -414,10 +370,8 @@ Partial Class frmAdminGrupos
         Me.Controls.Add(Me.lblObligatorio3)
         Me.Controls.Add(Me.lblObligatorio1)
         Me.Controls.Add(Me.numGrado)
-        Me.Controls.Add(Me.lblGrado)
-        Me.Controls.Add(Me.cmbOrientacion)
+        Me.Controls.Add(Me.lblTrayecto)
         Me.Controls.Add(Me.lblOrientacion)
-        Me.Controls.Add(Me.cmbCurso)
         Me.Controls.Add(Me.lblCurso)
         Me.Controls.Add(Me.txtIDGrupo)
         Me.Controls.Add(Me.cmbTurno)
@@ -430,7 +384,6 @@ Partial Class frmAdminGrupos
         Me.pnlFondo.ResumeLayout(False)
         Me.pnlFondo.PerformLayout()
         Me.pnlGrupoPlantilla.ResumeLayout(False)
-        CType(Me.imgAgustina, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -439,11 +392,9 @@ Partial Class frmAdminGrupos
     Friend WithEvents cmbTurno As System.Windows.Forms.ComboBox
     Friend WithEvents lblTurno As System.Windows.Forms.Label
     Friend WithEvents txtIDGrupo As System.Windows.Forms.TextBox
-    Friend WithEvents cmbCurso As System.Windows.Forms.ComboBox
     Friend WithEvents lblCurso As System.Windows.Forms.Label
-    Friend WithEvents cmbOrientacion As System.Windows.Forms.ComboBox
     Friend WithEvents lblOrientacion As System.Windows.Forms.Label
-    Friend WithEvents lblGrado As System.Windows.Forms.Label
+    Friend WithEvents lblTrayecto As System.Windows.Forms.Label
     Friend WithEvents numGrado As System.Windows.Forms.NumericUpDown
     Friend WithEvents lblObligatorio1 As System.Windows.Forms.Label
     Friend WithEvents lblObligatorio3 As System.Windows.Forms.Label
@@ -452,15 +403,14 @@ Partial Class frmAdminGrupos
     Friend WithEvents lblObligatorio2 As System.Windows.Forms.Label
     Friend WithEvents btnNuevoGrupo As System.Windows.Forms.Button
     Friend WithEvents lblNuevoGrupo As System.Windows.Forms.Label
-    Friend WithEvents btnCancelarEdicion As System.Windows.Forms.Button
     Friend WithEvents btnAgregar As System.Windows.Forms.Button
     Friend WithEvents pnlFondo As System.Windows.Forms.Panel
     Friend WithEvents lblCantidadGrupos As System.Windows.Forms.Label
     Friend WithEvents pnlGrupoPlantilla As System.Windows.Forms.Panel
     Friend WithEvents btnGrupoPlantilla As System.Windows.Forms.Button
     Friend WithEvents btnEliminarPlantilla As System.Windows.Forms.Button
-    Friend WithEvents btnEditarPlantilla As System.Windows.Forms.Button
     Friend WithEvents pnlGrupos As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents imgAgustina As System.Windows.Forms.PictureBox
+    Friend WithEvents cmbCurso As System.Windows.Forms.ComboBox
+    Friend WithEvents cmbOrientacion As System.Windows.Forms.ComboBox
 
 End Class

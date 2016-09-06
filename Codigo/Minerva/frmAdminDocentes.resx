@@ -123,4 +123,30 @@
   <metadata name="lblTitulo.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnAgregarAsignatura.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAGYktHRAD/AP8A/6C9p5MAAAOcSURBVHhe7Z3JbhNBEIbLwDHwCAjM8gTI5AmQ4MJyJ3ABhTXA
+        hUMk6MEXuAMSd4RQxA0RB54DOcBbQDjEkViq0hXJNB1m65kpi/+TPtmazHRL9Sfx1tWmmcRRnzK6y7fv
+        2XX2uyr35dgdtq9ng8ZwdJxdYX+yvwr4loZ0TK8GScnoFhd4Kyh4Ebf42hs6CkhAj4v6PChyFZ9ujwVq
+        ktHDSHGrmdGyjgoq4egMW/Txoog/2FM6OijFCu3l4o2niplKeSa2T2cBhXF0eaqIqV3QWUBhHH0IipjS
+        kc4CCuHoADuZKmBqN+kJ7dfZQC6O5oMCNuFAZwO5OLoQFK8Jz+lsIBdHV4PipTejKzobyMXR4l8FTO+i
+        zgZyQSDGQCDGQCDGQCDGQCDGQCDGQCDGQCDGQCDGQCDGQCDGQCDGQCDGQCDGQCDGQCDGQCDGQCDGQCDG
+        QCDGQCDGQCDGQCA5yDpYWd6Z0Vm+lUVsTfuSjRUxpTJHbO60+prN119LLD0UviVAulqbXPj8vyg1XOOA
+        LvFtyf4U37kkjS2xgWF9xxzMaa32P+nxiff5Amn9ig0E0ymteo/ZPVr7CI6e6cmwPaU7OILvA49dAJs2
+        o2uaguJ3SKjSlA/TOKEhHdE0GEdvghNg+77eCaPPpuwFh9WUDA5JIPemDsIuzWhJApEXfvETYNuOJJAv
+        wUHYnZ8kkI3gIOzODQnkW3AQdudXCeRzcBB257oEshYchN25KoHIhpGxH8K2lbev+A5eGNpQXxj6V+uy
+        02fsJNier3wYgmylijcXuzR4c1FwdDM4CbbnLgsu5MOS+AWwOXf5gMqDj3Dbs8BHuDvIVqqOPrKxgWB9
+        pbYlt6v127QusCN2k40NDIsrNVzl/0AXt2tbC0dz7IAHw0K5svqaDdg5reYMgqWkxkAgxkAgxkAgxkAg
+        xkAgxkAgxkAgxkAgxkAgxkAgxkAgxkAgxkAgxkAgxkAgxkAgxkAgxkAgxkAgxkAgxkAgxkAgxkAgxpCv
+        RY0XMZ346tUSZHQ+WsSUyopCUJBHdDJaxLSe0NlALviCe4M02679TmcBhfG7d8aKWV9pCQAl8f0pTTQN
+        jdmS27QCj2ylmraHXlr1SnYugT9x9GCqoPXMaFlHBTXocTFTbF8r3a49PySoj6PrbJWnwhP+ywi2YQVp
+        cHSQfcEWaduWxx7ZMuSoXg0aY0iH+bd+iYstHcKyR73siifKMyg5dpvVjVxmCaLfDgQ50jm+M2kAAAAA
+        SUVORK5CYII=
+</value>
+  </data>
+  <metadata name="mnuEdicionDocente.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

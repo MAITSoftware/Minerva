@@ -238,6 +238,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Minerva.ico" />
+    <None Include="Resources\borrar_hover1.png" />
+    <None Include="Resources\borrar_normal.png" />
+    <None Include="Resources\agregar_normal1.png" />
+    <None Include="Resources\agregar_hover.png" />
+    <None Include="Resources\borrar_hover.png" />
+    <None Include="Resources\agregar_normal.png" />
     <None Include="Resources\IMG_0412.jpg" />
   </ItemGroup>
   <ItemGroup>
