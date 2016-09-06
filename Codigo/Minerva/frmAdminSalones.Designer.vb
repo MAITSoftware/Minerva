@@ -198,7 +198,7 @@ Partial Class frmAdminSalones
         Me.cmbTurno4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbTurno4.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbTurno4.FormattingEnabled = True
-        Me.cmbTurno4.Items.AddRange(New Object() {"Sin asignar", "Multiuso"})
+        Me.cmbTurno4.Items.AddRange(New Object() {"Sin asignar"})
         Me.cmbTurno4.Location = New System.Drawing.Point(461, 161)
         Me.cmbTurno4.Name = "cmbTurno4"
         Me.cmbTurno4.Size = New System.Drawing.Size(121, 34)
@@ -352,7 +352,7 @@ Partial Class frmAdminSalones
         Me.cmbTurno1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbTurno1.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbTurno1.FormattingEnabled = True
-        Me.cmbTurno1.Items.AddRange(New Object() {"Sin asignar", "Multiuso"})
+        Me.cmbTurno1.Items.AddRange(New Object() {"Sin asignar"})
         Me.cmbTurno1.Location = New System.Drawing.Point(319, 161)
         Me.cmbTurno1.Name = "cmbTurno1"
         Me.cmbTurno1.Size = New System.Drawing.Size(121, 34)
@@ -363,7 +363,7 @@ Partial Class frmAdminSalones
         Me.cmbTurno2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbTurno2.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbTurno2.FormattingEnabled = True
-        Me.cmbTurno2.Items.AddRange(New Object() {"Sin asignar", "Multiuso"})
+        Me.cmbTurno2.Items.AddRange(New Object() {"Sin asignar"})
         Me.cmbTurno2.Location = New System.Drawing.Point(319, 240)
         Me.cmbTurno2.Name = "cmbTurno2"
         Me.cmbTurno2.Size = New System.Drawing.Size(121, 34)
@@ -374,7 +374,7 @@ Partial Class frmAdminSalones
         Me.cmbTurno5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbTurno5.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbTurno5.FormattingEnabled = True
-        Me.cmbTurno5.Items.AddRange(New Object() {"Sin asignar", "Multiuso"})
+        Me.cmbTurno5.Items.AddRange(New Object() {"Sin asignar"})
         Me.cmbTurno5.Location = New System.Drawing.Point(461, 239)
         Me.cmbTurno5.Name = "cmbTurno5"
         Me.cmbTurno5.Size = New System.Drawing.Size(121, 34)
@@ -385,7 +385,7 @@ Partial Class frmAdminSalones
         Me.cmbTurno3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbTurno3.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbTurno3.FormattingEnabled = True
-        Me.cmbTurno3.Items.AddRange(New Object() {"Sin asignar", "Multiuso"})
+        Me.cmbTurno3.Items.AddRange(New Object() {"Sin asignar"})
         Me.cmbTurno3.Location = New System.Drawing.Point(319, 309)
         Me.cmbTurno3.Name = "cmbTurno3"
         Me.cmbTurno3.Size = New System.Drawing.Size(121, 34)

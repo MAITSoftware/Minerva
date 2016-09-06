@@ -9,6 +9,7 @@ Public Class frmAdminSalones
 
     Private Sub frmAdminSalones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cargarSalones()
+        cargarGrupos()
 
         controlesHabilitados(True)
 
@@ -25,17 +26,18 @@ Public Class frmAdminSalones
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `salon`;"
+                .CommandText = "SELECT * FROM `Salón`;"
                 .CommandType = CommandType.Text
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                agregarSalon(reader("id"))
+                agregarSalon(reader("ID"))
             End While
             reader.Close()
             conexion.Close()
         End Using
+
     End Sub
 
     Private Sub agregarSalon(ByVal idSalon As String)
@@ -144,9 +146,9 @@ Public Class frmAdminSalones
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "DELETE FROM `salon` WHERE ID=@id;"
+                .CommandText = "DELETE FROM `Salón` WHERE ID=@ID;"
                 .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@id", sender.Tag)
+                .Parameters.AddWithValue("@ID", sender.Tag)
             End With
             totalSalones -= 1
             cmd.ExecuteNonQuery()
@@ -162,25 +164,52 @@ Public Class frmAdminSalones
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `salon` where id=@id;"
+                .CommandText = "SELECT * FROM `Salón` where ID=@ID;"
                 .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@id", idSalon)
+                .Parameters.AddWithValue("@ID", idSalon)
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                txtIDSalon.Text = reader("id")
-                txtComentarios.Text = reader("comentarios").ToString()
-                cmbPlanta.SelectedIndex = cmbPlanta.FindStringExact(reader("planta"))
-                cmbTurno1.SelectedIndex = cmbTurno1.FindStringExact(reader("turno1"))
-                cmbTurno2.SelectedIndex = cmbTurno2.FindStringExact(reader("turno2"))
-                cmbTurno3.SelectedIndex = cmbTurno3.FindStringExact(reader("turno3"))
-                cmbTurno4.SelectedIndex = cmbTurno4.FindStringExact(reader("turno4"))
-                cmbTurno5.SelectedIndex = cmbTurno5.FindStringExact(reader("turno5"))
+                txtIDSalon.Text = reader("Id")
+                txtComentarios.Text = reader("Comentarios").ToString()
+                cmbPlanta.SelectedIndex = cmbPlanta.FindStringExact(reader("Planta"))
             End While
             reader.Close()
             conexion.Close()
         End Using
+
+        Dim conexionSalones As New DB()
+        ' Carga los horarios del salón.
+        For Turno As Integer = 0 To 5
+            Using cmd As New MySqlCommand()
+                With cmd
+                    .Connection = conexionSalones.Conn
+                    .CommandText = "SELECT Salón.ID, Salón.Comentarios, Salón.Planta, Grupo.Trayecto as 'Trayecto', Grupo.ID as 'idGrupo' FROM `Salón`, `Grupo` WHERE Salón.ID=Grupo.IDSalón and Grupo.IDTurno=@Turno and Salón.ID=@ID;"
+                    .CommandType = CommandType.Text
+                    .Parameters.AddWithValue("@ID", idSalon)
+                    .Parameters.AddWithValue("@Turno", Turno)
+                End With
+
+                Dim reader As MySqlDataReader = cmd.ExecuteReader()
+                While reader.Read()
+                    ' Too lazy to fix this hehe
+                    If Turno = 1 Then
+                        cmbTurno1.SelectedIndex = cmbTurno1.FindStringExact(reader("Trayecto").ToString() & " " & reader("idGrupo"))
+                    ElseIf Turno = 2 Then
+                        cmbTurno2.SelectedIndex = cmbTurno2.FindStringExact(reader("Trayecto").ToString() & " " & reader("idGrupo"))
+                    ElseIf Turno = 3 Then
+                        cmbTurno3.SelectedIndex = cmbTurno3.FindStringExact(reader("Trayecto").ToString() & " " & reader("idGrupo"))
+                    ElseIf Turno = 4 Then
+                        cmbTurno4.SelectedIndex = cmbTurno4.FindStringExact(reader("Trayecto").ToString() & " " & reader("idGrupo"))
+                    ElseIf Turno = 5 Then
+                        cmbTurno5.SelectedIndex = cmbTurno5.FindStringExact(reader("Trayecto").ToString() & " " & reader("idGrupo"))
+                    End If
+                End While
+                reader.Close()
+            End Using
+        Next
+        conexionSalones.Close()
     End Sub
 
     Private Sub controlesHabilitados(ByVal habilitado As Boolean)
@@ -240,25 +269,20 @@ Public Class frmAdminSalones
                 .CommandType = CommandType.Text
 
                 If btnAgregar.Text.Equals("Agregar salón") Then
-                    .CommandText = "INSERT INTO `salon` VALUES  (@id, @planta, @turno1, @turno2, @turno3, @turno4, @turno5, @comentarios);"
+                    .CommandText = "INSERT INTO `Salón` VALUES  (@ID, @Planta, @Comentarios);"
                 Else
-                    .CommandText = "UPDATE `salon` SET planta=@planta,turno1=@turno1, turno2=@turno2, turno3=@turno3, turno4=@turno4, turno5=@turno5, comentarios=@comentarios WHERE id=@id;"
+                    .CommandText = "UPDATE `Salón` SET Planta=@Planta, Comentarios=@Comentarios WHERE ID=@ID;"
                 End If
 
-                .Parameters.AddWithValue("@id", txtIDSalon.Text)
-                .Parameters.AddWithValue("@planta", cmbPlanta.Text)
-                .Parameters.AddWithValue("@turno1", cmbTurno1.Text)
-                .Parameters.AddWithValue("@turno2", cmbTurno2.Text)
-                .Parameters.AddWithValue("@turno3", cmbTurno3.Text)
-                .Parameters.AddWithValue("@turno4", cmbTurno4.Text)
-                .Parameters.AddWithValue("@turno5", cmbTurno5.Text)
-                .Parameters.AddWithValue("@comentarios", txtComentarios.Text)
+                .Parameters.AddWithValue("@ID", txtIDSalon.Text)
+                .Parameters.AddWithValue("@Planta", cmbPlanta.Text)
+                .Parameters.AddWithValue("@Comentarios", txtComentarios.Text)
             End With
 
             Try
                 cmd.ExecuteNonQuery()
                 conexion.Close()
-
+                guardarSalones()
                 cargarSalones()
                 If btnAgregar.Text.Equals("Agregar salón") Then
                     MessageBox.Show("Salón agregado correctamente", "Salón agregado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
@@ -274,6 +298,89 @@ Public Class frmAdminSalones
                 End If
             End Try
         End Using
+    End Sub
 
+    Private Sub cargarGrupos()
+        Dim conexion As New DB()
+        ' Carga los grupos al combo
+        For Turno As Integer = 0 To 5
+            Using cmd As New MySqlCommand()
+                With cmd
+                    .Connection = conexion.Conn
+                    .CommandText = "SELECT * from `Grupo` WHERE `IDTurno`=@Turno"
+                    .CommandType = CommandType.Text
+                    .Parameters.AddWithValue("@Turno", Turno.ToString())
+                End With
+
+                Dim reader As MySqlDataReader = cmd.ExecuteReader()
+                While reader.Read()
+                    ' Too lazy to fix this hehe
+                    If Turno = 1 Then
+                        cmbTurno1.Items.Add(reader("Trayecto").ToString() & " " & reader("ID"))
+                    ElseIf Turno = 2 Then
+                        cmbTurno2.Items.Add(reader("Trayecto").ToString() & " " & reader("ID"))
+                    ElseIf Turno = 3 Then
+                        cmbTurno3.Items.Add(reader("Trayecto").ToString() & " " & reader("ID"))
+                    ElseIf Turno = 4 Then
+                        cmbTurno4.Items.Add(reader("Trayecto").ToString() & " " & reader("ID"))
+                    ElseIf Turno = 5 Then
+                        cmbTurno5.Items.Add(reader("Trayecto").ToString() & " " & reader("ID"))
+                    End If
+                End While
+                reader.Close()
+            End Using
+        Next
+        conexion.Close()
+    End Sub
+
+    Private Sub guardarSalones()
+        ' Guardo los horarios del salón.
+        Dim conexionSalones As New DB()
+        For Turno As Integer = 1 To 5
+            Using cmd As New MySqlCommand()
+                With cmd
+                    .Connection = conexionSalones.Conn
+                    .CommandText = "UPDATE `Grupo` SET IDSalón=@IDSalón WHERE ID=@IDGrupo and IDTurno=@IDTurno and Trayecto=@Trayecto;"
+                    .CommandType = CommandType.Text
+                    If Turno = 1 Then
+                        If cmbTurno1.Text.Equals("Sin asignar") Then
+                            Return
+                        End If
+                        .Parameters.AddWithValue("@IDGrupo", cmbTurno1.Text.Substring(cmbTurno1.Text.IndexOf(" "), cmbTurno1.Text.Length - 1).Trim())
+                        .Parameters.AddWithValue("@Trayecto", Integer.Parse(cmbTurno1.Text.Substring(0, cmbTurno1.Text.IndexOf(" ")).Trim()))
+                    ElseIf Turno = 2 Then
+                        If cmbTurno2.Text.Equals("Sin asignar") Then
+                            Return
+                        End If
+                        .Parameters.AddWithValue("@IDGrupo", cmbTurno2.Text.Substring(cmbTurno2.Text.IndexOf(" "), cmbTurno2.Text.Length - 1).Trim())
+                        .Parameters.AddWithValue("@Trayecto", Integer.Parse(cmbTurno2.Text.Substring(0, cmbTurno2.Text.IndexOf(" ")).Trim()))
+                    ElseIf Turno = 3 Then
+                        If cmbTurno3.Text.Equals("Sin asignar") Then
+                            Return
+                        End If
+                        .Parameters.AddWithValue("@IDGrupo", cmbTurno3.Text.Substring(cmbTurno3.Text.IndexOf(" "), cmbTurno3.Text.Length - 1).Trim())
+                        .Parameters.AddWithValue("@Trayecto", Integer.Parse(cmbTurno3.Text.Substring(0, cmbTurno3.Text.IndexOf(" ")).Trim()))
+                    ElseIf Turno = 4 Then
+                        If cmbTurno4.Text.Equals("Sin asignar") Then
+                            Return
+                        End If
+                        .Parameters.AddWithValue("@IDGrupo", cmbTurno4.Text.Substring(cmbTurno4.Text.IndexOf(" "), cmbTurno4.Text.Length - 1).Trim())
+                        .Parameters.AddWithValue("@Trayecto", Integer.Parse(cmbTurno4.Text.Substring(0, cmbTurno4.Text.IndexOf(" ")).Trim()))
+                    ElseIf Turno = 5 Then
+                        If cmbTurno5.Text.Equals("Sin asignar") Then
+                            Return
+                        End If
+                        .Parameters.AddWithValue("@IDGrupo", cmbTurno5.Text.Substring(cmbTurno5.Text.IndexOf(" "), cmbTurno5.Text.Length - 1).Trim())
+                        .Parameters.AddWithValue("@Trayecto", Integer.Parse(cmbTurno5.Text.Substring(0, cmbTurno5.Text.IndexOf(" ")).Trim()))
+                    End If
+                    .Parameters.AddWithValue("@IDTurno", Turno)
+                    .Parameters.AddWithValue("@IDSalón", txtIDSalon.Text)
+                End With
+
+                cmd.ExecuteNonQuery()
+            End Using
+        Next
+
+        conexionSalones.Close()
     End Sub
 End Class
