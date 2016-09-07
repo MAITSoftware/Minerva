@@ -22,7 +22,6 @@ Partial Class frmMain
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim lblHorariosSemana As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.pnlInfoCurso = New System.Windows.Forms.Panel()
@@ -48,19 +47,11 @@ Partial Class frmMain
         Me.pnlFiltro = New System.Windows.Forms.Panel()
         Me.btnSalir = New System.Windows.Forms.Button()
         Me.btnAdministrar = New System.Windows.Forms.Button()
-        Me.chkTurno = New System.Windows.Forms.CheckBox()
         Me.imgLogo = New System.Windows.Forms.PictureBox()
-        Me.chkGrado = New System.Windows.Forms.CheckBox()
-        Me.chkCurso = New System.Windows.Forms.CheckBox()
-        Me.cboTurno = New System.Windows.Forms.ComboBox()
-        Me.cboGrado = New System.Windows.Forms.ComboBox()
-        Me.cboCurso = New System.Windows.Forms.ComboBox()
         Me.cboGrupo = New System.Windows.Forms.ComboBox()
         Me.lblGrupo = New System.Windows.Forms.Label()
-        Me.lblFiltrado = New System.Windows.Forms.Label()
         Me.pnlSeparador = New System.Windows.Forms.Panel()
         Me.lblSeleccioneGrupo = New System.Windows.Forms.Label()
-        Me.timerAnimacion = New System.Windows.Forms.Timer(Me.components)
         Me.Sábado = New Minerva.frmDia()
         Me.Viernes = New Minerva.frmDia()
         Me.Jueves = New Minerva.frmDia()
@@ -127,9 +118,9 @@ Partial Class frmMain
         Me.lblSeleccioneGrupo2.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
         Me.lblSeleccioneGrupo2.Font = New System.Drawing.Font("Corbel", 28.0!, System.Drawing.FontStyle.Bold)
         Me.lblSeleccioneGrupo2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblSeleccioneGrupo2.Location = New System.Drawing.Point(3, 1)
+        Me.lblSeleccioneGrupo2.Location = New System.Drawing.Point(3, 46)
         Me.lblSeleccioneGrupo2.Name = "lblSeleccioneGrupo2"
-        Me.lblSeleccioneGrupo2.Size = New System.Drawing.Size(297, 721)
+        Me.lblSeleccioneGrupo2.Size = New System.Drawing.Size(297, 676)
         Me.lblSeleccioneGrupo2.TabIndex = 21
         Me.lblSeleccioneGrupo2.Text = "No disponible" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.lblSeleccioneGrupo2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -326,16 +317,9 @@ Partial Class frmMain
         Me.pnlFiltro.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
         Me.pnlFiltro.Controls.Add(Me.btnSalir)
         Me.pnlFiltro.Controls.Add(Me.btnAdministrar)
-        Me.pnlFiltro.Controls.Add(Me.chkTurno)
         Me.pnlFiltro.Controls.Add(Me.imgLogo)
-        Me.pnlFiltro.Controls.Add(Me.chkGrado)
-        Me.pnlFiltro.Controls.Add(Me.chkCurso)
-        Me.pnlFiltro.Controls.Add(Me.cboTurno)
-        Me.pnlFiltro.Controls.Add(Me.cboGrado)
-        Me.pnlFiltro.Controls.Add(Me.cboCurso)
         Me.pnlFiltro.Controls.Add(Me.cboGrupo)
         Me.pnlFiltro.Controls.Add(Me.lblGrupo)
-        Me.pnlFiltro.Controls.Add(Me.lblFiltrado)
         Me.pnlFiltro.Location = New System.Drawing.Point(-5, -1)
         Me.pnlFiltro.Name = "pnlFiltro"
         Me.pnlFiltro.Size = New System.Drawing.Size(970, 175)
@@ -366,19 +350,6 @@ Partial Class frmMain
         Me.btnAdministrar.UseVisualStyleBackColor = False
         Me.btnAdministrar.Visible = False
         '
-        'chkTurno
-        '
-        Me.chkTurno.AutoSize = True
-        Me.chkTurno.Cursor = System.Windows.Forms.Cursors.Default
-        Me.chkTurno.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkTurno.ForeColor = System.Drawing.Color.PaleGreen
-        Me.chkTurno.Location = New System.Drawing.Point(502, 130)
-        Me.chkTurno.Name = "chkTurno"
-        Me.chkTurno.Size = New System.Drawing.Size(76, 27)
-        Me.chkTurno.TabIndex = 1
-        Me.chkTurno.Text = "Turno"
-        Me.chkTurno.UseVisualStyleBackColor = True
-        '
         'imgLogo
         '
         Me.imgLogo.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
@@ -391,71 +362,6 @@ Partial Class frmMain
         Me.imgLogo.TabIndex = 2
         Me.imgLogo.TabStop = False
         '
-        'chkGrado
-        '
-        Me.chkGrado.AutoSize = True
-        Me.chkGrado.Cursor = System.Windows.Forms.Cursors.Default
-        Me.chkGrado.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkGrado.ForeColor = System.Drawing.Color.PaleGreen
-        Me.chkGrado.Location = New System.Drawing.Point(502, 92)
-        Me.chkGrado.Name = "chkGrado"
-        Me.chkGrado.Size = New System.Drawing.Size(78, 27)
-        Me.chkGrado.TabIndex = 1
-        Me.chkGrado.Text = "Grado"
-        Me.chkGrado.UseVisualStyleBackColor = True
-        '
-        'chkCurso
-        '
-        Me.chkCurso.AutoSize = True
-        Me.chkCurso.Cursor = System.Windows.Forms.Cursors.Default
-        Me.chkCurso.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkCurso.ForeColor = System.Drawing.Color.PaleGreen
-        Me.chkCurso.Location = New System.Drawing.Point(502, 54)
-        Me.chkCurso.Name = "chkCurso"
-        Me.chkCurso.Size = New System.Drawing.Size(138, 27)
-        Me.chkCurso.TabIndex = 1
-        Me.chkCurso.Text = "Tipo de curso"
-        Me.chkCurso.UseVisualStyleBackColor = True
-        '
-        'cboTurno
-        '
-        Me.cboTurno.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cboTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboTurno.Enabled = False
-        Me.cboTurno.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cboTurno.FormattingEnabled = True
-        Me.cboTurno.Items.AddRange(New Object() {"Matutino", "Vespertino", "Intermedio", "Nocturno"})
-        Me.cboTurno.Location = New System.Drawing.Point(656, 130)
-        Me.cboTurno.Name = "cboTurno"
-        Me.cboTurno.Size = New System.Drawing.Size(161, 26)
-        Me.cboTurno.TabIndex = 0
-        '
-        'cboGrado
-        '
-        Me.cboGrado.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cboGrado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboGrado.Enabled = False
-        Me.cboGrado.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cboGrado.FormattingEnabled = True
-        Me.cboGrado.Items.AddRange(New Object() {"1", "2", "3"})
-        Me.cboGrado.Location = New System.Drawing.Point(656, 92)
-        Me.cboGrado.Name = "cboGrado"
-        Me.cboGrado.Size = New System.Drawing.Size(161, 26)
-        Me.cboGrado.TabIndex = 0
-        '
-        'cboCurso
-        '
-        Me.cboCurso.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cboCurso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboCurso.Enabled = False
-        Me.cboCurso.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cboCurso.FormattingEnabled = True
-        Me.cboCurso.Items.AddRange(New Object() {"Ciclo Básico", "Bachillerato", "Rumbo"})
-        Me.cboCurso.Location = New System.Drawing.Point(656, 54)
-        Me.cboCurso.Name = "cboCurso"
-        Me.cboCurso.Size = New System.Drawing.Size(161, 26)
-        Me.cboCurso.TabIndex = 0
-        '
         'cboGrupo
         '
         Me.cboGrupo.CausesValidation = False
@@ -463,32 +369,21 @@ Partial Class frmMain
         Me.cboGrupo.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboGrupo.FormattingEnabled = True
         Me.cboGrupo.Items.AddRange(New Object() {"Elija un grupo"})
-        Me.cboGrupo.Location = New System.Drawing.Point(228, 85)
+        Me.cboGrupo.Location = New System.Drawing.Point(351, 88)
         Me.cboGrupo.Name = "cboGrupo"
-        Me.cboGrupo.Size = New System.Drawing.Size(168, 28)
+        Me.cboGrupo.Size = New System.Drawing.Size(317, 28)
         Me.cboGrupo.TabIndex = 0
         '
         'lblGrupo
         '
         Me.lblGrupo.Font = New System.Drawing.Font("Candara", 23.75!, System.Drawing.FontStyle.Bold)
         Me.lblGrupo.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblGrupo.Location = New System.Drawing.Point(228, 43)
+        Me.lblGrupo.Location = New System.Drawing.Point(351, 46)
         Me.lblGrupo.Name = "lblGrupo"
-        Me.lblGrupo.Size = New System.Drawing.Size(168, 39)
+        Me.lblGrupo.Size = New System.Drawing.Size(317, 39)
         Me.lblGrupo.TabIndex = 1
         Me.lblGrupo.Text = "➤ Grupo"
         Me.lblGrupo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblFiltrado
-        '
-        Me.lblFiltrado.AutoSize = True
-        Me.lblFiltrado.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiltrado.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblFiltrado.Location = New System.Drawing.Point(459, 14)
-        Me.lblFiltrado.Name = "lblFiltrado"
-        Me.lblFiltrado.Size = New System.Drawing.Size(196, 29)
-        Me.lblFiltrado.TabIndex = 1
-        Me.lblFiltrado.Text = "Filtrar grupos por:"
         '
         'pnlSeparador
         '
@@ -508,10 +403,6 @@ Partial Class frmMain
         Me.lblSeleccioneGrupo.TabIndex = 20
         Me.lblSeleccioneGrupo.Text = "Para visualizar los horarios," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "debe escoger un grupo"
         Me.lblSeleccioneGrupo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'timerAnimacion
-        '
-        Me.timerAnimacion.Interval = 500
         '
         'Sábado
         '
@@ -588,7 +479,6 @@ Partial Class frmMain
         Me.pnlMaterias.ResumeLayout(False)
         Me.pnlMaterias.PerformLayout()
         Me.pnlFiltro.ResumeLayout(False)
-        Me.pnlFiltro.PerformLayout()
         CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -613,21 +503,13 @@ Partial Class frmMain
     Friend WithEvents lblGrado As System.Windows.Forms.Label
     Friend WithEvents lblNomGrupo As System.Windows.Forms.Label
     Friend WithEvents lblNomProfesor As System.Windows.Forms.Label
-    Friend WithEvents cboCurso As System.Windows.Forms.ComboBox
     Friend WithEvents imgLogo As System.Windows.Forms.PictureBox
-    Friend WithEvents chkTurno As System.Windows.Forms.CheckBox
-    Friend WithEvents chkGrado As System.Windows.Forms.CheckBox
-    Friend WithEvents chkCurso As System.Windows.Forms.CheckBox
-    Friend WithEvents cboGrado As System.Windows.Forms.ComboBox
     Friend WithEvents cboGrupo As System.Windows.Forms.ComboBox
-    Friend WithEvents cboTurno As System.Windows.Forms.ComboBox
     Friend WithEvents lblGrupo As System.Windows.Forms.Label
-    Friend WithEvents lblFiltrado As System.Windows.Forms.Label
     Friend WithEvents pnlMaterias As System.Windows.Forms.Panel
     Friend WithEvents pnlSeparador As System.Windows.Forms.Panel
     Friend WithEvents lblSeleccioneGrupo As System.Windows.Forms.Label
     Friend WithEvents lblSeleccioneGrupo2 As System.Windows.Forms.Label
-    Friend WithEvents timerAnimacion As System.Windows.Forms.Timer
     Friend WithEvents Lunes As Minerva.frmDia
     Friend WithEvents Martes As Minerva.frmDia
     Friend WithEvents Miércoles As Minerva.frmDia

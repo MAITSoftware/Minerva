@@ -12,6 +12,8 @@ Public Class frmMain
         InitializeComponent()
         Me.cuentaInvitado = invitado
         Me.Administrador = admin
+        cboGrupo.SelectedIndex = 0
+        cargarDatos()
     End Sub
 
     Private Sub btnAdministrar_showMenu(sender As Object, e As EventArgs) Handles btnAdministrar.Click
@@ -20,20 +22,16 @@ Public Class frmMain
         administracion.ShowDialog(Me)
     End Sub
 
-
-    Private Sub chkFiltrado_Cambiado(sender As Object, e As EventArgs) Handles chkCurso.CheckedChanged, chkGrado.CheckedChanged, chkTurno.CheckedChanged
-        ' Activa o desactiva los combobox en base a los checkbox
-        cboCurso.Enabled = chkCurso.Checked
-        cboGrado.Enabled = chkGrado.Checked
-        cboTurno.Enabled = chkTurno.Checked
-        cboCurso.SelectedIndex = -1
-        cboGrado.SelectedIndex = -1
-        cboGrado.SelectedIndex = -1
-    End Sub
-
     Private Sub cboGrupo_Changed(sender As Object, e As EventArgs) Handles cboGrupo.SelectedIndexChanged
         ' Actualiza la información e horarios del grupo tras la selección de grupos
-        lblNomGrupo.Text = "Grupo" & vbCrLf & cboGrupo.Text
+        If cboGrupo.Text.Equals("Elija un grupo") Then
+            lblSeleccioneGrupo.Visible = True
+            lblSeleccioneGrupo.BringToFront()
+            lblSeleccioneGrupo2.Visible = True
+            lblSeleccioneGrupo2.BringToFront()
+            Return
+        End If
+        lblNomGrupo.Text = "Grupo" & vbCrLf & cboGrupo.Text.Substring(0, cboGrupo.Text.IndexOf(" (")).Trim()
         lblSeleccioneGrupo.Visible = cboGrupo.SelectedIndex = -1
         lblSeleccioneGrupo2.Visible = cboGrupo.SelectedIndex = -1
     End Sub
@@ -44,8 +42,7 @@ Public Class frmMain
     End Sub
 
     Private Sub Minerva_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Al iniciar programa inicia el timer de la animacion, y oculta el boton de administracion en caso de que sea invitado
-        timerAnimacion.Start()
+        ' Al iniciar programa inicia oculta el boton de administracion en caso de que sea invitado
         If Not cuentaInvitado Then
             btnAdministrar.Visible = True
             imgLogo.Location = New Point(12, 15)
@@ -53,24 +50,7 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub timerAnimacion_Tick(sender As Object, e As EventArgs) Handles timerAnimacion.Tick
-        ' Cambia el color del label cada x tiempo
-        If Not cboGrupo.SelectedIndex = -1 Then
-            lblGrupo.ForeColor = Color.PaleGreen
-            lblGrupo.Text = "Grupo"
-            Return
-        End If
-        lblGrupo.Text = "➤ Grupo"
-        If estadoAnimacion Then
-            lblGrupo.ForeColor = Color.PaleGreen
-        Else
-            lblGrupo.ForeColor = Color.FromArgb(47, 213, 102)
-        End If
-
-        estadoAnimacion = Not estadoAnimacion
-    End Sub
-
-    Private Sub cboCurso_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCurso.SelectedIndexChanged
+    Private Sub cboCurso_SelectedIndexChanged(sender As Object, e As EventArgs)
         ' Esto solo es para prueba: Al seleccionar el tipo de curso agrega más datos al día
         Lunes.agregarHora("13:00", "Son las")
         Lunes.agregarHora("14:00", "7:30am :(")
@@ -85,23 +65,21 @@ Public Class frmMain
         Me.Dispose()
     End Sub
 
-    Private Sub cargarGrupos()
+    Private Sub cargarDatos()
         Dim conexion As New DB()
         ' Carga los grupos al combo
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * from `Grupo`;"
+                .CommandText = "SELECT *, Turno.Nombre as 'nombreTurno' from `Grupo`, `Turno` where Grupo.IDTurno=Turno.ID;"
                 .CommandType = CommandType.Text
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                ' Too lazy to fix this hehe
-                cboGrupo.Items.Add(reader("Trayecto").ToString() & " " & reader("ID"))
+                cboGrupo.Items.Add(reader("Trayecto").ToString() & " " & reader("ID") & " (" & reader("nombreTurno") & ")")
             End While
             reader.Close()
         End Using
-        conexion.Close()
     End Sub
 End Class
