@@ -181,7 +181,7 @@ Public Class frmAdminSalones
 
         Dim conexionSalones As New DB()
         ' Carga los horarios del salón.
-        For Turno As Integer = 0 To 5
+        For Turno As Integer = 1 To 5
             Using cmd As New MySqlCommand()
                 With cmd
                     .Connection = conexionSalones.Conn
@@ -342,33 +342,34 @@ Public Class frmAdminSalones
                     .Connection = conexionSalones.Conn
                     .CommandText = "UPDATE `Grupo` SET IDSalón=@IDSalón WHERE ID=@IDGrupo and IDTurno=@IDTurno and Trayecto=@Trayecto;"
                     .CommandType = CommandType.Text
+                    Console.WriteLine(Turno)
                     If Turno = 1 Then
                         If cmbTurno1.Text.Equals("Sin asignar") Then
-                            Return
+                            Continue For
                         End If
                         .Parameters.AddWithValue("@IDGrupo", cmbTurno1.Text.Substring(cmbTurno1.Text.IndexOf(" "), cmbTurno1.Text.Length - 1).Trim())
                         .Parameters.AddWithValue("@Trayecto", Integer.Parse(cmbTurno1.Text.Substring(0, cmbTurno1.Text.IndexOf(" ")).Trim()))
                     ElseIf Turno = 2 Then
                         If cmbTurno2.Text.Equals("Sin asignar") Then
-                            Return
+                            Continue For
                         End If
                         .Parameters.AddWithValue("@IDGrupo", cmbTurno2.Text.Substring(cmbTurno2.Text.IndexOf(" "), cmbTurno2.Text.Length - 1).Trim())
                         .Parameters.AddWithValue("@Trayecto", Integer.Parse(cmbTurno2.Text.Substring(0, cmbTurno2.Text.IndexOf(" ")).Trim()))
                     ElseIf Turno = 3 Then
                         If cmbTurno3.Text.Equals("Sin asignar") Then
-                            Return
+                            Continue For
                         End If
                         .Parameters.AddWithValue("@IDGrupo", cmbTurno3.Text.Substring(cmbTurno3.Text.IndexOf(" "), cmbTurno3.Text.Length - 1).Trim())
                         .Parameters.AddWithValue("@Trayecto", Integer.Parse(cmbTurno3.Text.Substring(0, cmbTurno3.Text.IndexOf(" ")).Trim()))
                     ElseIf Turno = 4 Then
                         If cmbTurno4.Text.Equals("Sin asignar") Then
-                            Return
+                            Continue For
                         End If
                         .Parameters.AddWithValue("@IDGrupo", cmbTurno4.Text.Substring(cmbTurno4.Text.IndexOf(" "), cmbTurno4.Text.Length - 1).Trim())
                         .Parameters.AddWithValue("@Trayecto", Integer.Parse(cmbTurno4.Text.Substring(0, cmbTurno4.Text.IndexOf(" ")).Trim()))
                     ElseIf Turno = 5 Then
                         If cmbTurno5.Text.Equals("Sin asignar") Then
-                            Return
+                            Continue For
                         End If
                         .Parameters.AddWithValue("@IDGrupo", cmbTurno5.Text.Substring(cmbTurno5.Text.IndexOf(" "), cmbTurno5.Text.Length - 1).Trim())
                         .Parameters.AddWithValue("@Trayecto", Integer.Parse(cmbTurno5.Text.Substring(0, cmbTurno5.Text.IndexOf(" ")).Trim()))
