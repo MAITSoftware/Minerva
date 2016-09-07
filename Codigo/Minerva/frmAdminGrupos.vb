@@ -93,6 +93,8 @@ Public Class frmAdminGrupos
         cmbOrientacion.SelectedIndex = -1
         numGrado.Enabled = habilitado
         numGrado.Value = 1
+        chkDiscapacitado.Enabled = True
+        chkDiscapacitado.Checked = False
     End Sub
 
     Private Sub btnNuevoGrupo_Click(sender As Object, e As EventArgs) Handles btnNuevoGrupo.Click
@@ -167,10 +169,11 @@ Public Class frmAdminGrupos
             With cmd
                 .Connection = conexion.Conn
                 .CommandType = CommandType.Text
-                .CommandText = "INSERT INTO `Grupo` VALUES  (@ID, @Trayecto, @IDTurno, @IDCurso, @IDOrientación, Null);"
+                .CommandText = "INSERT INTO `Grupo` VALUES  (@ID, @Trayecto, @Discapacitado, @IDTurno, @IDCurso, @IDOrientación, Null);"
                 Console.WriteLine(cmbTurno.SelectedIndex)
                 .Parameters.AddWithValue("@ID", txtIDGrupo.Text)
                 .Parameters.AddWithValue("@Trayecto", numGrado.Value.ToString())
+                .Parameters.AddWithValue("@Discapacitado", chkDiscapacitado.Checked)
                 .Parameters.AddWithValue("@IDCurso", cmbCurso.Text.Substring(0, cmbCurso.Text.IndexOf(" (")).Trim())
                 .Parameters.AddWithValue("@IDTurno", cmbTurno.SelectedIndex + 1)
                 .Parameters.AddWithValue("@IDOrientación", cmbOrientacion.Text.Substring(0, cmbOrientacion.Text.IndexOf(" (")).Trim())
@@ -225,6 +228,7 @@ Public Class frmAdminGrupos
                 numGrado.Value = Integer.Parse(reader("Trayecto"))
                 cmbCurso.SelectedIndex = cmbCurso.FindStringExact(reader("IDCurso").ToString() & " (" & reader("nombreCurso") & ")")
                 cargarOrientaciones()
+                chkDiscapacitado.Checked = reader("Discapacitado")
                 cmbTurno.SelectedIndex = reader("IDTurno") - 1
                 cmbOrientacion.SelectedIndex = cmbOrientacion.FindStringExact(reader("IDOrientación").ToString() & " (" & reader("nombreOrientación") & ")")
                 cmbOrientacion.Enabled = False

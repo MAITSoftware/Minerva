@@ -43,6 +43,7 @@ Partial Class frmAdminGrupos
         Me.pnlGrupos = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmbCurso = New System.Windows.Forms.ComboBox()
         Me.cmbOrientacion = New System.Windows.Forms.ComboBox()
+        Me.chkDiscapacitado = New System.Windows.Forms.CheckBox()
         lblTitulo = New System.Windows.Forms.Label()
         lblGrupos = New System.Windows.Forms.Label()
         CType(Me.numGrado, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -288,11 +289,24 @@ Partial Class frmAdminGrupos
         Me.cmbOrientacion.Size = New System.Drawing.Size(239, 34)
         Me.cmbOrientacion.TabIndex = 120
         '
+        'chkDiscapacitado
+        '
+        Me.chkDiscapacitado.AutoSize = True
+        Me.chkDiscapacitado.Font = New System.Drawing.Font("Corbel", 18.0!)
+        Me.chkDiscapacitado.ForeColor = System.Drawing.Color.PaleGreen
+        Me.chkDiscapacitado.Location = New System.Drawing.Point(27, 322)
+        Me.chkDiscapacitado.Name = "chkDiscapacitado"
+        Me.chkDiscapacitado.Size = New System.Drawing.Size(256, 33)
+        Me.chkDiscapacitado.TabIndex = 121
+        Me.chkDiscapacitado.Text = "Alumno discapacitado"
+        Me.chkDiscapacitado.UseVisualStyleBackColor = True
+        '
         'frmAdminGrupos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.chkDiscapacitado)
         Me.Controls.Add(Me.cmbOrientacion)
         Me.Controls.Add(Me.cmbCurso)
         Me.Controls.Add(Me.btnAgregar)
@@ -337,5 +351,6 @@ Partial Class frmAdminGrupos
     Friend WithEvents pnlGrupos As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents cmbCurso As System.Windows.Forms.ComboBox
     Friend WithEvents cmbOrientacion As System.Windows.Forms.ComboBox
+    Friend WithEvents chkDiscapacitado As System.Windows.Forms.CheckBox
 
 End Class

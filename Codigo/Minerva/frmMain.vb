@@ -1,4 +1,7 @@
-﻿Public Class frmMain
+﻿Imports MySql.Data.MySqlClient
+Imports System.Data
+
+Public Class frmMain
 
     Dim cuentaInvitado As Boolean = True
     Dim estadoAnimacion As Boolean = False
@@ -80,5 +83,25 @@
         ' Al clickear salir, nos desloguea y muestra la ventana de inicio
         frmIngresarRegistro.Show()
         Me.Dispose()
+    End Sub
+
+    Private Sub cargarGrupos()
+        Dim conexion As New DB()
+        ' Carga los grupos al combo
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT * from `Grupo`;"
+                .CommandType = CommandType.Text
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                ' Too lazy to fix this hehe
+                cboGrupo.Items.Add(reader("Trayecto").ToString() & " " & reader("ID"))
+            End While
+            reader.Close()
+        End Using
+        conexion.Close()
     End Sub
 End Class

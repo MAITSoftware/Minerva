@@ -46,8 +46,10 @@ Partial Class frmMain
         Me.lblProfesores = New System.Windows.Forms.Label()
         Me.lblNomGrupo = New System.Windows.Forms.Label()
         Me.pnlFiltro = New System.Windows.Forms.Panel()
+        Me.btnSalir = New System.Windows.Forms.Button()
         Me.btnAdministrar = New System.Windows.Forms.Button()
         Me.chkTurno = New System.Windows.Forms.CheckBox()
+        Me.imgLogo = New System.Windows.Forms.PictureBox()
         Me.chkGrado = New System.Windows.Forms.CheckBox()
         Me.chkCurso = New System.Windows.Forms.CheckBox()
         Me.cboTurno = New System.Windows.Forms.ComboBox()
@@ -59,8 +61,6 @@ Partial Class frmMain
         Me.pnlSeparador = New System.Windows.Forms.Panel()
         Me.lblSeleccioneGrupo = New System.Windows.Forms.Label()
         Me.timerAnimacion = New System.Windows.Forms.Timer(Me.components)
-        Me.imgLogo = New System.Windows.Forms.PictureBox()
-        Me.btnSalir = New System.Windows.Forms.Button()
         Me.Sábado = New Minerva.frmDia()
         Me.Viernes = New Minerva.frmDia()
         Me.Jueves = New Minerva.frmDia()
@@ -158,77 +158,77 @@ Partial Class frmMain
         'lblNomProfesor
         '
         Me.lblNomProfesor.AutoSize = True
-        Me.lblNomProfesor.Font = New System.Drawing.Font("Nirmala UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblNomProfesor.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblNomProfesor.ForeColor = System.Drawing.SystemColors.AppWorkspace
         Me.lblNomProfesor.Location = New System.Drawing.Point(131, 11)
         Me.lblNomProfesor.Name = "lblNomProfesor"
-        Me.lblNomProfesor.Size = New System.Drawing.Size(107, 21)
+        Me.lblNomProfesor.Size = New System.Drawing.Size(109, 20)
         Me.lblNomProfesor.TabIndex = 1
         Me.lblNomProfesor.Text = "Santiago Vigo"
         '
         'lblValorSalon
         '
         Me.lblValorSalon.AutoSize = True
-        Me.lblValorSalon.Font = New System.Drawing.Font("Nirmala UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValorSalon.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblValorSalon.ForeColor = System.Drawing.SystemColors.AppWorkspace
         Me.lblValorSalon.Location = New System.Drawing.Point(159, 530)
         Me.lblValorSalon.Name = "lblValorSalon"
-        Me.lblValorSalon.Size = New System.Drawing.Size(28, 21)
+        Me.lblValorSalon.Size = New System.Drawing.Size(27, 20)
         Me.lblValorSalon.TabIndex = 6
         Me.lblValorSalon.Text = "17"
         '
         'lblValorCantAlumnos
         '
         Me.lblValorCantAlumnos.AutoSize = True
-        Me.lblValorCantAlumnos.Font = New System.Drawing.Font("Nirmala UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValorCantAlumnos.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblValorCantAlumnos.ForeColor = System.Drawing.SystemColors.AppWorkspace
         Me.lblValorCantAlumnos.Location = New System.Drawing.Point(206, 498)
         Me.lblValorCantAlumnos.Name = "lblValorCantAlumnos"
-        Me.lblValorCantAlumnos.Size = New System.Drawing.Size(28, 21)
+        Me.lblValorCantAlumnos.Size = New System.Drawing.Size(27, 20)
         Me.lblValorCantAlumnos.TabIndex = 6
         Me.lblValorCantAlumnos.Text = "24"
         '
         'lblValorTurno
         '
         Me.lblValorTurno.AutoSize = True
-        Me.lblValorTurno.Font = New System.Drawing.Font("Nirmala UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValorTurno.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblValorTurno.ForeColor = System.Drawing.SystemColors.AppWorkspace
         Me.lblValorTurno.Location = New System.Drawing.Point(85, 465)
         Me.lblValorTurno.Name = "lblValorTurno"
-        Me.lblValorTurno.Size = New System.Drawing.Size(77, 21)
+        Me.lblValorTurno.Size = New System.Drawing.Size(75, 20)
         Me.lblValorTurno.TabIndex = 6
         Me.lblValorTurno.Text = "Matutino "
         '
         'lblValorGrado
         '
         Me.lblValorGrado.AutoSize = True
-        Me.lblValorGrado.Font = New System.Drawing.Font("Nirmala UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValorGrado.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblValorGrado.ForeColor = System.Drawing.SystemColors.AppWorkspace
         Me.lblValorGrado.Location = New System.Drawing.Point(87, 401)
         Me.lblValorGrado.Name = "lblValorGrado"
-        Me.lblValorGrado.Size = New System.Drawing.Size(19, 21)
+        Me.lblValorGrado.Size = New System.Drawing.Size(18, 20)
         Me.lblValorGrado.TabIndex = 6
         Me.lblValorGrado.Text = "3"
         '
         'lblValorTipo
         '
         Me.lblValorTipo.AutoSize = True
-        Me.lblValorTipo.Font = New System.Drawing.Font("Nirmala UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValorTipo.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblValorTipo.ForeColor = System.Drawing.SystemColors.AppWorkspace
         Me.lblValorTipo.Location = New System.Drawing.Point(147, 369)
         Me.lblValorTipo.Name = "lblValorTipo"
-        Me.lblValorTipo.Size = New System.Drawing.Size(91, 21)
+        Me.lblValorTipo.Size = New System.Drawing.Size(92, 20)
         Me.lblValorTipo.TabIndex = 6
         Me.lblValorTipo.Text = "Bachillerato"
         '
         'lblValorAdscripto
         '
         Me.lblValorAdscripto.AutoSize = True
-        Me.lblValorAdscripto.Font = New System.Drawing.Font("Nirmala UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValorAdscripto.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblValorAdscripto.ForeColor = System.Drawing.SystemColors.AppWorkspace
         Me.lblValorAdscripto.Location = New System.Drawing.Point(174, 432)
         Me.lblValorAdscripto.Name = "lblValorAdscripto"
-        Me.lblValorAdscripto.Size = New System.Drawing.Size(112, 21)
+        Me.lblValorAdscripto.Size = New System.Drawing.Size(116, 20)
         Me.lblValorAdscripto.TabIndex = 6
         Me.lblValorAdscripto.Text = "Gabriela asdsd"
         '
@@ -341,6 +341,18 @@ Partial Class frmMain
         Me.pnlFiltro.Size = New System.Drawing.Size(970, 175)
         Me.pnlFiltro.TabIndex = 1
         '
+        'btnSalir
+        '
+        Me.btnSalir.BackColor = System.Drawing.Color.Silver
+        Me.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSalir.Font = New System.Drawing.Font("Corbel", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSalir.Location = New System.Drawing.Point(17, 138)
+        Me.btnSalir.Name = "btnSalir"
+        Me.btnSalir.Size = New System.Drawing.Size(176, 28)
+        Me.btnSalir.TabIndex = 6
+        Me.btnSalir.Text = "Cerrar sesión"
+        Me.btnSalir.UseVisualStyleBackColor = False
+        '
         'btnAdministrar
         '
         Me.btnAdministrar.BackColor = System.Drawing.Color.Silver
@@ -366,6 +378,18 @@ Partial Class frmMain
         Me.chkTurno.TabIndex = 1
         Me.chkTurno.Text = "Turno"
         Me.chkTurno.UseVisualStyleBackColor = True
+        '
+        'imgLogo
+        '
+        Me.imgLogo.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.imgLogo.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMinerva
+        Me.imgLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogo.Location = New System.Drawing.Point(54, -1)
+        Me.imgLogo.Name = "imgLogo"
+        Me.imgLogo.Size = New System.Drawing.Size(103, 133)
+        Me.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.imgLogo.TabIndex = 2
+        Me.imgLogo.TabStop = False
         '
         'chkGrado
         '
@@ -438,7 +462,7 @@ Partial Class frmMain
         Me.cboGrupo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboGrupo.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboGrupo.FormattingEnabled = True
-        Me.cboGrupo.Items.AddRange(New Object() {"1ero BG", "1ero BH", "1ero XD", "2do BG", "3ero BG"})
+        Me.cboGrupo.Items.AddRange(New Object() {"Elija un grupo"})
         Me.cboGrupo.Location = New System.Drawing.Point(228, 85)
         Me.cboGrupo.Name = "cboGrupo"
         Me.cboGrupo.Size = New System.Drawing.Size(168, 28)
@@ -488,30 +512,6 @@ Partial Class frmMain
         'timerAnimacion
         '
         Me.timerAnimacion.Interval = 500
-        '
-        'imgLogo
-        '
-        Me.imgLogo.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
-        Me.imgLogo.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMinerva
-        Me.imgLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.imgLogo.Location = New System.Drawing.Point(54, -1)
-        Me.imgLogo.Name = "imgLogo"
-        Me.imgLogo.Size = New System.Drawing.Size(103, 133)
-        Me.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.imgLogo.TabIndex = 2
-        Me.imgLogo.TabStop = False
-        '
-        'btnSalir
-        '
-        Me.btnSalir.BackColor = System.Drawing.Color.Silver
-        Me.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSalir.Font = New System.Drawing.Font("Corbel", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSalir.Location = New System.Drawing.Point(17, 138)
-        Me.btnSalir.Name = "btnSalir"
-        Me.btnSalir.Size = New System.Drawing.Size(176, 28)
-        Me.btnSalir.TabIndex = 6
-        Me.btnSalir.Text = "Cerrar sesión"
-        Me.btnSalir.UseVisualStyleBackColor = False
         '
         'Sábado
         '
