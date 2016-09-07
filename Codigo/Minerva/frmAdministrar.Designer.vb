@@ -29,6 +29,7 @@ Partial Class frmAdministrar
         Me.pnlBorde = New System.Windows.Forms.Panel()
         Me.btnHorarios = New System.Windows.Forms.Button()
         Me.btnDocentes = New System.Windows.Forms.Button()
+        Me.btnUsuarios = New System.Windows.Forms.Button()
         Me.pnlBorde1 = New System.Windows.Forms.Panel()
         Me.pnlBorde2 = New System.Windows.Forms.Panel()
         Me.pnlBorde3 = New System.Windows.Forms.Panel()
@@ -86,6 +87,7 @@ Partial Class frmAdministrar
         Me.pnlPestañas.Controls.Add(Me.btnDocentes)
         Me.pnlPestañas.Controls.Add(Me.btnGrupos)
         Me.pnlPestañas.Controls.Add(Me.btnSalones)
+        Me.pnlPestañas.Controls.Add(Me.btnUsuarios)
         Me.pnlPestañas.Location = New System.Drawing.Point(0, 0)
         Me.pnlPestañas.Name = "pnlPestañas"
         Me.pnlPestañas.Size = New System.Drawing.Size(1007, 50)
@@ -143,6 +145,28 @@ Partial Class frmAdministrar
         Me.btnDocentes.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.btnDocentes.UseVisualStyleBackColor = False
         '
+        'btnUsuarios
+        '
+        Me.btnUsuarios.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnUsuarios.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.btnUsuarios.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnUsuarios.FlatAppearance.BorderColor = System.Drawing.Color.Gray
+        Me.btnUsuarios.FlatAppearance.BorderSize = 2
+        Me.btnUsuarios.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.btnUsuarios.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.btnUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnUsuarios.Font = New System.Drawing.Font("Corbel", 18.0!)
+        Me.btnUsuarios.ForeColor = System.Drawing.Color.White
+        Me.btnUsuarios.Location = New System.Drawing.Point(532, 6)
+        Me.btnUsuarios.Margin = New System.Windows.Forms.Padding(0)
+        Me.btnUsuarios.Name = "btnUsuarios"
+        Me.btnUsuarios.Size = New System.Drawing.Size(135, 44)
+        Me.btnUsuarios.TabIndex = 6
+        Me.btnUsuarios.TabStop = False
+        Me.btnUsuarios.Text = "Usuarios"
+        Me.btnUsuarios.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.btnUsuarios.UseVisualStyleBackColor = False
+        '
         'pnlBorde1
         '
         Me.pnlBorde1.BackColor = System.Drawing.Color.PaleGreen
@@ -196,4 +220,5 @@ Partial Class frmAdministrar
     Friend WithEvents pnlBorde1 As System.Windows.Forms.Panel
     Friend WithEvents pnlBorde2 As System.Windows.Forms.Panel
     Friend WithEvents pnlBorde3 As System.Windows.Forms.Panel
+    Friend WithEvents btnUsuarios As System.Windows.Forms.Button
 End Class

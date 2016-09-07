@@ -12,9 +12,6 @@ Public Class frmAdminSalones
         cargarGrupos()
 
         controlesHabilitados(True)
-
-        Call New ToolTip().SetToolTip(lblObligatorioID, "Dato obligatorio")
-        Call New ToolTip().SetToolTip(lblObligatorioPlanta, "Dato obligatorio")
     End Sub
 
     Private Sub cargarSalones()

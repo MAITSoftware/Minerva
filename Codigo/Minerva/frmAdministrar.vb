@@ -9,7 +9,7 @@
         btnSalones.PerformClick()
     End Sub
 
-    Private Sub botones_Click(sender As Object, e As EventArgs) Handles btnSalones.Click, btnGrupos.Click, btnDocentes.Click, btnHorarios.Click
+    Private Sub botones_Click(sender As Object, e As EventArgs) Handles btnSalones.Click, btnGrupos.Click, btnDocentes.Click, btnHorarios.Click, btnUsuarios.Click
         ' Cambia la pestaña seleccionada y le cambia el fondo
         pnlTrabajo.Focus()
         If btnActual Is sender Then
@@ -65,6 +65,14 @@
     Private Sub btnHorarios_Click(sender As Object, e As EventArgs) Handles btnHorarios.Click
         Me.Controls.Remove(pnlTrabajo)
         pnlTrabajo = New frmAdminHorarios()
+        Me.Controls.Add(pnlTrabajo)
+        pnlTrabajo.Location = New Point(2, 42)
+        pnlTrabajo.BringToFront()
+    End Sub
+
+    Private Sub btnUsuarios_Click(sender As Object, e As EventArgs) Handles btnUsuarios.Click
+        Me.Controls.Remove(pnlTrabajo)
+        pnlTrabajo = New frmAdminUsuarios()
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)
         pnlTrabajo.BringToFront()

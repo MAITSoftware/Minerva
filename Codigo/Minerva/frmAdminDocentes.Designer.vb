@@ -50,10 +50,6 @@ Partial Class frmAdminDocentes
         Me.pnlDocentes = New System.Windows.Forms.FlowLayoutPanel()
         Me.btnNuevoDocente = New System.Windows.Forms.Button()
         Me.lblNuevoDocente = New System.Windows.Forms.Label()
-        Me.lblObligatorio1 = New System.Windows.Forms.Label()
-        Me.lblObligatorio2 = New System.Windows.Forms.Label()
-        Me.lblObligatorio3 = New System.Windows.Forms.Label()
-        Me.lblObligatorio4 = New System.Windows.Forms.Label()
         Me.btnCancelarEdicion = New System.Windows.Forms.Button()
         Me.btnAgregarDocente = New System.Windows.Forms.Button()
         Me.numHsSemanales = New System.Windows.Forms.NumericUpDown()
@@ -67,10 +63,6 @@ Partial Class frmAdminDocentes
         Me.mnuEdicionDocente = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.DatosDelDocenteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MateriasDelDocenteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.lblObligatorio5 = New System.Windows.Forms.Label()
-        Me.lblObligatorio6 = New System.Windows.Forms.Label()
-        Me.lblObligatorio7 = New System.Windows.Forms.Label()
-        Me.lblObligatorio8 = New System.Windows.Forms.Label()
         Me.btnEliminarAsignatura = New System.Windows.Forms.PictureBox()
         Me.btnAgregarAsignatura = New System.Windows.Forms.PictureBox()
         lblDocentes = New System.Windows.Forms.Label()
@@ -378,54 +370,6 @@ Partial Class frmAdminDocentes
         Me.lblNuevoDocente.TabIndex = 105
         Me.lblNuevoDocente.Text = "Nuevo docente"
         '
-        'lblObligatorio1
-        '
-        Me.lblObligatorio1.BackColor = System.Drawing.Color.Transparent
-        Me.lblObligatorio1.Cursor = System.Windows.Forms.Cursors.Help
-        Me.lblObligatorio1.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblObligatorio1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio1.Location = New System.Drawing.Point(120, 113)
-        Me.lblObligatorio1.Name = "lblObligatorio1"
-        Me.lblObligatorio1.Size = New System.Drawing.Size(23, 23)
-        Me.lblObligatorio1.TabIndex = 107
-        Me.lblObligatorio1.Text = "*"
-        '
-        'lblObligatorio2
-        '
-        Me.lblObligatorio2.BackColor = System.Drawing.Color.Transparent
-        Me.lblObligatorio2.Cursor = System.Windows.Forms.Cursors.Help
-        Me.lblObligatorio2.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblObligatorio2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio2.Location = New System.Drawing.Point(271, 113)
-        Me.lblObligatorio2.Name = "lblObligatorio2"
-        Me.lblObligatorio2.Size = New System.Drawing.Size(23, 23)
-        Me.lblObligatorio2.TabIndex = 108
-        Me.lblObligatorio2.Text = "*"
-        '
-        'lblObligatorio3
-        '
-        Me.lblObligatorio3.BackColor = System.Drawing.Color.Transparent
-        Me.lblObligatorio3.Cursor = System.Windows.Forms.Cursors.Help
-        Me.lblObligatorio3.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblObligatorio3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio3.Location = New System.Drawing.Point(396, 113)
-        Me.lblObligatorio3.Name = "lblObligatorio3"
-        Me.lblObligatorio3.Size = New System.Drawing.Size(23, 23)
-        Me.lblObligatorio3.TabIndex = 109
-        Me.lblObligatorio3.Text = "*"
-        '
-        'lblObligatorio4
-        '
-        Me.lblObligatorio4.BackColor = System.Drawing.Color.Transparent
-        Me.lblObligatorio4.Cursor = System.Windows.Forms.Cursors.Help
-        Me.lblObligatorio4.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblObligatorio4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio4.Location = New System.Drawing.Point(127, 191)
-        Me.lblObligatorio4.Name = "lblObligatorio4"
-        Me.lblObligatorio4.Size = New System.Drawing.Size(23, 23)
-        Me.lblObligatorio4.TabIndex = 110
-        Me.lblObligatorio4.Text = "*"
-        '
         'btnCancelarEdicion
         '
         Me.btnCancelarEdicion.AutoSize = True
@@ -534,54 +478,6 @@ Partial Class frmAdminDocentes
         Me.MateriasDelDocenteToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
         Me.MateriasDelDocenteToolStripMenuItem.Text = "Asignaturas del docente"
         '
-        'lblObligatorio5
-        '
-        Me.lblObligatorio5.BackColor = System.Drawing.Color.Transparent
-        Me.lblObligatorio5.Cursor = System.Windows.Forms.Cursors.Help
-        Me.lblObligatorio5.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblObligatorio5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio5.Location = New System.Drawing.Point(415, 303)
-        Me.lblObligatorio5.Name = "lblObligatorio5"
-        Me.lblObligatorio5.Size = New System.Drawing.Size(23, 23)
-        Me.lblObligatorio5.TabIndex = 122
-        Me.lblObligatorio5.Text = "*"
-        '
-        'lblObligatorio6
-        '
-        Me.lblObligatorio6.BackColor = System.Drawing.Color.Transparent
-        Me.lblObligatorio6.Cursor = System.Windows.Forms.Cursors.Help
-        Me.lblObligatorio6.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblObligatorio6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio6.Location = New System.Drawing.Point(587, 303)
-        Me.lblObligatorio6.Name = "lblObligatorio6"
-        Me.lblObligatorio6.Size = New System.Drawing.Size(23, 23)
-        Me.lblObligatorio6.TabIndex = 123
-        Me.lblObligatorio6.Text = "*"
-        '
-        'lblObligatorio7
-        '
-        Me.lblObligatorio7.BackColor = System.Drawing.Color.Transparent
-        Me.lblObligatorio7.Cursor = System.Windows.Forms.Cursors.Help
-        Me.lblObligatorio7.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblObligatorio7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio7.Location = New System.Drawing.Point(415, 382)
-        Me.lblObligatorio7.Name = "lblObligatorio7"
-        Me.lblObligatorio7.Size = New System.Drawing.Size(23, 23)
-        Me.lblObligatorio7.TabIndex = 124
-        Me.lblObligatorio7.Text = "*"
-        '
-        'lblObligatorio8
-        '
-        Me.lblObligatorio8.BackColor = System.Drawing.Color.Transparent
-        Me.lblObligatorio8.Cursor = System.Windows.Forms.Cursors.Help
-        Me.lblObligatorio8.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblObligatorio8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio8.Location = New System.Drawing.Point(610, 382)
-        Me.lblObligatorio8.Name = "lblObligatorio8"
-        Me.lblObligatorio8.Size = New System.Drawing.Size(23, 23)
-        Me.lblObligatorio8.TabIndex = 125
-        Me.lblObligatorio8.Text = "*"
-        '
         'btnEliminarAsignatura
         '
         Me.btnEliminarAsignatura.BackColor = System.Drawing.Color.Transparent
@@ -614,10 +510,6 @@ Partial Class frmAdminDocentes
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
-        Me.Controls.Add(Me.lblObligatorio8)
-        Me.Controls.Add(Me.lblObligatorio7)
-        Me.Controls.Add(Me.lblObligatorio6)
-        Me.Controls.Add(Me.lblObligatorio5)
         Me.Controls.Add(Me.lblAsignaturas)
         Me.Controls.Add(Me.numHsSemanales)
         Me.Controls.Add(Me.cmbAsignatura)
@@ -627,13 +519,9 @@ Partial Class frmAdminDocentes
         Me.Controls.Add(Me.btnAgregarDocente)
         Me.Controls.Add(Me.lstAsignaturas)
         Me.Controls.Add(Me.btnAgregarAsignatura)
-        Me.Controls.Add(Me.lblObligatorio4)
         Me.Controls.Add(Me.lblGrupo)
-        Me.Controls.Add(Me.lblObligatorio3)
         Me.Controls.Add(Me.cmbGrupo)
-        Me.Controls.Add(Me.lblObligatorio2)
         Me.Controls.Add(Me.lblArea)
-        Me.Controls.Add(Me.lblObligatorio1)
         Me.Controls.Add(Me.lblAsignatura)
         Me.Controls.Add(Me.btnNuevoDocente)
         Me.Controls.Add(Me.lblHsSemanales)
@@ -686,10 +574,6 @@ Partial Class frmAdminDocentes
     Friend WithEvents pnlDocentes As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents btnNuevoDocente As System.Windows.Forms.Button
     Friend WithEvents lblNuevoDocente As System.Windows.Forms.Label
-    Friend WithEvents lblObligatorio1 As System.Windows.Forms.Label
-    Friend WithEvents lblObligatorio2 As System.Windows.Forms.Label
-    Friend WithEvents lblObligatorio3 As System.Windows.Forms.Label
-    Friend WithEvents lblObligatorio4 As System.Windows.Forms.Label
     Friend WithEvents btnCancelarEdicion As System.Windows.Forms.Button
     Friend WithEvents btnAgregarDocente As System.Windows.Forms.Button
     Friend WithEvents numHsSemanales As System.Windows.Forms.NumericUpDown
@@ -705,9 +589,5 @@ Partial Class frmAdminDocentes
     Friend WithEvents mnuEdicionDocente As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents DatosDelDocenteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MateriasDelDocenteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents lblObligatorio5 As System.Windows.Forms.Label
-    Friend WithEvents lblObligatorio6 As System.Windows.Forms.Label
-    Friend WithEvents lblObligatorio7 As System.Windows.Forms.Label
-    Friend WithEvents lblObligatorio8 As System.Windows.Forms.Label
 
 End Class

@@ -11,12 +11,6 @@ Public Class frmAdminGrupos
         cargarGrupos()
 
         controlesHabilitados(True)
-        Call New ToolTip().SetToolTip(lblObligatorio1, "Dato obligatorio")
-        Call New ToolTip().SetToolTip(lblObligatorio2, "Dato obligatorio")
-        Call New ToolTip().SetToolTip(lblObligatorio3, "Dato obligatorio")
-        Call New ToolTip().SetToolTip(lblObligatorio5, "Dato obligatorio")
-        Call New ToolTip().SetToolTip(lblObligatorio6, "Dato obligatorio")
-
         rellenarCombos()
 
         cmbOrientacion.Enabled = False

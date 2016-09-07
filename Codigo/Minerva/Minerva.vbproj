@@ -127,6 +127,12 @@
     <Compile Include="frmAdminSalones.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="frmAdminUsuarios.Designer.vb">
+      <DependentUpon>frmAdminUsuarios.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAdminUsuarios.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="frmDia.Designer.vb">
       <DependentUpon>frmDia.vb</DependentUpon>
     </Compile>
@@ -188,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAdminSalones.resx">
       <DependentUpon>frmAdminSalones.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdminUsuarios.resx">
+      <DependentUpon>frmAdminUsuarios.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDia.resx">
       <DependentUpon>frmDia.vb</DependentUpon>

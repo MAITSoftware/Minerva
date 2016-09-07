@@ -32,20 +32,15 @@ Partial Class frmAdminGrupos
         Me.lblOrientacion = New System.Windows.Forms.Label()
         Me.lblTrayecto = New System.Windows.Forms.Label()
         Me.numGrado = New System.Windows.Forms.NumericUpDown()
-        Me.lblObligatorio1 = New System.Windows.Forms.Label()
-        Me.lblObligatorio3 = New System.Windows.Forms.Label()
-        Me.lblObligatorio5 = New System.Windows.Forms.Label()
-        Me.lblObligatorio6 = New System.Windows.Forms.Label()
-        Me.lblObligatorio2 = New System.Windows.Forms.Label()
         Me.btnNuevoGrupo = New System.Windows.Forms.Button()
         Me.lblNuevoGrupo = New System.Windows.Forms.Label()
         Me.btnAgregar = New System.Windows.Forms.Button()
         Me.pnlFondo = New System.Windows.Forms.Panel()
-        Me.lblCantidadGrupos = New System.Windows.Forms.Label()
-        Me.pnlGrupos = New System.Windows.Forms.FlowLayoutPanel()
         Me.pnlGrupoPlantilla = New System.Windows.Forms.Panel()
         Me.btnEliminarPlantilla = New System.Windows.Forms.Button()
         Me.btnGrupoPlantilla = New System.Windows.Forms.Button()
+        Me.lblCantidadGrupos = New System.Windows.Forms.Label()
+        Me.pnlGrupos = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmbCurso = New System.Windows.Forms.ComboBox()
         Me.cmbOrientacion = New System.Windows.Forms.ComboBox()
         lblTitulo = New System.Windows.Forms.Label()
@@ -163,66 +158,6 @@ Partial Class frmAdminGrupos
         Me.numGrado.TabIndex = 87
         Me.numGrado.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
-        'lblObligatorio1
-        '
-        Me.lblObligatorio1.BackColor = System.Drawing.Color.Transparent
-        Me.lblObligatorio1.Cursor = System.Windows.Forms.Cursors.Help
-        Me.lblObligatorio1.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblObligatorio1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio1.Location = New System.Drawing.Point(124, 132)
-        Me.lblObligatorio1.Name = "lblObligatorio1"
-        Me.lblObligatorio1.Size = New System.Drawing.Size(23, 23)
-        Me.lblObligatorio1.TabIndex = 88
-        Me.lblObligatorio1.Text = "*"
-        '
-        'lblObligatorio3
-        '
-        Me.lblObligatorio3.BackColor = System.Drawing.Color.Transparent
-        Me.lblObligatorio3.Cursor = System.Windows.Forms.Cursors.Help
-        Me.lblObligatorio3.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblObligatorio3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio3.Location = New System.Drawing.Point(285, 132)
-        Me.lblObligatorio3.Name = "lblObligatorio3"
-        Me.lblObligatorio3.Size = New System.Drawing.Size(23, 23)
-        Me.lblObligatorio3.TabIndex = 89
-        Me.lblObligatorio3.Text = "*"
-        '
-        'lblObligatorio5
-        '
-        Me.lblObligatorio5.BackColor = System.Drawing.Color.Transparent
-        Me.lblObligatorio5.Cursor = System.Windows.Forms.Cursors.Help
-        Me.lblObligatorio5.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblObligatorio5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio5.Location = New System.Drawing.Point(474, 132)
-        Me.lblObligatorio5.Name = "lblObligatorio5"
-        Me.lblObligatorio5.Size = New System.Drawing.Size(23, 23)
-        Me.lblObligatorio5.TabIndex = 90
-        Me.lblObligatorio5.Text = "*"
-        '
-        'lblObligatorio6
-        '
-        Me.lblObligatorio6.BackColor = System.Drawing.Color.Transparent
-        Me.lblObligatorio6.Cursor = System.Windows.Forms.Cursors.Help
-        Me.lblObligatorio6.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblObligatorio6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio6.Location = New System.Drawing.Point(400, 227)
-        Me.lblObligatorio6.Name = "lblObligatorio6"
-        Me.lblObligatorio6.Size = New System.Drawing.Size(23, 23)
-        Me.lblObligatorio6.TabIndex = 92
-        Me.lblObligatorio6.Text = "*"
-        '
-        'lblObligatorio2
-        '
-        Me.lblObligatorio2.BackColor = System.Drawing.Color.Transparent
-        Me.lblObligatorio2.Cursor = System.Windows.Forms.Cursors.Help
-        Me.lblObligatorio2.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblObligatorio2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorio2.Location = New System.Drawing.Point(124, 227)
-        Me.lblObligatorio2.Name = "lblObligatorio2"
-        Me.lblObligatorio2.Size = New System.Drawing.Size(23, 23)
-        Me.lblObligatorio2.TabIndex = 93
-        Me.lblObligatorio2.Text = "*"
-        '
         'btnNuevoGrupo
         '
         Me.btnNuevoGrupo.AutoSize = True
@@ -270,25 +205,6 @@ Partial Class frmAdminGrupos
         Me.pnlFondo.Size = New System.Drawing.Size(365, 501)
         Me.pnlFondo.TabIndex = 100
         '
-        'lblCantidadGrupos
-        '
-        Me.lblCantidadGrupos.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer))
-        Me.lblCantidadGrupos.Font = New System.Drawing.Font("Corbel", 20.0!, System.Drawing.FontStyle.Bold)
-        Me.lblCantidadGrupos.ForeColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(243, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblCantidadGrupos.Location = New System.Drawing.Point(269, 18)
-        Me.lblCantidadGrupos.Name = "lblCantidadGrupos"
-        Me.lblCantidadGrupos.Size = New System.Drawing.Size(89, 40)
-        Me.lblCantidadGrupos.TabIndex = 34
-        Me.lblCantidadGrupos.Text = "(0)"
-        '
-        'pnlGrupos
-        '
-        Me.pnlGrupos.AutoScroll = True
-        Me.pnlGrupos.Location = New System.Drawing.Point(21, 61)
-        Me.pnlGrupos.Name = "pnlGrupos"
-        Me.pnlGrupos.Size = New System.Drawing.Size(337, 413)
-        Me.pnlGrupos.TabIndex = 33
-        '
         'pnlGrupoPlantilla
         '
         Me.pnlGrupoPlantilla.Controls.Add(Me.btnEliminarPlantilla)
@@ -332,6 +248,25 @@ Partial Class frmAdminGrupos
         Me.btnGrupoPlantilla.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.btnGrupoPlantilla.UseVisualStyleBackColor = False
         '
+        'lblCantidadGrupos
+        '
+        Me.lblCantidadGrupos.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer))
+        Me.lblCantidadGrupos.Font = New System.Drawing.Font("Corbel", 20.0!, System.Drawing.FontStyle.Bold)
+        Me.lblCantidadGrupos.ForeColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(243, Byte), Integer), CType(CType(102, Byte), Integer))
+        Me.lblCantidadGrupos.Location = New System.Drawing.Point(269, 18)
+        Me.lblCantidadGrupos.Name = "lblCantidadGrupos"
+        Me.lblCantidadGrupos.Size = New System.Drawing.Size(89, 40)
+        Me.lblCantidadGrupos.TabIndex = 34
+        Me.lblCantidadGrupos.Text = "(0)"
+        '
+        'pnlGrupos
+        '
+        Me.pnlGrupos.AutoScroll = True
+        Me.pnlGrupos.Location = New System.Drawing.Point(21, 61)
+        Me.pnlGrupos.Name = "pnlGrupos"
+        Me.pnlGrupos.Size = New System.Drawing.Size(337, 413)
+        Me.pnlGrupos.TabIndex = 33
+        '
         'cmbCurso
         '
         Me.cmbCurso.Cursor = System.Windows.Forms.Cursors.Default
@@ -364,11 +299,6 @@ Partial Class frmAdminGrupos
         Me.Controls.Add(Me.btnNuevoGrupo)
         Me.Controls.Add(Me.lblNuevoGrupo)
         Me.Controls.Add(lblTitulo)
-        Me.Controls.Add(Me.lblObligatorio2)
-        Me.Controls.Add(Me.lblObligatorio6)
-        Me.Controls.Add(Me.lblObligatorio5)
-        Me.Controls.Add(Me.lblObligatorio3)
-        Me.Controls.Add(Me.lblObligatorio1)
         Me.Controls.Add(Me.numGrado)
         Me.Controls.Add(Me.lblTrayecto)
         Me.Controls.Add(Me.lblOrientacion)
@@ -396,11 +326,6 @@ Partial Class frmAdminGrupos
     Friend WithEvents lblOrientacion As System.Windows.Forms.Label
     Friend WithEvents lblTrayecto As System.Windows.Forms.Label
     Friend WithEvents numGrado As System.Windows.Forms.NumericUpDown
-    Friend WithEvents lblObligatorio1 As System.Windows.Forms.Label
-    Friend WithEvents lblObligatorio3 As System.Windows.Forms.Label
-    Friend WithEvents lblObligatorio5 As System.Windows.Forms.Label
-    Friend WithEvents lblObligatorio6 As System.Windows.Forms.Label
-    Friend WithEvents lblObligatorio2 As System.Windows.Forms.Label
     Friend WithEvents btnNuevoGrupo As System.Windows.Forms.Button
     Friend WithEvents lblNuevoGrupo As System.Windows.Forms.Label
     Friend WithEvents btnAgregar As System.Windows.Forms.Button

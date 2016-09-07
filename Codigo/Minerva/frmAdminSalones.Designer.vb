@@ -52,8 +52,6 @@ Partial Class frmAdminSalones
         Me.cmbTurno5 = New System.Windows.Forms.ComboBox()
         Me.cmbTurno3 = New System.Windows.Forms.ComboBox()
         Me.btnNuevoSalon = New System.Windows.Forms.Button()
-        Me.lblObligatorioID = New System.Windows.Forms.Label()
-        Me.lblObligatorioPlanta = New System.Windows.Forms.Label()
         lblSalones = New System.Windows.Forms.Label()
         lblTitulo = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
@@ -403,37 +401,11 @@ Partial Class frmAdminSalones
         Me.btnNuevoSalon.UseVisualStyleBackColor = True
         Me.btnNuevoSalon.Visible = False
         '
-        'lblObligatorioID
-        '
-        Me.lblObligatorioID.BackColor = System.Drawing.Color.Transparent
-        Me.lblObligatorioID.Cursor = System.Windows.Forms.Cursors.Help
-        Me.lblObligatorioID.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblObligatorioID.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorioID.Location = New System.Drawing.Point(122, 132)
-        Me.lblObligatorioID.Name = "lblObligatorioID"
-        Me.lblObligatorioID.Size = New System.Drawing.Size(23, 23)
-        Me.lblObligatorioID.TabIndex = 41
-        Me.lblObligatorioID.Text = "*"
-        '
-        'lblObligatorioPlanta
-        '
-        Me.lblObligatorioPlanta.BackColor = System.Drawing.Color.Transparent
-        Me.lblObligatorioPlanta.Cursor = System.Windows.Forms.Cursors.Help
-        Me.lblObligatorioPlanta.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblObligatorioPlanta.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblObligatorioPlanta.Location = New System.Drawing.Point(261, 132)
-        Me.lblObligatorioPlanta.Name = "lblObligatorioPlanta"
-        Me.lblObligatorioPlanta.Size = New System.Drawing.Size(23, 23)
-        Me.lblObligatorioPlanta.TabIndex = 42
-        Me.lblObligatorioPlanta.Text = "*"
-        '
         'frmAdminSalones
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.Controls.Add(Me.lblSalonesAsignados)
-        Me.Controls.Add(Me.lblObligatorioPlanta)
-        Me.Controls.Add(Me.lblObligatorioID)
         Me.Controls.Add(Me.btnNuevoSalon)
         Me.Controls.Add(Me.cmbTurno3)
         Me.Controls.Add(Me.cmbTurno2)
@@ -492,8 +464,6 @@ Partial Class frmAdminSalones
     Friend WithEvents btnNuevoSalon As System.Windows.Forms.Button
     Friend WithEvents lblNuevoSalon As System.Windows.Forms.Label
     Friend WithEvents btnSalonPlantilla As System.Windows.Forms.Button
-    Friend WithEvents lblObligatorioID As System.Windows.Forms.Label
-    Friend WithEvents lblObligatorioPlanta As System.Windows.Forms.Label
     Friend WithEvents lblCantidadSalones As System.Windows.Forms.Label
 
 End Class
