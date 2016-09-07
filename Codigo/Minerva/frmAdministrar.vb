@@ -3,10 +3,19 @@
 
     Dim btnActual As Button = New Button()
     Dim pnlTrabajo As New UserControl
+    Dim administrador As Boolean = False
+
+    Public Sub New(ByVal administrador As Boolean)
+        InitializeComponent()
+        Me.administrador = administrador
+    End Sub
 
     Private Sub frmAdministrar_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Clickear el btnSalones por defecto al iniciar
         btnSalones.PerformClick()
+        If administrador Then
+            btnUsuarios.Visible = True
+        End If
     End Sub
 
     Private Sub botones_Click(sender As Object, e As EventArgs) Handles btnSalones.Click, btnGrupos.Click, btnDocentes.Click, btnHorarios.Click, btnUsuarios.Click

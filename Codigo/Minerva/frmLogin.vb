@@ -6,6 +6,9 @@ Public Class frmLogin
     ' Otros datos: error
 
     Dim estadoAnimacion As Boolean = False
+    Dim cuentaUsuario As String
+    Dim administrador As Boolean = False
+
     Private Sub frmLogin_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         ' Al cerrar esta ventana cerrar todo el programa
         frmIngresarRegistro.Dispose()
@@ -70,19 +73,25 @@ Public Class frmLogin
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `usuario` WHERE id=@id AND passwd=@passwd;"
+                .CommandText = "SELECT * FROM `Usuario` WHERE ID=@ID AND Contraseña=@Contraseña;"
                 .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@id", txtUsuario.Text)
-                .Parameters.AddWithValue("@passwd", txtContraseña.Text)
+                .Parameters.AddWithValue("@ID", txtUsuario.Text)
+                .Parameters.AddWithValue("@Contraseña", txtContraseña.Text)
+                Me.cuentaUsuario = txtUsuario.Text
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                If Not reader("habilitada") Then
+                If Not reader("Aprobado") Then
                     MsgBox("Acceso no autorizado" & vbCrLf & "El administrador aún debe confirmar su registro", MsgBoxStyle.Information, "Minerva · Registro a confirmar")
                     lblDatosInc.Text = "Cuenta no autorizada"
                     pnlError.Visible = True
                     Return
+                End If
+                If reader("Tipo").Equals("Administrador") Then
+                    administrador = True
+                Else
+                    administrador = False
                 End If
                 accesoDenegado = False
             End While
@@ -94,7 +103,7 @@ Public Class frmLogin
             lblDatosInc.Text = "Datos incorrectos!"
             pnlError.Visible = True
         Else
-            Dim minerva As New frmMain(False)
+            Dim minerva As New frmMain(False, administrador)
             minerva.Show()
             Me.Hide()
         End If

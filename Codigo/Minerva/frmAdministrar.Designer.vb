@@ -166,6 +166,7 @@ Partial Class frmAdministrar
         Me.btnUsuarios.Text = "Usuarios"
         Me.btnUsuarios.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.btnUsuarios.UseVisualStyleBackColor = False
+        Me.btnUsuarios.Visible = False
         '
         'pnlBorde1
         '

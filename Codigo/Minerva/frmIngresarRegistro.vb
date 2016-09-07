@@ -9,7 +9,7 @@
 
     Private Sub btnInvitado_Click(sender As Object, e As EventArgs) Handles btnInvitado.Click
         ' Al clickear invitado mostrar Minerva
-        Dim programa As New frmMain()
+        Dim programa As New frmMain(True)
         programa.Show()
         Me.Hide()
     End Sub

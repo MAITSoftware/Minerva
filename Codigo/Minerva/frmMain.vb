@@ -2,16 +2,18 @@
 
     Dim cuentaInvitado As Boolean = True
     Dim estadoAnimacion As Boolean = False
+    Friend Administrador As Boolean = False
 
-    Public Sub New(Optional ByVal invitado As Boolean = False)
+    Public Sub New(Optional ByVal invitado As Boolean = False, Optional ByVal admin As Boolean = False)
         'inicia el programa, en caso de que sea invitado lo detecta
         InitializeComponent()
         Me.cuentaInvitado = invitado
+        Me.Administrador = admin
     End Sub
 
     Private Sub btnAdministrar_showMenu(sender As Object, e As EventArgs) Handles btnAdministrar.Click
         ' Abre la ventana de administracion al clickear
-        Dim administracion As New frmAdministrar()
+        Dim administracion As New frmAdministrar(Administrador)
         administracion.ShowDialog(Me)
     End Sub
 
