@@ -151,11 +151,15 @@ Public Class frmAdminSalones
                 .Parameters.AddWithValue("@ID", sender.Tag)
             End With
             totalSalones -= 1
-            cmd.ExecuteNonQuery()
-            conexion.Close() 'Cierra la conexión
-            cargarSalones()
-            btnNuevoSalon_Click(Nothing, Nothing)
-            MessageBox.Show("Salón '" + sender.tag + "' eliminado.", "Salón eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Try
+                cmd.ExecuteNonQuery()
+                conexion.Close() 'Cierra la conexión
+                cargarSalones()
+                btnNuevoSalon_Click(Nothing, Nothing)
+                MessageBox.Show("Salón '" + sender.tag + "' eliminado.", "Salón eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Catch ex As Exception
+                MessageBox.Show("El salón no se puede eliminar, ya que está asignado a un grupo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
         End Using
     End Sub
 
