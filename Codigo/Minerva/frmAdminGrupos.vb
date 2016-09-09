@@ -6,6 +6,7 @@ Public Class frmAdminGrupos
 
     Dim totalGrupos As Integer = 0
     Dim prevSelect As String
+    Private DB As DB
 
     Private Sub frmAdminGrupos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cargarGrupos()

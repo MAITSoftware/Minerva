@@ -234,6 +234,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Diagrama de clases.cd" />
     <None Include="Resources\logoMAITS.png" />
   </ItemGroup>
   <ItemGroup>

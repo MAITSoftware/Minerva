@@ -5,6 +5,7 @@ Public Class frmRegistro
     ' Datos de prueba: Si el usuario no es ignacio, este va a existir siempre.
 
     Dim estadoAnimacion As Boolean = False
+    Private DB As DB
 
     Private Sub frmLogin_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         ' Al cerrar ventana, cerrar programa

@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Minerva.DB">
+    <Position X="0.5" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>DB.vb</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minerva.frmAdminDocentes">
+    <Position X="18" Y="2" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>IwFBBoEHIGDxAHAUINCDzEGCASETwIIiAIQFPwAIIBA=</HashCode>
+      <FileName>frmAdminDocentes.vb</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="DB" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Minerva.frmAdminGrupos">
+    <Position X="14.5" Y="2" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>QSBgAAoAYKCg0AAAAEGgGAADAABBwAVACACBIgAgEFA=</HashCode>
+      <FileName>frmAdminGrupos.vb</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="DB" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Minerva.frmAdminHorarios">
+    <Position X="11.5" Y="2" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BBAAAAAAQCgAAAAGAACAABCCIAkFAAAAAABAoAAAABA=</HashCode>
+      <FileName>frmAdminHorarios.vb</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="DB" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Minerva.frmAdministrar">
+    <Position X="1" Y="14" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EEmAAAAAMGAAAAAQEAKAAgBCAQAAAAAABAUAAAAAAAA=</HashCode>
+      <FileName>frmAdministrar.vb</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minerva.frmAdminSalones">
+    <Position X="23" Y="2" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BAAQBAQARDDQAAAQAECKGAFHAQBAwAwAAAAAIoUQCBA=</HashCode>
+      <FileName>frmAdminSalones.vb</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="DB" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Minerva.frmAdminUsuarios">
+    <Position X="5.25" Y="2" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>gIAgCBCAICCmDKgQkHCCCAGiAIBAiAAAAAgAIgggQBA=</HashCode>
+      <FileName>frmAdminUsuarios.vb</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="DB" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Minerva.frmDia">
+    <Position X="8.5" Y="2" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ACAAIAAAASAAAACAAACAAAACAAAAAAAAAAAQAAACAAI=</HashCode>
+      <FileName>frmDia.vb</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minerva.frmIngresarRegistro">
+    <Position X="4" Y="14" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAACAAAYQCABCAAAACAAAAAAQAAABAAAAAAAA=</HashCode>
+      <FileName>frmIngresarRegistro.vb</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minerva.frmLogin">
+    <Position X="10" Y="14" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BFQABEAAECAQAIAAhADIAAACIQAAxkAAAAEQAAAgABg=</HashCode>
+      <FileName>frmLogin.vb</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="DB" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Minerva.frmMain">
+    <Position X="13" Y="14" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BA8iIACgACBCBBSABECIEwAHgBABAxCKSAAIYAABAJA=</HashCode>
+      <FileName>frmMain.vb</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="DB" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Minerva.frmRegistro">
+    <Position X="7" Y="14" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BEUABEAAECAQAIAAhADIAAACIQBAhkAAAAAAAAAgABg=</HashCode>
+      <FileName>frmRegistro.vb</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="DB" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="System.Windows.Forms.UserControl" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="System.Windows.Forms.Form" Collapsed="true">
+    <Position X="7.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Module Name="Minerva.My.Resources.Resources">
+    <Position X="26.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAEAEABEAAAAQAAAAAAEIAAAEIgAIA=</HashCode>
+    </TypeIdentifier>
+  </Module>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

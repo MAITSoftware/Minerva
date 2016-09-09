@@ -7,6 +7,7 @@ Public Class frmAdminDocentes
     Dim totalDocentes As Integer = 0
     Dim docentePreview As Object = New Button()
     Dim prevSelect As String
+    Private DB As DB
 
     Private Sub frmAdminDocentes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lstAsignaturas.FullRowSelect = True

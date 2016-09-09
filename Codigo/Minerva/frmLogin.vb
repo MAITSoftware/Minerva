@@ -8,6 +8,7 @@ Public Class frmLogin
     Dim estadoAnimacion As Boolean = False
     Dim cuentaUsuario As String
     Dim administrador As Boolean = False
+    Private DB As DB
 
     Private Sub frmLogin_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         ' Al cerrar esta ventana cerrar todo el programa

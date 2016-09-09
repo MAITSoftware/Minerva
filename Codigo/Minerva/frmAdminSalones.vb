@@ -6,6 +6,7 @@ Public Class frmAdminSalones
 
     Dim totalSalones As Integer = 0
     Dim salonPreview As Object = New Button()
+    Private DB As DB
 
     Private Sub frmAdminSalones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cargarSalones()

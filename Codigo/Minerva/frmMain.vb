@@ -6,6 +6,7 @@ Public Class frmMain
     Dim cuentaInvitado As Boolean = True
     Dim estadoAnimacion As Boolean = False
     Friend Administrador As Boolean = False
+    Private DB As DB
 
     Public Sub New(Optional ByVal invitado As Boolean = False, Optional ByVal admin As Boolean = False)
         'inicia el programa, en caso de que sea invitado lo detecta

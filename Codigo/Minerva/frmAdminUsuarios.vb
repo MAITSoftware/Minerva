@@ -7,6 +7,7 @@ Public Class frmAdminUsuarios
     Dim tipoSeleccionado As String = "Funcionario"
     Dim usuarioHabilitado As Boolean = False
     Dim previsualizando As Boolean = False
+    Private DB As DB
 
     Private Sub frmAdminUsuarios_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cargarUsuarios()
