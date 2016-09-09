@@ -9,6 +9,7 @@ Public Class frmAdminGrupos
     Private DB As DB
 
     Private Sub frmAdminGrupos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' Al cargar la ventana, cargarGrupos y rellenar los combos con los datos.
         cargarGrupos()
 
         controlesHabilitados(True)
@@ -18,6 +19,7 @@ Public Class frmAdminGrupos
     End Sub
 
     Private Sub cargarGrupos()
+        ' Carga los grupos a la lista de grupos
         pnlGrupos.Controls.Clear()
         totalGrupos = 0
         lblCantidadGrupos.Text = "(" + totalGrupos.ToString() + ")"
@@ -81,6 +83,7 @@ Public Class frmAdminGrupos
     End Sub
 
     Private Sub controlesHabilitados(ByVal habilitado As Boolean)
+        ' Habilita o deshabilita los controles
         txtIDGrupo.Enabled = habilitado
         txtIDGrupo.Text = ""
 
@@ -99,6 +102,7 @@ Public Class frmAdminGrupos
     End Sub
 
     Private Sub btnNuevoGrupo_Click(sender As Object, e As EventArgs) Handles btnNuevoGrupo.Click
+        ' Prepara la interfaz para agregar un nuevo grupo
         controlesHabilitados(True)
         lblNuevoGrupo.Text = "Nuevo grupo"
         btnNuevoGrupo.Visible = False
@@ -108,10 +112,12 @@ Public Class frmAdminGrupos
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
+        ' llama a checkDatos() cuando btnAgregar es clickeado
         checkDatos()
     End Sub
 
     Private Sub checkDatos()
+        ' Comprueba los datos y en caso de que no falte ninguno, llama a actualizarDB()
         If String.IsNullOrWhiteSpace(txtIDGrupo.Text) Then
             MessageBox.Show("Debe ingresar un ID de grupo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
@@ -136,6 +142,7 @@ Public Class frmAdminGrupos
     End Sub
 
     Private Sub eliminarGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        ' Le pregunta al usuario si quiere eliminar el grupo, de ser correcto, lo elimina
         Dim grupo As String
         grupo = sender.Tag(1) + " " + sender.Tag(0) + " (" + sender.Tag(3) + ")"
         Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar el grupo '" + grupo + "'?", "Eliminar grupo", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
@@ -164,6 +171,7 @@ Public Class frmAdminGrupos
     End Sub
 
     Private Sub actualizarDB()
+        ' Agrega un salón a la base de datos
         Dim conexion As New DB()
 
         Using cmd As New MySqlCommand()
@@ -199,10 +207,12 @@ Public Class frmAdminGrupos
     End Sub
 
     Private Sub verGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        ' Llama a previsualizarGrupo cuando un botón es clickeado.
         previsualizarGrupo(sender.Tag(0), sender.Tag(1).ToString(), sender.Tag(2))
     End Sub
 
     Private Sub previsualizarGrupo(ByVal id As String, ByVal grado As String, ByVal turno As String)
+        ' Prepara la interfaz para previsualizarUnGrupo
         btnNuevoGrupo.Visible = True
         btnAgregar.Visible = False
         lblNuevoGrupo.Text = "Previsualizar grupo"
@@ -212,6 +222,7 @@ Public Class frmAdminGrupos
     End Sub
 
     Private Sub cargarDatos(ByVal grupo As Object)
+        ' carga los datos del grupo y los coloca en la interfaz
         Dim conexion As New DB()
         Using cmd As New MySqlCommand()
             With cmd
@@ -276,6 +287,7 @@ Public Class frmAdminGrupos
     End Sub
 
     Private Sub cargarOrientaciones()
+        ' carga las orientaciones a los combobox
         Dim conexion As New DB()
         cmbOrientacion.Items.Clear()
         ' Por último las orientaciones
@@ -297,6 +309,7 @@ Public Class frmAdminGrupos
     End Sub
 
     Private Sub cmbCurso_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCurso.SelectedIndexChanged
+        ' Al cambiar el id de curso, cargarOrientaciones
         If cmbCurso.Text.Equals(prevSelect) Then
             Return
         End If
@@ -310,6 +323,7 @@ Public Class frmAdminGrupos
     End Sub
 
     Private Sub txtIDGrupo_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtIDGrupo.KeyPress
+        ' Al apretar la tecla espacio, ignorarla
         If e.KeyChar = " " Then
             e.KeyChar = Nothing
         End If

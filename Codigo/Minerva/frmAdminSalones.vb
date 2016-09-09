@@ -9,6 +9,7 @@ Public Class frmAdminSalones
     Private DB As DB
 
     Private Sub frmAdminSalones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' Al cargar la ventana cargarSalones y Grupos, y habilitar los controles.
         cargarSalones()
         cargarGrupos()
 
@@ -16,6 +17,7 @@ Public Class frmAdminSalones
     End Sub
 
     Private Sub cargarSalones()
+        ' Carga los salones y los pone en la lista
         pnlSalones.Controls.Clear()
         totalSalones = 0
         lblCantidadSalones.Text = "(" + totalSalones.ToString() + ")"
@@ -93,6 +95,7 @@ Public Class frmAdminSalones
     End Sub
 
     Private Sub editarSalon(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        ' Prepara la interfaz para editar el salón
         salonPreview.Enabled = True
         salonPreview = sender.Parent
         salonPreview.Enabled = False
@@ -109,10 +112,12 @@ Public Class frmAdminSalones
     End Sub
 
     Private Sub verSalon(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        ' Llama a verSalon cuando un botón es clickeado
         previsualizarSalon(sender.Tag)
     End Sub
 
     Private Sub previsualizarSalon(ByVal salon As String)
+        ' Prepara la interfaz para previsualizar un salón
         btnNuevoSalon.Visible = True
         btnAgregar.Visible = False
         btnCancelarEdicion.Visible = False
@@ -138,6 +143,7 @@ Public Class frmAdminSalones
     End Sub
 
     Private Sub eliminarSalon(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        ' Pregunta al usuario si quiere eliminar el salón, y de ser correcto lo elimina
         Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar el salón '" + sender.Tag + "'?", "Eliminar salón", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.No Then
             Return
@@ -165,6 +171,7 @@ Public Class frmAdminSalones
     End Sub
 
     Private Sub cargarDatos(ByVal idSalon As String)
+        ' Carga los datos de un salón
         Dim conexion As New DB()
         Using cmd As New MySqlCommand()
             With cmd
@@ -218,6 +225,7 @@ Public Class frmAdminSalones
     End Sub
 
     Private Sub controlesHabilitados(ByVal habilitado As Boolean)
+        ' Habilita o deshabilita los controles 
         txtIDSalon.Enabled = habilitado
         txtIDSalon.Text = ""
         cmbPlanta.Enabled = habilitado
@@ -237,6 +245,7 @@ Public Class frmAdminSalones
     End Sub
 
     Private Sub btnNuevoSalon_Click(sender As Object, e As EventArgs) Handles btnNuevoSalon.Click, btnCancelarEdicion.Click
+        ' Prepara la interfaz para agregar un salón al clickear btnNuevoSalon o btnCancelarEdicion
         controlesHabilitados(True)
         lblNuevoSalon.Text = "Nuevo salón"
         btnNuevoSalon.Visible = False
@@ -248,10 +257,12 @@ Public Class frmAdminSalones
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
+        ' Al clickear el btnAgregar llamar a checkDatos()
         checkDatos()
     End Sub
 
     Private Sub checkDatos()
+        ' Comprueba que esten todos los datos, y luego llama a acutalizarDB()
         If String.IsNullOrWhiteSpace(txtIDSalon.Text) Then
             MessageBox.Show("Debe ingresar un ID de salón.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
@@ -266,6 +277,7 @@ Public Class frmAdminSalones
     End Sub
 
     Private Sub actualizarDB()
+        ' Agrega o actualiza los datos del salón en la DB
         Dim conexion As New DB()
 
         Using cmd As New MySqlCommand()
@@ -306,8 +318,9 @@ Public Class frmAdminSalones
     End Sub
 
     Private Sub cargarGrupos()
-        Dim conexion As New DB()
         ' Carga los grupos al combo
+
+        Dim conexion As New DB()
         For Turno As Integer = 0 To 5
             Using cmd As New MySqlCommand()
                 With cmd
@@ -397,6 +410,7 @@ Public Class frmAdminSalones
     End Sub
 
     Private Sub txtIDSalon_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtIDSalon.KeyPress
+        ' Al escribir un caracter que no sea número lo ignora.
         If Not Char.IsNumber(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
             e.KeyChar = ""
             My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)

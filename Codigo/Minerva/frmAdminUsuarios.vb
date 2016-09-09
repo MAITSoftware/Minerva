@@ -2,6 +2,7 @@
 Imports System.Data
 
 Public Class frmAdminUsuarios
+    ' Clase principal para la administracion de usuarios
 
     Dim totalUsuarios As Integer = 0
     Dim tipoSeleccionado As String = "Funcionario"
@@ -10,6 +11,7 @@ Public Class frmAdminUsuarios
     Private DB As DB
 
     Private Sub frmAdminUsuarios_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' Al iniciar el programa, cargar los usuarios, y reiniciar la interfaz
         cargarUsuarios()
         nuevoUsuario(Nothing, Nothing)
     End Sub
@@ -69,6 +71,7 @@ Public Class frmAdminUsuarios
     End Sub
 
     Private Sub cargarUsuarios()
+        ' Carga los usuarios a la lista de usuarios
         Dim conexion As New DB()
         pnlUsuarios.Controls.Clear()
         totalUsuarios = 0
@@ -89,10 +92,12 @@ Public Class frmAdminUsuarios
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
+        ' Llama a checkDatos() al clickear en el botón agregar usuario
         checkDatos()
     End Sub
 
     Private Sub checkDatos()
+        ' Comprueba que haya datos en los campos y llama a actualizarDB()
         If String.IsNullOrWhiteSpace(txtID.Text) Then
             MessageBox.Show("Debe ingresar un ID de usuario.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
@@ -107,6 +112,7 @@ Public Class frmAdminUsuarios
     End Sub
 
     Private Sub actualizarDB()
+        ' Guarda o edita los datos del usuario a la DB
         Dim conexion As New DB()
 
         Using cmd As New MySqlCommand()
@@ -176,6 +182,7 @@ Public Class frmAdminUsuarios
     End Sub
 
     Private Sub nuevoUsuario(sender As Object, e As EventArgs) Handles btnNuevoUsuario.Click, btnCancelar.Click
+        ' Reinicia la interfaz 
         lblNuevoUsuario.Text = "Nuevo usuario"
         btnAgregar.Text = "Agregar usuario"
 
@@ -191,6 +198,7 @@ Public Class frmAdminUsuarios
     End Sub
 
     Private Sub limpiarControles()
+        ' Limpia los valores de los controles
         chkHabilitado.Checked = False
         radAdministrador.Checked = False
         radFuncionario.Checked = True
@@ -200,6 +208,7 @@ Public Class frmAdminUsuarios
     End Sub
 
     Private Sub editarUsuario(sender As Object, e As EventArgs)
+        ' Prepara la interfaz para editar el usuario
         lblNuevoUsuario.Text = "Editar usuario"
         btnNuevoUsuario.Visible = False
         btnAgregar.Text = "Confirmar cambios"
@@ -212,6 +221,7 @@ Public Class frmAdminUsuarios
     End Sub
 
     Private Sub cargarDatos(ByVal ID As String)
+        ' Carga los datos del usuario y los muestra en pantalla
         Dim conexion As New DB()
         Using cmd As New MySqlCommand()
             With cmd
@@ -240,11 +250,13 @@ Public Class frmAdminUsuarios
     End Sub
 
     Private Sub verUsuario_Click(sender As Object, e As EventArgs)
+        ' Llama a la función que permite mostrar los datos del usuario
         verUsuario(sender.Tag)
         previsualizando = True
     End Sub
 
     Private Sub verUsuario(ByVal ID As String)
+        ' Muestra los datos del usuario
         limpiarControles()
         cargarDatos(ID)
         lblNuevoUsuario.Text = "Previsualizar usuario"
@@ -256,6 +268,7 @@ Public Class frmAdminUsuarios
     End Sub
 
     Private Sub chkHabilitado_CheckedChanged(sender As Object, e As EventArgs) Handles chkHabilitado.CheckedChanged
+        ' Se encarga de setear la variable usuariohabilitado cuando el valor de chkHabilitado cambia
         If previsualizando Then
             chkHabilitado.Checked = usuarioHabilitado
             Return
@@ -264,6 +277,7 @@ Public Class frmAdminUsuarios
     End Sub
 
     Private Sub eliminarUsuario(sender As Object, e As EventArgs)
+        ' Pregunta al usuario si quiere eliminar el usuario y de ser correcto lo elimina
         Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar el usuario '" + sender.Tag(1) + "'?", "Eliminar usuario", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.No Then
             Return
@@ -298,6 +312,7 @@ Public Class frmAdminUsuarios
     End Sub
 
     Private Sub txtID_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtID.KeyPress
+       ' Al escribir un caracter que no sea número lo ignora.
         If Not Char.IsNumber(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
             e.KeyChar = ""
             My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)

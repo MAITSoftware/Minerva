@@ -66,10 +66,10 @@ Public Class frmRegistro
     End Sub
 
     Private Sub Registro(sender As Object, e As EventArgs) Handles btnEntrar.Click
+        ' Se encarga de efectura la conexión a la DB y registrar al usuario en la misma
         Dim conexion As New DB()
         Dim cantidadAdministradores As Integer
 
-        ' Verifica si es el primer usuario.
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -132,7 +132,9 @@ Public Class frmRegistro
             conexion.Close()
         End Try
     End Sub
+ 
     Private Sub txtUsuario_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtUsuario.KeyPress
+       ' Al escribir un caracter que no sea número lo ignora.
         If Not Char.IsNumber(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
             e.KeyChar = ""
             My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)

@@ -69,6 +69,7 @@ Public Class frmLogin
     End Sub
 
     Private Sub Login(sender As Object, e As EventArgs) Handles btnEntrar.Click
+        ' Se encarga de comprobar los datos ingresados del usuario, con los de la DB
         Dim accesoDenegado As Boolean = True
         Dim conexion As New DB()
         Using cmd As New MySqlCommand()
@@ -111,6 +112,7 @@ Public Class frmLogin
     End Sub
 
     Private Sub txtUsuario_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtUsuario.KeyPress
+       ' Al escribir un caracter que no sea número lo ignora.
         If Not Char.IsNumber(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
             e.KeyChar = ""
             My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)

@@ -10,6 +10,7 @@ Public Class frmAdminDocentes
     Private DB As DB
 
     Private Sub frmAdminDocentes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' Al cargar la ventana, cargar la lista de docentes, y rellenar los combos con los datos adecuados
         lstAsignaturas.FullRowSelect = True
         cargarDocentes()
         rellenarCombos()
@@ -50,7 +51,9 @@ Public Class frmAdminDocentes
             conexion.Close()
         End Using
     End Sub
+
     Private Sub cargarDocentes()
+        ' carga la lista de docentes
         pnlDocentes.Controls.Clear()
         totalDocentes = 0
         lblCantidadDocentes.Text = "(" + totalDocentes.ToString() + ")"
@@ -123,15 +126,15 @@ Public Class frmAdminDocentes
         lblCantidadDocentes.Text = "(" + totalDocentes.ToString() + ")"
     End Sub
 
-
-
     Public Sub mnuEditarDocente(ByVal sender As System.Object, ByVal e As MouseEventArgs) Handles btnEditarPlantilla.MouseUp
+        ' Al clickear el botón editarDocente mostrar un menú
         DatosDelDocenteToolStripMenuItem.Tag = {sender.Parent, sender.Tag}
         MateriasDelDocenteToolStripMenuItem.Tag = {sender.Parent, sender.Tag}
         mnuEdicionDocente.Show(sender, New Point(e.X, e.Y))
     End Sub
 
     Private Sub actualizarDB()
+        ' Se encarga de manejar la DB (parte datos de docente), agrega o edita docentes.
         Dim conexion As New DB()
 
         Using cmd As New MySqlCommand()
@@ -189,10 +192,12 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub btnAgregarDocentes_Click(sender As Object, e As EventArgs) Handles btnAgregarDocente.Click
+        ' Al clickear el botón de agregarDocentes llamar checkDatos()
         checkDatos()
     End Sub
 
     Private Sub checkDatos()
+        ' Comprueba que haya datos en todos los campos, y llama a actualizarDB()
         If String.IsNullOrWhiteSpace(txtCI.Text) Then
             MessageBox.Show("Debe ingresar una CI.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
@@ -212,6 +217,7 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub editarDocente(ByVal sender As System.Object)
+        ' Al clickear editarDocente preparar la interfaz para editarlo
         docentePreview.Enabled = True
         docentePreview = sender.Tag(0)
         docentePreview.Enabled = False
@@ -231,6 +237,7 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub controlesHabilitados(ByVal habilitado As Boolean)
+        ' Habilita o deshabilita los controles del docente en base a el argumento habilitado.
         txtCI.Enabled = habilitado
         txtCI.Text = ""
         txtNombre.Enabled = habilitado
@@ -242,6 +249,7 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub habilitarAsignaturas(ByVal habilitadas As Boolean)
+        ' Habilita o deshabilita los controles de las asignaturas en base a el argumento habilitado.
         lstAsignaturas.Enabled = habilitadas
         lstAsignaturas.Items.Clear()
         btnAgregarAsignatura.Enabled = habilitadas
@@ -258,6 +266,7 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub verDocente(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDocentePlantilla.Click
+        ' Carga y muestra los datos del docente (y materias) llamando a previsualizarDocente()
         docentePreview.Enabled = True
         docentePreview = sender
         docentePreview.Enabled = False
@@ -266,6 +275,7 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub previsualizarDocente(ByVal ci As String)
+        ' muestra los datos del docente y los muestra
         btnNuevoDocente.Visible = True
         btnAgregarDocente.Visible = False
         btnAgregarMateria.Visible = False
@@ -281,6 +291,7 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub cargarDatos(ByVal ciDocente As String)
+        ' carga los datos del docente
         Dim conexion As New DB()
         Using cmd As New MySqlCommand()
             With cmd
@@ -303,6 +314,7 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub btnNuevoDocente_Click(sender As Object, e As EventArgs) Handles btnNuevoDocente.Click, btnCancelarEdicion.Click
+        ' al clickear en nuevo docente, reestablece la interfaz
         controlesHabilitados(True)
         lblNuevoDocente.Text = "Nuevo docente"
         btnNuevoDocente.Visible = False
@@ -319,32 +331,39 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub btnAgregarAsignatura_Leave(sender As Object, e As EventArgs) Handles btnAgregarAsignatura.MouseLeave
+        ' al dejar el botón btnAgregarAsignatura cambiar la imagen
         btnAgregarAsignatura.BackgroundImage = My.Resources.agregar_normal()
     End Sub
 
     Private Sub btnAgregarAsignatura_Enter(sender As Object, e As EventArgs) Handles btnAgregarAsignatura.MouseEnter
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
         btnAgregarAsignatura.BackgroundImage = My.Resources.agregar_hover()
     End Sub
 
     Private Sub btnEliminarAsignatura_Leave(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.MouseLeave
+        ' al dejar el botón btnEliminarAsignatura cambiar la imagen
         btnEliminarAsignatura.BackgroundImage = My.Resources.borrar_normal()
     End Sub
 
     Private Sub btnEliminarAsignatura_Enter(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.MouseEnter
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
         btnEliminarAsignatura.BackgroundImage = My.Resources.borrar_hover()
     End Sub
 
     Private Sub DatosDelDocenteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatosDelDocenteToolStripMenuItem.Click
+        ' Al clickear la opción "Datos del docente" en el menu, llamar a editarDocente
         editarDocente(sender)
     End Sub
 
     Private Sub btnAgregarAsignatura_Click(sender As Object, e As EventArgs) Handles btnAgregarAsignatura.Click
+        ' Al clickear btnAgregarAsignatura reestablecer la zona de materias
         cmbArea.SelectedIndex = -1
         cmbGrupo.SelectedIndex = -1
         numHsSemanales.Value = 1
     End Sub
 
     Private Sub cmbArea_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbArea.SelectedIndexChanged
+        ' Al cambiar el id del area cargas las ASignaturas de la misma
         If cmbArea.Text.Equals(prevSelect) Then
             Return
         End If
@@ -361,6 +380,7 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub cargarAsignaturas()
+        ' Carga las asignaturas al combo
         Dim conexion As New DB()
         cmbAsignatura.Items.Clear()
         Using cmd As New MySqlCommand()
@@ -381,6 +401,7 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub checkDatosMaterias()
+        ' Comprueba que hay datos en los campos requeridos para agregar una materia, y actualiza la db
         If String.IsNullOrWhiteSpace(cmbArea.Text) Then
             MessageBox.Show("Debe seleccionar un área.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
@@ -398,7 +419,9 @@ Public Class frmAdminDocentes
 
         actualizarDBMaterias()
     End Sub
+
     Private Sub actualizarDBMaterias()
+        ' Se encarga de manejar la DB (parte asignaturas del docente), agrega o edita asignaturas.
         Dim conexion As New DB()
 
         Using cmd As New MySqlCommand()
@@ -434,10 +457,12 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub btnAgregarMateria_Click(sender As Object, e As EventArgs) Handles btnAgregarMateria.Click
+        ' Al clickear en agregarMateria llamar a checkDatosMaterias()
         checkDatosMaterias()
     End Sub
 
     Private Sub cargarMaterias(ByVal CI As String)
+        ' Carga la lista de materias a la lista
         lstAsignaturas.Items.Clear()
         Dim conexion As New DB()
         Using cmd As New MySqlCommand()
@@ -470,6 +495,7 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub editarMateriasDocente(ByVal CI As String)
+        ' Al clickear en editarmateriasDocentes preparar la interfaz
         previsualizarDocente(CI)
         habilitarAsignaturas(True)
         btnAgregarMateria.Visible = True
@@ -480,6 +506,7 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub eliminarDocente(sender As Object, e As EventArgs)
+        ' Pregunta al usuario si quiere eliminar al profesor, y de ser correcto lo elimina
         Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar el docente '" + sender.Tag(1) + "'?", "Eliminar docente", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.No Then
             Return
@@ -519,6 +546,7 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub lstAsignaturas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstAsignaturas.SelectedIndexChanged
+        ' Al cambiar la seleccion en la lista de asignaturas, habilita o deshabilita el botón eliminarAsignatura
         btnEliminarAsignatura.Visible = False
         If lstAsignaturas.SelectedItems.Count > 0 Then
             btnEliminarAsignatura.Visible = True
@@ -526,6 +554,7 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub btnEliminarAsignatura_Click(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.Click
+        ' Pregunta al usuario si quiere eliminar la asignatura, y de ser correcto la elimina
         Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar la asignatura seleccionada?", "Eliminar asignatura", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.No Then
             Return
@@ -554,6 +583,7 @@ Public Class frmAdminDocentes
     End Sub
 
     Private Sub txtCI_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtCI.KeyPress
+        ' Al escribir un caracter que no sea número lo ignora.
         If Not Char.IsNumber(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
             e.KeyChar = ""
             My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)
