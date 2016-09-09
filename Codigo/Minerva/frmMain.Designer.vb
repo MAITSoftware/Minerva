@@ -58,11 +58,13 @@ Partial Class frmMain
         Me.Miércoles = New Minerva.frmDia()
         Me.Martes = New Minerva.frmDia()
         Me.Lunes = New Minerva.frmDia()
+        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         lblHorariosSemana = New System.Windows.Forms.Label()
         Me.pnlInfoCurso.SuspendLayout()
         Me.pnlMaterias.SuspendLayout()
         Me.pnlFiltro.SuspendLayout()
         CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblHorariosSemana
@@ -315,6 +317,7 @@ Partial Class frmMain
         'pnlFiltro
         '
         Me.pnlFiltro.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.pnlFiltro.Controls.Add(Me.imgLogoMAITs)
         Me.pnlFiltro.Controls.Add(Me.btnSalir)
         Me.pnlFiltro.Controls.Add(Me.btnAdministrar)
         Me.pnlFiltro.Controls.Add(Me.imgLogo)
@@ -452,6 +455,16 @@ Partial Class frmMain
         Me.Lunes.Size = New System.Drawing.Size(256, 210)
         Me.Lunes.TabIndex = 27
         '
+        'imgLogoMAITs
+        '
+        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
+        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoMAITs.Location = New System.Drawing.Point(817, 35)
+        Me.imgLogoMAITs.Name = "imgLogoMAITs"
+        Me.imgLogoMAITs.Size = New System.Drawing.Size(145, 97)
+        Me.imgLogoMAITs.TabIndex = 127
+        Me.imgLogoMAITs.TabStop = False
+        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -480,6 +493,7 @@ Partial Class frmMain
         Me.pnlMaterias.PerformLayout()
         Me.pnlFiltro.ResumeLayout(False)
         CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -518,5 +532,6 @@ Partial Class frmMain
     Friend WithEvents Sábado As Minerva.frmDia
     Friend WithEvents btnAdministrar As System.Windows.Forms.Button
     Friend WithEvents btnSalir As System.Windows.Forms.Button
+    Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
 
 End Class

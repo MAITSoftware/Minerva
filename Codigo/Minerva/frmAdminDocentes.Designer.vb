@@ -56,6 +56,7 @@ Partial Class frmAdminDocentes
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cmbArea = New System.Windows.Forms.ComboBox()
         Me.cmbAsignatura = New System.Windows.Forms.ComboBox()
         Me.mnuEdicionDocente = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -64,7 +65,7 @@ Partial Class frmAdminDocentes
         Me.btnEliminarAsignatura = New System.Windows.Forms.PictureBox()
         Me.btnAgregarAsignatura = New System.Windows.Forms.PictureBox()
         Me.numGrado = New System.Windows.Forms.NumericUpDown()
-        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         lblDocentes = New System.Windows.Forms.Label()
         lblTitulo = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
@@ -74,6 +75,7 @@ Partial Class frmAdminDocentes
         CType(Me.btnEliminarAsignatura, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnAgregarAsignatura, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numGrado, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblDocentes
@@ -425,6 +427,11 @@ Partial Class frmAdminDocentes
         Me.ColumnHeader4.Text = "Horas"
         Me.ColumnHeader4.Width = 46
         '
+        'ColumnHeader1
+        '
+        Me.ColumnHeader1.Text = "F. Asignación"
+        Me.ColumnHeader1.Width = 76
+        '
         'cmbArea
         '
         Me.cmbArea.Cursor = System.Windows.Forms.Cursors.Default
@@ -502,15 +509,21 @@ Partial Class frmAdminDocentes
         Me.numGrado.Size = New System.Drawing.Size(120, 34)
         Me.numGrado.TabIndex = 121
         '
-        'ColumnHeader1
+        'imgLogoMAITs
         '
-        Me.ColumnHeader1.Text = "F. Asignación"
-        Me.ColumnHeader1.Width = 76
+        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
+        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoMAITs.Location = New System.Drawing.Point(512, 12)
+        Me.imgLogoMAITs.Name = "imgLogoMAITs"
+        Me.imgLogoMAITs.Size = New System.Drawing.Size(121, 62)
+        Me.imgLogoMAITs.TabIndex = 122
+        Me.imgLogoMAITs.TabStop = False
         '
         'frmAdminDocentes
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.numGrado)
         Me.Controls.Add(Me.lblAsignaturas)
         Me.Controls.Add(Me.numHsSemanales)
@@ -548,6 +561,7 @@ Partial Class frmAdminDocentes
         CType(Me.btnEliminarAsignatura, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnAgregarAsignatura, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numGrado, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -591,5 +605,6 @@ Partial Class frmAdminDocentes
     Friend WithEvents MateriasDelDocenteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents numGrado As System.Windows.Forms.NumericUpDown
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
 
 End Class

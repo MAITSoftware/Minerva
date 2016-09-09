@@ -38,9 +38,11 @@ Partial Class frmLogin
         Me.lblIngreseUsuario = New System.Windows.Forms.Label()
         Me.lblIngreseContraseña = New System.Windows.Forms.Label()
         Me.imgMinerva = New System.Windows.Forms.PictureBox()
+        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         Me.pnlError.SuspendLayout()
         CType(Me.imgWarning, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgMinerva, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnEntrar
@@ -194,11 +196,22 @@ Partial Class frmLogin
         Me.imgMinerva.TabIndex = 6
         Me.imgMinerva.TabStop = False
         '
+        'imgLogoMAITs
+        '
+        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
+        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoMAITs.Location = New System.Drawing.Point(281, 12)
+        Me.imgLogoMAITs.Name = "imgLogoMAITs"
+        Me.imgLogoMAITs.Size = New System.Drawing.Size(88, 59)
+        Me.imgLogoMAITs.TabIndex = 127
+        Me.imgLogoMAITs.TabStop = False
+        '
         'frmLogin
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(371, 514)
+        Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.lblIngreseContraseña)
         Me.Controls.Add(Me.lblIngreseUsuario)
         Me.Controls.Add(Me.txtContraseña)
@@ -219,6 +232,7 @@ Partial Class frmLogin
         Me.pnlError.ResumeLayout(False)
         CType(Me.imgWarning, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgMinerva, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -237,4 +251,5 @@ Partial Class frmLogin
     Friend WithEvents lblContraseña As System.Windows.Forms.Label
     Friend WithEvents lblIngreseUsuario As System.Windows.Forms.Label
     Friend WithEvents lblIngreseContraseña As System.Windows.Forms.Label
+    Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
 End Class

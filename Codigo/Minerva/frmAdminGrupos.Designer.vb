@@ -44,11 +44,13 @@ Partial Class frmAdminGrupos
         Me.cmbCurso = New System.Windows.Forms.ComboBox()
         Me.cmbOrientacion = New System.Windows.Forms.ComboBox()
         Me.chkDiscapacitado = New System.Windows.Forms.CheckBox()
+        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         lblTitulo = New System.Windows.Forms.Label()
         lblGrupos = New System.Windows.Forms.Label()
         CType(Me.numGrado, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlFondo.SuspendLayout()
         Me.pnlGrupoPlantilla.SuspendLayout()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblTitulo
@@ -301,11 +303,22 @@ Partial Class frmAdminGrupos
         Me.chkDiscapacitado.Text = "Alumno discapacitado"
         Me.chkDiscapacitado.UseVisualStyleBackColor = True
         '
+        'imgLogoMAITs
+        '
+        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
+        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoMAITs.Location = New System.Drawing.Point(512, 12)
+        Me.imgLogoMAITs.Name = "imgLogoMAITs"
+        Me.imgLogoMAITs.Size = New System.Drawing.Size(121, 62)
+        Me.imgLogoMAITs.TabIndex = 123
+        Me.imgLogoMAITs.TabStop = False
+        '
         'frmAdminGrupos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.chkDiscapacitado)
         Me.Controls.Add(Me.cmbOrientacion)
         Me.Controls.Add(Me.cmbCurso)
@@ -328,6 +341,7 @@ Partial Class frmAdminGrupos
         Me.pnlFondo.ResumeLayout(False)
         Me.pnlFondo.PerformLayout()
         Me.pnlGrupoPlantilla.ResumeLayout(False)
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -352,5 +366,6 @@ Partial Class frmAdminGrupos
     Friend WithEvents cmbCurso As System.Windows.Forms.ComboBox
     Friend WithEvents cmbOrientacion As System.Windows.Forms.ComboBox
     Friend WithEvents chkDiscapacitado As System.Windows.Forms.CheckBox
+    Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
 
 End Class

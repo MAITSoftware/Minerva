@@ -43,11 +43,13 @@ Partial Class frmAdminUsuarios
         Me.grpTipoCuenta = New System.Windows.Forms.GroupBox()
         Me.btnAgregar = New System.Windows.Forms.Button()
         Me.btnCancelar = New System.Windows.Forms.Button()
+        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         lblTitulo = New System.Windows.Forms.Label()
         lblUsuarios = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
         Me.pnlUsuarioPlantilla.SuspendLayout()
         Me.grpTipoCuenta.SuspendLayout()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblTitulo
@@ -298,10 +300,21 @@ Partial Class frmAdminUsuarios
         Me.btnCancelar.UseVisualStyleBackColor = True
         Me.btnCancelar.Visible = False
         '
+        'imgLogoMAITs
+        '
+        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
+        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoMAITs.Location = New System.Drawing.Point(512, 12)
+        Me.imgLogoMAITs.Name = "imgLogoMAITs"
+        Me.imgLogoMAITs.Size = New System.Drawing.Size(121, 62)
+        Me.imgLogoMAITs.TabIndex = 125
+        Me.imgLogoMAITs.TabStop = False
+        '
         'frmAdminUsuarios
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.btnCancelar)
         Me.Controls.Add(Me.btnAgregar)
         Me.Controls.Add(Me.grpTipoCuenta)
@@ -321,6 +334,7 @@ Partial Class frmAdminUsuarios
         Me.pnlUsuarioPlantilla.ResumeLayout(False)
         Me.grpTipoCuenta.ResumeLayout(False)
         Me.grpTipoCuenta.PerformLayout()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -344,5 +358,6 @@ Partial Class frmAdminUsuarios
     Friend WithEvents grpTipoCuenta As System.Windows.Forms.GroupBox
     Friend WithEvents btnAgregar As System.Windows.Forms.Button
     Friend WithEvents btnCancelar As System.Windows.Forms.Button
+    Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
 
 End Class

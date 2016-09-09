@@ -28,7 +28,9 @@ Partial Class frmIngresarRegistro
         Me.btnIngresar = New System.Windows.Forms.Button()
         Me.btnInvitado = New System.Windows.Forms.Button()
         Me.imgLogo = New System.Windows.Forms.PictureBox()
+        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblMinerva
@@ -92,11 +94,22 @@ Partial Class frmIngresarRegistro
         Me.imgLogo.TabIndex = 3
         Me.imgLogo.TabStop = False
         '
+        'imgLogoMAITs
+        '
+        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
+        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoMAITs.Location = New System.Drawing.Point(282, 12)
+        Me.imgLogoMAITs.Name = "imgLogoMAITs"
+        Me.imgLogoMAITs.Size = New System.Drawing.Size(88, 59)
+        Me.imgLogoMAITs.TabIndex = 126
+        Me.imgLogoMAITs.TabStop = False
+        '
         'frmIngresarRegistro
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(371, 514)
+        Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.btnIngresar)
         Me.Controls.Add(Me.btnInvitado)
         Me.Controls.Add(Me.btnRegistro)
@@ -109,6 +122,7 @@ Partial Class frmIngresarRegistro
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Minerva"
         CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -118,4 +132,5 @@ Partial Class frmIngresarRegistro
     Friend WithEvents btnRegistro As System.Windows.Forms.Button
     Friend WithEvents btnIngresar As System.Windows.Forms.Button
     Friend WithEvents btnInvitado As System.Windows.Forms.Button
+    Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
 End Class

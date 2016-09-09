@@ -52,10 +52,12 @@ Partial Class frmAdminSalones
         Me.cmbTurno5 = New System.Windows.Forms.ComboBox()
         Me.cmbTurno3 = New System.Windows.Forms.ComboBox()
         Me.btnNuevoSalon = New System.Windows.Forms.Button()
+        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         lblSalones = New System.Windows.Forms.Label()
         lblTitulo = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
         Me.pnlSalonPlantilla.SuspendLayout()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblSalones
@@ -401,10 +403,21 @@ Partial Class frmAdminSalones
         Me.btnNuevoSalon.UseVisualStyleBackColor = True
         Me.btnNuevoSalon.Visible = False
         '
+        'imgLogoMAITs
+        '
+        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
+        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoMAITs.Location = New System.Drawing.Point(512, 12)
+        Me.imgLogoMAITs.Name = "imgLogoMAITs"
+        Me.imgLogoMAITs.Size = New System.Drawing.Size(121, 62)
+        Me.imgLogoMAITs.TabIndex = 124
+        Me.imgLogoMAITs.TabStop = False
+        '
         'frmAdminSalones
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.lblSalonesAsignados)
         Me.Controls.Add(Me.btnNuevoSalon)
         Me.Controls.Add(Me.cmbTurno3)
@@ -433,6 +446,7 @@ Partial Class frmAdminSalones
         Me.pnlFondo.ResumeLayout(False)
         Me.pnlFondo.PerformLayout()
         Me.pnlSalonPlantilla.ResumeLayout(False)
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -465,5 +479,6 @@ Partial Class frmAdminSalones
     Friend WithEvents lblNuevoSalon As System.Windows.Forms.Label
     Friend WithEvents btnSalonPlantilla As System.Windows.Forms.Button
     Friend WithEvents lblCantidadSalones As System.Windows.Forms.Label
+    Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
 
 End Class

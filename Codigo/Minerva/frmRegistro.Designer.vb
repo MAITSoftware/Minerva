@@ -38,9 +38,11 @@ Partial Class frmRegistro
         Me.txtUsuario = New System.Windows.Forms.TextBox()
         Me.imgMinerva = New System.Windows.Forms.PictureBox()
         Me.lblNombrePrograma = New System.Windows.Forms.Label()
+        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         Me.pnlError.SuspendLayout()
         CType(Me.imgWarning, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgMinerva, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblUsuario
@@ -194,11 +196,22 @@ Partial Class frmRegistro
         Me.lblNombrePrograma.Text = "Registro en Minerva"
         Me.lblNombrePrograma.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'imgLogoMAITs
+        '
+        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
+        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoMAITs.Location = New System.Drawing.Point(282, 12)
+        Me.imgLogoMAITs.Name = "imgLogoMAITs"
+        Me.imgLogoMAITs.Size = New System.Drawing.Size(88, 59)
+        Me.imgLogoMAITs.TabIndex = 127
+        Me.imgLogoMAITs.TabStop = False
+        '
         'frmRegistro
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(371, 514)
+        Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.lblUsuario)
         Me.Controls.Add(Me.pnlError)
         Me.Controls.Add(Me.btnEntrar)
@@ -219,6 +232,7 @@ Partial Class frmRegistro
         Me.pnlError.ResumeLayout(False)
         CType(Me.imgWarning, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgMinerva, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -237,4 +251,5 @@ Partial Class frmRegistro
     Friend WithEvents txtUsuario As System.Windows.Forms.TextBox
     Friend WithEvents imgMinerva As System.Windows.Forms.PictureBox
     Friend WithEvents lblNombrePrograma As System.Windows.Forms.Label
+    Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
 End Class

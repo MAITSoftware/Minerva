@@ -40,7 +40,9 @@ Partial Class frmAdminHorarios
         Me.lblHora3 = New System.Windows.Forms.Label()
         Me.lblHora6 = New System.Windows.Forms.Label()
         Me.lblHora5 = New System.Windows.Forms.Label()
+        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         lblTitulo = New System.Windows.Forms.Label()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblTitulo
@@ -236,11 +238,22 @@ Partial Class frmAdminHorarios
         Me.lblHora5.TabIndex = 121
         Me.lblHora5.Text = "Hora 5"
         '
+        'imgLogoMAITs
+        '
+        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
+        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoMAITs.Location = New System.Drawing.Point(880, 12)
+        Me.imgLogoMAITs.Name = "imgLogoMAITs"
+        Me.imgLogoMAITs.Size = New System.Drawing.Size(121, 62)
+        Me.imgLogoMAITs.TabIndex = 129
+        Me.imgLogoMAITs.TabStop = False
+        '
         'frmAdminHorarios
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.lblHora6)
         Me.Controls.Add(Me.lblHora5)
         Me.Controls.Add(Me.lblHora4)
@@ -261,6 +274,7 @@ Partial Class frmAdminHorarios
         Me.Controls.Add(lblTitulo)
         Me.Name = "frmAdminHorarios"
         Me.Size = New System.Drawing.Size(1004, 493)
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -282,5 +296,6 @@ Partial Class frmAdminHorarios
     Friend WithEvents lblHora3 As System.Windows.Forms.Label
     Friend WithEvents lblHora6 As System.Windows.Forms.Label
     Friend WithEvents lblHora5 As System.Windows.Forms.Label
+    Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
 
 End Class
