@@ -23,13 +23,13 @@ Public Class frmAdminDocentes
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Área`;"
+                .CommandText = "SELECT * FROM `Area`;"
                 .CommandType = CommandType.Text
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                cmbArea.Items.Add(reader("ID").ToString() & " (" & reader("Nombre") & ")")
+                cmbArea.Items.Add(reader("IDArea").ToString() & " (" & reader("NombreArea") & ")")
             End While
             reader.Close()
         End Using
@@ -38,13 +38,13 @@ Public Class frmAdminDocentes
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT *, Turno.Nombre as nombreTurno FROM `Grupo`, `Turno` WHERE Grupo.IDTurno=Turno.ID;"
+                .CommandText = "SELECT *, Turno.NombreTurno FROM `Grupo`, `Turno` WHERE Grupo.IDTurno=Turno.IDTurno;"
                 .CommandType = CommandType.Text
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                cmbGrupo.Items.Add(reader("Trayecto") & " " & reader("ID") & " (" & reader("nombreTurno") & ")")
+                cmbGrupo.Items.Add(reader("IDTrayecto") & " " & reader("IDGrupo") & " (" & reader("NombreTurno") & ")")
             End While
             reader.Close()
             conexion.Close()
@@ -65,7 +65,7 @@ Public Class frmAdminDocentes
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                agregarDocente(reader("CI"), reader("CI").ToString() & ControlChars.NewLine & " (" & reader("Nombre") & " " & reader("Apellido") & ")")
+                agregarDocente(reader("CiPersona"), reader("CiPersona").ToString() & ControlChars.NewLine & " (" & reader("NombreProfesor") & " " & reader("ApellidoProfesor") & ")")
             End While
             reader.Close()
             conexion.Close()
@@ -140,19 +140,32 @@ Public Class frmAdminDocentes
                 .CommandType = CommandType.Text
 
                 If btnAgregarDocente.Text.StartsWith("Agregar docente") Then
-                    .CommandText = "INSERT INTO `Profesor` VALUES  (@CI, @Cargo, @Nombre, @Apellido);"
+                    .CommandText = "INSERT INTO `Profesor` VALUES  (@CiPersona, @GradoProfesor, @NombreProfesor, @ApellidoProfesor);"
                 Else
-                    .CommandText = "UPDATE `Profesor` SET Nombre=@Nombre, Apellido=@Apellido, Cargo=@Cargo WHERE CI=@CI;"
+                    .CommandText = "UPDATE `Profesor` SET NombreProfesor=@NombreProfesor, ApellidoProfesor=@ApellidoProfesor, GradoProfesor=@GradoProfesor WHERE CiPersona=@CiPersona;"
                 End If
 
-                .Parameters.AddWithValue("@CI", txtCI.Text)
-                .Parameters.AddWithValue("@Nombre", txtNombre.Text)
-                .Parameters.AddWithValue("@Apellido", txtApellido.Text)
-                .Parameters.AddWithValue("@Cargo", cmbCargo.Text)
-
+                .Parameters.AddWithValue("@CiPersona", txtCI.Text)
+                .Parameters.AddWithValue("@NombreProfesor", txtNombre.Text)
+                .Parameters.AddWithValue("@ApellidoProfesor", txtApellido.Text)
+                .Parameters.AddWithValue("@GradoProfesor", numGrado.Value)
             End With
 
             Try
+                Dim subConexion As New DB()
+                If btnAgregarDocente.Text.StartsWith("Agregar docente") Then
+                    Using subCmd As New MySqlCommand()
+                        With subCmd
+                            .Connection = conexion.Conn
+                            .CommandText = "INSERT INTO `Persona` VALUES (@CiPersona);"
+                            .CommandType = CommandType.Text
+                            .Parameters.AddWithValue("@CiPersona", txtCI.Text)
+                        End With
+                        subCmd.ExecuteNonQuery()
+                        subConexion.Close()
+                    End Using
+                End If
+
                 cmd.ExecuteNonQuery()
                 conexion.Close()
 
@@ -166,7 +179,7 @@ Public Class frmAdminDocentes
                 End If
             Catch ex As Exception
                 If ex.ToString().Contains("Duplicate") Then
-                    MessageBox.Show("Ya existe un docente con esa CI.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("Ya existe un docente (o usuario!) con esa CI.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Else
                     MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 End If
@@ -192,11 +205,6 @@ Public Class frmAdminDocentes
 
         If String.IsNullOrWhiteSpace(txtApellido.Text) Then
             MessageBox.Show("Debe ingresar un apellido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-            Return
-        End If
-
-        If String.IsNullOrWhiteSpace(cmbCargo.Text) Then
-            MessageBox.Show("Debe ingresar un cargo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
         End If
 
@@ -229,8 +237,8 @@ Public Class frmAdminDocentes
         txtNombre.Text = ""
         txtApellido.Enabled = habilitado
         txtApellido.Text = ""
-        cmbCargo.Enabled = habilitado
-        cmbCargo.SelectedIndex = -1
+        numGrado.Enabled = habilitado
+        numGrado.Value = 0
     End Sub
 
     Private Sub habilitarAsignaturas(ByVal habilitadas As Boolean)
@@ -277,17 +285,17 @@ Public Class frmAdminDocentes
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Profesor` where CI=@CI;"
+                .CommandText = "SELECT * FROM `Profesor` where CiPersona=@CiPersona;"
                 .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@CI", ciDocente)
+                .Parameters.AddWithValue("@CiPersona", ciDocente)
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                txtCI.Text = reader("CI")
-                txtNombre.Text = reader("Nombre")
-                txtApellido.Text = reader("Apellido")
-                cmbCargo.SelectedIndex = cmbCargo.FindStringExact(reader("Cargo"))
+                txtCI.Text = reader("CiPersona")
+                txtNombre.Text = reader("NombreProfesor")
+                txtApellido.Text = reader("ApellidoProfesor")
+                numGrado.Value = reader("GradoProfesor")
             End While
             reader.Close()
             conexion.Close()
@@ -358,14 +366,14 @@ Public Class frmAdminDocentes
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Asignatura` WHERE IDÁrea=@IDArea;"
+                .CommandText = "SELECT * FROM `Asignatura` WHERE IDArea=@IDArea;"
                 .CommandType = CommandType.Text
                 .Parameters.AddWithValue("@IDArea", cmbArea.Text.Substring(0, cmbArea.Text.IndexOf(" (")).Trim())
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                cmbAsignatura.Items.Add(reader("ID").ToString() & " (" & reader("Nombre") & ")")
+                cmbAsignatura.Items.Add(reader("IDAsignatura").ToString() & " (" & reader("NombreAsignatura") & ")")
             End While
             reader.Close()
             conexion.Close()
@@ -397,13 +405,14 @@ Public Class frmAdminDocentes
             With cmd
                 .Connection = conexion.Conn
                 .CommandType = CommandType.Text
-                .CommandText = "INSERT INTO `AsignaturasTomadas` VALUES (@cargaHoraria, @IDÁrea, @IDGrupo, @IDDocente, @IDAsignatura);"
-                .Parameters.AddWithValue("@cargaHoraria", numHsSemanales.Value)
-                .Parameters.AddWithValue("@IDÁrea", cmbArea.Text.Substring(0, cmbArea.Text.IndexOf(" (")).Trim())
-                .Parameters.AddWithValue("@IDGrupo", cmbGrupo.Text.Substring(0, cmbGrupo.Text.IndexOf(" (")).Trim())
-                .Parameters.AddWithValue("@IDDocente", txtCI.Text)
+                .CommandText = "INSERT INTO `AsignaturasTomadas` VALUES (@CiPersona, @IDAsignatura, @IDTrayecto, @IDGrupo, @cargaHoraria, @fechaAsignacion);"
+                .Parameters.AddWithValue("@CiPersona", txtCI.Text)
                 .Parameters.AddWithValue("@IDAsignatura", cmbAsignatura.Text.Substring(0, cmbAsignatura.Text.IndexOf(" (")).Trim())
-
+                .Parameters.AddWithValue("@IDGrupo", cmbGrupo.Text.Substring(cmbGrupo.Text.IndexOf(" "), cmbGrupo.Text.IndexOf(" (")).Trim())
+                .Parameters.AddWithValue("@IDTrayecto", cmbGrupo.Text.Substring(0, cmbGrupo.Text.IndexOf(" ")).Trim())
+                .Parameters.AddWithValue("@cargaHoraria", numHsSemanales.Value)
+                Dim d As DateTime = Now
+                .Parameters.AddWithValue("@fechaAsignacion", d.ToString("yyyy-MM-dd"))
             End With
 
             Try
@@ -413,7 +422,7 @@ Public Class frmAdminDocentes
                 cargarMaterias(txtCI.Text)
                 ' Deshabilita la edición de datos del docente.
                 lblNuevoDocente.Text = "Editar materias del docente"
-
+                btnAgregarAsignatura_Click(Nothing, Nothing)
             Catch ex As Exception
                 If ex.ToString().Contains("Duplicate") Then
                     MessageBox.Show("Esa materia ya ha sido asignada al grupo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -434,18 +443,18 @@ Public Class frmAdminDocentes
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `AsignaturasTomadas` WHERE IDDocente=@IDDocente;"
+                .CommandText = "SELECT * FROM `AsignaturasTomadas` WHERE CiPersona=@CiPersona;"
                 .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@IDDocente", CI)
+                .Parameters.AddWithValue("@CiPersona", CI)
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
                 Dim item As New ListViewItem
-                item = lstAsignaturas.Items.Add(reader("IDÁrea").ToString())
-                item.SubItems.Add(reader("IDAsignatura").ToString())
-                item.SubItems.Add(reader("IDGrupo"))
+                item = lstAsignaturas.Items.Add(reader("IDAsignatura").ToString())
+                item.SubItems.Add(reader("IDTrayecto") & " " & reader("IDGrupo"))
                 item.SubItems.Add(reader("cargaHoraria").ToString())
+                item.SubItems.Add(reader("fechaAsignacion").ToString())
             End While
             reader.Close()
             conexion.Close()
@@ -480,14 +489,26 @@ Public Class frmAdminDocentes
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "DELETE FROM `Profesor` WHERE CI=@CI;"
+                .CommandText = "DELETE FROM `Profesor` WHERE CiPersona=@CiPersona;"
                 .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@CI", sender.Tag(0))
+                .Parameters.AddWithValue("@CiPersona", sender.Tag(0))
             End With
             Try
                 totalDocentes -= 1
                 cmd.ExecuteNonQuery()
                 conexion.Close() 'Cierra la conexión
+                Dim subConexion As New DB()
+                Using subCmd As New MySqlCommand()
+                    With subCmd
+                        .Connection = subConexion.Conn
+                        .CommandText = "DELETE FROM `Persona` WHERE CiPersona=@CiPersona;"
+                        .CommandType = CommandType.Text
+                        .Parameters.AddWithValue("@CiPersona", sender.Tag(0))
+                    End With
+
+                    subCmd.ExecuteNonQuery()
+                    subConexion.Close()
+                End Using
                 cargarDocentes()
                 btnNuevoDocente_Click(Nothing, Nothing)
                 MessageBox.Show("Docente'" + sender.Tag(1) + "' eliminado.", "Docente eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -514,20 +535,28 @@ Public Class frmAdminDocentes
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "DELETE FROM `AsignaturasTomadas` WHERE IDÁrea=@IDÁrea and IDGrupo=@IDGrupo and IDAsignatura=@IDAsignatura;"
+                .CommandText = "DELETE FROM `AsignaturasTomadas` WHERE IDGrupo=@IDGrupo and IDAsignatura=@IDAsignatura and IDTrayecto=@IDTrayecto;"
                 .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@IDÁrea", lstAsignaturas.SelectedItems.Item(0).SubItems(0).Text)
-                .Parameters.AddWithValue("@IDAsignatura", lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text)
-                .Parameters.AddWithValue("@IDGrupo", lstAsignaturas.SelectedItems.Item(0).SubItems(2).Text)
+                .Parameters.AddWithValue("@IDAsignatura", lstAsignaturas.SelectedItems.Item(0).SubItems(0).Text)
+                .Parameters.AddWithValue("@IDGrupo", lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Substring(lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.IndexOf(" "), lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Length - 1).Trim())
+                .Parameters.AddWithValue("@IDTrayecto", lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Substring(0, lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.IndexOf(" ")).Trim())
             End With
             Try
                 cmd.ExecuteNonQuery()
                 conexion.Close() 'Cierra la conexión
                 cargarMaterias(txtCI.Text)
+                btnEliminarAsignatura.Visible = False
                 MessageBox.Show("Asignatura eliminada.", "Asignatura eliminada.", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Catch ex As Exception
                 MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Using
+    End Sub
+
+    Private Sub txtCI_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtCI.KeyPress
+        If Not Char.IsNumber(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.KeyChar = ""
+            My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)
+        End If
     End Sub
 End Class

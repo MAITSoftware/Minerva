@@ -72,13 +72,13 @@ Public Class frmMain
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT *, Turno.Nombre as 'nombreTurno' from `Grupo`, `Turno` where Grupo.IDTurno=Turno.ID;"
+                .CommandText = "SELECT *, Turno.NombreTurno from `Grupo`, `Turno` where Grupo.IDTurno=Turno.IDTurno;"
                 .CommandType = CommandType.Text
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                cboGrupo.Items.Add(reader("Trayecto").ToString() & " " & reader("ID") & " (" & reader("nombreTurno") & ")")
+                cboGrupo.Items.Add(reader("IDTrayecto").ToString() & " " & reader("IDGrupo") & " (" & reader("NombreTurno") & ")")
             End While
             reader.Close()
         End Using

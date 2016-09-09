@@ -81,7 +81,7 @@ Public Class frmAdminUsuarios
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                agregarUsuario(reader("ID"), reader("Tipo"))
+                agregarUsuario(reader("CiPersona"), reader("TipoUsuario"))
             End While
             reader.Close()
             conexion.Close()
@@ -115,18 +115,31 @@ Public Class frmAdminUsuarios
                 .CommandType = CommandType.Text
 
                 If btnAgregar.Text.Equals("Agregar usuario") Then
-                    .CommandText = "INSERT INTO `Usuario` VALUES  (@ID, @Contraseña, @Aprobado, @Tipo);"
+                    .CommandText = "INSERT INTO `Usuario` VALUES  (@CiPersona, @TipoUsuario, @ContraseñaUsuario, @AprobacionUsuario);"
                 Else
-                    .CommandText = "UPDATE `Usuario` SET Contraseña=@Contraseña, Aprobado=@Aprobado, Tipo=@Tipo WHERE ID=@ID;"
+                    .CommandText = "UPDATE `Usuario` SET TipoUsuario=@TipoUsuario, ContraseñaUsuario=@ContraseñaUsuario, AprobacionUsuario=@AprobacionUsuario WHERE CiPersona=@CiPersona;"
                 End If
 
-                .Parameters.AddWithValue("@ID", txtID.Text)
-                .Parameters.AddWithValue("@Contraseña", txtContraseña.Text)
-                .Parameters.AddWithValue("@Aprobado", chkHabilitado.Checked)
-                .Parameters.AddWithValue("@Tipo", tipoSeleccionado)
+                .Parameters.AddWithValue("@CiPersona", txtID.Text)
+                .Parameters.AddWithValue("@ContraseñaUsuario", txtContraseña.Text)
+                .Parameters.AddWithValue("@AprobacionUsuario", chkHabilitado.Checked)
+                .Parameters.AddWithValue("@TipoUsuario", tipoSeleccionado)
             End With
 
             Try
+                If btnAgregar.Text.Equals("Agregar usuario") Then
+                    Dim subConexion As New DB()
+                    Using subCmd As New MySqlCommand()
+                        With subCmd
+                            .Connection = subConexion.Conn
+                            .CommandText = "INSERT INTO `Persona` VALUES (@CiPersona);"
+                            .CommandType = CommandType.Text
+                            .Parameters.AddWithValue("@CiPersona", txtID.Text)
+                        End With
+                        subCmd.ExecuteNonQuery()
+                    End Using
+                End If
+
                 cmd.ExecuteNonQuery()
                 conexion.Close()
                 If btnAgregar.Text.Equals("Agregar usuario") Then
@@ -138,7 +151,7 @@ Public Class frmAdminUsuarios
                 nuevoUsuario(Nothing, Nothing)
             Catch ex As Exception
                 If ex.ToString().Contains("Duplicate") Then
-                    MessageBox.Show("Ya existe un usuario con ese ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("Ya existe un usuario (o profesor!) con ese ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Else
                     MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 End If
@@ -203,19 +216,19 @@ Public Class frmAdminUsuarios
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Usuario` WHERE ID=@ID;"
+                .CommandText = "SELECT * FROM `Usuario` WHERE CiPersona=@CiPersona;"
                 .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@ID", ID)
+                .Parameters.AddWithValue("@CiPersona", ID)
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                txtID.Text = reader("ID")
-                txtContraseña.Text = reader("Contraseña")
-                chkHabilitado.Checked = reader("Aprobado")
-                usuarioHabilitado = reader("Aprobado")
-                tipoSeleccionado = reader("Tipo")
-                If reader("Tipo").Equals("Funcionario") Then
+                txtID.Text = reader("CiPersona")
+                txtContraseña.Text = reader("ContraseñaUsuario")
+                chkHabilitado.Checked = reader("AprobacionUsuario")
+                usuarioHabilitado = reader("AprobacionUsuario")
+                tipoSeleccionado = reader("TipoUsuario")
+                If reader("TipoUsuario").Equals("Funcionario") Then
                     radFuncionario.Checked = True
                 Else
                     radAdministrador.Checked = True
@@ -260,9 +273,20 @@ Public Class frmAdminUsuarios
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "DELETE FROM `Usuario` WHERE ID=@ID;"
+                .CommandText = "DELETE FROM `Usuario` WHERE CiPersona=@CiPersona;"
                 .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@ID", sender.Tag(0))
+                .Parameters.AddWithValue("@CiPersona", sender.Tag(0))
+            End With
+
+            cmd.ExecuteNonQuery()
+        End Using
+
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "DELETE FROM `Persona` WHERE CiPersona=@CiPersona;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@CiPersona", sender.Tag(0))
             End With
 
             cmd.ExecuteNonQuery()
@@ -271,5 +295,12 @@ Public Class frmAdminUsuarios
             nuevoUsuario(Nothing, Nothing)
             MessageBox.Show("Usuario '" + sender.Tag(1) + "' eliminado.", "Usuario eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End Using
+    End Sub
+
+    Private Sub txtID_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtID.KeyPress
+        If Not Char.IsNumber(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.KeyChar = ""
+            My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)
+        End If
     End Sub
 End Class

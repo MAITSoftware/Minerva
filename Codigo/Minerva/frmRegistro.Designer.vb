@@ -77,7 +77,7 @@ Partial Class frmRegistro
         '
         'lblDatosInc
         '
-        Me.lblDatosInc.Font = New System.Drawing.Font("Lato Black", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDatosInc.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDatosInc.ForeColor = System.Drawing.Color.White
         Me.lblDatosInc.Location = New System.Drawing.Point(0, 0)
         Me.lblDatosInc.Name = "lblDatosInc"
@@ -167,6 +167,7 @@ Partial Class frmRegistro
         '
         Me.txtUsuario.Font = New System.Drawing.Font("Corbel", 15.0!)
         Me.txtUsuario.Location = New System.Drawing.Point(52, 231)
+        Me.txtUsuario.MaxLength = 8
         Me.txtUsuario.Name = "txtUsuario"
         Me.txtUsuario.Size = New System.Drawing.Size(267, 32)
         Me.txtUsuario.TabIndex = 23

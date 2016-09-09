@@ -192,14 +192,15 @@ Partial Class frmAdminUsuarios
         Me.lblID.ForeColor = System.Drawing.Color.PaleGreen
         Me.lblID.Location = New System.Drawing.Point(20, 134)
         Me.lblID.Name = "lblID"
-        Me.lblID.Size = New System.Drawing.Size(176, 29)
+        Me.lblID.Size = New System.Drawing.Size(114, 29)
         Me.lblID.TabIndex = 112
-        Me.lblID.Text = "Nombre usuario"
+        Me.lblID.Text = "CI usuario"
         '
         'txtID
         '
         Me.txtID.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.txtID.Location = New System.Drawing.Point(25, 166)
+        Me.txtID.MaxLength = 8
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(214, 34)
         Me.txtID.TabIndex = 111

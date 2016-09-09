@@ -74,7 +74,7 @@ Public Class frmLogin
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Usuario` WHERE ID=@ID AND Contraseña=@Contraseña;"
+                .CommandText = "SELECT * FROM `Usuario` WHERE CiPersona=@ID AND ContraseñaUsuario=@Contraseña;"
                 .CommandType = CommandType.Text
                 .Parameters.AddWithValue("@ID", txtUsuario.Text)
                 .Parameters.AddWithValue("@Contraseña", txtContraseña.Text)
@@ -83,13 +83,13 @@ Public Class frmLogin
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                If Not reader("Aprobado") Then
+                If Not reader("AprobacionUsuario") Then
                     MsgBox("Acceso no autorizado" & vbCrLf & "El administrador aún debe confirmar su registro", MsgBoxStyle.Information, "Minerva · Registro a confirmar")
                     lblDatosInc.Text = "Cuenta no autorizada"
                     pnlError.Visible = True
                     Return
                 End If
-                If reader("Tipo").Equals("Administrador") Then
+                If reader("TipoUsuario").Equals("Administrador") Then
                     administrador = True
                 Else
                     administrador = False
@@ -107,6 +107,13 @@ Public Class frmLogin
             Dim minerva As New frmMain(False, administrador)
             minerva.Show()
             Me.Hide()
+        End If
+    End Sub
+
+    Private Sub txtUsuario_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtUsuario.KeyPress
+        If Not Char.IsNumber(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.KeyChar = ""
+            My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)
         End If
     End Sub
 End Class

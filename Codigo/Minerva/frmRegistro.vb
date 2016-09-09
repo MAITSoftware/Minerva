@@ -73,7 +73,7 @@ Public Class frmRegistro
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "select COUNT(*) as 'Cantidad' from Usuario WHERE Usuario.Tipo='Administrador';"
+                .CommandText = "select COUNT(*) as 'Cantidad' from Usuario WHERE Usuario.TipoUsuario='Administrador';"
                 .CommandType = CommandType.Text
             End With
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
@@ -83,38 +83,59 @@ Public Class frmRegistro
             reader.Close()
         End Using
 
-
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "INSERT INTO `Usuario` VALUES (@ID, @Contraseña, @Aprobado, @Tipo);"
-                .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@ID", txtUsuario.Text)
-                .Parameters.AddWithValue("@Contraseña", txtContraseña.Text)
-                If cantidadAdministradores <= 0 Then
-                    .Parameters.AddWithValue("@Aprobado", True) ' Habilitada
-                    .Parameters.AddWithValue("@Tipo", "Administrador") ' Admin
-                Else
-                    .Parameters.AddWithValue("@Aprobado", False) ' No está habilitada
-                    .Parameters.AddWithValue("@Tipo", "Funcionario") ' No es admin
-                End If
-            End With
-
-            Try
+        Try
+            Using cmd As New MySqlCommand()
+                With cmd
+                    .Connection = conexion.Conn
+                    .CommandText = "INSERT INTO `Persona` VALUES (@CiPersona);"
+                    .CommandType = CommandType.Text
+                    .Parameters.AddWithValue("@CiPersona", txtUsuario.Text)
+                End With
                 cmd.ExecuteNonQuery()
-                conexion.Close()
-                If cantidadAdministradores <= 0 Then
-                    MsgBox("Gracias por registrarse. " & vbCrLf & "Usted ha sido registrado como administrador." & vbCrLf & "Ya puede acceder al sistema utilizando sus datos.", MsgBoxStyle.Information, "Minerva · Confirmación de registro")
-                Else
-                    MsgBox("Gracias por registrarse. " & vbCrLf & "El administrador deberá confirmar su registro", MsgBoxStyle.Information, "Minerva · Confirmación de registro")
-                End If
-                Me.Hide()
-                frmIngresarRegistro.Show()
-                Me.Dispose()
-            Catch ex As Exception
-                pnlError.Visible = True
-                conexion.Close()
-            End Try
-        End Using
+            End Using
+
+            Using cmd As New MySqlCommand()
+                With cmd
+                    .Connection = conexion.Conn
+                    .CommandText = "INSERT INTO `Usuario` VALUES (@CiPersona, @TipoUsuario, @ContraseñaUsuario, @AprobacionUsuario);"
+                    .CommandType = CommandType.Text
+                    .Parameters.AddWithValue("@CiPersona", txtUsuario.Text)
+                    .Parameters.AddWithValue("@ContraseñaUsuario", txtContraseña.Text)
+                    If cantidadAdministradores <= 0 Then
+                        .Parameters.AddWithValue("@AprobacionUsuario", True) ' Habilitada
+                        .Parameters.AddWithValue("@TipoUsuario", "Administrador") ' Admin
+                    Else
+                        .Parameters.AddWithValue("@AprobacionUsuario", False) ' No está habilitada
+                        .Parameters.AddWithValue("@TipoUsuario", "Funcionario") ' No es admin
+                    End If
+                End With
+
+                Try
+                    cmd.ExecuteNonQuery()
+                    conexion.Close()
+                    If cantidadAdministradores <= 0 Then
+                        MsgBox("Gracias por registrarse. " & vbCrLf & "Usted ha sido registrado como administrador." & vbCrLf & "Ya puede acceder al sistema utilizando sus datos.", MsgBoxStyle.Information, "Minerva · Confirmación de registro")
+                    Else
+                        MsgBox("Gracias por registrarse. " & vbCrLf & "El administrador deberá confirmar su registro", MsgBoxStyle.Information, "Minerva · Confirmación de registro")
+                    End If
+                    Me.Hide()
+                    frmIngresarRegistro.Show()
+                    Me.Dispose()
+                Catch ex As Exception
+                    pnlError.Visible = True
+                    conexion.Close()
+                End Try
+            End Using
+
+        Catch ex As Exception
+            pnlError.Visible = True
+            conexion.Close()
+        End Try
+    End Sub
+    Private Sub txtUsuario_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtUsuario.KeyPress
+        If Not Char.IsNumber(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.KeyChar = ""
+            My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)
+        End If
     End Sub
 End Class

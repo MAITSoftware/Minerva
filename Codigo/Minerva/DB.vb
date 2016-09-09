@@ -8,7 +8,7 @@ Public Class DB
     Public Sub New()
         ' Al crear la clase, generar la conexión, y abrirla
         Try
-            Conn = New MySqlConnection("server=localhost;uid=root;password=ignacio;database=Minerva")
+            Conn = New MySqlConnection("server=localhost;uid=minerva;password=minerva;database=Minerva")
             Conn.Open()
         Catch ex As Exception
             ' En caso de error mostrar un mensaje y salir

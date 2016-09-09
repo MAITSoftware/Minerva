@@ -26,13 +26,13 @@ Public Class frmAdminGrupos
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT *, Turno.Nombre as 'nombreTurno' FROM `Grupo`, `Turno` WHERE Grupo.IDTurno=Turno.ID;"
+                .CommandText = "SELECT *, Turno.NombreTurno FROM `Grupo`, `Turno` WHERE Grupo.IDTurno=Turno.IDTurno;"
                 .CommandType = CommandType.Text
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                agregarGrupo(reader("ID"), reader("Trayecto").ToString(), reader("IDTurno"), reader("Trayecto").ToString() & " " & reader("ID") & ControlChars.NewLine & " (" & reader("nombreTurno") & ")", reader("nombreTurno"))
+                agregarGrupo(reader("IDGrupo"), reader("IDTrayecto").ToString(), reader("IDTurno"), reader("IDTrayecto").ToString() & " " & reader("IDGrupo") & ControlChars.NewLine & " (" & reader("NombreTurno") & ")", reader("NombreTurno"))
             End While
             reader.Close()
             conexion.Close()
@@ -147,11 +147,11 @@ Public Class frmAdminGrupos
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "DELETE FROM `Grupo` WHERE ID=@ID and IDTurno=@IDTurno and Trayecto=@Trayecto;"
+                .CommandText = "DELETE FROM `Grupo` WHERE IDGrupo=@IDGrupo and IDTurno=@IDTurno and IDTrayecto=@IDTrayecto;"
                 .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@ID", sender.Tag(0))
+                .Parameters.AddWithValue("@IDGrupo", sender.Tag(0))
                 .Parameters.AddWithValue("@IDTurno", sender.Tag(2))
-                .Parameters.AddWithValue("@Trayecto", sender.Tag(1))
+                .Parameters.AddWithValue("@IDTrayecto", sender.Tag(1))
             End With
             totalGrupos -= 1
             cmd.ExecuteNonQuery()
@@ -170,14 +170,14 @@ Public Class frmAdminGrupos
             With cmd
                 .Connection = conexion.Conn
                 .CommandType = CommandType.Text
-                .CommandText = "INSERT INTO `Grupo` VALUES  (@ID, @Trayecto, @Discapacitado, @IDTurno, @IDCurso, @IDOrientación, Null);"
+                .CommandText = "INSERT INTO `Grupo` VALUES  (@IDGrupo, @Discapacitado, -1, @IDTrayecto, @IDTurno, @IDOrientacion, @IDCurso);"
                 Console.WriteLine(cmbTurno.SelectedIndex)
-                .Parameters.AddWithValue("@ID", txtIDGrupo.Text)
-                .Parameters.AddWithValue("@Trayecto", numGrado.Value.ToString())
+                .Parameters.AddWithValue("@IDGrupo", txtIDGrupo.Text)
                 .Parameters.AddWithValue("@Discapacitado", chkDiscapacitado.Checked)
-                .Parameters.AddWithValue("@IDCurso", cmbCurso.Text.Substring(0, cmbCurso.Text.IndexOf(" (")).Trim())
+                .Parameters.AddWithValue("@IDTrayecto", numGrado.Value.ToString())
                 .Parameters.AddWithValue("@IDTurno", cmbTurno.SelectedIndex + 1)
-                .Parameters.AddWithValue("@IDOrientación", cmbOrientacion.Text.Substring(0, cmbOrientacion.Text.IndexOf(" (")).Trim())
+                .Parameters.AddWithValue("@IDOrientacion", cmbOrientacion.Text.Substring(0, cmbOrientacion.Text.IndexOf(" (")).Trim())
+                .Parameters.AddWithValue("@IDCurso", cmbCurso.Text.Substring(0, cmbCurso.Text.IndexOf(" (")).Trim())
             End With
 
             Try
@@ -216,22 +216,22 @@ Public Class frmAdminGrupos
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT *, Curso.Nombre as 'nombreCurso', Orientación.Nombre as 'nombreOrientación' FROM `Grupo`, `Curso`, `Orientación` WHERE Grupo.ID=@ID and Grupo.IDTurno=@IDTurno and Grupo.Trayecto=@Trayecto and Curso.ID=Grupo.IDCurso and Orientación.ID=Grupo.IDOrientación;"
+                .CommandText = "SELECT *, Curso.NombreCurso, Orientacion.NombreOrientacion FROM `Grupo`, `Curso`, `Orientacion` WHERE Grupo.IDGrupo=@IDGrupo and Grupo.IDTurno=@IDTurno and Grupo.IDTrayecto=@IDTrayecto and Curso.IDCurso=Grupo.IDCurso and Orientacion.IDOrientacion=Grupo.IDOrientacion;"
                 .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@ID", grupo(0))
-                .Parameters.AddWithValue("@Trayecto", grupo(1))
+                .Parameters.AddWithValue("@IDGrupo", grupo(0))
+                .Parameters.AddWithValue("@IDTrayecto", grupo(1))
                 .Parameters.AddWithValue("@IDTurno", grupo(2))
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                txtIDGrupo.Text = reader("ID")
-                numGrado.Value = Integer.Parse(reader("Trayecto"))
-                cmbCurso.SelectedIndex = cmbCurso.FindStringExact(reader("IDCurso").ToString() & " (" & reader("nombreCurso") & ")")
+                txtIDGrupo.Text = reader("IDGrupo")
+                numGrado.Value = Integer.Parse(reader("IDTrayecto"))
+                cmbCurso.SelectedIndex = cmbCurso.FindStringExact(reader("IDCurso").ToString() & " (" & reader("NombreCurso") & ")")
                 cargarOrientaciones()
                 chkDiscapacitado.Checked = reader("Discapacitado")
                 cmbTurno.SelectedIndex = reader("IDTurno") - 1
-                cmbOrientacion.SelectedIndex = cmbOrientacion.FindStringExact(reader("IDOrientación").ToString() & " (" & reader("nombreOrientación") & ")")
+                cmbOrientacion.SelectedIndex = cmbOrientacion.FindStringExact(reader("IDOrientacion").ToString() & " (" & reader("NombreOrientacion") & ")")
                 cmbOrientacion.Enabled = False
             End While
             reader.Close()
@@ -253,7 +253,7 @@ Public Class frmAdminGrupos
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                cmbCurso.Items.Add(reader("ID").ToString() & " (" & reader("Nombre") & ")")
+                cmbCurso.Items.Add(reader("IDCurso").ToString() & " (" & reader("NombreCurso") & ")")
             End While
             reader.Close()
         End Using
@@ -268,7 +268,7 @@ Public Class frmAdminGrupos
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                cmbTurno.Items.Add(reader("Nombre"))
+                cmbTurno.Items.Add(reader("NombreTurno"))
             End While
             reader.Close()
             conexion.Close()
@@ -282,14 +282,14 @@ Public Class frmAdminGrupos
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Orientación` WHERE IDCurso=@IDCurso;"
+                .CommandText = "SELECT * FROM `Orientacion` WHERE IDCurso=@IDCurso;"
                 .CommandType = CommandType.Text
                 .Parameters.AddWithValue("@IDCurso", cmbCurso.Text.Substring(0, cmbCurso.Text.IndexOf(" (")).Trim())
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                cmbOrientacion.Items.Add(reader("ID").ToString() & " (" & reader("Nombre") & ")")
+                cmbOrientacion.Items.Add(reader("IDOrientacion").ToString() & " (" & reader("NombreOrientacion") & ")")
             End While
             reader.Close()
             conexion.Close()
@@ -307,5 +307,11 @@ Public Class frmAdminGrupos
             cmbOrientacion.Enabled = True
         End If
         prevSelect = cmbCurso.Text
+    End Sub
+
+    Private Sub txtIDGrupo_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtIDGrupo.KeyPress
+        If e.KeyChar = " " Then
+            e.KeyChar = Nothing
+        End If
     End Sub
 End Class
