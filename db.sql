@@ -2,9 +2,6 @@ drop database if exists `Minerva`;
 create database `Minerva`;
 use `Minerva`;
 
-DROP USER IF EXISTS 'minerva'@'localhost';
-CREATE USER 'minerva'@'localhost' IDENTIFIED BY 'minerva';
-GRANT ALL PRIVILEGES ON Minerva.* TO 'minerva'@'localhost' WITH GRANT OPTION;
 
 create table `Persona` (
   `CiPersona` INT(8) NOT NULL,
@@ -79,7 +76,7 @@ create table `Grupo` (
   FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
   FOREIGN KEY (`IdSalon`) REFERENCES Salon(`IdSalon`),
   FOREIGN KEY (`IdTurno`) REFERENCES Turno(`IdTurno`),
-  PRIMARY KEY (`IdGrupo`, `Grado`)
+  PRIMARY KEY (`IdGrupo`, `Grado`, `IdOrientacion`)
 );
 
 create table `Area` (
@@ -122,8 +119,8 @@ create table `Genera` (
   FOREIGN KEY (`IdAsignatura`) REFERENCES Asignatura(`IdAsignatura`),
   FOREIGN KEY (`IdGrupo`) REFERENCES Grupo(`IdGrupo`),
   FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
-  FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`),
-  PRIMARY KEY (`HoraInicio`, `HoraFin`, `Dia`, `IdAsignatura`, `IdGrupo`, `IdOrientacion`, `CiPersona`)
+  FOREIGN KEY (`CiPersona`) REFERENCES Profesor(`CiPersona`),
+  PRIMARY KEY (`HoraInicio`, `HoraFin`, `Dia`, `IdAsignatura`, `IdGrupo`, `IdOrientacion`, `CiPersona`, `Grado`)
 );
 
 create table `Tiene_Ag` (
@@ -137,7 +134,7 @@ create table `Tiene_Ag` (
   FOREIGN KEY (`IdGrupo`) REFERENCES Grupo(`IdGrupo`),
   FOREIGN KEY (`Grado`) REFERENCES Trayecto(`Grado`),
   FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
-  FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`),
+  FOREIGN KEY (`CiPersona`) REFERENCES Profesor(`CiPersona`),
   PRIMARY KEY (`IdAsignatura`, `IdGrupo`, `Grado`, `IdOrientacion`, `CiPersona`)
 );
 
