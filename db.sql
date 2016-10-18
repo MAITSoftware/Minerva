@@ -2,6 +2,9 @@ drop database if exists `Minerva`;
 create database `Minerva`;
 use `Minerva`;
 
+DROP USER IF EXISTS 'minerva'@'localhost';
+CREATE USER 'minerva'@'localhost' IDENTIFIED BY 'minerva';
+GRANT ALL PRIVILEGES ON Minerva.* TO 'minerva'@'localhost' WITH GRANT OPTION;
 
 create table `Persona` (
   `CiPersona` INT(8) NOT NULL,
