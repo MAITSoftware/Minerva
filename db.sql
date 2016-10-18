@@ -5,15 +5,15 @@ use `Minerva`;
 
 create table `Persona` (
   `CiPersona` INT(8) NOT NULL,
-  `NombrePersona` VARCHAR(25) NOT NULL,
-  `ApellidoPersona` VARCHAR(25) NOT NULL,
+  `NombrePersona` VARCHAR(25),
+  `ApellidoPersona` VARCHAR(25),
   PRIMARY KEY (`CiPersona`)
 );
 
 create table `Usuario` (
   `CiPersona` INT(8) NOT NULL,
-  `NombrePersona` VARCHAR(25) NOT NULL,
-  `ApellidoPersona` VARCHAR(25) NOT NULL,
+  `NombrePersona` VARCHAR(25),
+  `ApellidoPersona` VARCHAR(25),
   `TipoUsuario` VARCHAR(13) NOT NULL,
   `ContraseñaUsuario` VARCHAR(25) NOT NULL,
   `AprobacionUsuario` BOOLEAN NOT NULL,
