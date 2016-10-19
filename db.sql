@@ -147,3 +147,16 @@ create table `Tiene_Ta` (
   FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
   PRIMARY KEY (`IdAsignatura`, `Grado`, `IdOrientacion`)
 );
+
+INSERT INTO `Curso` VALUES (1, "EMT"), (2, "CBT"); 
+INSERT INTO `Orientacion` VALUES
+(123, "Informática", 1),
+(321, "Administración", 1),
+(981, "Ciclo Básico", 2);
+INSERT INTO `Trayecto` VALUES (
+ 1, 123, 0), (2, 123, 0), (3, 123, 0), (4, 123, 0), (
+ 1, 321, 0), (2, 321, 0), (3, 321, 0), (4, 321, 0), (
+ 1, 981, 0), (2, 981, 0), (3, 981, 0), (4, 981, 0);
+ INSERT INTO `Area` VALUES (150, "Pack 1"), (151, "Pack 2");
+ INSERT INTO `Turno` VALUES (1, "Turno 1"), (2, "Turno 2"), (3, "Turno 3"), (4, "Turno 4"), (5, "Turno 5");
+ 

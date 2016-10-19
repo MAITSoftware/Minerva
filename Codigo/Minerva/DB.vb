@@ -522,4 +522,190 @@ Public Class DBB
             End Try
         End Using
     End Sub
+
+    Public Sub cargarGrupos_frmAdminGrupos(ByVal frm As frmAdminGrupos)
+        ' Carga los grupos a la lista de grupos
+        frm.pnlGrupos.Controls.Clear()
+        frm.totalGrupos = 0
+        frm.lblCantidadGrupos.Text = "(" + frm.totalGrupos.ToString() + ")"
+
+        Dim conexion As New DB()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT *, Turno.NombreTurno FROM `Grupo`, `Turno` WHERE Grupo.IdTurno=Turno.IdTurno;"
+                .CommandType = CommandType.Text
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                frm.agregarGrupo(reader("IdGrupo"), reader("Grado").ToString(), reader("IdTurno"), reader("Grado").ToString() & " " & reader("IdGrupo") & ControlChars.NewLine & " (" & reader("NombreTurno") & ")", reader("NombreTurno"))
+            End While
+            reader.Close()
+            conexion.Close()
+        End Using
+    End Sub
+
+    Public Sub cargarOrientaciones_frmAdminGrupos(ByVal frm As frmAdminGrupos)
+        ' carga las orientaciones a los combobox
+        Dim conexion As New DB()
+        frm.cmbOrientacion.Items.Clear()
+
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT * FROM `Orientacion` WHERE IdCurso=@IdCurso;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@IdCurso", frm.cmbCurso.Text.Substring(0, frm.cmbCurso.Text.IndexOf(" (")).Trim())
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                frm.cmbOrientacion.Items.Add(reader("IdOrientacion").ToString() & " (" & reader("NombreOrientacion") & ")")
+            End While
+            reader.Close()
+            conexion.Close()
+        End Using
+    End Sub
+
+    Public Sub rellenarCombos_frmAdminGrupos(ByVal frm As frmAdminGrupos)
+        ' Llena los combos con los datos de la DB.
+        Dim conexion As New DB()
+
+        ' Primero los cursos
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT * FROM `Curso`;"
+                .CommandType = CommandType.Text
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                frm.cmbCurso.Items.Add(reader("IdCurso").ToString() & " (" & reader("NombreCurso") & ")")
+            End While
+            reader.Close()
+        End Using
+
+        ' Segundo los turnos
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT * FROM `Turno`;"
+                .CommandType = CommandType.Text
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                frm.cmbTurno.Items.Add(reader("NombreTurno"))
+            End While
+            reader.Close()
+            conexion.Close()
+        End Using
+    End Sub
+
+    Public Sub cargarDatos_frmAdminGrupos(ByVal grupo As Object, ByVal frm As frmAdminGrupos)
+        ' carga los datos del grupo y los coloca en la interfaz
+        Dim conexion As New DB()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT *, Curso.NombreCurso, Orientacion.NombreOrientacion FROM `Grupo`, `Curso`, `Orientacion` WHERE Grupo.IdGrupo=@IdGrupo and Grupo.IdTurno=@IdTurno and Grupo.Grado=@Grado and Orientacion.IdOrientacion=Grupo.IdOrientacion;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@IdGrupo", grupo(0))
+                .Parameters.AddWithValue("@Grado", grupo(1))
+                .Parameters.AddWithValue("@IdTurno", grupo(2))
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                frm.txtIDGrupo.Text = reader("IdGrupo")
+                frm.numGrado.Value = Integer.Parse(reader("Grado"))
+                frm.cmbCurso.SelectedIndex = frm.cmbCurso.FindStringExact(reader("IDCurso").ToString() & " (" & reader("NombreCurso") & ")")
+                frm.cargarOrientaciones()
+                frm.chkDiscapacitado.Checked = reader("Discapacitado")
+                frm.cmbTurno.SelectedIndex = reader("IDTurno") - 1
+                frm.cmbOrientacion.SelectedIndex = frm.cmbOrientacion.FindStringExact(reader("IdOrientacion").ToString() & " (" & reader("NombreOrientacion") & ")")
+                frm.cmbOrientacion.Enabled = False
+            End While
+            reader.Close()
+            conexion.Close()
+        End Using
+    End Sub
+
+    Public Sub actualizarDB_frmAdminGrupos(ByVal frm As frmAdminGrupos)
+        ' Agrega un salón a la base de datos
+        Dim conexion As New DB()
+
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandType = CommandType.Text
+                .CommandText = "INSERT INTO `Grupo` VALUES (@IdGrupo, @Discapacitado, @Grado, @IDOrientacion, -1, @IdTurno);"
+
+                .Parameters.AddWithValue("@IDGrupo", frm.txtIDGrupo.Text)
+                .Parameters.AddWithValue("@Discapacitado", frm.chkDiscapacitado.Checked)
+                .Parameters.AddWithValue("@Grado", frm.numGrado.Value)
+                .Parameters.AddWithValue("@IdOrientacion", frm.cmbOrientacion.Text.Substring(0, frm.cmbOrientacion.Text.IndexOf(" (")).Trim())
+                .Parameters.AddWithValue("@IdTurno", frm.cmbTurno.SelectedIndex + 1)
+            End With
+
+            Try
+                cmd.ExecuteNonQuery()
+                conexion.Close()
+
+                frm.cargarGrupos()
+                MessageBox.Show("Grupo agregado correctamente", "Grupo agregado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                frm.btnNuevoGrupo_Click(Nothing, Nothing)
+            Catch ex As Exception
+                If ex.ToString().Contains("Duplicate") Then
+                    MessageBox.Show("Ya existe un grupo con el mismo trayecto y ID en dicho turno.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Else
+                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+                Console.WriteLine(ex.ToString())
+            End Try
+        End Using
+    End Sub
+
+    Public Sub eliminarGrupo_frmAdminGrupos(ByVal sender As System.Object, ByVal frm As frmAdminGrupos)
+        Dim conexion As New DB()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "DELETE FROM `Grupo` WHERE IdGrupo=@IDGrupo and IdTurno=@IDTurno and Grado=@Grado;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@IdGrupo", sender.Tag(0))
+                .Parameters.AddWithValue("@IdTurno", sender.Tag(2))
+                .Parameters.AddWithValue("@Grado", sender.Tag(1))
+            End With
+            frm.totalGrupos -= 1
+            cmd.ExecuteNonQuery()
+            conexion.Close() 'Cierra la conexión
+            frm.cargarGrupos()
+            frm.btnNuevoGrupo_Click(Nothing, Nothing)
+            MessageBox.Show("Grupo '" + sender.Tag(4) + "' eliminado.", "Grupo eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End Using
+    End Sub
+
+    Public Sub cargarTurnos_frmAdminGrupos(ByVal frm As frmAdminGrupos)
+        ' carga las orientaciones a los combobox
+        Dim conexion As New DB()
+        frm.cmbTurno.Items.Clear()
+
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT * FROM `Turno`;"
+                .CommandType = CommandType.Text
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                frm.cmbTurno.Items.Add(reader("NombreTurno").ToString())
+            End While
+            reader.Close()
+            conexion.Close()
+        End Using
+    End Sub
 End Class
