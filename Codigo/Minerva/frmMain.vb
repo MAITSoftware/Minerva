@@ -1,7 +1,4 @@
-﻿Imports MySql.Data.MySqlClient
-Imports System.Data
-
-Public Class frmMain
+﻿Public Class frmMain
 
     Dim cuentaInvitado As Boolean = True
     Dim estadoAnimacion As Boolean = False
@@ -66,21 +63,9 @@ Public Class frmMain
         Me.Dispose()
     End Sub
 
+    ' Persistencia
     Private Sub cargarDatos()
-        Dim conexion As New DB()
-        ' Carga los grupos al combo
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "SELECT *, Turno.NombreTurno from `Grupo`, `Turno` where Grupo.IDTurno=Turno.IDTurno;"
-                .CommandType = CommandType.Text
-            End With
-
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            While reader.Read()
-                cboGrupo.Items.Add(reader("IDTrayecto").ToString() & " " & reader("IDGrupo") & " (" & reader("NombreTurno") & ")")
-            End While
-            reader.Close()
-        End Using
+        Dim DB As New DBB()
+        DB.cargarDatos_frmMain(Me)
     End Sub
 End Class

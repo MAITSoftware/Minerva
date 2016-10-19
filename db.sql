@@ -1,15 +1,15 @@
 drop database if exists `Minerva`;
 create database `Minerva`;
 use `Minerva`;
-
-
+ 
+ 
 create table `Persona` (
   `CiPersona` INT(8) NOT NULL,
   `NombrePersona` VARCHAR(25),
   `ApellidoPersona` VARCHAR(25),
   PRIMARY KEY (`CiPersona`)
 );
-
+ 
 create table `Usuario` (
   `CiPersona` INT(8) NOT NULL,
   `NombrePersona` VARCHAR(25),
@@ -20,7 +20,7 @@ create table `Usuario` (
   FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`),
   PRIMARY KEY (`CiPersona`)
 );
-
+ 
 create table `Profesor` (
   `CiPersona` INT(8) NOT NULL,
   `NombrePersona` VARCHAR(25) NOT NULL,
@@ -29,13 +29,13 @@ create table `Profesor` (
   FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`),
   PRIMARY KEY (`CiPersona`)
 );
-
+ 
 create table `Curso` (
   `IdCurso` INT(4) NOT NULL,
   `NombreCurso` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`IdCurso`)
 );
-
+ 
 create table `Orientacion` (
   `IdOrientacion` INT(4) NOT NULL,
   `NombreOrientacion` VARCHAR(30) NOT NULL,
@@ -43,28 +43,28 @@ create table `Orientacion` (
   FOREIGN KEY (`IdCurso`) REFERENCES Curso(`IdCurso`),
   PRIMARY KEY (`IdOrientacion`)
 );
-
+ 
 create table `Trayecto` (
   `Grado` INT(2) NOT NULL,
-  `IdOrientacion` INT(2) NOT NULL,
+  `IdOrientacion` INT(4) NOT NULL,
   `Modulo` INT(2) NOT NULL,
   FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
   PRIMARY KEY (`Grado`, `IdOrientacion`)
 );
-
+ 
 create table `Salon` (
-  `IDSalon` INT(2) NOT NULL,
+  `IdSalon` INT(2) NOT NULL,
   `ComentariosSalon` TEXT,
   `PlantaSalon` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`IDSalon`)
 );
-
+ 
 create table `Turno` (
-  `IDTurno` INT(2) NOT NULL,
+  `IdTurno` INT(2) NOT NULL,
   `NombreTurno` VARCHAR(30) NOT NULL,
-  PRIMARY KEY (`IDTurno`)
+  PRIMARY KEY (`IdTurno`)
 );
-
+ 
 create table `Grupo` (
   `IdGrupo` VARCHAR(4) NOT NULL,
   `Discapacitado` BOOLEAN NOT NULL,
@@ -78,13 +78,13 @@ create table `Grupo` (
   FOREIGN KEY (`IdTurno`) REFERENCES Turno(`IdTurno`),
   PRIMARY KEY (`IdGrupo`, `Grado`, `IdOrientacion`)
 );
-
+ 
 create table `Area` (
   `IdArea` INT(4) NOT NULL,
   `NombreArea` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`IdArea`)
 );
-
+ 
 create table `Asignatura` (
   `IdAsignatura` INT(4) NOT NULL,
   `NombreAsignatura` VARCHAR(25) NOT NULL,
@@ -92,7 +92,7 @@ create table `Asignatura` (
   INDEX(`IdAsignatura`),
   FOREIGN KEY (`IdArea`) REFERENCES Area(`IdArea`)
 );
-
+ 
 create table `Asignacion` (
   `HoraInicio` TIME NOT NULL,
   `HoraFin` TIME NOT NULL,
@@ -102,7 +102,7 @@ create table `Asignacion` (
   INDEX( `HoraFin`),
   PRIMARY KEY (`HoraInicio`, `HoraFin`, `Dia`)
 );
-
+ 
 create table `Genera` (
   `HoraInicio` TIME NOT NULL,
   `HoraFin` TIME NOT NULL,
@@ -119,10 +119,10 @@ create table `Genera` (
   FOREIGN KEY (`IdAsignatura`) REFERENCES Asignatura(`IdAsignatura`),
   FOREIGN KEY (`IdGrupo`) REFERENCES Grupo(`IdGrupo`),
   FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
-  FOREIGN KEY (`CiPersona`) REFERENCES Profesor(`CiPersona`),
+  FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`), -- Podría ser foranea a Profesor(CiPersona) e igual funcionaría.
   PRIMARY KEY (`HoraInicio`, `HoraFin`, `Dia`, `IdAsignatura`, `IdGrupo`, `IdOrientacion`, `CiPersona`, `Grado`)
 );
-
+ 
 create table `Tiene_Ag` (
   `IdAsignatura` INT(4) NOT NULL,
   `IdGrupo` VARCHAR(4) NOT NULL,
@@ -134,10 +134,10 @@ create table `Tiene_Ag` (
   FOREIGN KEY (`IdGrupo`) REFERENCES Grupo(`IdGrupo`),
   FOREIGN KEY (`Grado`) REFERENCES Trayecto(`Grado`),
   FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
-  FOREIGN KEY (`CiPersona`) REFERENCES Profesor(`CiPersona`),
+  FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`), -- Podría ser foranea a Profesor(CiPersona) e igual funcionaría.
   PRIMARY KEY (`IdAsignatura`, `IdGrupo`, `Grado`, `IdOrientacion`, `CiPersona`)
 );
-
+ 
 create table `Tiene_Ta` (
   `IdAsignatura` INT(4) NOT NULL,
   `Grado` INT(2) NOT NULL,

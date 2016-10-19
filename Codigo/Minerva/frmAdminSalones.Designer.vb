@@ -478,7 +478,7 @@ Partial Class frmAdminSalones
     Friend WithEvents btnNuevoSalon As System.Windows.Forms.Button
     Friend WithEvents lblNuevoSalon As System.Windows.Forms.Label
     Friend WithEvents btnSalonPlantilla As System.Windows.Forms.Button
-    Friend WithEvents lblCantidadSalones As System.Windows.Forms.Label
     Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
+    Friend WithEvents lblCantidadSalones As System.Windows.Forms.Label
 
 End Class
