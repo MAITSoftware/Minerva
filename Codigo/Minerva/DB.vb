@@ -61,7 +61,10 @@ Public Class BaseDeDatos
         If accesoDenegado Then
             frm.lblDatosInc.Text = "Datos incorrectos!"
             frm.pnlError.Visible = True
+            frm.Cursor = Cursors.Default
+            frm.Enabled = True
         Else
+            frm.Enabled = False
             Dim minerva As New frmMain(False, frm.cuentaUsuario, frm.administrador)
             minerva.Show()
             frm.Hide()
@@ -140,6 +143,7 @@ Public Class BaseDeDatos
 
     Public Sub setDatos_frmDatosUsuario(ByVal frm As frmDatosUsuario)
         Dim conexion as New Conexion()
+        Dim subConexion As New Conexion()
 
         Using cmd As New MySqlCommand()
             With cmd
@@ -151,17 +155,30 @@ Public Class BaseDeDatos
                 .Parameters.AddWithValue("@NombrePersona", frm.txtNombre.Text)
                 .Parameters.AddWithValue("@ApellidoPersona", frm.txtApellido.Text)
             End With
-
             cmd.ExecuteNonQuery()
             conexion.Close()
-            MessageBox.Show("Información de usuario actualizada correctamente", "Usuario actualizado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-            '            frm._frmMain.cargarNombre()
-            frm.Dispose()
         End Using
+
+        Using subCmd As New MySqlCommand()
+            With subCmd
+                .Connection = subConexion.Conn
+                .CommandText = "UPDATE `Persona` SET NombrePersona=@NombrePersona, ApellidoPersona=@ApellidoPersona WHERE CiPersona=@CiPersona;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@CiPersona", frm._frmMain.nombreUsuario)
+                .Parameters.AddWithValue("@NombrePersona", frm.txtNombre.Text)
+                .Parameters.AddWithValue("@ApellidoPersona", frm.txtApellido.Text)
+            End With
+            subCmd.ExecuteNonQuery()
+            subConexion.Close()
+        End Using
+
+        MessageBox.Show("Información de usuario actualizada correctamente", "Usuario actualizado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+        '            frm._frmMain.cargarNombre()
+        frm.Dispose()
     End Sub
 
     Public Sub cargarNombre_frmMain(ByVal frm As frmMain)
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -193,7 +210,7 @@ Public Class BaseDeDatos
     End Sub
 
     Public Sub cargarDatos_frmMain(ByVal frm As frmMain)
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         ' Carga los grupos al combo
         Using cmd As New MySqlCommand()
             With cmd
@@ -210,13 +227,13 @@ Public Class BaseDeDatos
         End Using
     End Sub
 
-    Public Sub cargarSalones_frmAdminSalones(ByVal frm as frmAdminSalones)
+    Public Sub cargarSalones_frmAdminSalones(ByVal frm As frmAdminSalones)
         ' Carga los salones y los pone en la lista
         frm.pnlSalones.Controls.Clear()
         frm.totalSalones = 0
         frm.lblCantidadSalones.Text = "(" + frm.totalSalones.ToString() + ")"
 
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -236,9 +253,9 @@ Public Class BaseDeDatos
         End Using
     End Sub
 
-    Public Sub guardarSalones_frmAdminSalones(ByVal frm as frmAdminSalones)
+    Public Sub guardarSalones_frmAdminSalones(ByVal frm As frmAdminSalones)
         ' Guardo los horarios del salón.
-        Dim conexionSalones as New Conexion()
+        Dim conexionSalones As New Conexion()
         Dim txtSalon As String = frm.txtIDSalon.Text
         For Turno As Integer = 1 To 5
             Using cmd As New MySqlCommand()
@@ -294,9 +311,9 @@ Public Class BaseDeDatos
         conexionSalones.Close()
     End Sub
 
-    Public Sub cargarGrupos_frmAdminSalones(ByVal frm as frmAdminSalones)
+    Public Sub cargarGrupos_frmAdminSalones(ByVal frm As frmAdminSalones)
         ' Carga los grupos al combo
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         For Turno As Integer = 0 To 5
             Using cmd As New MySqlCommand()
                 With cmd
@@ -327,9 +344,9 @@ Public Class BaseDeDatos
         conexion.Close()
     End Sub
 
-    Public Sub actualizarDB_frmAdminSalones(ByVal frm as frmAdminSalones)
+    Public Sub actualizarDB_frmAdminSalones(ByVal frm As frmAdminSalones)
         ' Agrega o actualiza los datos del salón en la DB
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
             With cmd
@@ -370,7 +387,7 @@ Public Class BaseDeDatos
 
     Public Sub cargarDatos_frmAdminSalones(ByVal idSalon As String, ByVal frm As frmAdminSalones)
         ' Carga los datos de un salón
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -389,7 +406,7 @@ Public Class BaseDeDatos
             conexion.Close()
         End Using
 
-        Dim conexionSalones as New Conexion()
+        Dim conexionSalones As New Conexion()
         ' Carga los horarios del salón.
         For Turno As Integer = 1 To 5
             Using cmd As New MySqlCommand()
@@ -423,7 +440,7 @@ Public Class BaseDeDatos
     End Sub
 
     Public Sub eliminarSalon_frmAdminSalones(ByVal sender As System.Object, ByVal frm As frmAdminSalones)
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -446,7 +463,7 @@ Public Class BaseDeDatos
 
     Public Sub cargarUsuarios_frmAdminUsuarios(ByVal frm As frmAdminUsuarios)
         ' Carga los usuarios a la lista de usuarios
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         frm.pnlUsuarios.Controls.Clear()
         frm.totalUsuarios = 0
         Using cmd As New MySqlCommand()
@@ -466,7 +483,7 @@ Public Class BaseDeDatos
     End Sub
 
     Public Sub eliminarUsuario_frmAdminUsuarios(sender As Object, ByVal frm As frmAdminUsuarios)
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -496,7 +513,7 @@ Public Class BaseDeDatos
 
     Public Sub cargarDatos_frmAdminUsuarios(ByVal ID As String, ByVal frm As frmAdminUsuarios)
         ' Carga los datos del usuario y los muestra en pantalla
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -525,7 +542,7 @@ Public Class BaseDeDatos
 
     Public Sub actualizarDB_frmAdminUsuarios(ByVal frm As frmAdminUsuarios)
         ' Guarda o edita los datos del usuario a la DB
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
             With cmd
@@ -546,7 +563,7 @@ Public Class BaseDeDatos
 
             Try
                 If frm.btnAgregar.Text.Equals("Agregar usuario") Then
-                    Dim subConexion as New Conexion()
+                    Dim subConexion As New Conexion()
                     Using subCmd As New MySqlCommand()
                         With subCmd
                             .Connection = subConexion.Conn
@@ -583,7 +600,7 @@ Public Class BaseDeDatos
         frm.totalGrupos = 0
         frm.lblCantidadGrupos.Text = "(" + frm.totalGrupos.ToString() + ")"
 
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -602,7 +619,7 @@ Public Class BaseDeDatos
 
     Public Sub cargarOrientaciones_frmAdminGrupos(ByVal frm As frmAdminGrupos)
         ' carga las orientaciones a los combobox
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         frm.cmbOrientacion.Items.Clear()
 
         Using cmd As New MySqlCommand()
@@ -624,7 +641,7 @@ Public Class BaseDeDatos
 
     Public Sub rellenarCombos_frmAdminGrupos(ByVal frm As frmAdminGrupos)
         ' Llena los combos con los datos de la DB.
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
 
         ' Primero los cursos
         Using cmd As New MySqlCommand()
@@ -660,7 +677,7 @@ Public Class BaseDeDatos
 
     Public Sub cargarDatos_frmAdminGrupos(ByVal grupo As Object, ByVal frm As frmAdminGrupos)
         ' carga los datos del grupo y los coloca en la interfaz
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -689,7 +706,7 @@ Public Class BaseDeDatos
 
     Public Sub actualizarDB_frmAdminGrupos(ByVal frm As frmAdminGrupos)
         ' Agrega un salón a la base de datos
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
             With cmd
@@ -723,7 +740,7 @@ Public Class BaseDeDatos
     End Sub
 
     Public Sub eliminarGrupo_frmAdminGrupos(ByVal sender As System.Object, ByVal frm As frmAdminGrupos)
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -744,7 +761,7 @@ Public Class BaseDeDatos
 
     Public Sub cargarTurnos_frmAdminGrupos(ByVal frm As frmAdminGrupos)
         ' carga las orientaciones a los combobox
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         frm.cmbTurno.Items.Clear()
 
         Using cmd As New MySqlCommand()
@@ -763,9 +780,9 @@ Public Class BaseDeDatos
         End Using
     End Sub
 
-    Public Sub rellenarCombos_frmAdminDocentes(ByVal frm as frmAdminDocentes)
+    Public Sub rellenarCombos_frmAdminDocentes(ByVal frm As frmAdminDocentes)
         ' Llena los combos con los datos de la DB.
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
 
         ' Primero lás áreas
         Using cmd As New MySqlCommand()
@@ -799,13 +816,13 @@ Public Class BaseDeDatos
         End Using
     End Sub
 
-    Public Sub cargarDocentes_frmAdminDocentes(ByVal frm as frmAdminDocentes)
+    Public Sub cargarDocentes_frmAdminDocentes(ByVal frm As frmAdminDocentes)
         ' carga la lista de docentes
         frm.pnlDocentes.Controls.Clear()
         frm.totalDocentes = 0
         frm.lblCantidadDocentes.Text = "(" + frm.totalDocentes.ToString() + ")"
 
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -815,16 +832,16 @@ Public Class BaseDeDatos
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                frm.agregarDocente(reader("CiPersona"), reader("CiPersona").ToString() & ControlChars.NewLine & " (" & reader("NombreProfesor") & " " & reader("ApellidoProfesor") & ")")
+                frm.agregarDocente(reader("CiPersona"), reader("CiPersona").ToString() & ControlChars.NewLine & " (" & reader("NombrePersona") & " " & reader("ApellidoPersona") & ")")
             End While
             reader.Close()
             conexion.Close()
         End Using
     End Sub
 
-    Public Sub actualizarDB_frmAdminDocentes(ByVal frm as frmAdminDocentes)
+    Public Sub actualizarDB_frmAdminDocentes(ByVal frm As frmAdminDocentes)
         ' Se encarga de manejar la DB (parte datos de docente), agrega o edita docentes.
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
             With cmd
@@ -832,7 +849,7 @@ Public Class BaseDeDatos
                 .CommandType = CommandType.Text
 
                 If frm.btnAgregarDocente.Text.StartsWith("Agregar docente") Then
-                    .CommandText = "INSERT INTO `Profesor` VALUES  (@CiPersona, @NombreProfesor, @ApellidoProfesor, @GradoProfesor);"
+                    .CommandText = "INSERT INTO `Profesor` VALUES (@CiPersona, @NombreProfesor, @ApellidoProfesor, @GradoProfesor);"
                 Else
                     .CommandText = "UPDATE `Profesor` SET NombreProfesor=@NombreProfesor, ApellidoProfesor=@ApellidoProfesor, GradoProfesor=@GradoProfesor WHERE CiPersona=@CiPersona;"
                 End If
@@ -844,14 +861,16 @@ Public Class BaseDeDatos
             End With
 
             Try
-                Dim subConexion as New Conexion()
+                Dim subConexion As New Conexion()
                 If frm.btnAgregarDocente.Text.StartsWith("Agregar docente") Then
                     Using subCmd As New MySqlCommand()
                         With subCmd
                             .Connection = conexion.Conn
-                            .CommandText = "INSERT INTO `Persona` VALUES (@CiPersona);"
+                            .CommandText = "INSERT INTO `Persona` VALUES (@CiPersona, @NombreProfesor, @ApellidoProfesor);"
                             .CommandType = CommandType.Text
                             .Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
+                            .Parameters.AddWithValue("@NombreProfesor", frm.txtNombre.Text)
+                            .Parameters.AddWithValue("@ApellidoProfesor", frm.txtApellido.Text)
                         End With
                         subCmd.ExecuteNonQuery()
                         subConexion.Close()
@@ -894,8 +913,8 @@ Public Class BaseDeDatos
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
                 frm.txtCI.Text = reader("CiPersona")
-                frm.txtNombre.Text = reader("NombreProfesor")
-                frm.txtApellido.Text = reader("ApellidoProfesor")
+                frm.txtNombre.Text = reader("NombrePersona")
+                frm.txtApellido.Text = reader("ApellidoPersona")
                 frm.numGrado.Value = reader("GradoProfesor")
             End While
             reader.Close()
@@ -908,11 +927,12 @@ Public Class BaseDeDatos
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "DELETE FROM `AsignaturasTomadas` WHERE IDGrupo=@IdGrupo and IDAsignatura=@IDAsignatura and IdTrayecto=@IdTrayecto;"
+                .CommandText = "DELETE FROM `Tiene_Ag` WHERE IdGrupo=@IdGrupo and IdAsignatura=@IdAsignatura and Grado=@Grado and CiPersona=@CiPersona;"
                 .CommandType = CommandType.Text
                 .Parameters.AddWithValue("@IdAsignatura", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(0).Text)
                 .Parameters.AddWithValue("@IdGrupo", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Substring(frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.IndexOf(" "), frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Length - 1).Trim())
-                .Parameters.AddWithValue("@IdTrayecto", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Substring(0, frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.IndexOf(" ")).Trim())
+                .Parameters.AddWithValue("@Grado", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Substring(0, frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.IndexOf(" ")).Trim())
+                .Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
             End With
             Try
                 cmd.ExecuteNonQuery()
@@ -967,7 +987,7 @@ Public Class BaseDeDatos
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `AsignaturasTomadas` WHERE CiPersona=@CiPersona;"
+                .CommandText = "SELECT * FROM `Tiene_Ag` WHERE CiPersona=@CiPersona;"
                 .CommandType = CommandType.Text
                 .Parameters.AddWithValue("@CiPersona", CI)
             End With
@@ -977,8 +997,7 @@ Public Class BaseDeDatos
                 Dim item As New ListViewItem
                 item = frm.lstAsignaturas.Items.Add(reader("IdAsignatura").ToString())
                 item.SubItems.Add(reader("Grado") & " " & reader("IdGrupo"))
-                item.SubItems.Add(reader("cargaHoraria").ToString())
-                item.SubItems.Add(reader("fechaAsignacion").ToString())
+                item.SubItems.Add(reader("FechaToma").ToString())
             End While
             reader.Close()
             conexion.Close()
@@ -993,14 +1012,29 @@ Public Class BaseDeDatos
             With cmd
                 .Connection = conexion.Conn
                 .CommandType = CommandType.Text
-                .CommandText = "INSERT INTO `AsignaturasTomadas` VALUES (@CiPersona, @IdAsignatura, @Grado, @IdGrupo, @cargaHoraria, @fechaAsignacion);"
+                .CommandText = "INSERT INTO `Tiene_Ag` VALUES (@IdAsignatura, @IdGrupo, @Grado, @IdOrientacion, @CiPersona, @FechaToma);"
                 .Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
-                .Parameters.AddWithValue("@IDAsignatura", frm.cmbAsignatura.Text.Substring(0, frm.cmbAsignatura.Text.IndexOf(" (")).Trim())
-                .Parameters.AddWithValue("@IDGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.IndexOf(" (")).Trim())
+                .Parameters.AddWithValue("@IdAsignatura", frm.cmbAsignatura.Text.Substring(0, frm.cmbAsignatura.Text.IndexOf(" (")).Trim())
+                .Parameters.AddWithValue("@IdGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.IndexOf(" (")).Trim())
                 .Parameters.AddWithValue("@Grado", frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim())
-                .Parameters.AddWithValue("@cargaHoraria", frm.numHsSemanales.Value)
                 Dim d As DateTime = Now
-                .Parameters.AddWithValue("@fechaAsignacion", d.ToString("yyyy-MM-dd"))
+                .Parameters.AddWithValue("@FechaToma", d.ToString("yyyy-MM-dd"))
+
+                Dim orientacionGrupo As String
+
+                Using subCmd As New MySqlCommand()
+                    subCmd.Connection = conexion.Conn
+                    subCmd.CommandType = CommandType.Text
+                    subCmd.CommandText = "SELECT IdOrientacion from Grupo where IdGrupo=@IdGrupo and Grado=@Grado;"
+                    subCmd.Parameters.AddWithValue("@IdGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.IndexOf(" (")).Trim())
+                    subCmd.Parameters.AddWithValue("@Grado", frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim())
+                    Dim reader As MySqlDataReader = subCmd.ExecuteReader()
+                    reader.Read()
+                    orientacionGrupo = reader("IdOrientacion").ToString()
+                    reader.Close()
+                End Using
+
+                .Parameters.AddWithValue("@IdOrientacion", orientacionGrupo)
             End With
 
             Try
@@ -1012,6 +1046,7 @@ Public Class BaseDeDatos
                 frm.lblNuevoDocente.Text = "Editar materias del docente"
                 frm.btnAgregarAsignatura_Click(Nothing, Nothing)
             Catch ex As Exception
+                Console.WriteLine(ex)
                 If ex.ToString().Contains("Duplicate") Then
                     MessageBox.Show("Esa materia ya ha sido asignada al grupo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Else

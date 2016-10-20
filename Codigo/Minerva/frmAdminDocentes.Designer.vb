@@ -55,7 +55,6 @@ Partial Class frmAdminDocentes
         Me.lstAsignaturas = New System.Windows.Forms.ListView()
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cmbArea = New System.Windows.Forms.ComboBox()
         Me.cmbAsignatura = New System.Windows.Forms.ComboBox()
@@ -400,7 +399,7 @@ Partial Class frmAdminDocentes
         '
         'lstAsignaturas
         '
-        Me.lstAsignaturas.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4, Me.ColumnHeader1})
+        Me.lstAsignaturas.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader1})
         Me.lstAsignaturas.Enabled = False
         Me.lstAsignaturas.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
         Me.lstAsignaturas.HideSelection = False
@@ -415,22 +414,17 @@ Partial Class frmAdminDocentes
         'ColumnHeader2
         '
         Me.ColumnHeader2.Text = "Asignatura"
-        Me.ColumnHeader2.Width = 66
+        Me.ColumnHeader2.Width = 80
         '
         'ColumnHeader3
         '
         Me.ColumnHeader3.Text = "Grupo"
-        Me.ColumnHeader3.Width = 41
-        '
-        'ColumnHeader4
-        '
-        Me.ColumnHeader4.Text = "Horas"
-        Me.ColumnHeader4.Width = 46
+        Me.ColumnHeader3.Width = 50
         '
         'ColumnHeader1
         '
         Me.ColumnHeader1.Text = "F. Asignación"
-        Me.ColumnHeader1.Width = 76
+        Me.ColumnHeader1.Width = 90
         '
         'cmbArea
         '
@@ -595,7 +589,6 @@ Partial Class frmAdminDocentes
     Friend WithEvents lstAsignaturas As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader2 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
     Friend WithEvents cmbArea As System.Windows.Forms.ComboBox
     Friend WithEvents cmbAsignatura As System.Windows.Forms.ComboBox
     Friend WithEvents btnAgregarAsignatura As System.Windows.Forms.PictureBox

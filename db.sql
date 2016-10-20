@@ -89,8 +89,8 @@ create table `Asignatura` (
   `IdAsignatura` INT(4) NOT NULL,
   `NombreAsignatura` VARCHAR(25) NOT NULL,
   `IdArea` INT(4) NOT NULL,
-  INDEX(`IdAsignatura`),
-  FOREIGN KEY (`IdArea`) REFERENCES Area(`IdArea`)
+  FOREIGN KEY (`IdArea`) REFERENCES Area(`IdArea`),
+  PRIMARY KEY (`IdAsignatura`)
 );
  
 create table `Asignacion` (
@@ -129,7 +129,7 @@ create table `Tiene_Ag` (
   `Grado` INT(2) NOT NULL,
   `IdOrientacion` INT(4) NOT NULL,
   `CiPersona` INT(8) NOT NULL,
-  `FechaToma` DATETIME NOT NULL,
+  `FechaToma` DATE NOT NULL,
   FOREIGN KEY (`IdAsignatura`) REFERENCES Asignatura(`IdAsignatura`),
   FOREIGN KEY (`IdGrupo`) REFERENCES Grupo(`IdGrupo`),
   FOREIGN KEY (`Grado`) REFERENCES Trayecto(`Grado`),
@@ -148,6 +148,8 @@ create table `Tiene_Ta` (
   PRIMARY KEY (`IdAsignatura`, `Grado`, `IdOrientacion`)
 );
 
+-- Datos pre-cargados
+
 INSERT INTO `Curso` VALUES (1, "EMT"), (2, "CBT"); 
 INSERT INTO `Orientacion` VALUES
 (123, "Informática", 1),
@@ -158,5 +160,7 @@ INSERT INTO `Trayecto` VALUES (
  1, 321, 0), (2, 321, 0), (3, 321, 0), (4, 321, 0), (
  1, 981, 0), (2, 981, 0), (3, 981, 0), (4, 981, 0);
  INSERT INTO `Area` VALUES (150, "Pack 1"), (151, "Pack 2");
+INSERT INTO `Asignatura` VALUES (
+1, "Biología", 150), (2, "Coso", 150), (3, "BlaBla", 151);
  INSERT INTO `Turno` VALUES (1, "Turno 1"), (2, "Turno 2"), (3, "Turno 3"), (4, "Turno 4"), (5, "Turno 5");
  INSERT INTO `Salon` VALUES (-1, "", "");
