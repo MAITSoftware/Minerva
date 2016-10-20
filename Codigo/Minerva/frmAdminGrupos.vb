@@ -152,35 +152,35 @@
 
     ' Persistencia
     Public Sub cargarGrupos()
-        Dim DB as new DBB()
+        Dim DB As New BaseDeDatos()
         DB.cargarGrupos_frmAdminGrupos(Me)
     End Sub
 
     Public Sub cargarOrientaciones()
         ' carga las orientaciones a los combobox
-        Dim DB as new DBB()
+        Dim DB As New BaseDeDatos()
         DB.cargarOrientaciones_frmAdminGrupos(Me)
     End Sub
 
     Public Sub rellenarCombos()
         ' Llena los combos con los datos de la DB.
-        Dim DB as new DBB()
+        Dim DB As New BaseDeDatos()
         DB.rellenarCombos_frmAdminGrupos(Me)
     End Sub
 
     Public Sub cargarDatos(ByVal grupo As Object)
         ' carga los datos del grupo y los coloca en la interfaz
-        Dim DB as new DBB()
+        Dim DB As New BaseDeDatos()
         DB.cargarDatos_frmAdminGrupos(grupo, Me)
     End Sub
 
     Public Sub actualizarDB()
-        Dim DB as new DBB()
+        Dim DB As New BaseDeDatos()
         DB.actualizarDB_frmAdminGrupos(Me)
     End Sub
 
     Public Sub cargarTurnos()
-        Dim DB As New DBB()
+        Dim DB As New BaseDeDatos()
         DB.cargarTurnos_frmAdminGrupos(Me)
     End Sub
 
@@ -194,7 +194,7 @@
             Return
         End If
 
-        Dim DB As New DBB()
+        Dim DB As New BaseDeDatos()
         DB.eliminarGrupo_frmAdminGrupos(sender, Me)
     End Sub
 End Class

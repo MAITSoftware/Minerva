@@ -172,28 +172,28 @@
     End Sub
 
     Public Sub cargarSalones()
-        Dim DB As New DBB()
+        Dim DB As New BaseDeDatos()
         DB.cargarSalones_frmAdminSalones(Me)
     End Sub
 
     Public Sub guardarSalones()
-        Dim DB As New DBB()
+        Dim DB As New BaseDeDatos()
         DB.guardarSalones_frmAdminSalones(Me)
     End Sub
 
     Public Sub cargarGrupos()
-        Dim DB As New DBB()
+        Dim DB As New BaseDeDatos()
         DB.cargarGrupos_frmAdminSalones(Me)
     End Sub
 
     Public Sub actualizarDB()
-        Dim DB As New DBB()
+        Dim DB As New BaseDeDatos()
         DB.actualizarDB_frmAdminSalones(Me)
     End Sub
 
     Public Sub cargarDatos(ByVal idSalon As String)
         ' Carga los datos de un salón
-        Dim DB As New DBB()
+        Dim DB As New BaseDeDatos()
         DB.cargarDatos_frmAdminSalones(idSalon, Me)
     End Sub
 
@@ -203,7 +203,7 @@
         If result = DialogResult.No Then
             Return
         End If
-        Dim DB As New DBB()
+        Dim DB As New BaseDeDatos()
         DB.eliminarSalon_frmAdminSalones(sender, Me)
     End Sub
 End Class

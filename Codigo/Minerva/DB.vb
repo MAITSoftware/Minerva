@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient ' Importa el módulo de MySQL
 Imports System.Data
 
-Public Class DB
+Public Class Conexion
     ' Define la conexión como variable pública
     Friend Conn As MySqlConnection
 
@@ -24,11 +24,11 @@ Public Class DB
     End Sub
 End Class
 
-Public Class DBB
+Public Class BaseDeDatos
     Public Sub Login_frmLogin(ByVal frm As frmLogin)
         ' Se encarga de comprobar los datos ingresados del usuario, con los de la DB
         Dim accesoDenegado As Boolean = True
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -70,7 +70,7 @@ Public Class DBB
 
     Public Sub Registro_frmRegistro(ByVal frm As frmRegistro)
         ' Se encarga de efectuar la conexión a la DB y registrar al usuario en la misma
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         Dim cantidadAdministradores As Integer
 
         Using cmd As New MySqlCommand()
@@ -139,7 +139,7 @@ Public Class DBB
     End Sub
 
     Public Sub setDatos_frmDatosUsuario(ByVal frm As frmDatosUsuario)
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
 
         Using cmd As New MySqlCommand()
             With cmd
@@ -161,7 +161,7 @@ Public Class DBB
     End Sub
 
     Public Sub cargarNombre_frmMain(ByVal frm As frmMain)
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -193,7 +193,7 @@ Public Class DBB
     End Sub
 
     Public Sub cargarDatos_frmMain(ByVal frm As frmMain)
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         ' Carga los grupos al combo
         Using cmd As New MySqlCommand()
             With cmd
@@ -216,7 +216,7 @@ Public Class DBB
         frm.totalSalones = 0
         frm.lblCantidadSalones.Text = "(" + frm.totalSalones.ToString() + ")"
 
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -238,7 +238,7 @@ Public Class DBB
 
     Public Sub guardarSalones_frmAdminSalones(ByVal frm as frmAdminSalones)
         ' Guardo los horarios del salón.
-        Dim conexionSalones As New DB()
+        Dim conexionSalones as New Conexion()
         Dim txtSalon As String = frm.txtIDSalon.Text
         For Turno As Integer = 1 To 5
             Using cmd As New MySqlCommand()
@@ -296,7 +296,7 @@ Public Class DBB
 
     Public Sub cargarGrupos_frmAdminSalones(ByVal frm as frmAdminSalones)
         ' Carga los grupos al combo
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         For Turno As Integer = 0 To 5
             Using cmd As New MySqlCommand()
                 With cmd
@@ -329,7 +329,7 @@ Public Class DBB
 
     Public Sub actualizarDB_frmAdminSalones(ByVal frm as frmAdminSalones)
         ' Agrega o actualiza los datos del salón en la DB
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
 
         Using cmd As New MySqlCommand()
             With cmd
@@ -370,7 +370,7 @@ Public Class DBB
 
     Public Sub cargarDatos_frmAdminSalones(ByVal idSalon As String, ByVal frm As frmAdminSalones)
         ' Carga los datos de un salón
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -389,7 +389,7 @@ Public Class DBB
             conexion.Close()
         End Using
 
-        Dim conexionSalones As New DB()
+        Dim conexionSalones as New Conexion()
         ' Carga los horarios del salón.
         For Turno As Integer = 1 To 5
             Using cmd As New MySqlCommand()
@@ -423,7 +423,7 @@ Public Class DBB
     End Sub
 
     Public Sub eliminarSalon_frmAdminSalones(ByVal sender As System.Object, ByVal frm As frmAdminSalones)
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -446,7 +446,7 @@ Public Class DBB
 
     Public Sub cargarUsuarios_frmAdminUsuarios(ByVal frm As frmAdminUsuarios)
         ' Carga los usuarios a la lista de usuarios
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         frm.pnlUsuarios.Controls.Clear()
         frm.totalUsuarios = 0
         Using cmd As New MySqlCommand()
@@ -466,7 +466,7 @@ Public Class DBB
     End Sub
 
     Public Sub eliminarUsuario_frmAdminUsuarios(sender As Object, ByVal frm As frmAdminUsuarios)
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -496,7 +496,7 @@ Public Class DBB
 
     Public Sub cargarDatos_frmAdminUsuarios(ByVal ID As String, ByVal frm As frmAdminUsuarios)
         ' Carga los datos del usuario y los muestra en pantalla
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -525,7 +525,7 @@ Public Class DBB
 
     Public Sub actualizarDB_frmAdminUsuarios(ByVal frm As frmAdminUsuarios)
         ' Guarda o edita los datos del usuario a la DB
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
 
         Using cmd As New MySqlCommand()
             With cmd
@@ -546,7 +546,7 @@ Public Class DBB
 
             Try
                 If frm.btnAgregar.Text.Equals("Agregar usuario") Then
-                    Dim subConexion As New DB()
+                    Dim subConexion as New Conexion()
                     Using subCmd As New MySqlCommand()
                         With subCmd
                             .Connection = subConexion.Conn
@@ -583,7 +583,7 @@ Public Class DBB
         frm.totalGrupos = 0
         frm.lblCantidadGrupos.Text = "(" + frm.totalGrupos.ToString() + ")"
 
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -602,7 +602,7 @@ Public Class DBB
 
     Public Sub cargarOrientaciones_frmAdminGrupos(ByVal frm As frmAdminGrupos)
         ' carga las orientaciones a los combobox
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         frm.cmbOrientacion.Items.Clear()
 
         Using cmd As New MySqlCommand()
@@ -624,7 +624,7 @@ Public Class DBB
 
     Public Sub rellenarCombos_frmAdminGrupos(ByVal frm As frmAdminGrupos)
         ' Llena los combos con los datos de la DB.
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
 
         ' Primero los cursos
         Using cmd As New MySqlCommand()
@@ -660,7 +660,7 @@ Public Class DBB
 
     Public Sub cargarDatos_frmAdminGrupos(ByVal grupo As Object, ByVal frm As frmAdminGrupos)
         ' carga los datos del grupo y los coloca en la interfaz
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -689,7 +689,7 @@ Public Class DBB
 
     Public Sub actualizarDB_frmAdminGrupos(ByVal frm As frmAdminGrupos)
         ' Agrega un salón a la base de datos
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
 
         Using cmd As New MySqlCommand()
             With cmd
@@ -723,7 +723,7 @@ Public Class DBB
     End Sub
 
     Public Sub eliminarGrupo_frmAdminGrupos(ByVal sender As System.Object, ByVal frm As frmAdminGrupos)
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -744,7 +744,7 @@ Public Class DBB
 
     Public Sub cargarTurnos_frmAdminGrupos(ByVal frm As frmAdminGrupos)
         ' carga las orientaciones a los combobox
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         frm.cmbTurno.Items.Clear()
 
         Using cmd As New MySqlCommand()
@@ -765,7 +765,7 @@ Public Class DBB
 
     Public Sub rellenarCombos_frmAdminDocentes(ByVal frm as frmAdminDocentes)
         ' Llena los combos con los datos de la DB.
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
 
         ' Primero lás áreas
         Using cmd As New MySqlCommand()
@@ -805,7 +805,7 @@ Public Class DBB
         frm.totalDocentes = 0
         frm.lblCantidadDocentes.Text = "(" + frm.totalDocentes.ToString() + ")"
 
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -824,7 +824,7 @@ Public Class DBB
 
     Public Sub actualizarDB_frmAdminDocentes(ByVal frm as frmAdminDocentes)
         ' Se encarga de manejar la DB (parte datos de docente), agrega o edita docentes.
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
 
         Using cmd As New MySqlCommand()
             With cmd
@@ -844,7 +844,7 @@ Public Class DBB
             End With
 
             Try
-                Dim subConexion As New DB()
+                Dim subConexion as New Conexion()
                 If frm.btnAgregarDocente.Text.StartsWith("Agregar docente") Then
                     Using subCmd As New MySqlCommand()
                         With subCmd
@@ -882,7 +882,7 @@ Public Class DBB
 
     Public Sub cargarDatos_frmAdminDocentes(ByVal ciDocente As String, ByVal frm as frmAdminDocentes)
         ' carga los datos del docente
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -904,7 +904,7 @@ Public Class DBB
     End Sub
 
     Public Sub eliminarAsignatura_frmAdminDocentes(sender As Object, ByVal frm as frmAdminDocentes)
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -927,7 +927,7 @@ Public Class DBB
     End Sub
 
     Public Sub eliminarDocente_frmAdminDocentes(sender As Object, ByVal frm as frmAdminDocentes)
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -939,7 +939,7 @@ Public Class DBB
                 frm.totalDocentes -= 1
                 cmd.ExecuteNonQuery()
                 conexion.Close() 'Cierra la conexión
-                Dim subConexion As New DB()
+                Dim subConexion as New Conexion()
                 Using subCmd As New MySqlCommand()
                     With subCmd
                         .Connection = subConexion.Conn
@@ -963,7 +963,7 @@ Public Class DBB
     Public Sub cargarMaterias_frmAdminDocentes(ByVal CI As String, ByVal frm as frmAdminDocentes)
         ' Carga la lista de materias a la lista
         frm.lstAsignaturas.Items.Clear()
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -987,7 +987,7 @@ Public Class DBB
 
     Public Sub actualizarDBMaterias_frmAdminDocentes(ByVal frm as frmAdminDocentes)
         ' Se encarga de manejar la DB (parte asignaturas del docente), agrega o edita asignaturas.
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
 
         Using cmd As New MySqlCommand()
             With cmd
@@ -1023,7 +1023,7 @@ Public Class DBB
 
     Public Sub cargarAsignaturas_frmAdminDocentes(ByVal frm as frmAdminDocentes)
         ' Carga las asignaturas al combo
-        Dim conexion As New DB()
+        Dim conexion as New Conexion()
         frm.cmbAsignatura.Items.Clear()
         Using cmd As New MySqlCommand()
             With cmd

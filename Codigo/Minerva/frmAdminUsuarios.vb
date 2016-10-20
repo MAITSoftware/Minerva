@@ -179,7 +179,7 @@
     ' Persistencia
 
     Public Sub cargarUsuarios()
-        Dim DB As New DBB()
+        Dim DB As New BaseDeDatos()
         DB.cargarUsuarios_frmAdminUsuarios(Me)
     End Sub
 
@@ -190,18 +190,18 @@
             Return
         End If
 
-        Dim DB As New DBB()
+        Dim DB As New BaseDeDatos()
         DB.eliminarUsuario_frmAdminUsuarios(sender, Me)
     End Sub
 
     Public Sub cargarDatos(ByVal ID As String)
         ' Carga los datos del usuario y los muestra en pantalla
-        Dim DB As New DBB()
+        Dim DB As New BaseDeDatos()
         DB.cargarDatos_frmAdminUsuarios(ID, Me)
     End Sub
 
     Public Sub actualizarDB()
-        Dim DB As New DBB()
+        Dim DB As New BaseDeDatos()
         DB.actualizarDB_frmAdminUsuarios(Me)
     End Sub
 End Class

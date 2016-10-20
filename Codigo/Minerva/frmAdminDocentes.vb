@@ -4,7 +4,6 @@
     Friend totalDocentes As Integer = 0
     Friend docentePreview As Object = New Button()
     Friend prevSelect As String
-    Private DB As DB
 
     Private Sub frmAdminDocentes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al cargar la ventana, cargar la lista de docentes, y rellenar los combos con los datos adecuados
@@ -298,22 +297,22 @@
 
     ' Persistencia
     Public Sub rellenarCombos()
-        Dim DB as new DBB()
+        Dim DB As New BaseDeDatos()
         DB.rellenarCombos_frmAdminDocentes(Me)
     End Sub
 
     Public Sub cargarDocentes()
-        Dim DB as new DBB()
+        Dim DB As New BaseDeDatos()
         DB.cargarDocentes_frmAdminDocentes(Me)
     End Sub
 
     Public Sub actualizarDB()
-        Dim DB as new DBB()
+        Dim DB As New BaseDeDatos()
         DB.actualizarDB_frmAdminDocentes(Me)
     End Sub
 
     Public Sub cargarDatos(ByVal ciDocente As String)
-        Dim DB as new DBB()
+        Dim DB As New BaseDeDatos()
         DB.cargarDatos_frmAdminDocentes(ciDocente, Me)
     End Sub
 
@@ -324,7 +323,7 @@
             Return
         End If
 
-        Dim DB as new DBB()
+        Dim DB As New BaseDeDatos()
         DB.eliminarAsignatura_frmAdminDocentes(sender, Me)
     End Sub
 
@@ -334,24 +333,24 @@
         If result = DialogResult.No Then
             Return
         End If
-        Dim DB as new DBB()
+        Dim DB As New BaseDeDatos()
         DB.eliminarDocente_frmAdminDocentes(sender, Me)
     End Sub
 
     Public Sub cargarMaterias(ByVal CI As String)
-        Dim Db as new DBB()
+        Dim Db As New BaseDeDatos()
         DB.cargarMaterias_frmAdminDocentes(CI, Me)
     End Sub
 
     Public Sub actualizarDBMaterias()
         ' Se encarga de manejar la DB (parte asignaturas del docente), agrega o edita asignaturas.
-        Dim DB as new DBB()
+        Dim DB As New BaseDeDatos()
         DB.actualizarDBMaterias_frmAdminDocentes(Me)
     End Sub
 
     Public Sub cargarAsignaturas()
         ' Carga las asignaturas al combo
-        Dim DB as new DBB()
+        Dim DB As New BaseDeDatos()
         DB.cargarAsignaturas_frmAdminDocentes(Me)
     End Sub
 End Class

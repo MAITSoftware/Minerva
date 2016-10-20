@@ -2,7 +2,6 @@
     ' Datos de prueba: Si el usuario no es ignacio, este va a existir siempre.
 
     Dim estadoAnimacion As Boolean = False
-    Private DB As DB
 
     Private Sub frmLogin_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         ' Al cerrar ventana, cerrar programa
@@ -72,7 +71,7 @@
 
     ' Persistencia
     Private Sub Registro(sender As Object, e As EventArgs) Handles btnEntrar.Click
-        Dim DB As New DBB()
+        Dim DB As New BaseDeDatos()
         DB.Registro_frmRegistro(Me)
     End Sub
 

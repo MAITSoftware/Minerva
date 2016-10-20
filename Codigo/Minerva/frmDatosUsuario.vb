@@ -26,7 +26,7 @@
             Return
         End If
 
-        Dim DB As New DBB()
+        Dim DB As New BaseDeDatos()
         DB.setDatos_frmDatosUsuario(Me)
     End Sub
 

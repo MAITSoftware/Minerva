@@ -4,7 +4,6 @@
     Dim estadoAnimacion As Boolean = False
     Friend nombreUsuario As String
     Friend Administrador As Boolean = False
-    Private DB As DB
 
     Public Sub New(Optional ByVal invitado As Boolean = False, Optional ByVal usuario As String = Nothing, Optional ByVal admin As Boolean = False)
         'inicia el programa, en caso de que sea invitado lo detecta
@@ -70,7 +69,7 @@
 
     ' Persistencia
     Private Sub cargarDatos()
-        Dim DB As New DBB()
+        Dim DB As New BaseDeDatos()
         DB.cargarDatos_frmMain(Me)
     End Sub
 
@@ -81,7 +80,7 @@
     End Sub
 
     Private Sub cargarNombre()
-        Dim DB As New DBB()
+        Dim DB As New BaseDeDatos()
         DB.cargarNombre_frmMain(Me)
     End Sub
 End Class
