@@ -133,6 +133,12 @@
     <Compile Include="frmAdminUsuarios.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="frmDatosUsuario.Designer.vb">
+      <DependentUpon>frmDatosUsuario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDatosUsuario.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmDia.Designer.vb">
       <DependentUpon>frmDia.vb</DependentUpon>
     </Compile>
@@ -197,6 +203,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAdminUsuarios.resx">
       <DependentUpon>frmAdminUsuarios.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDatosUsuario.resx">
+      <DependentUpon>frmDatosUsuario.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDia.resx">
       <DependentUpon>frmDia.vb</DependentUpon>

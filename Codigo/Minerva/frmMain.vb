@@ -2,14 +2,16 @@
 
     Dim cuentaInvitado As Boolean = True
     Dim estadoAnimacion As Boolean = False
+    Friend nombreUsuario As String
     Friend Administrador As Boolean = False
     Private DB As DB
 
-    Public Sub New(Optional ByVal invitado As Boolean = False, Optional ByVal admin As Boolean = False)
+    Public Sub New(Optional ByVal invitado As Boolean = False, Optional ByVal usuario As String = Nothing, Optional ByVal admin As Boolean = False)
         'inicia el programa, en caso de que sea invitado lo detecta
         InitializeComponent()
         Me.cuentaInvitado = invitado
         Me.Administrador = admin
+        Me.nombreUsuario = usuario
         cboGrupo.SelectedIndex = 0
         cargarDatos()
     End Sub
@@ -45,6 +47,9 @@
             btnAdministrar.Visible = True
             imgLogo.Location = New Point(12, 15)
             imgLogo.Size = New Size(176, 78)
+            lblUsuario.Text = "Bienvenido usuario."
+            timerDatosUsuario.Start()
+            timerDatosUsuario.Enabled = True
         End If
     End Sub
 
@@ -67,5 +72,16 @@
     Private Sub cargarDatos()
         Dim DB As New DBB()
         DB.cargarDatos_frmMain(Me)
+    End Sub
+
+    Private Sub timerDatosUsuario_Tick(sender As Object, e As EventArgs) Handles timerDatosUsuario.Tick
+        timerDatosUsuario.Enabled = False
+        timerDatosUsuario.Stop()
+        cargarNombre()
+    End Sub
+
+    Private Sub cargarNombre()
+        Dim DB As New DBB()
+        DB.cargarNombre_frmMain(Me)
     End Sub
 End Class

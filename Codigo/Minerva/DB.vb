@@ -62,7 +62,7 @@ Public Class DBB
             frm.lblDatosInc.Text = "Datos incorrectos!"
             frm.pnlError.Visible = True
         Else
-            Dim minerva As New frmMain(False, frm.administrador)
+            Dim minerva As New frmMain(False, frm.cuentaUsuario, frm.administrador)
             minerva.Show()
             frm.Hide()
         End If
@@ -138,7 +138,61 @@ Public Class DBB
         End Try
     End Sub
 
-    Public Sub cargarDatos_frmMain(Byval frm as frmMain)
+    Public Sub setDatos_frmDatosUsuario(ByVal frm As frmDatosUsuario)
+        Dim conexion As New DB()
+
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandType = CommandType.Text
+                .CommandText = "UPDATE `Usuario` SET NombrePersona=@NombrePersona, ApellidoPersona=@ApellidoPersona WHERE CiPersona=@CiPersona;"
+
+                .Parameters.AddWithValue("@CiPersona", frm._frmMain.nombreUsuario)
+                .Parameters.AddWithValue("@NombrePersona", frm.txtNombre.Text)
+                .Parameters.AddWithValue("@ApellidoPersona", frm.txtApellido.Text)
+            End With
+
+            cmd.ExecuteNonQuery()
+            conexion.Close()
+            MessageBox.Show("Información de usuario actualizada correctamente", "Usuario actualizado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            '            frm._frmMain.cargarNombre()
+            frm.Dispose()
+        End Using
+    End Sub
+
+    Public Sub cargarNombre_frmMain(ByVal frm As frmMain)
+        Dim conexion As New DB()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT NombrePersona, ApellidoPersona from `Usuario` where CiPersona=@CiPersona"
+                .Parameters.AddWithValue("@CiPersona", frm.nombreUsuario)
+                .CommandType = CommandType.Text
+            End With
+
+            Dim nombreElegido = False
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                If String.IsNullOrEmpty(reader("NombrePersona").ToString()) Or String.IsNullOrEmpty(reader("ApellidoPersona").ToString()) Then
+                    nombreElegido = False
+                Else
+                    frm.lblUsuario.Text = "Bienvenido " & reader("NombrePersona") & " " & reader("ApellidoPersona") & "."
+                    nombreElegido = True
+                End If
+            End While
+            reader.Close()
+            conexion.Close()
+
+            If Not nombreElegido Then
+                Dim x As New frmDatosUsuario(frm)
+                x.ShowDialog(frm)
+                cargarNombre_frmMain(frm)
+            End If
+        End Using
+    End Sub
+
+    Public Sub cargarDatos_frmMain(ByVal frm As frmMain)
         Dim conexion As New DB()
         ' Carga los grupos al combo
         Using cmd As New MySqlCommand()

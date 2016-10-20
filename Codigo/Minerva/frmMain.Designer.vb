@@ -22,6 +22,7 @@ Partial Class frmMain
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim lblHorariosSemana As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.pnlInfoCurso = New System.Windows.Forms.Panel()
@@ -45,6 +46,8 @@ Partial Class frmMain
         Me.lblProfesores = New System.Windows.Forms.Label()
         Me.lblNomGrupo = New System.Windows.Forms.Label()
         Me.pnlFiltro = New System.Windows.Forms.Panel()
+        Me.lblUsuario = New System.Windows.Forms.Label()
+        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         Me.btnSalir = New System.Windows.Forms.Button()
         Me.btnAdministrar = New System.Windows.Forms.Button()
         Me.imgLogo = New System.Windows.Forms.PictureBox()
@@ -58,13 +61,13 @@ Partial Class frmMain
         Me.Miércoles = New Minerva.frmDia()
         Me.Martes = New Minerva.frmDia()
         Me.Lunes = New Minerva.frmDia()
-        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
+        Me.timerDatosUsuario = New System.Windows.Forms.Timer(Me.components)
         lblHorariosSemana = New System.Windows.Forms.Label()
         Me.pnlInfoCurso.SuspendLayout()
         Me.pnlMaterias.SuspendLayout()
         Me.pnlFiltro.SuspendLayout()
-        CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblHorariosSemana
@@ -317,6 +320,7 @@ Partial Class frmMain
         'pnlFiltro
         '
         Me.pnlFiltro.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.pnlFiltro.Controls.Add(Me.lblUsuario)
         Me.pnlFiltro.Controls.Add(Me.imgLogoMAITs)
         Me.pnlFiltro.Controls.Add(Me.btnSalir)
         Me.pnlFiltro.Controls.Add(Me.btnAdministrar)
@@ -327,6 +331,27 @@ Partial Class frmMain
         Me.pnlFiltro.Name = "pnlFiltro"
         Me.pnlFiltro.Size = New System.Drawing.Size(970, 175)
         Me.pnlFiltro.TabIndex = 1
+        '
+        'lblUsuario
+        '
+        Me.lblUsuario.AutoSize = True
+        Me.lblUsuario.Font = New System.Drawing.Font("Corbel", 15.0!)
+        Me.lblUsuario.ForeColor = System.Drawing.Color.White
+        Me.lblUsuario.Location = New System.Drawing.Point(199, 138)
+        Me.lblUsuario.Name = "lblUsuario"
+        Me.lblUsuario.Size = New System.Drawing.Size(183, 24)
+        Me.lblUsuario.TabIndex = 128
+        Me.lblUsuario.Text = "Bienvenido invitado."
+        '
+        'imgLogoMAITs
+        '
+        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
+        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoMAITs.Location = New System.Drawing.Point(817, 35)
+        Me.imgLogoMAITs.Name = "imgLogoMAITs"
+        Me.imgLogoMAITs.Size = New System.Drawing.Size(145, 97)
+        Me.imgLogoMAITs.TabIndex = 127
+        Me.imgLogoMAITs.TabStop = False
         '
         'btnSalir
         '
@@ -455,15 +480,9 @@ Partial Class frmMain
         Me.Lunes.Size = New System.Drawing.Size(256, 210)
         Me.Lunes.TabIndex = 27
         '
-        'imgLogoMAITs
+        'timerDatosUsuario
         '
-        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
-        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.imgLogoMAITs.Location = New System.Drawing.Point(817, 35)
-        Me.imgLogoMAITs.Name = "imgLogoMAITs"
-        Me.imgLogoMAITs.Size = New System.Drawing.Size(145, 97)
-        Me.imgLogoMAITs.TabIndex = 127
-        Me.imgLogoMAITs.TabStop = False
+        Me.timerDatosUsuario.Interval = 300
         '
         'frmMain
         '
@@ -492,8 +511,9 @@ Partial Class frmMain
         Me.pnlMaterias.ResumeLayout(False)
         Me.pnlMaterias.PerformLayout()
         Me.pnlFiltro.ResumeLayout(False)
-        CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlFiltro.PerformLayout()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -533,5 +553,7 @@ Partial Class frmMain
     Friend WithEvents btnAdministrar As System.Windows.Forms.Button
     Friend WithEvents btnSalir As System.Windows.Forms.Button
     Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
+    Friend WithEvents lblUsuario As System.Windows.Forms.Label
+    Friend WithEvents timerDatosUsuario As System.Windows.Forms.Timer
 
 End Class
