@@ -708,4 +708,283 @@ Public Class DBB
             conexion.Close()
         End Using
     End Sub
+
+    Public Sub rellenarCombos_frmAdminDocentes(ByVal frm as frmAdminDocentes)
+        ' Llena los combos con los datos de la DB.
+        Dim conexion As New DB()
+
+        ' Primero lás áreas
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT * FROM `Area`;"
+                .CommandType = CommandType.Text
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                frm.cmbArea.Items.Add(reader("IdArea").ToString() & " (" & reader("NombreArea") & ")")
+            End While
+            reader.Close()
+        End Using
+
+        ' Segundo los grupos
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT *, Turno.NombreTurno FROM `Grupo`, `Turno` WHERE Grupo.IdTurno=Turno.IdTurno;"
+                .CommandType = CommandType.Text
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                frm.cmbGrupo.Items.Add(reader("Grado") & " " & reader("IdGrupo") & " (" & reader("NombreTurno") & ")")
+            End While
+            reader.Close()
+            conexion.Close()
+        End Using
+    End Sub
+
+    Public Sub cargarDocentes_frmAdminDocentes(ByVal frm as frmAdminDocentes)
+        ' carga la lista de docentes
+        frm.pnlDocentes.Controls.Clear()
+        frm.totalDocentes = 0
+        frm.lblCantidadDocentes.Text = "(" + frm.totalDocentes.ToString() + ")"
+
+        Dim conexion As New DB()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT * FROM `Profesor`;"
+                .CommandType = CommandType.Text
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                frm.agregarDocente(reader("CiPersona"), reader("CiPersona").ToString() & ControlChars.NewLine & " (" & reader("NombreProfesor") & " " & reader("ApellidoProfesor") & ")")
+            End While
+            reader.Close()
+            conexion.Close()
+        End Using
+    End Sub
+
+    Public Sub actualizarDB_frmAdminDocentes(ByVal frm as frmAdminDocentes)
+        ' Se encarga de manejar la DB (parte datos de docente), agrega o edita docentes.
+        Dim conexion As New DB()
+
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandType = CommandType.Text
+
+                If frm.btnAgregarDocente.Text.StartsWith("Agregar docente") Then
+                    .CommandText = "INSERT INTO `Profesor` VALUES  (@CiPersona, @NombreProfesor, @ApellidoProfesor, @GradoProfesor);"
+                Else
+                    .CommandText = "UPDATE `Profesor` SET NombreProfesor=@NombreProfesor, ApellidoProfesor=@ApellidoProfesor, GradoProfesor=@GradoProfesor WHERE CiPersona=@CiPersona;"
+                End If
+
+                .Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
+                .Parameters.AddWithValue("@NombreProfesor", frm.txtNombre.Text)
+                .Parameters.AddWithValue("@ApellidoProfesor", frm.txtApellido.Text)
+                .Parameters.AddWithValue("@GradoProfesor", frm.numGrado.Value)
+            End With
+
+            Try
+                Dim subConexion As New DB()
+                If frm.btnAgregarDocente.Text.StartsWith("Agregar docente") Then
+                    Using subCmd As New MySqlCommand()
+                        With subCmd
+                            .Connection = conexion.Conn
+                            .CommandText = "INSERT INTO `Persona` VALUES (@CiPersona);"
+                            .CommandType = CommandType.Text
+                            .Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
+                        End With
+                        subCmd.ExecuteNonQuery()
+                        subConexion.Close()
+                    End Using
+                End If
+
+                cmd.ExecuteNonQuery()
+                conexion.Close()
+
+                frm.cargarDocentes()
+                If frm.btnAgregarDocente.Text.StartsWith("Agregar docente") Then
+                    MessageBox.Show("Docente agregado correctamente", "Docente agregado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                    frm.editarMateriasDocente(frm.txtCI.Text)
+                Else
+                    MessageBox.Show("Información de docente actualizada correctamente", "Docente actualizado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                    frm.previsualizarDocente(frm.txtCI.Text)
+                End If
+            Catch ex As Exception
+                If ex.ToString().Contains("Duplicate") Then
+                    MessageBox.Show("Ya existe un docente (o usuario!) con esa CI.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Else
+                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+            End Try
+        End Using
+
+    End Sub
+
+    Public Sub cargarDatos_frmAdminDocentes(ByVal ciDocente As String, ByVal frm as frmAdminDocentes)
+        ' carga los datos del docente
+        Dim conexion As New DB()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT * FROM `Profesor` where CiPersona=@CiPersona;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@CiPersona", ciDocente)
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                frm.txtCI.Text = reader("CiPersona")
+                frm.txtNombre.Text = reader("NombreProfesor")
+                frm.txtApellido.Text = reader("ApellidoProfesor")
+                frm.numGrado.Value = reader("GradoProfesor")
+            End While
+            reader.Close()
+            conexion.Close()
+        End Using
+    End Sub
+
+    Public Sub eliminarAsignatura_frmAdminDocentes(sender As Object, ByVal frm as frmAdminDocentes)
+        Dim conexion As New DB()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "DELETE FROM `AsignaturasTomadas` WHERE IDGrupo=@IdGrupo and IDAsignatura=@IDAsignatura and IdTrayecto=@IdTrayecto;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@IdAsignatura", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(0).Text)
+                .Parameters.AddWithValue("@IdGrupo", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Substring(frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.IndexOf(" "), frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Length - 1).Trim())
+                .Parameters.AddWithValue("@IdTrayecto", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Substring(0, frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.IndexOf(" ")).Trim())
+            End With
+            Try
+                cmd.ExecuteNonQuery()
+                conexion.Close() 'Cierra la conexión
+                frm.cargarMaterias(frm.txtCI.Text)
+                frm.btnEliminarAsignatura.Visible = False
+                MessageBox.Show("Asignatura eliminada.", "Asignatura eliminada.", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Catch ex As Exception
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Using
+    End Sub
+
+    Public Sub eliminarDocente_frmAdminDocentes(sender As Object, ByVal frm as frmAdminDocentes)
+        Dim conexion As New DB()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "DELETE FROM `Profesor` WHERE CiPersona=@CiPersona;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@CiPersona", sender.Tag(0))
+            End With
+            Try
+                frm.totalDocentes -= 1
+                cmd.ExecuteNonQuery()
+                conexion.Close() 'Cierra la conexión
+                Dim subConexion As New DB()
+                Using subCmd As New MySqlCommand()
+                    With subCmd
+                        .Connection = subConexion.Conn
+                        .CommandText = "DELETE FROM `Persona` WHERE CiPersona=@CiPersona;"
+                        .CommandType = CommandType.Text
+                        .Parameters.AddWithValue("@CiPersona", sender.Tag(0))
+                    End With
+
+                    subCmd.ExecuteNonQuery()
+                    subConexion.Close()
+                End Using
+                frm.cargarDocentes()
+                frm.btnNuevoDocente_Click(Nothing, Nothing)
+                MessageBox.Show("Docente'" + sender.Tag(1) + "' eliminado.", "Docente eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Catch ex As Exception
+                MessageBox.Show("El docente no se puede eliminar, ya que tiene materias asignadas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Using
+    End Sub
+
+    Public Sub cargarMaterias_frmAdminDocentes(ByVal CI As String, ByVal frm as frmAdminDocentes)
+        ' Carga la lista de materias a la lista
+        frm.lstAsignaturas.Items.Clear()
+        Dim conexion As New DB()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT * FROM `AsignaturasTomadas` WHERE CiPersona=@CiPersona;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@CiPersona", CI)
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                Dim item As New ListViewItem
+                item = frm.lstAsignaturas.Items.Add(reader("IdAsignatura").ToString())
+                item.SubItems.Add(reader("Grado") & " " & reader("IdGrupo"))
+                item.SubItems.Add(reader("cargaHoraria").ToString())
+                item.SubItems.Add(reader("fechaAsignacion").ToString())
+            End While
+            reader.Close()
+            conexion.Close()
+        End Using
+    End Sub
+
+    Public Sub actualizarDBMaterias_frmAdminDocentes(ByVal frm as frmAdminDocentes)
+        ' Se encarga de manejar la DB (parte asignaturas del docente), agrega o edita asignaturas.
+        Dim conexion As New DB()
+
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandType = CommandType.Text
+                .CommandText = "INSERT INTO `AsignaturasTomadas` VALUES (@CiPersona, @IdAsignatura, @Grado, @IdGrupo, @cargaHoraria, @fechaAsignacion);"
+                .Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
+                .Parameters.AddWithValue("@IDAsignatura", frm.cmbAsignatura.Text.Substring(0, frm.cmbAsignatura.Text.IndexOf(" (")).Trim())
+                .Parameters.AddWithValue("@IDGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.IndexOf(" (")).Trim())
+                .Parameters.AddWithValue("@Grado", frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim())
+                .Parameters.AddWithValue("@cargaHoraria", frm.numHsSemanales.Value)
+                Dim d As DateTime = Now
+                .Parameters.AddWithValue("@fechaAsignacion", d.ToString("yyyy-MM-dd"))
+            End With
+
+            Try
+                cmd.ExecuteNonQuery()
+                conexion.Close()
+
+                frm.cargarMaterias(frm.txtCI.Text)
+                ' Deshabilita la edición de datos del docente.
+                frm.lblNuevoDocente.Text = "Editar materias del docente"
+                frm.btnAgregarAsignatura_Click(Nothing, Nothing)
+            Catch ex As Exception
+                If ex.ToString().Contains("Duplicate") Then
+                    MessageBox.Show("Esa materia ya ha sido asignada al grupo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Else
+                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+            End Try
+        End Using
+    End Sub
+
+    Public Sub cargarAsignaturas_frmAdminDocentes(ByVal frm as frmAdminDocentes)
+        ' Carga las asignaturas al combo
+        Dim conexion As New DB()
+        frm.cmbAsignatura.Items.Clear()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT * FROM `Asignatura` WHERE IDArea=@IDArea;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@IdArea", frm.cmbArea.Text.Substring(0, frm.cmbArea.Text.IndexOf(" (")).Trim())
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                frm.cmbAsignatura.Items.Add(reader("IdAsignatura").ToString() & " (" & reader("NombreAsignatura") & ")")
+            End While
+            reader.Close()
+            conexion.Close()
+        End Using
+    End Sub
 End Class

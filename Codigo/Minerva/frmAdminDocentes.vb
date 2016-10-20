@@ -1,12 +1,9 @@
-﻿Imports MySql.Data.MySqlClient
-Imports System.Data
-
-Public Class frmAdminDocentes
+﻿Public Class frmAdminDocentes
     ' Clase principal para la administracion de docentes
 
-    Dim totalDocentes As Integer = 0
-    Dim docentePreview As Object = New Button()
-    Dim prevSelect As String
+    Friend totalDocentes As Integer = 0
+    Friend docentePreview As Object = New Button()
+    Friend prevSelect As String
     Private DB As DB
 
     Private Sub frmAdminDocentes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -16,66 +13,7 @@ Public Class frmAdminDocentes
         rellenarCombos()
     End Sub
 
-    Private Sub rellenarCombos()
-        ' Llena los combos con los datos de la DB.
-        Dim conexion As New DB()
-
-        ' Primero lás áreas
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Area`;"
-                .CommandType = CommandType.Text
-            End With
-
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            While reader.Read()
-                cmbArea.Items.Add(reader("IDArea").ToString() & " (" & reader("NombreArea") & ")")
-            End While
-            reader.Close()
-        End Using
-
-        ' Segundo los grupos
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "SELECT *, Turno.NombreTurno FROM `Grupo`, `Turno` WHERE Grupo.IDTurno=Turno.IDTurno;"
-                .CommandType = CommandType.Text
-            End With
-
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            While reader.Read()
-                cmbGrupo.Items.Add(reader("IDTrayecto") & " " & reader("IDGrupo") & " (" & reader("NombreTurno") & ")")
-            End While
-            reader.Close()
-            conexion.Close()
-        End Using
-    End Sub
-
-    Private Sub cargarDocentes()
-        ' carga la lista de docentes
-        pnlDocentes.Controls.Clear()
-        totalDocentes = 0
-        lblCantidadDocentes.Text = "(" + totalDocentes.ToString() + ")"
-
-        Dim conexion As New DB()
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Profesor`;"
-                .CommandType = CommandType.Text
-            End With
-
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            While reader.Read()
-                agregarDocente(reader("CiPersona"), reader("CiPersona").ToString() & ControlChars.NewLine & " (" & reader("NombreProfesor") & " " & reader("ApellidoProfesor") & ")")
-            End While
-            reader.Close()
-            conexion.Close()
-        End Using
-    End Sub
-
-    Private Sub agregarDocente(ByVal ciDocente As String, ByVal txtDocente As String)
+    Public Sub agregarDocente(ByVal ciDocente As String, ByVal txtDocente As String)
         ' Basicamente copio la plantilla a un nuevo panel
         Dim pnlTemporal As New Panel
         Dim btnDocente As New Button
@@ -131,64 +69,6 @@ Public Class frmAdminDocentes
         DatosDelDocenteToolStripMenuItem.Tag = {sender.Parent, sender.Tag}
         MateriasDelDocenteToolStripMenuItem.Tag = {sender.Parent, sender.Tag}
         mnuEdicionDocente.Show(sender, New Point(e.X, e.Y))
-    End Sub
-
-    Private Sub actualizarDB()
-        ' Se encarga de manejar la DB (parte datos de docente), agrega o edita docentes.
-        Dim conexion As New DB()
-
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandType = CommandType.Text
-
-                If btnAgregarDocente.Text.StartsWith("Agregar docente") Then
-                    .CommandText = "INSERT INTO `Profesor` VALUES  (@CiPersona, @GradoProfesor, @NombreProfesor, @ApellidoProfesor);"
-                Else
-                    .CommandText = "UPDATE `Profesor` SET NombreProfesor=@NombreProfesor, ApellidoProfesor=@ApellidoProfesor, GradoProfesor=@GradoProfesor WHERE CiPersona=@CiPersona;"
-                End If
-
-                .Parameters.AddWithValue("@CiPersona", txtCI.Text)
-                .Parameters.AddWithValue("@NombreProfesor", txtNombre.Text)
-                .Parameters.AddWithValue("@ApellidoProfesor", txtApellido.Text)
-                .Parameters.AddWithValue("@GradoProfesor", numGrado.Value)
-            End With
-
-            Try
-                Dim subConexion As New DB()
-                If btnAgregarDocente.Text.StartsWith("Agregar docente") Then
-                    Using subCmd As New MySqlCommand()
-                        With subCmd
-                            .Connection = conexion.Conn
-                            .CommandText = "INSERT INTO `Persona` VALUES (@CiPersona);"
-                            .CommandType = CommandType.Text
-                            .Parameters.AddWithValue("@CiPersona", txtCI.Text)
-                        End With
-                        subCmd.ExecuteNonQuery()
-                        subConexion.Close()
-                    End Using
-                End If
-
-                cmd.ExecuteNonQuery()
-                conexion.Close()
-
-                cargarDocentes()
-                If btnAgregarDocente.Text.StartsWith("Agregar docente") Then
-                    MessageBox.Show("Docente agregado correctamente", "Docente agregado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-                    editarMateriasDocente(txtCI.Text)
-                Else
-                    MessageBox.Show("Información de docente actualizada correctamente", "Docente actualizado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-                    previsualizarDocente(txtCI.Text)
-                End If
-            Catch ex As Exception
-                If ex.ToString().Contains("Duplicate") Then
-                    MessageBox.Show("Ya existe un docente (o usuario!) con esa CI.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Else
-                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                End If
-            End Try
-        End Using
-
     End Sub
 
     Private Sub btnAgregarDocentes_Click(sender As Object, e As EventArgs) Handles btnAgregarDocente.Click
@@ -265,7 +145,7 @@ Public Class frmAdminDocentes
         btnAgregarMateria.Enabled = habilitadas
     End Sub
 
-    Private Sub verDocente(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDocentePlantilla.Click
+    Public Sub verDocente(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDocentePlantilla.Click
         ' Carga y muestra los datos del docente (y materias) llamando a previsualizarDocente()
         docentePreview.Enabled = True
         docentePreview = sender
@@ -274,7 +154,7 @@ Public Class frmAdminDocentes
         cargarMaterias(sender.Tag)
     End Sub
 
-    Private Sub previsualizarDocente(ByVal ci As String)
+    Public Sub previsualizarDocente(ByVal ci As String)
         ' muestra los datos del docente y los muestra
         btnNuevoDocente.Visible = True
         btnAgregarDocente.Visible = False
@@ -290,30 +170,7 @@ Public Class frmAdminDocentes
         cargarDatos(ci)
     End Sub
 
-    Private Sub cargarDatos(ByVal ciDocente As String)
-        ' carga los datos del docente
-        Dim conexion As New DB()
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Profesor` where CiPersona=@CiPersona;"
-                .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@CiPersona", ciDocente)
-            End With
-
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            While reader.Read()
-                txtCI.Text = reader("CiPersona")
-                txtNombre.Text = reader("NombreProfesor")
-                txtApellido.Text = reader("ApellidoProfesor")
-                numGrado.Value = reader("GradoProfesor")
-            End While
-            reader.Close()
-            conexion.Close()
-        End Using
-    End Sub
-
-    Private Sub btnNuevoDocente_Click(sender As Object, e As EventArgs) Handles btnNuevoDocente.Click, btnCancelarEdicion.Click
+    Public Sub btnNuevoDocente_Click(sender As Object, e As EventArgs) Handles btnNuevoDocente.Click, btnCancelarEdicion.Click
         ' al clickear en nuevo docente, reestablece la interfaz
         controlesHabilitados(True)
         lblNuevoDocente.Text = "Nuevo docente"
@@ -355,7 +212,7 @@ Public Class frmAdminDocentes
         editarDocente(sender)
     End Sub
 
-    Private Sub btnAgregarAsignatura_Click(sender As Object, e As EventArgs) Handles btnAgregarAsignatura.Click
+    Public Sub btnAgregarAsignatura_Click(sender As Object, e As EventArgs) Handles btnAgregarAsignatura.Click
         ' Al clickear btnAgregarAsignatura reestablecer la zona de materias
         cmbArea.SelectedIndex = -1
         cmbGrupo.SelectedIndex = -1
@@ -379,27 +236,6 @@ Public Class frmAdminDocentes
         cargarAsignaturas()
     End Sub
 
-    Private Sub cargarAsignaturas()
-        ' Carga las asignaturas al combo
-        Dim conexion As New DB()
-        cmbAsignatura.Items.Clear()
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Asignatura` WHERE IDArea=@IDArea;"
-                .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@IDArea", cmbArea.Text.Substring(0, cmbArea.Text.IndexOf(" (")).Trim())
-            End With
-
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            While reader.Read()
-                cmbAsignatura.Items.Add(reader("IDAsignatura").ToString() & " (" & reader("NombreAsignatura") & ")")
-            End While
-            reader.Close()
-            conexion.Close()
-        End Using
-    End Sub
-
     Private Sub checkDatosMaterias()
         ' Comprueba que hay datos en los campos requeridos para agregar una materia, y actualiza la db
         If String.IsNullOrWhiteSpace(cmbArea.Text) Then
@@ -420,70 +256,9 @@ Public Class frmAdminDocentes
         actualizarDBMaterias()
     End Sub
 
-    Private Sub actualizarDBMaterias()
-        ' Se encarga de manejar la DB (parte asignaturas del docente), agrega o edita asignaturas.
-        Dim conexion As New DB()
-
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandType = CommandType.Text
-                .CommandText = "INSERT INTO `AsignaturasTomadas` VALUES (@CiPersona, @IDAsignatura, @IDTrayecto, @IDGrupo, @cargaHoraria, @fechaAsignacion);"
-                .Parameters.AddWithValue("@CiPersona", txtCI.Text)
-                .Parameters.AddWithValue("@IDAsignatura", cmbAsignatura.Text.Substring(0, cmbAsignatura.Text.IndexOf(" (")).Trim())
-                .Parameters.AddWithValue("@IDGrupo", cmbGrupo.Text.Substring(cmbGrupo.Text.IndexOf(" "), cmbGrupo.Text.IndexOf(" (")).Trim())
-                .Parameters.AddWithValue("@IDTrayecto", cmbGrupo.Text.Substring(0, cmbGrupo.Text.IndexOf(" ")).Trim())
-                .Parameters.AddWithValue("@cargaHoraria", numHsSemanales.Value)
-                Dim d As DateTime = Now
-                .Parameters.AddWithValue("@fechaAsignacion", d.ToString("yyyy-MM-dd"))
-            End With
-
-            Try
-                cmd.ExecuteNonQuery()
-                conexion.Close()
-
-                cargarMaterias(txtCI.Text)
-                ' Deshabilita la edición de datos del docente.
-                lblNuevoDocente.Text = "Editar materias del docente"
-                btnAgregarAsignatura_Click(Nothing, Nothing)
-            Catch ex As Exception
-                If ex.ToString().Contains("Duplicate") Then
-                    MessageBox.Show("Esa materia ya ha sido asignada al grupo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Else
-                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                End If
-            End Try
-        End Using
-    End Sub
-
     Private Sub btnAgregarMateria_Click(sender As Object, e As EventArgs) Handles btnAgregarMateria.Click
         ' Al clickear en agregarMateria llamar a checkDatosMaterias()
         checkDatosMaterias()
-    End Sub
-
-    Private Sub cargarMaterias(ByVal CI As String)
-        ' Carga la lista de materias a la lista
-        lstAsignaturas.Items.Clear()
-        Dim conexion As New DB()
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `AsignaturasTomadas` WHERE CiPersona=@CiPersona;"
-                .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@CiPersona", CI)
-            End With
-
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            While reader.Read()
-                Dim item As New ListViewItem
-                item = lstAsignaturas.Items.Add(reader("IDAsignatura").ToString())
-                item.SubItems.Add(reader("IDTrayecto") & " " & reader("IDGrupo"))
-                item.SubItems.Add(reader("cargaHoraria").ToString())
-                item.SubItems.Add(reader("fechaAsignacion").ToString())
-            End While
-            reader.Close()
-            conexion.Close()
-        End Using
     End Sub
 
     Private Sub MateriasDelDocenteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MateriasDelDocenteToolStripMenuItem.Click
@@ -494,7 +269,7 @@ Public Class frmAdminDocentes
         docentePreview.Enabled = False
     End Sub
 
-    Private Sub editarMateriasDocente(ByVal CI As String)
+    Public Sub editarMateriasDocente(ByVal CI As String)
         ' Al clickear en editarmateriasDocentes preparar la interfaz
         previsualizarDocente(CI)
         habilitarAsignaturas(True)
@@ -505,46 +280,6 @@ Public Class frmAdminDocentes
         lblNuevoDocente.Text = "Editar materias del docente"
     End Sub
 
-    Private Sub eliminarDocente(sender As Object, e As EventArgs)
-        ' Pregunta al usuario si quiere eliminar al profesor, y de ser correcto lo elimina
-        Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar el docente '" + sender.Tag(1) + "'?", "Eliminar docente", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-        If result = DialogResult.No Then
-            Return
-        End If
-
-        Dim conexion As New DB()
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "DELETE FROM `Profesor` WHERE CiPersona=@CiPersona;"
-                .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@CiPersona", sender.Tag(0))
-            End With
-            Try
-                totalDocentes -= 1
-                cmd.ExecuteNonQuery()
-                conexion.Close() 'Cierra la conexión
-                Dim subConexion As New DB()
-                Using subCmd As New MySqlCommand()
-                    With subCmd
-                        .Connection = subConexion.Conn
-                        .CommandText = "DELETE FROM `Persona` WHERE CiPersona=@CiPersona;"
-                        .CommandType = CommandType.Text
-                        .Parameters.AddWithValue("@CiPersona", sender.Tag(0))
-                    End With
-
-                    subCmd.ExecuteNonQuery()
-                    subConexion.Close()
-                End Using
-                cargarDocentes()
-                btnNuevoDocente_Click(Nothing, Nothing)
-                MessageBox.Show("Docente'" + sender.Tag(1) + "' eliminado.", "Docente eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Catch ex As Exception
-                MessageBox.Show("El docente no se puede eliminar, ya que tiene materias asignadas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Using
-    End Sub
-
     Private Sub lstAsignaturas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstAsignaturas.SelectedIndexChanged
         ' Al cambiar la seleccion en la lista de asignaturas, habilita o deshabilita el botón eliminarAsignatura
         btnEliminarAsignatura.Visible = False
@@ -553,40 +288,70 @@ Public Class frmAdminDocentes
         End If
     End Sub
 
-    Private Sub btnEliminarAsignatura_Click(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.Click
-        ' Pregunta al usuario si quiere eliminar la asignatura, y de ser correcto la elimina
-        Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar la asignatura seleccionada?", "Eliminar asignatura", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-        If result = DialogResult.No Then
-            Return
-        End If
-
-        Dim conexion As New DB()
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "DELETE FROM `AsignaturasTomadas` WHERE IDGrupo=@IDGrupo and IDAsignatura=@IDAsignatura and IDTrayecto=@IDTrayecto;"
-                .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@IDAsignatura", lstAsignaturas.SelectedItems.Item(0).SubItems(0).Text)
-                .Parameters.AddWithValue("@IDGrupo", lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Substring(lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.IndexOf(" "), lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Length - 1).Trim())
-                .Parameters.AddWithValue("@IDTrayecto", lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Substring(0, lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.IndexOf(" ")).Trim())
-            End With
-            Try
-                cmd.ExecuteNonQuery()
-                conexion.Close() 'Cierra la conexión
-                cargarMaterias(txtCI.Text)
-                btnEliminarAsignatura.Visible = False
-                MessageBox.Show("Asignatura eliminada.", "Asignatura eliminada.", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Catch ex As Exception
-                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Using
-    End Sub
-
     Private Sub txtCI_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtCI.KeyPress
         ' Al escribir un caracter que no sea número lo ignora.
         If Not Char.IsNumber(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
             e.KeyChar = ""
             My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)
         End If
+    End Sub
+
+    ' Persistencia
+    Public Sub rellenarCombos()
+        Dim DB as new DBB()
+        DB.rellenarCombos_frmAdminDocentes(Me)
+    End Sub
+
+    Public Sub cargarDocentes()
+        Dim DB as new DBB()
+        DB.cargarDocentes_frmAdminDocentes(Me)
+    End Sub
+
+    Public Sub actualizarDB()
+        Dim DB as new DBB()
+        DB.actualizarDB_frmAdminDocentes(Me)
+    End Sub
+
+    Public Sub cargarDatos(ByVal ciDocente As String)
+        Dim DB as new DBB()
+        DB.cargarDatos_frmAdminDocentes(ciDocente, Me)
+    End Sub
+
+    Public Sub eliminarAsignatura(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.Click
+        ' Pregunta al usuario si quiere eliminar la asignatura, y de ser correcto la elimina
+        Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar la asignatura seleccionada?", "Eliminar asignatura", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If result = DialogResult.No Then
+            Return
+        End If
+
+        Dim DB as new DBB()
+        DB.eliminarAsignatura_frmAdminDocentes(sender, Me)
+    End Sub
+
+    Public Sub eliminarDocente(sender As Object, e As EventArgs)
+        ' Pregunta al usuario si quiere eliminar al profesor, y de ser correcto lo elimina
+        Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar el docente '" + sender.Tag(1) + "'?", "Eliminar docente", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If result = DialogResult.No Then
+            Return
+        End If
+        Dim DB as new DBB()
+        DB.eliminarDocente_frmAdminDocentes(sender, Me)
+    End Sub
+
+    Public Sub cargarMaterias(ByVal CI As String)
+        Dim Db as new DBB()
+        DB.cargarMaterias_frmAdminDocentes(CI, Me)
+    End Sub
+
+    Public Sub actualizarDBMaterias()
+        ' Se encarga de manejar la DB (parte asignaturas del docente), agrega o edita asignaturas.
+        Dim DB as new DBB()
+        DB.actualizarDBMaterias_frmAdminDocentes(Me)
+    End Sub
+
+    Public Sub cargarAsignaturas()
+        ' Carga las asignaturas al combo
+        Dim DB as new DBB()
+        DB.cargarAsignaturas_frmAdminDocentes(Me)
     End Sub
 End Class
