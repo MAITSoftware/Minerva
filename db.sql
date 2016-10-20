@@ -159,4 +159,4 @@ INSERT INTO `Trayecto` VALUES (
  1, 981, 0), (2, 981, 0), (3, 981, 0), (4, 981, 0);
  INSERT INTO `Area` VALUES (150, "Pack 1"), (151, "Pack 2");
  INSERT INTO `Turno` VALUES (1, "Turno 1"), (2, "Turno 2"), (3, "Turno 3"), (4, "Turno 4"), (5, "Turno 5");
- 
+ INSERT INTO `Salon` VALUES (-1, "", "");
