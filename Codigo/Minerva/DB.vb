@@ -230,6 +230,46 @@ Public Class BaseDeDatos
         End Using
     End Sub
 
+    Public Sub cargarMateriasGrupo_frmMain(ByVal frm As frmMain)
+        Dim conexion As New Conexion()
+        ' Carga los grupos al combo
+        Dim dias As Object = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"}
+        For Each dia As String In dias
+            Using cmd As New MySqlCommand()
+                With cmd
+                    .Connection = conexion.Conn
+                    .CommandText = "select * from Calendario where Dia=@Dia and Grupo=@StringGrupo order by HoraOrden;"
+                    .CommandType = CommandType.Text
+                    .Parameters.AddWithValue("@Dia", dia)
+                    .Parameters.AddWithValue("@StringGrupo", frm.cboGrupo.Text.Substring(0, frm.cboGrupo.Text.IndexOf(" (")).Trim())
+                End With
+
+                Dim reader As MySqlDataReader = cmd.ExecuteReader()
+                While reader.Read()
+                    If dia.Equals("Lunes") Then
+                        frm.Lunes.agregarHora(reader("HoraOrden"), reader("Materia"))
+                    End If
+                    If dia.Equals("Martes") Then
+                        frm.Martes.agregarHora(reader("HoraOrden"), reader("Materia"))
+                    End If
+                    If dia.Equals("Miércoles") Then
+                        frm.Miércoles.agregarHora(reader("HoraOrden"), reader("Materia"))
+                    End If
+                    If dia.Equals("Jueves") Then
+                        frm.Jueves.agregarHora(reader("HoraOrden"), reader("Materia"))
+                    End If
+                    If dia.Equals("Viernes") Then
+                        frm.Viernes.agregarHora(reader("HoraOrden"), reader("Materia"))
+                    End If
+                    If dia.Equals("Sábado") Then
+                        frm.Sábado.agregarHora(reader("HoraOrden"), reader("Materia"))
+                    End If
+                End While
+                reader.Close()
+            End Using
+        Next
+    End Sub
+
     Public Sub cargarSalones_frmAdminSalones(ByVal frm As frmAdminSalones)
         ' Carga los salones y los pone en la lista
         frm.pnlSalones.Controls.Clear()

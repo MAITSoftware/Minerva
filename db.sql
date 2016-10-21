@@ -140,8 +140,10 @@ create table `Tiene_Ag` (
   FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`), -- Podría ser foranea a Profesor(CiPersona) e igual funcionaría.
   PRIMARY KEY (`IdAsignatura`, `IdGrupo`, `Grado`, `IdOrientacion`, `CiPersona`)
 );
- 
- create view AsignaturasTomadas AS select IdAsignatura, IdGrupo, Grado from Tiene_Ag;
+
+-- Views para que la profe sea feliz
+create view AsignaturasTomadas AS select IdAsignatura, IdGrupo, Grado from Tiene_Ag;
+create view Calendario AS select DATE_FORMAT(HoraInicio, '%H:%i') as HoraOrden, CONCAT(DATE_FORMAT(HoraInicio, '%H:%i'), " - ", DATE_FORMAT(HoraFin, '%H:%i')) as Hora, Dia, CONCAT(Grado, " ", IdGrupo) as Grupo, CONCAT(NombrePersona, ' ', ApellidoPersona) as NombreProfesor, NombreAsignatura as Materia from Genera, Asignatura, Persona where Genera.IdAsignatura=Asignatura.IdAsignatura and Genera.CiPersona=Persona.CiPersona;
  
 create table `Tiene_Ta` (
   `IdAsignatura` INT(4) NOT NULL,
@@ -188,6 +190,7 @@ INSERT INTO `Area` VALUES
 (1, "Informática");
 
 INSERT INTO `Asignatura` VALUES 
+(-1, "Sin asignar", 1),
 (1, "ADA", 1),
 (2, "Base de datos", 1),
 (3, "Inglés", 1),
@@ -215,4 +218,77 @@ INSERT INTO `Tiene_Ag` VALUES
 (10, "BG", 3, 123, 12345678, now(), 7),
 (11, "BG", 3, 123, 12345678, now(), 7);
 
+INSERT INTO `Genera` VALUES
+-- Inicio, Fin, Dia, 3, Asignatura, BG, 123, 12345678
 
+('13:00', '13:45', 'Lunes', 3, 1, "BG", 123, 12345678),
+('13:50', '14:35', 'Lunes', 3, 1, "BG", 123, 12345678),
+('14:40', '15:25', 'Lunes', 3, 1, "BG", 123, 12345678),
+('15:30', '16:15', 'Lunes', 3, 2, "BG", 123, 12345678),
+('16:20', '17:05', 'Lunes', 3, 2, "BG", 123, 12345678),
+('17:10', '17:55', 'Lunes', 3, 2, "BG", 123, 12345678),
+('18:00', '18:45', 'Lunes', 3, -1, "BG", 123, 12345678),
+
+('13:00', '13:45', 'Martes', 3, -1, "BG", 123, 12345678),
+('13:50', '14:35', 'Martes', 3, 3, "BG", 123, 12345678),
+('14:40', '15:25', 'Martes', 3, 4, "BG", 123, 12345678),
+('15:30', '16:15', 'Martes', 3, 4, "BG", 123, 12345678),
+('16:20', '17:05', 'Martes', 3, 5, "BG", 123, 12345678),
+('17:10', '17:55', 'Martes', 3, 5, "BG", 123, 12345678),
+('18:00', '18:45', 'Martes', 3, 5, "BG", 123, 12345678),
+
+('13:00', '13:45', 'Miércoles', 3, 6, "BG", 123, 12345678),
+('13:50', '14:35', 'Miércoles', 3, 6, "BG", 123, 12345678),
+('14:40', '15:25', 'Miércoles', 3, 6, "BG", 123, 12345678),
+('15:30', '16:15', 'Miércoles', 3, 7, "BG", 123, 12345678),
+('16:20', '17:05', 'Miércoles', 3, 7, "BG", 123, 12345678),
+('17:10', '17:55', 'Miércoles', 3, 8, "BG", 123, 12345678),
+('18:00', '18:45', 'Miércoles', 3, -1, "BG", 123, 12345678),
+
+('13:00', '13:45', 'Jueves', 3, 9, "BG", 123, 12345678),
+('13:50', '14:35', 'Jueves', 3, 9, "BG", 123, 12345678),
+('14:40', '15:25', 'Jueves', 3, 9, "BG", 123, 12345678),
+('15:30', '16:15', 'Jueves', 3, 9, "BG", 123, 12345678),
+('16:20', '17:05', 'Jueves', 3, 3, "BG", 123, 12345678),
+('17:10', '17:55', 'Jueves', 3, 3, "BG", 123, 12345678),
+('18:00', '18:45', 'Jueves', 3, -1, "BG", 123, 12345678),
+
+('13:00', '13:45', 'Viernes', 3, 4, "BG", 123, 12345678),
+('13:50', '14:35', 'Viernes', 3, 4, "BG", 123, 12345678),
+('14:40', '15:25', 'Viernes', 3, 10, "BG", 123, 12345678),
+('15:30', '16:15', 'Viernes', 3, 10, "BG", 123, 12345678),
+('16:20', '17:05', 'Viernes', 3, 8, "BG", 123, 12345678),
+('17:10', '17:55', 'Viernes', 3, 8, "BG", 123, 12345678),
+('18:00', '18:45', 'Viernes', 3, -1, "BG", 123, 12345678),
+
+('13:00', '13:45', 'Sábado', 3, 7, "BG", 123, 12345678),
+('13:50', '14:35', 'Sábado', 3, 4, "BG", 123, 12345678),
+('14:40', '15:25', 'Sábado', 3, 4, "BG", 123, 12345678),
+('15:30', '16:15', 'Sábado', 3, 11, "BG", 123, 12345678),
+('16:20', '17:05', 'Sábado', 3, 11, "BG", 123, 12345678),
+('17:10', '17:55', 'Sábado', 3, 11, "BG", 123, 12345678),
+('18:00', '18:45', 'Sábado', 3, -1, "BG", 123, 12345678);
+
+/*
+(1, "ADA", 1),
+(2, "Base de datos", 1),
+(3, "Inglés", 1),
+(4, "Matemática", 1),
+(5, "Sistemas Operativos", 1),
+(6, "Programación", 1),
+(7, "Sociología", 1),
+(8, "Filosofía", 1),
+(9, "Taller", 1),
+(10, "Proyecto", 1),
+(11, "F. Empresarial", 1);
+*/
+/*
+  `HoraInicio` TIME NOT NULL,
+  `HoraFin` TIME NOT NULL,
+  `Dia` VARCHAR(10) NOT NULL,
+  `Grado` INT(2) NOT NULL,
+  `IdAsignatura` INT(4) NOT NULL,
+  `IdGrupo` VARCHAR(4) NOT NULL,
+  `IdOrientacion` INT(4) NOT NULL,
+  `CiPersona` INT(8) NOT NULL,
+  */

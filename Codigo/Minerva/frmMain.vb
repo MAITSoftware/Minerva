@@ -33,6 +33,8 @@
         lblNomGrupo.Text = "Grupo" & vbCrLf & cboGrupo.Text.Substring(0, cboGrupo.Text.IndexOf(" (")).Trim()
         lblSeleccioneGrupo.Visible = cboGrupo.SelectedIndex = -1
         lblSeleccioneGrupo2.Visible = cboGrupo.SelectedIndex = -1
+        Dim DB As New BaseDeDatos()
+        DB.cargarMateriasGrupo_frmMain(Me)
     End Sub
 
     Private Sub Minerva_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
