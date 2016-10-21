@@ -47,45 +47,127 @@
         pnlTrabajo.BringToFront()
     End Sub
 
+    Private Sub acomodarDiseño(Optional ByVal original As Boolean = True)
+        If original Then
+            pnlBorde.Size = New Point(1007, 2)
+            pnlBorde1.Location = New Point(1005, 41)
+            pnlBorde1.Size = New Point(3, 504)
+            pnlBorde2.Location = New Point(0, 40)
+            pnlBorde2.Size = New Point(2, 500)
+            pnlBorde3.Location = New Point(0, 535)
+            pnlBorde3.Size = New Point(1007, 2)
+
+            pnlBorde.BringToFront()
+            pnlBorde1.BringToFront()
+            pnlBorde2.BringToFront()
+            pnlBorde3.BringToFront()
+        Else
+            pnlBorde.Size = New Point(1400, 2)
+
+            pnlBorde1.Location = New Point(1182, 41)
+            pnlBorde1.Size = New Point(3, 604)
+
+            pnlBorde2.Location = New Point(0, 40)
+            pnlBorde2.Size = New Point(2, 600)
+
+            pnlBorde3.Location = New Point(0, 560)
+            pnlBorde3.Size = New Point(1200, 2)
+
+            pnlBorde.BringToFront()
+            pnlBorde1.BringToFront()
+            pnlBorde2.BringToFront()
+            pnlBorde3.BringToFront()
+        End If
+    End Sub
+
+    Private Sub Centrar()
+        '' Note: call this from frm's Load event!
+        Dim r As Rectangle
+        r = Me.frmMain.RectangleToScreen(frmMain.ClientRectangle)
+
+        Dim x = r.Left + (r.Width - Me.Width) \ 2
+        Dim y = r.Top + (r.Height - Me.Height) \ 2
+        Me.Location = New Point(x, y)
+    End Sub
+
     ' Al clickear X boton mostrar X panel.
 
     Private Sub btnSalones_Click(sender As Object, e As EventArgs) Handles btnSalones.Click
+        If btnActual Is sender Then
+            Return
+        End If
+
         Me.Controls.Remove(pnlTrabajo)
+        acomodarDiseño()
         pnlTrabajo = New frmAdminSalones()
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)
         pnlTrabajo.BringToFront()
+        sender.BringToFront()
+        Centrar()
     End Sub
 
     Private Sub btnGrupos_Click(sender As Object, e As EventArgs) Handles btnGrupos.Click
+        If btnActual Is sender Then
+            Return
+        End If
+
         Me.Controls.Remove(pnlTrabajo)
+        acomodarDiseño()
         pnlTrabajo = New frmAdminGrupos(frmMain)
+        Me.Size = New Point(1024, 575)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)
         pnlTrabajo.BringToFront()
+        sender.BringToFront()
+        Centrar()
     End Sub
 
     Private Sub btnDocentes_Click(sender As Object, e As EventArgs) Handles btnDocentes.Click
+        If btnActual Is sender Then
+            Return
+        End If
+
         Me.Controls.Remove(pnlTrabajo)
+        acomodarDiseño()
         pnlTrabajo = New frmAdminDocentes()
+        Me.Size = New Point(1024, 575)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)
         pnlTrabajo.BringToFront()
+        sender.BringToFront()
+        Centrar()
     End Sub
 
     Private Sub btnHorarios_Click(sender As Object, e As EventArgs) Handles btnHorarios.Click
+        If btnActual Is sender Then
+            Return
+        End If
+
         Me.Controls.Remove(pnlTrabajo)
+        acomodarDiseño(False)
         pnlTrabajo = New frmAdminHorarios()
+        Me.Size = New Point(1200, 600)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)
         pnlTrabajo.BringToFront()
+        sender.BringToFront()
+        Centrar()
     End Sub
 
     Private Sub btnUsuarios_Click(sender As Object, e As EventArgs) Handles btnUsuarios.Click
+        If btnActual Is sender Then
+            Return
+        End If
+
         Me.Controls.Remove(pnlTrabajo)
+        acomodarDiseño()
         pnlTrabajo = New frmAdminUsuarios()
+        Me.Size = New Point(1024, 575)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)
         pnlTrabajo.BringToFront()
+        sender.BringToFront()
+        Centrar()
     End Sub
 End Class

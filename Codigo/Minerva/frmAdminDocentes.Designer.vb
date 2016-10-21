@@ -218,6 +218,7 @@ Partial Class frmAdminDocentes
         'cmbGrupo
         '
         Me.cmbGrupo.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbGrupo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbGrupo.Enabled = False
         Me.cmbGrupo.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbGrupo.FormattingEnabled = True
@@ -429,6 +430,7 @@ Partial Class frmAdminDocentes
         'cmbArea
         '
         Me.cmbArea.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbArea.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbArea.Enabled = False
         Me.cmbArea.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbArea.FormattingEnabled = True
@@ -440,6 +442,7 @@ Partial Class frmAdminDocentes
         'cmbAsignatura
         '
         Me.cmbAsignatura.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbAsignatura.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbAsignatura.Enabled = False
         Me.cmbAsignatura.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbAsignatura.FormattingEnabled = True

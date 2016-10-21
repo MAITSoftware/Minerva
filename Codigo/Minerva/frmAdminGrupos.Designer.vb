@@ -273,6 +273,7 @@ Partial Class frmAdminGrupos
         'cmbCurso
         '
         Me.cmbCurso.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbCurso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbCurso.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbCurso.FormattingEnabled = True
         Me.cmbCurso.Location = New System.Drawing.Point(357, 161)
@@ -283,6 +284,7 @@ Partial Class frmAdminGrupos
         'cmbOrientacion
         '
         Me.cmbOrientacion.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbOrientacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbOrientacion.Enabled = False
         Me.cmbOrientacion.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbOrientacion.FormattingEnabled = True

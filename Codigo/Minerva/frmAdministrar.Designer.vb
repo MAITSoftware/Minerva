@@ -48,7 +48,7 @@ Partial Class frmAdministrar
         Me.btnSalones.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSalones.Font = New System.Drawing.Font("Corbel", 18.0!)
         Me.btnSalones.ForeColor = System.Drawing.Color.White
-        Me.btnSalones.Location = New System.Drawing.Point(0, -2)
+        Me.btnSalones.Location = New System.Drawing.Point(5, -2)
         Me.btnSalones.Margin = New System.Windows.Forms.Padding(0)
         Me.btnSalones.Name = "btnSalones"
         Me.btnSalones.Size = New System.Drawing.Size(135, 44)
@@ -70,7 +70,7 @@ Partial Class frmAdministrar
         Me.btnGrupos.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnGrupos.Font = New System.Drawing.Font("Corbel", 18.0!)
         Me.btnGrupos.ForeColor = System.Drawing.Color.White
-        Me.btnGrupos.Location = New System.Drawing.Point(133, 6)
+        Me.btnGrupos.Location = New System.Drawing.Point(142, 6)
         Me.btnGrupos.Margin = New System.Windows.Forms.Padding(0)
         Me.btnGrupos.Name = "btnGrupos"
         Me.btnGrupos.Size = New System.Drawing.Size(135, 44)
@@ -90,7 +90,7 @@ Partial Class frmAdministrar
         Me.pnlPestañas.Controls.Add(Me.btnUsuarios)
         Me.pnlPestañas.Location = New System.Drawing.Point(0, 0)
         Me.pnlPestañas.Name = "pnlPestañas"
-        Me.pnlPestañas.Size = New System.Drawing.Size(1007, 50)
+        Me.pnlPestañas.Size = New System.Drawing.Size(1200, 50)
         Me.pnlPestañas.TabIndex = 4
         '
         'pnlBorde
@@ -113,7 +113,7 @@ Partial Class frmAdministrar
         Me.btnHorarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnHorarios.Font = New System.Drawing.Font("Corbel", 18.0!)
         Me.btnHorarios.ForeColor = System.Drawing.Color.White
-        Me.btnHorarios.Location = New System.Drawing.Point(399, 6)
+        Me.btnHorarios.Location = New System.Drawing.Point(418, 6)
         Me.btnHorarios.Margin = New System.Windows.Forms.Padding(0)
         Me.btnHorarios.Name = "btnHorarios"
         Me.btnHorarios.Size = New System.Drawing.Size(135, 44)
@@ -135,7 +135,7 @@ Partial Class frmAdministrar
         Me.btnDocentes.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDocentes.Font = New System.Drawing.Font("Corbel", 18.0!)
         Me.btnDocentes.ForeColor = System.Drawing.Color.White
-        Me.btnDocentes.Location = New System.Drawing.Point(266, 6)
+        Me.btnDocentes.Location = New System.Drawing.Point(280, 6)
         Me.btnDocentes.Margin = New System.Windows.Forms.Padding(0)
         Me.btnDocentes.Name = "btnDocentes"
         Me.btnDocentes.Size = New System.Drawing.Size(135, 44)
@@ -157,7 +157,7 @@ Partial Class frmAdministrar
         Me.btnUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnUsuarios.Font = New System.Drawing.Font("Corbel", 18.0!)
         Me.btnUsuarios.ForeColor = System.Drawing.Color.White
-        Me.btnUsuarios.Location = New System.Drawing.Point(532, 6)
+        Me.btnUsuarios.Location = New System.Drawing.Point(557, 6)
         Me.btnUsuarios.Margin = New System.Windows.Forms.Padding(0)
         Me.btnUsuarios.Name = "btnUsuarios"
         Me.btnUsuarios.Size = New System.Drawing.Size(135, 44)
