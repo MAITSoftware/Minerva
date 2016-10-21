@@ -4,10 +4,12 @@
     Dim btnActual As Button = New Button()
     Dim pnlTrabajo As New UserControl
     Dim administrador As Boolean = False
+    Dim frmMain As frmMain
 
-    Public Sub New(ByVal administrador As Boolean)
+    Public Sub New(ByVal administrador As Boolean, ByVal frmMain As frmMain)
         InitializeComponent()
         Me.administrador = administrador
+        Me.frmMain = frmMain
     End Sub
 
     Private Sub frmAdministrar_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -57,7 +59,7 @@
 
     Private Sub btnGrupos_Click(sender As Object, e As EventArgs) Handles btnGrupos.Click
         Me.Controls.Remove(pnlTrabajo)
-        pnlTrabajo = New frmAdminGrupos()
+        pnlTrabajo = New frmAdminGrupos(frmMain)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)
         pnlTrabajo.BringToFront()

@@ -3,7 +3,12 @@
 
     Friend totalGrupos As Integer = 0
     Friend prevSelect As String
+    Friend frmMain As frmMain
 
+    Public Sub New(ByVal frmMain As frmMain)
+        InitializeComponent()
+        Me.frmMain = frmMain
+    End Sub
     Private Sub frmAdminGrupos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al cargar la ventana, cargarGrupos y rellenar los combos con los datos.
         cargarGrupos()

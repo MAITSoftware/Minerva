@@ -51,7 +51,7 @@ Partial Class frmAdminDocentes
         Me.lblNuevoDocente = New System.Windows.Forms.Label()
         Me.btnCancelarEdicion = New System.Windows.Forms.Button()
         Me.btnAgregarDocente = New System.Windows.Forms.Button()
-        Me.numHsSemanales = New System.Windows.Forms.NumericUpDown()
+        Me.numGradoArea = New System.Windows.Forms.NumericUpDown()
         Me.lstAsignaturas = New System.Windows.Forms.ListView()
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -69,7 +69,7 @@ Partial Class frmAdminDocentes
         lblTitulo = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
         Me.pnlDocentePlantilla.SuspendLayout()
-        CType(Me.numHsSemanales, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numGradoArea, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mnuEdicionDocente.SuspendLayout()
         CType(Me.btnEliminarAsignatura, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnAgregarAsignatura, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -107,9 +107,9 @@ Partial Class frmAdminDocentes
         Me.lblCargo.ForeColor = System.Drawing.Color.PaleGreen
         Me.lblCargo.Location = New System.Drawing.Point(24, 188)
         Me.lblCargo.Name = "lblCargo"
-        Me.lblCargo.Size = New System.Drawing.Size(75, 29)
+        Me.lblCargo.Size = New System.Drawing.Size(156, 29)
         Me.lblCargo.TabIndex = 76
-        Me.lblCargo.Text = "Grado"
+        Me.lblCargo.Text = "Grado general"
         '
         'lblNombre
         '
@@ -168,9 +168,9 @@ Partial Class frmAdminDocentes
         Me.lblHsSemanales.ForeColor = System.Drawing.Color.PaleGreen
         Me.lblHsSemanales.Location = New System.Drawing.Point(464, 376)
         Me.lblHsSemanales.Name = "lblHsSemanales"
-        Me.lblHsSemanales.Size = New System.Drawing.Size(162, 29)
+        Me.lblHsSemanales.Size = New System.Drawing.Size(154, 29)
         Me.lblHsSemanales.TabIndex = 88
-        Me.lblHsSemanales.Text = "Hs. Semanales"
+        Me.lblHsSemanales.Text = "Grado de área"
         '
         'lblAsignatura
         '
@@ -385,17 +385,17 @@ Partial Class frmAdminDocentes
         Me.btnAgregarDocente.Text = "Agregar docente " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "y editar materias"
         Me.btnAgregarDocente.UseVisualStyleBackColor = True
         '
-        'numHsSemanales
+        'numGradoArea
         '
-        Me.numHsSemanales.Cursor = System.Windows.Forms.Cursors.Default
-        Me.numHsSemanales.Enabled = False
-        Me.numHsSemanales.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.numHsSemanales.Location = New System.Drawing.Point(469, 408)
-        Me.numHsSemanales.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.numHsSemanales.Name = "numHsSemanales"
-        Me.numHsSemanales.Size = New System.Drawing.Size(106, 34)
-        Me.numHsSemanales.TabIndex = 115
-        Me.numHsSemanales.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numGradoArea.Cursor = System.Windows.Forms.Cursors.Default
+        Me.numGradoArea.Enabled = False
+        Me.numGradoArea.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.numGradoArea.Location = New System.Drawing.Point(469, 408)
+        Me.numGradoArea.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numGradoArea.Name = "numGradoArea"
+        Me.numGradoArea.Size = New System.Drawing.Size(106, 34)
+        Me.numGradoArea.TabIndex = 115
+        Me.numGradoArea.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'lstAsignaturas
         '
@@ -414,7 +414,7 @@ Partial Class frmAdminDocentes
         'ColumnHeader2
         '
         Me.ColumnHeader2.Text = "Asignatura"
-        Me.ColumnHeader2.Width = 80
+        Me.ColumnHeader2.Width = 70
         '
         'ColumnHeader3
         '
@@ -424,7 +424,7 @@ Partial Class frmAdminDocentes
         'ColumnHeader1
         '
         Me.ColumnHeader1.Text = "F. Asignación"
-        Me.ColumnHeader1.Width = 90
+        Me.ColumnHeader1.Width = 80
         '
         'cmbArea
         '
@@ -498,10 +498,12 @@ Partial Class frmAdminDocentes
         '
         Me.numGrado.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.numGrado.Location = New System.Drawing.Point(29, 220)
-        Me.numGrado.Maximum = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.numGrado.Maximum = New Decimal(New Integer() {7, 0, 0, 0})
+        Me.numGrado.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numGrado.Name = "numGrado"
         Me.numGrado.Size = New System.Drawing.Size(120, 34)
         Me.numGrado.TabIndex = 121
+        Me.numGrado.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'imgLogoMAITs
         '
@@ -520,7 +522,7 @@ Partial Class frmAdminDocentes
         Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.numGrado)
         Me.Controls.Add(Me.lblAsignaturas)
-        Me.Controls.Add(Me.numHsSemanales)
+        Me.Controls.Add(Me.numGradoArea)
         Me.Controls.Add(Me.cmbAsignatura)
         Me.Controls.Add(Me.btnEliminarAsignatura)
         Me.Controls.Add(Me.btnCancelarEdicion)
@@ -550,7 +552,7 @@ Partial Class frmAdminDocentes
         Me.pnlFondo.ResumeLayout(False)
         Me.pnlFondo.PerformLayout()
         Me.pnlDocentePlantilla.ResumeLayout(False)
-        CType(Me.numHsSemanales, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numGradoArea, System.ComponentModel.ISupportInitialize).EndInit()
         Me.mnuEdicionDocente.ResumeLayout(False)
         CType(Me.btnEliminarAsignatura, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnAgregarAsignatura, System.ComponentModel.ISupportInitialize).EndInit()
@@ -585,7 +587,7 @@ Partial Class frmAdminDocentes
     Friend WithEvents lblNuevoDocente As System.Windows.Forms.Label
     Friend WithEvents btnCancelarEdicion As System.Windows.Forms.Button
     Friend WithEvents btnAgregarDocente As System.Windows.Forms.Button
-    Friend WithEvents numHsSemanales As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numGradoArea As System.Windows.Forms.NumericUpDown
     Friend WithEvents lstAsignaturas As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader2 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader

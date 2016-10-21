@@ -211,6 +211,9 @@ Public Class BaseDeDatos
 
     Public Sub cargarDatos_frmMain(ByVal frm As frmMain)
         Dim conexion As New Conexion()
+        frm.cboGrupo.Items.Clear()
+        frm.cboGrupo.Items.Add("Elija un grupo")
+        frm.cboGrupo.SelectedIndex = 0
         ' Carga los grupos al combo
         Using cmd As New MySqlCommand()
             With cmd
@@ -728,6 +731,7 @@ Public Class BaseDeDatos
                 frm.cargarGrupos()
                 MessageBox.Show("Grupo agregado correctamente", "Grupo agregado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
                 frm.btnNuevoGrupo_Click(Nothing, Nothing)
+                cargarDatos_frmMain(frm.frmMain)
             Catch ex As Exception
                 If ex.ToString().Contains("Duplicate") Then
                     MessageBox.Show("Ya existe un grupo con el mismo trayecto y ID en dicho turno.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1007,18 +1011,41 @@ Public Class BaseDeDatos
     Public Sub actualizarDBMaterias_frmAdminDocentes(ByVal frm as frmAdminDocentes)
         ' Se encarga de manejar la DB (parte asignaturas del docente), agrega o edita asignaturas.
         Dim conexion as New Conexion()
+        Dim yaEsta As Boolean = False
 
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
                 .CommandType = CommandType.Text
-                .CommandText = "INSERT INTO `Tiene_Ag` VALUES (@IdAsignatura, @IdGrupo, @Grado, @IdOrientacion, @CiPersona, @FechaToma);"
+                .CommandText = "SELECT * from `AsignaturasTomadas` WHERE IdAsignatura=@IdAsignatura and IdGrupo=@IdGrupo and Grado=@Grado;"
+                .Parameters.AddWithValue("@IdAsignatura", frm.cmbAsignatura.Text.Substring(0, frm.cmbAsignatura.Text.IndexOf(" (")).Trim())
+                .Parameters.AddWithValue("@IdGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.IndexOf(" (")).Trim())
+                .Parameters.AddWithValue("@Grado", frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim())
+            End With
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                yaEsta = True
+            End While
+            reader.Close()
+        End Using
+
+        If yaEsta Then
+            MessageBox.Show("Esa materia ya ha sido asignada al grupo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandType = CommandType.Text
+                .CommandText = "INSERT INTO `Tiene_Ag` VALUES (@IdAsignatura, @IdGrupo, @Grado, @IdOrientacion, @CiPersona, @FechaToma, @GradoAreaProfesor);"
                 .Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
                 .Parameters.AddWithValue("@IdAsignatura", frm.cmbAsignatura.Text.Substring(0, frm.cmbAsignatura.Text.IndexOf(" (")).Trim())
                 .Parameters.AddWithValue("@IdGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.IndexOf(" (")).Trim())
                 .Parameters.AddWithValue("@Grado", frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim())
                 Dim d As DateTime = Now
                 .Parameters.AddWithValue("@FechaToma", d.ToString("yyyy-MM-dd"))
+                .Parameters.AddWithValue("@GradoAreaProfesor", frm.numGradoArea.Value)
 
                 Dim orientacionGrupo As String
 

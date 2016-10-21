@@ -17,7 +17,7 @@
 
     Private Sub btnAdministrar_showMenu(sender As Object, e As EventArgs) Handles btnAdministrar.Click
         ' Abre la ventana de administracion al clickear
-        Dim administracion As New frmAdministrar(Administrador)
+        Dim administracion As New frmAdministrar(Administrador, Me)
         administracion.ShowDialog(Me)
     End Sub
 

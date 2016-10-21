@@ -124,7 +124,7 @@
         txtApellido.Enabled = habilitado
         txtApellido.Text = ""
         numGrado.Enabled = habilitado
-        numGrado.Value = 0
+        numGrado.Value = 1
     End Sub
 
     Private Sub habilitarAsignaturas(ByVal habilitadas As Boolean)
@@ -139,8 +139,8 @@
         cmbAsignatura.SelectedIndex = -1
         cmbGrupo.Enabled = habilitadas
         cmbGrupo.SelectedIndex = -1
-        numHsSemanales.Enabled = habilitadas
-        numHsSemanales.Value = 1
+        numGradoArea.Enabled = habilitadas
+        numGradoArea.Value = 1
         btnAgregarMateria.Enabled = habilitadas
     End Sub
 
@@ -215,7 +215,7 @@
         ' Al clickear btnAgregarAsignatura reestablecer la zona de materias
         cmbArea.SelectedIndex = -1
         cmbGrupo.SelectedIndex = -1
-        numHsSemanales.Value = 1
+        numGradoArea.Value = 1
     End Sub
 
     Private Sub cmbArea_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbArea.SelectedIndexChanged

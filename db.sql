@@ -130,6 +130,7 @@ create table `Tiene_Ag` (
   `IdOrientacion` INT(4) NOT NULL,
   `CiPersona` INT(8) NOT NULL,
   `FechaToma` DATE NOT NULL,
+  `GradoArea` INT(2) NOT NULL,
   FOREIGN KEY (`IdAsignatura`) REFERENCES Asignatura(`IdAsignatura`),
   FOREIGN KEY (`IdGrupo`) REFERENCES Grupo(`IdGrupo`),
   FOREIGN KEY (`Grado`) REFERENCES Trayecto(`Grado`),
