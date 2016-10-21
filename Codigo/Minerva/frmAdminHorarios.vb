@@ -1,6 +1,18 @@
 ﻿Public Class frmAdminHorarios
     ' Clase principal para la administración de horarios
     Dim prevHover As Control = New Control()
+    Dim prevSelect As String = Nothing
+
+    Friend horarioPrimera As String = "13:00"
+    Friend horarioSegunda As String = "13:50"
+    Friend horarioTercera As String = "14:40"
+    Friend horarioCuarta As String = "15:30"
+    Friend horarioQuinta As String = "16:20"
+    Friend horarioSexta As String = "17:10"
+    Friend horarioExtra As String = "18:00"
+
+    Dim tablas As Object = Nothing
+
     Public Sub New()
 
         ' Llamada necesaria para el diseñador.
@@ -11,7 +23,7 @@
         x = New BaseDeDatos()
     End Sub
 
-    Private Sub Materia_MouseDown(sender As Object, e As MouseEventArgs)
+    Public Sub Materia_MouseDown(sender As Object, e As MouseEventArgs)
         Dim btn As Control = TryCast(sender, Control)
         btn.DoDragDrop(btn, DragDropEffects.Move)
         If (e.Button = Windows.Forms.MouseButtons.Right) Then
@@ -66,19 +78,22 @@
 
 
     Private Sub frmAdminHorarios_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim DB As New BaseDeDatos()
+        DB.cargarGrupos_frmAdminHorarios(Me)
+
         For Each c As Control In pnlMaterias.Controls
             AddHandler c.MouseDown, AddressOf Materia_MouseDown
         Next
 
-        Dim tablas As Object
         tablas = {
-                tableLunes1, tableLunes2, tableLunes3, tableLunes4, tableLunes5, tableLunes6, tableLunes7, _
-                tableMartes1, tableMartes2, tableMartes3, tableMartes4, tableMartes5, tableMartes6, tableMartes7, _
-                tableMiercoles1, tableMiercoles2, tableMiercoles3, tableMiercoles4, tableMiercoles5, tableMiercoles6, tableMiercoles7, _
-                tableJueves1, tableJueves2, tableJueves3, tableJueves4, tableJueves5, tableJueves6, tableJueves7, _
-                tableViernes1, tableViernes2, tableViernes3, tableViernes4, tableViernes5, tableViernes6, tableViernes7, _
-                tableSabado1, tableSabado2, tableSabado3, tableSabado4, tableSabado5, tableSabado6, tableSabado7
+            tableLunes1, tableLunes2, tableLunes3, tableLunes4, tableLunes5, tableLunes6, tableLunes7, _
+            tableMartes1, tableMartes2, tableMartes3, tableMartes4, tableMartes5, tableMartes6, tableMartes7, _
+            tableMiercoles1, tableMiercoles2, tableMiercoles3, tableMiercoles4, tableMiercoles5, tableMiercoles6, tableMiercoles7, _
+            tableJueves1, tableJueves2, tableJueves3, tableJueves4, tableJueves5, tableJueves6, tableJueves7, _
+            tableViernes1, tableViernes2, tableViernes3, tableViernes4, tableViernes5, tableViernes6, tableViernes7, _
+            tableSabado1, tableSabado2, tableSabado3, tableSabado4, tableSabado5, tableSabado6, tableSabado7
         }
+
         For Each tabla As Control In tablas
             tabla.AllowDrop = True
             AddHandler tabla.DragOver, AddressOf Panel_DragOver
@@ -87,5 +102,22 @@
                 AddHandler c.MouseDown, AddressOf Materia_MouseDown
             Next
         Next
+    End Sub
+
+    Private Sub cmbGrupo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbGrupo.SelectedIndexChanged
+        If cmbGrupo.Text.Equals(prevSelect) Then
+            Return
+        End If
+        btnSinAsignar.Parent = Me
+        pnlMaterias.Controls.Clear()
+        pnlMaterias.Controls.Add(btnSinAsignar)
+        prevSelect = cmbGrupo.Text
+
+        For Each tabla As Control In tablas
+            tabla.Controls.Clear()
+        Next
+
+        Dim DB As New BaseDeDatos()
+        DB.cargarMaterias_frmAdminHorarios(Me)
     End Sub
 End Class

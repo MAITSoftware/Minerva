@@ -30,11 +30,22 @@
             lblSeleccioneGrupo2.BringToFront()
             Return
         End If
+
         lblNomGrupo.Text = "Grupo" & vbCrLf & cboGrupo.Text.Substring(0, cboGrupo.Text.IndexOf(" (")).Trim()
         lblSeleccioneGrupo.Visible = cboGrupo.SelectedIndex = -1
         lblSeleccioneGrupo2.Visible = cboGrupo.SelectedIndex = -1
+
+        Lunes.limpiar()
+        Martes.limpiar()
+        Miércoles.limpiar()
+        Jueves.limpiar()
+        Viernes.limpiar()
+        Sábado.limpiar()
+
         Dim DB As New BaseDeDatos()
         DB.cargarMateriasGrupo_frmMain(Me)
+        imgLogo.Focus()
+
     End Sub
 
     Private Sub Minerva_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed

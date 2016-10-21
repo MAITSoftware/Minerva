@@ -234,6 +234,7 @@ Public Class BaseDeDatos
         Dim conexion As New Conexion()
         ' Carga los grupos al combo
         Dim dias As Object = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"}
+        frm.Cursor = Cursors.WaitCursor
         For Each dia As String In dias
             Using cmd As New MySqlCommand()
                 With cmd
@@ -246,6 +247,9 @@ Public Class BaseDeDatos
 
                 Dim reader As MySqlDataReader = cmd.ExecuteReader()
                 While reader.Read()
+                    If reader("Materia").Equals("Sin asignar") Then
+                        Continue While
+                    End If
                     If dia.Equals("Lunes") Then
                         frm.Lunes.agregarHora(reader("HoraOrden"), reader("Materia"))
                     End If
@@ -268,6 +272,7 @@ Public Class BaseDeDatos
                 reader.Close()
             End Using
         Next
+        frm.Cursor = Cursors.Default
     End Sub
 
     Public Sub cargarSalones_frmAdminSalones(ByVal frm As frmAdminSalones)
@@ -1142,5 +1147,346 @@ Public Class BaseDeDatos
             reader.Close()
             conexion.Close()
         End Using
+    End Sub
+
+    Public Sub cargarGrupos_frmAdminHorarios(ByVal frm As frmAdminHorarios)
+        ' Carga los grupos a la lista de grupos
+        Dim conexion As New Conexion()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT CONCAT(Grado, ' ', IdGrupo) as Grupo FROM `Grupo`;"
+                .CommandType = CommandType.Text
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                frm.cmbGrupo.Items.Add(reader("Grupo"))
+            End While
+            reader.Close()
+            conexion.Close()
+        End Using
+    End Sub
+
+    Public Sub cargarMaterias_frmAdminHorarios(ByVal frm As frmAdminHorarios)
+        Dim conexion As New Conexion()
+        Try
+            Dim botonesMaterias As New List(Of List(Of Object))
+            Dim materias As New List(Of String)
+            Using cmd As New MySqlCommand()
+                With cmd
+                    .Connection = conexion.Conn
+                    .CommandText = "select DISTINCT NombreAsignatura, Grupo.IdGrupo, Grupo.IdOrientacion, AsignaturasOrientaciones.IdAsignatura, CargaHoraria, AsignaturasOrientaciones.Grado from AsignaturasOrientaciones, Grupo where Grupo.IdGrupo=@IdGrupo and Grupo.Grado=@Grado and AsignaturasOrientaciones.Grado=Grupo.Grado;"
+                    .CommandType = CommandType.Text
+                    .Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim()))
+                    .Parameters.AddWithValue("@IdGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).Trim())
+                End With
+
+                Dim reader As MySqlDataReader = cmd.ExecuteReader()
+                While reader.Read()
+                    For carga As Integer = 1 To Integer.Parse(reader("CargaHoraria"))
+                        Dim materia As Button
+                        materia = New Button()
+                        materia.Text = reader("NombreAsignatura")
+                        If materia.Text.Equals("Sin asignar") Then
+                            Continue While
+                        End If
+
+                        If materias.Contains(reader("NombreAsignatura")) Then
+                            botonesMaterias(materias.IndexOf(reader("NombreAsignatura"))).Add(materia)
+                        Else
+                            materias.Add(reader("NombreAsignatura"))
+                            botonesMaterias.Add(New List(Of Object))
+                            botonesMaterias(materias.IndexOf(reader("NombreAsignatura"))).Add(materia)
+                        End If
+
+                        materia.Size = frm.btnSinAsignar.Size
+                        materia.FlatStyle = FlatStyle.Flat
+                        materia.FlatAppearance.BorderColor = frm.btnSinAsignar.FlatAppearance.BorderColor
+                        materia.FlatAppearance.BorderSize = frm.btnSinAsignar.FlatAppearance.BorderSize
+                        materia.FlatAppearance.CheckedBackColor = frm.btnSinAsignar.FlatAppearance.CheckedBackColor
+                        materia.FlatAppearance.MouseDownBackColor = frm.btnSinAsignar.FlatAppearance.MouseDownBackColor
+                        materia.FlatAppearance.MouseOverBackColor = frm.btnSinAsignar.FlatAppearance.MouseOverBackColor
+                        materia.BackColor = Color.White
+                        AddHandler materia.MouseDown, AddressOf frm.Materia_MouseDown
+                        frm.pnlMaterias.Controls.Add(materia)
+                    Next
+                End While
+                reader.Close()
+                conexion.Close()
+            End Using
+
+            conexion = New Conexion()
+            Using cmd As New MySqlCommand()
+                With cmd
+                    .Connection = conexion.Conn
+                    .CommandText = "select * from Calendario where Grupo=@Grupo;"
+                    .CommandType = CommandType.Text
+                    .Parameters.AddWithValue("@Grupo", frm.cmbGrupo.Text)
+                End With
+
+                Dim reader As MySqlDataReader = cmd.ExecuteReader()
+                While reader.Read()
+                    If reader("Materia").Equals("Sin asignar") Then
+                        Continue While
+                    End If
+                    Try
+                        Dim Index As Integer = materias.IndexOf(reader("Materia"))
+                        botonesMaterias(Index).ToArray().Last.Dispose()
+                        botonesMaterias(Index).RemoveAt(botonesMaterias(Index).Count - 1)
+
+                        Dim materia As New Button()
+                        materia.Text = reader("Materia")
+                        materia.Size = frm.btnSinAsignar.Size
+                        materia.FlatStyle = FlatStyle.Flat
+                        materia.FlatAppearance.BorderColor = frm.btnSinAsignar.FlatAppearance.BorderColor
+                        materia.FlatAppearance.BorderSize = frm.btnSinAsignar.FlatAppearance.BorderSize
+                        materia.FlatAppearance.CheckedBackColor = frm.btnSinAsignar.FlatAppearance.CheckedBackColor
+                        materia.FlatAppearance.MouseDownBackColor = frm.btnSinAsignar.FlatAppearance.MouseDownBackColor
+                        materia.FlatAppearance.MouseOverBackColor = frm.btnSinAsignar.FlatAppearance.MouseOverBackColor
+                        materia.BackColor = Color.White
+                        AddHandler materia.MouseDown, AddressOf frm.Materia_MouseDown
+
+                        If reader("Dia").Equals("Lunes") Then
+                            ' Mismo condicionaaaaal :'/
+                            If reader("HoraOrden").ToString().Equals(frm.horarioPrimera) Then
+                                If Not (frm.tableLunes1.Controls.Count > 0) Then
+                                    frm.tableLunes1.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioSegunda) Then
+                                If Not (frm.tableLunes2.Controls.Count > 0) Then
+                                    frm.tableLunes2.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioTercera) Then
+                                If Not (frm.tableLunes3.Controls.Count > 0) Then
+                                    frm.tableLunes3.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioCuarta) Then
+                                If Not (frm.tableLunes4.Controls.Count > 0) Then
+                                    frm.tableLunes4.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioQuinta) Then
+                                If Not (frm.tableLunes5.Controls.Count > 0) Then
+                                    frm.tableLunes5.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioSexta) Then
+                                If Not (frm.tableLunes6.Controls.Count > 0) Then
+                                    frm.tableLunes6.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioExtra) Then
+                                If Not (frm.tableLunes7.Controls.Count > 0) Then
+                                    frm.tableLunes7.Controls.Add(materia)
+                                End If
+                            End If
+                        End If
+                        If reader("Dia").Equals("Martes") Then
+                            ' Mismo condicionaaaaal :'/
+                            If reader("HoraOrden").ToString().Equals(frm.horarioPrimera) Then
+                                If Not (frm.tableMartes1.Controls.Count > 0) Then
+                                    frm.tableMartes1.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioSegunda) Then
+                                If Not (frm.tableMartes2.Controls.Count > 0) Then
+                                    frm.tableMartes2.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioTercera) Then
+                                If Not (frm.tableMartes3.Controls.Count > 0) Then
+                                    frm.tableMartes3.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioCuarta) Then
+                                If Not (frm.tableMartes4.Controls.Count > 0) Then
+                                    frm.tableMartes4.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioQuinta) Then
+                                If Not (frm.tableMartes5.Controls.Count > 0) Then
+                                    frm.tableMartes5.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioSexta) Then
+                                If Not (frm.tableMartes6.Controls.Count > 0) Then
+                                    frm.tableMartes6.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioExtra) Then
+                                If Not (frm.tableMartes7.Controls.Count > 0) Then
+                                    frm.tableMartes7.Controls.Add(materia)
+                                End If
+                            End If
+                        End If
+                        If reader("Dia").Equals("Miércoles") Then
+                            ' Mismo condicionaaaaal :'/
+                            If reader("HoraOrden").ToString().Equals(frm.horarioPrimera) Then
+                                If Not (frm.tableMiercoles1.Controls.Count > 0) Then
+                                    frm.tableMiercoles1.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioSegunda) Then
+                                If Not (frm.tableMiercoles2.Controls.Count > 0) Then
+                                    frm.tableMiercoles2.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioTercera) Then
+                                If Not (frm.tableMiercoles3.Controls.Count > 0) Then
+                                    frm.tableMiercoles3.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioCuarta) Then
+                                If Not (frm.tableMiercoles4.Controls.Count > 0) Then
+                                    frm.tableMiercoles4.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioQuinta) Then
+                                If Not (frm.tableMiercoles5.Controls.Count > 0) Then
+                                    frm.tableMiercoles5.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioSexta) Then
+                                If Not (frm.tableMiercoles6.Controls.Count > 0) Then
+                                    frm.tableMiercoles6.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioExtra) Then
+                                If Not (frm.tableMiercoles7.Controls.Count > 0) Then
+                                    frm.tableMiercoles7.Controls.Add(materia)
+                                End If
+                            End If
+                        End If
+
+                        If reader("Dia").Equals("Jueves") Then
+                            ' Mismo condicionaaaaal :'/
+                            If reader("HoraOrden").ToString().Equals(frm.horarioPrimera) Then
+                                If Not (frm.tableJueves1.Controls.Count > 0) Then
+                                    frm.tableJueves1.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioSegunda) Then
+                                If Not (frm.tableJueves2.Controls.Count > 0) Then
+                                    frm.tableJueves2.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioTercera) Then
+                                If Not (frm.tableJueves3.Controls.Count > 0) Then
+                                    frm.tableJueves3.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioCuarta) Then
+                                If Not (frm.tableJueves4.Controls.Count > 0) Then
+                                    frm.tableJueves4.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioQuinta) Then
+                                If Not (frm.tableJueves5.Controls.Count > 0) Then
+                                    frm.tableJueves5.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioSexta) Then
+                                If Not (frm.tableJueves6.Controls.Count > 0) Then
+                                    frm.tableJueves6.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioExtra) Then
+                                If Not (frm.tableJueves7.Controls.Count > 0) Then
+                                    frm.tableJueves7.Controls.Add(materia)
+                                End If
+                            End If
+                        End If
+
+                        If reader("Dia").Equals("Viernes") Then
+                            ' Mismo condicionaaaaal :'/
+                            If reader("HoraOrden").ToString().Equals(frm.horarioPrimera) Then
+                                If Not (frm.tableViernes1.Controls.Count > 0) Then
+                                    frm.tableViernes1.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioSegunda) Then
+                                If Not (frm.tableViernes2.Controls.Count > 0) Then
+                                    frm.tableViernes2.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioTercera) Then
+                                If Not (frm.tableViernes3.Controls.Count > 0) Then
+                                    frm.tableViernes3.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioCuarta) Then
+                                If Not (frm.tableViernes4.Controls.Count > 0) Then
+                                    frm.tableViernes4.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioQuinta) Then
+                                If Not (frm.tableViernes5.Controls.Count > 0) Then
+                                    frm.tableViernes5.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioSexta) Then
+                                If Not (frm.tableViernes6.Controls.Count > 0) Then
+                                    frm.tableViernes6.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioExtra) Then
+                                If Not (frm.tableViernes7.Controls.Count > 0) Then
+                                    frm.tableViernes7.Controls.Add(materia)
+                                End If
+                            End If
+                        End If
+                        If reader("Dia").Equals("Sábado") Then
+                            ' Mismo condicionaaaaal :'/
+                            If reader("HoraOrden").ToString().Equals(frm.horarioPrimera) Then
+                                If Not (frm.tableSabado1.Controls.Count > 0) Then
+                                    frm.tableSabado1.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioSegunda) Then
+                                If Not (frm.tableSabado2.Controls.Count > 0) Then
+                                    frm.tableSabado2.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioTercera) Then
+                                If Not (frm.tableSabado3.Controls.Count > 0) Then
+                                    frm.tableSabado3.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioCuarta) Then
+                                If Not (frm.tableSabado4.Controls.Count > 0) Then
+                                    frm.tableSabado4.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioQuinta) Then
+                                If Not (frm.tableSabado5.Controls.Count > 0) Then
+                                    frm.tableSabado5.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioSexta) Then
+                                If Not (frm.tableSabado6.Controls.Count > 0) Then
+                                    frm.tableSabado6.Controls.Add(materia)
+                                End If
+                            End If
+                            If reader("HoraOrden").ToString().Equals(frm.horarioExtra) Then
+                                If Not (frm.tableSabado7.Controls.Count > 0) Then
+                                    frm.tableSabado7.Controls.Add(materia)
+                                End If
+                            End If
+                        End If
+                    Catch ex As Exception
+                        Console.WriteLine(ex.ToString())
+                    End Try
+                End While
+                reader.Close()
+                conexion.Close()
+            End Using
+
+        Catch ex As Exception
+            Console.WriteLine(ex.ToString())
+        End Try
     End Sub
 End Class

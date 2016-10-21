@@ -141,19 +141,21 @@ create table `Tiene_Ag` (
   PRIMARY KEY (`IdAsignatura`, `IdGrupo`, `Grado`, `IdOrientacion`, `CiPersona`)
 );
 
--- Views para que la profe sea feliz
-create view AsignaturasTomadas AS select IdAsignatura, IdGrupo, Grado from Tiene_Ag;
-create view Calendario AS select DATE_FORMAT(HoraInicio, '%H:%i') as HoraOrden, CONCAT(DATE_FORMAT(HoraInicio, '%H:%i'), " - ", DATE_FORMAT(HoraFin, '%H:%i')) as Hora, Dia, CONCAT(Grado, " ", IdGrupo) as Grupo, CONCAT(NombrePersona, ' ', ApellidoPersona) as NombreProfesor, NombreAsignatura as Materia from Genera, Asignatura, Persona where Genera.IdAsignatura=Asignatura.IdAsignatura and Genera.CiPersona=Persona.CiPersona;
- 
 create table `Tiene_Ta` (
   `IdAsignatura` INT(4) NOT NULL,
   `Grado` INT(2) NOT NULL,
+  `CargaHoraria` INT(2) NOT NULL,
   `IdOrientacion` INT(4) NOT NULL,
   FOREIGN KEY (`IdAsignatura`) REFERENCES Asignatura(`IdAsignatura`),
   FOREIGN KEY (`Grado`) REFERENCES Trayecto(`Grado`),
   FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
   PRIMARY KEY (`IdAsignatura`, `Grado`, `IdOrientacion`)
 );
+
+-- Views para que la profe sea feliz
+create view AsignaturasTomadas AS select IdAsignatura, IdGrupo, Grado from Tiene_Ag;
+create view Calendario AS select Asignatura.IdAsignatura as IdAsignatura, DATE_FORMAT(HoraInicio, '%H:%i') as HoraOrden, CONCAT(DATE_FORMAT(HoraInicio, '%H:%i'), " - ", DATE_FORMAT(HoraFin, '%H:%i')) as Hora, Dia, CONCAT(Grado, " ", IdGrupo) as Grupo, CONCAT(NombrePersona, ' ', ApellidoPersona) as NombreProfesor, NombreAsignatura as Materia from Genera, Asignatura, Persona where Genera.IdAsignatura=Asignatura.IdAsignatura and Genera.CiPersona=Persona.CiPersona;
+create view AsignaturasOrientaciones as select IdOrientacion, Grado, Asignatura.IdAsignatura as IdAsignatura, CargaHoraria, NombreAsignatura from Tiene_Ta, Asignatura where Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura;
 
 -- Datos pre-cargados
 
@@ -181,11 +183,11 @@ VALUES
 ;
 
 
--- Datos de prueba. 3ero BG.
+-- Datos de prueba. 2do y 3ero BG.
 INSERT INTO `Persona` VALUES (1, "ro", "ot");
 INSERT INTO `Usuario` VALUES (1, "ro", "ot", "Administrador", "1", True);
-INSERT INTO `Salon` VALUES (17, "", "Exterior");
-INSERT INTO `Grupo` VALUES ("BG", False, 3, 123, 17, 2);
+INSERT INTO `Salon` VALUES (17, "", "Exterior"), (8, "", "Alta");
+INSERT INTO `Grupo` VALUES ("BG", False, 3, 123, 17, 2), ("BG", False, 2, 123, 17, 2);
 INSERT INTO `Area` VALUES 
 (1, "Informática");
 
@@ -201,10 +203,48 @@ INSERT INTO `Asignatura` VALUES
 (8, "Filosofía", 1),
 (9, "Taller", 1),
 (10, "Proyecto", 1),
-(11, "F. Empresarial", 1);
+(11, "F. Empresarial", 1),
+(14, "Economía", 1),
+(15, "Química", 1),
+(16, "APT", 1),
+(17, "Web", 1),
+(18, "Electrónica", 1),
+(19, "Geometría", 1);
 
-INSERT INTO `Persona` VALUES (12345678, "Profesor", "defecto");
+
+INSERT INTO `Tiene_Ta` VALUES
+(1, 3, 3, 123),
+(2, 3, 3, 123),
+(3, 3, 3, 123),
+(4, 3, 6, 123),
+(5, 3, 3, 123),
+(6, 3, 3, 123),
+(7, 3, 3, 123),
+(8, 3, 3, 123),
+(9, 3, 4, 123),
+(10, 3, 2, 123),
+(11, 3, 3, 123),
+
+(16, 2, 3, 123),
+(5, 2, 3, 123),
+(19, 2, 3, 123),
+(9, 2, 4, 123),
+(3, 2, 3, 123),
+(4, 2, 3, 123),
+(15, 2, 3, 123),
+(2, 2, 3, 123),
+(14, 2, 3, 123),
+(18, 2, 3, 123),
+(6, 2, 3, 123),
+(17, 2, 2, 123)
+;
+
+
+INSERT INTO `Persona` VALUES (12345678, "Profesor", "defecto"),
+(123, "John", "Smith");
 INSERT INTO `Profesor` VALUES (12345678, "Profesor", "defecto", 7);
+INSERT INTO `Profesor` VALUES (123, "John", "Smith", 6);
+
 INSERT INTO `Tiene_Ag` VALUES
 (1, "BG", 3, 123, 12345678, now(), 7),
 (2, "BG", 3, 123, 12345678, now(), 7),
@@ -216,7 +256,20 @@ INSERT INTO `Tiene_Ag` VALUES
 (8, "BG", 3, 123, 12345678, now(), 7),
 (9, "BG", 3, 123, 12345678, now(), 7),
 (10, "BG", 3, 123, 12345678, now(), 7),
-(11, "BG", 3, 123, 12345678, now(), 7);
+(11, "BG", 3, 123, 12345678, now(), 7),
+
+(16, "BG", 2, 123, 123, now(), 7),
+(5, "BG", 2, 123, 123, now(), 7),
+(19, "BG", 2, 123, 123, now(), 7),
+(9, "BG", 2, 123, 123, now(), 7),
+(3, "BG", 2, 123, 123, now(), 7),
+(4, "BG", 2, 123, 123, now(), 7),
+(15, "BG", 2, 123, 123, now(), 7),
+(2, "BG", 2, 123, 123, now(), 7),
+(14, "BG", 2, 123, 123, now(), 7),
+(18, "BG", 2, 123, 123, now(), 7),
+(6, "BG", 2, 123, 123, now(), 7),
+(16, "BG", 2, 123, 123, now(), 7);
 
 INSERT INTO `Genera` VALUES
 -- Inicio, Fin, Dia, 3, Asignatura, BG, 123, 12345678

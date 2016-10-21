@@ -72,39 +72,36 @@ Partial Class frmAdminHorarios
         Me.tableMiercoles1 = New System.Windows.Forms.TableLayoutPanel()
         Me.pnlBorde7 = New System.Windows.Forms.Panel()
         Me.tableJueves = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableJueves7 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableJueves6 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableJueves5 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableJueves4 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableJueves3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableJueves2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableJueves1 = New System.Windows.Forms.TableLayoutPanel()
         Me.pnlBorde9 = New System.Windows.Forms.Panel()
         Me.tableViernes = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableViernes7 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableViernes6 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableViernes5 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableViernes4 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableViernes3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableViernes2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableViernes1 = New System.Windows.Forms.TableLayoutPanel()
         Me.pnlBorde8 = New System.Windows.Forms.Panel()
         Me.tableSabado = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableSabado7 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableSabado6 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableSabado5 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableSabado4 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableSabado3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableSabado2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tableSabado1 = New System.Windows.Forms.TableLayoutPanel()
         Me.pnlMaterias = New System.Windows.Forms.FlowLayoutPanel()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.btnSinAsignar = New System.Windows.Forms.Button()
         Me.pnlBorde10 = New System.Windows.Forms.Panel()
         Me.pnlBorde12 = New System.Windows.Forms.Panel()
         Me.pnlBorde13 = New System.Windows.Forms.Panel()
-        Me.btnSinAsignar = New System.Windows.Forms.Button()
-        Me.tableJueves1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableJueves2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableJueves3 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableJueves4 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableJueves5 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableJueves6 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableJueves7 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableViernes1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableViernes2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableViernes3 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableViernes4 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableViernes5 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableViernes6 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableViernes7 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableSabado1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableSabado2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableSabado3 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableSabado4 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableSabado5 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableSabado6 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tableSabado7 = New System.Windows.Forms.TableLayoutPanel()
         lblTitulo = New System.Windows.Forms.Label()
         tableLunes = New System.Windows.Forms.TableLayoutPanel()
         pnlBorde11 = New System.Windows.Forms.Panel()
@@ -237,6 +234,14 @@ Partial Class frmAdminHorarios
         Me.tableLunes1.Size = New System.Drawing.Size(144, 60)
         Me.tableLunes1.TabIndex = 0
         '
+        'pnlBorde11
+        '
+        pnlBorde11.BackColor = System.Drawing.Color.White
+        pnlBorde11.Location = New System.Drawing.Point(192, 150)
+        pnlBorde11.Name = "pnlBorde11"
+        pnlBorde11.Size = New System.Drawing.Size(1, 360)
+        pnlBorde11.TabIndex = 184
+        '
         'imgLogoMAITs
         '
         Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
@@ -363,7 +368,7 @@ Partial Class frmAdminHorarios
         Me.lblHora2.Name = "lblHora2"
         Me.lblHora2.Size = New System.Drawing.Size(70, 60)
         Me.lblHora2.TabIndex = 152
-        Me.lblHora2.Text = "14:00"
+        Me.lblHora2.Text = "13:50"
         Me.lblHora2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblHora3
@@ -375,7 +380,7 @@ Partial Class frmAdminHorarios
         Me.lblHora3.Name = "lblHora3"
         Me.lblHora3.Size = New System.Drawing.Size(70, 60)
         Me.lblHora3.TabIndex = 153
-        Me.lblHora3.Text = "15:00"
+        Me.lblHora3.Text = "14:40"
         Me.lblHora3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblHora4
@@ -387,7 +392,7 @@ Partial Class frmAdminHorarios
         Me.lblHora4.Name = "lblHora4"
         Me.lblHora4.Size = New System.Drawing.Size(70, 60)
         Me.lblHora4.TabIndex = 154
-        Me.lblHora4.Text = "16:00"
+        Me.lblHora4.Text = "15:30"
         Me.lblHora4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblHora5
@@ -399,7 +404,7 @@ Partial Class frmAdminHorarios
         Me.lblHora5.Name = "lblHora5"
         Me.lblHora5.Size = New System.Drawing.Size(70, 60)
         Me.lblHora5.TabIndex = 155
-        Me.lblHora5.Text = "17:00"
+        Me.lblHora5.Text = "16:20"
         Me.lblHora5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblHora6
@@ -411,7 +416,7 @@ Partial Class frmAdminHorarios
         Me.lblHora6.Name = "lblHora6"
         Me.lblHora6.Size = New System.Drawing.Size(70, 60)
         Me.lblHora6.TabIndex = 156
-        Me.lblHora6.Text = "18:00"
+        Me.lblHora6.Text = "17:10"
         Me.lblHora6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblHora7
@@ -423,7 +428,7 @@ Partial Class frmAdminHorarios
         Me.lblHora7.Name = "lblHora7"
         Me.lblHora7.Size = New System.Drawing.Size(70, 60)
         Me.lblHora7.TabIndex = 162
-        Me.lblHora7.Text = "19:00"
+        Me.lblHora7.Text = "18:00"
         Me.lblHora7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'pnlBorde
@@ -727,6 +732,90 @@ Partial Class frmAdminHorarios
         Me.tableJueves.Size = New System.Drawing.Size(144, 420)
         Me.tableJueves.TabIndex = 177
         '
+        'tableJueves7
+        '
+        Me.tableJueves7.ColumnCount = 1
+        Me.tableJueves7.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableJueves7.Location = New System.Drawing.Point(0, 360)
+        Me.tableJueves7.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableJueves7.Name = "tableJueves7"
+        Me.tableJueves7.RowCount = 1
+        Me.tableJueves7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableJueves7.Size = New System.Drawing.Size(144, 60)
+        Me.tableJueves7.TabIndex = 6
+        '
+        'tableJueves6
+        '
+        Me.tableJueves6.ColumnCount = 1
+        Me.tableJueves6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableJueves6.Location = New System.Drawing.Point(0, 300)
+        Me.tableJueves6.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableJueves6.Name = "tableJueves6"
+        Me.tableJueves6.RowCount = 1
+        Me.tableJueves6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableJueves6.Size = New System.Drawing.Size(144, 60)
+        Me.tableJueves6.TabIndex = 5
+        '
+        'tableJueves5
+        '
+        Me.tableJueves5.ColumnCount = 1
+        Me.tableJueves5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableJueves5.Location = New System.Drawing.Point(0, 240)
+        Me.tableJueves5.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableJueves5.Name = "tableJueves5"
+        Me.tableJueves5.RowCount = 1
+        Me.tableJueves5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableJueves5.Size = New System.Drawing.Size(144, 60)
+        Me.tableJueves5.TabIndex = 4
+        '
+        'tableJueves4
+        '
+        Me.tableJueves4.ColumnCount = 1
+        Me.tableJueves4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableJueves4.Location = New System.Drawing.Point(0, 180)
+        Me.tableJueves4.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableJueves4.Name = "tableJueves4"
+        Me.tableJueves4.RowCount = 1
+        Me.tableJueves4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableJueves4.Size = New System.Drawing.Size(144, 60)
+        Me.tableJueves4.TabIndex = 3
+        '
+        'tableJueves3
+        '
+        Me.tableJueves3.ColumnCount = 1
+        Me.tableJueves3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableJueves3.Location = New System.Drawing.Point(0, 120)
+        Me.tableJueves3.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableJueves3.Name = "tableJueves3"
+        Me.tableJueves3.RowCount = 1
+        Me.tableJueves3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableJueves3.Size = New System.Drawing.Size(144, 60)
+        Me.tableJueves3.TabIndex = 2
+        '
+        'tableJueves2
+        '
+        Me.tableJueves2.ColumnCount = 1
+        Me.tableJueves2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableJueves2.Location = New System.Drawing.Point(0, 60)
+        Me.tableJueves2.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableJueves2.Name = "tableJueves2"
+        Me.tableJueves2.RowCount = 1
+        Me.tableJueves2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableJueves2.Size = New System.Drawing.Size(144, 60)
+        Me.tableJueves2.TabIndex = 1
+        '
+        'tableJueves1
+        '
+        Me.tableJueves1.ColumnCount = 1
+        Me.tableJueves1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableJueves1.Location = New System.Drawing.Point(0, 0)
+        Me.tableJueves1.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableJueves1.Name = "tableJueves1"
+        Me.tableJueves1.RowCount = 1
+        Me.tableJueves1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableJueves1.Size = New System.Drawing.Size(144, 60)
+        Me.tableJueves1.TabIndex = 0
+        '
         'pnlBorde9
         '
         Me.pnlBorde9.BackColor = System.Drawing.Color.White
@@ -758,6 +847,90 @@ Partial Class frmAdminHorarios
         Me.tableViernes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
         Me.tableViernes.Size = New System.Drawing.Size(144, 420)
         Me.tableViernes.TabIndex = 179
+        '
+        'tableViernes7
+        '
+        Me.tableViernes7.ColumnCount = 1
+        Me.tableViernes7.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableViernes7.Location = New System.Drawing.Point(0, 360)
+        Me.tableViernes7.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableViernes7.Name = "tableViernes7"
+        Me.tableViernes7.RowCount = 1
+        Me.tableViernes7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableViernes7.Size = New System.Drawing.Size(144, 60)
+        Me.tableViernes7.TabIndex = 6
+        '
+        'tableViernes6
+        '
+        Me.tableViernes6.ColumnCount = 1
+        Me.tableViernes6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableViernes6.Location = New System.Drawing.Point(0, 300)
+        Me.tableViernes6.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableViernes6.Name = "tableViernes6"
+        Me.tableViernes6.RowCount = 1
+        Me.tableViernes6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableViernes6.Size = New System.Drawing.Size(144, 60)
+        Me.tableViernes6.TabIndex = 5
+        '
+        'tableViernes5
+        '
+        Me.tableViernes5.ColumnCount = 1
+        Me.tableViernes5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableViernes5.Location = New System.Drawing.Point(0, 240)
+        Me.tableViernes5.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableViernes5.Name = "tableViernes5"
+        Me.tableViernes5.RowCount = 1
+        Me.tableViernes5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableViernes5.Size = New System.Drawing.Size(144, 60)
+        Me.tableViernes5.TabIndex = 4
+        '
+        'tableViernes4
+        '
+        Me.tableViernes4.ColumnCount = 1
+        Me.tableViernes4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableViernes4.Location = New System.Drawing.Point(0, 180)
+        Me.tableViernes4.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableViernes4.Name = "tableViernes4"
+        Me.tableViernes4.RowCount = 1
+        Me.tableViernes4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableViernes4.Size = New System.Drawing.Size(144, 60)
+        Me.tableViernes4.TabIndex = 3
+        '
+        'tableViernes3
+        '
+        Me.tableViernes3.ColumnCount = 1
+        Me.tableViernes3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableViernes3.Location = New System.Drawing.Point(0, 120)
+        Me.tableViernes3.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableViernes3.Name = "tableViernes3"
+        Me.tableViernes3.RowCount = 1
+        Me.tableViernes3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableViernes3.Size = New System.Drawing.Size(144, 60)
+        Me.tableViernes3.TabIndex = 2
+        '
+        'tableViernes2
+        '
+        Me.tableViernes2.ColumnCount = 1
+        Me.tableViernes2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableViernes2.Location = New System.Drawing.Point(0, 60)
+        Me.tableViernes2.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableViernes2.Name = "tableViernes2"
+        Me.tableViernes2.RowCount = 1
+        Me.tableViernes2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableViernes2.Size = New System.Drawing.Size(144, 60)
+        Me.tableViernes2.TabIndex = 1
+        '
+        'tableViernes1
+        '
+        Me.tableViernes1.ColumnCount = 1
+        Me.tableViernes1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableViernes1.Location = New System.Drawing.Point(0, 0)
+        Me.tableViernes1.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableViernes1.Name = "tableViernes1"
+        Me.tableViernes1.RowCount = 1
+        Me.tableViernes1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableViernes1.Size = New System.Drawing.Size(144, 60)
+        Me.tableViernes1.TabIndex = 0
         '
         'pnlBorde8
         '
@@ -791,59 +964,112 @@ Partial Class frmAdminHorarios
         Me.tableSabado.Size = New System.Drawing.Size(144, 420)
         Me.tableSabado.TabIndex = 181
         '
+        'tableSabado7
+        '
+        Me.tableSabado7.ColumnCount = 1
+        Me.tableSabado7.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableSabado7.Location = New System.Drawing.Point(0, 360)
+        Me.tableSabado7.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableSabado7.Name = "tableSabado7"
+        Me.tableSabado7.RowCount = 1
+        Me.tableSabado7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableSabado7.Size = New System.Drawing.Size(144, 60)
+        Me.tableSabado7.TabIndex = 6
+        '
+        'tableSabado6
+        '
+        Me.tableSabado6.ColumnCount = 1
+        Me.tableSabado6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableSabado6.Location = New System.Drawing.Point(0, 300)
+        Me.tableSabado6.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableSabado6.Name = "tableSabado6"
+        Me.tableSabado6.RowCount = 1
+        Me.tableSabado6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableSabado6.Size = New System.Drawing.Size(144, 60)
+        Me.tableSabado6.TabIndex = 5
+        '
+        'tableSabado5
+        '
+        Me.tableSabado5.ColumnCount = 1
+        Me.tableSabado5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableSabado5.Location = New System.Drawing.Point(0, 240)
+        Me.tableSabado5.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableSabado5.Name = "tableSabado5"
+        Me.tableSabado5.RowCount = 1
+        Me.tableSabado5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableSabado5.Size = New System.Drawing.Size(144, 60)
+        Me.tableSabado5.TabIndex = 4
+        '
+        'tableSabado4
+        '
+        Me.tableSabado4.ColumnCount = 1
+        Me.tableSabado4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableSabado4.Location = New System.Drawing.Point(0, 180)
+        Me.tableSabado4.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableSabado4.Name = "tableSabado4"
+        Me.tableSabado4.RowCount = 1
+        Me.tableSabado4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableSabado4.Size = New System.Drawing.Size(144, 60)
+        Me.tableSabado4.TabIndex = 3
+        '
+        'tableSabado3
+        '
+        Me.tableSabado3.ColumnCount = 1
+        Me.tableSabado3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableSabado3.Location = New System.Drawing.Point(0, 120)
+        Me.tableSabado3.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableSabado3.Name = "tableSabado3"
+        Me.tableSabado3.RowCount = 1
+        Me.tableSabado3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableSabado3.Size = New System.Drawing.Size(144, 60)
+        Me.tableSabado3.TabIndex = 2
+        '
+        'tableSabado2
+        '
+        Me.tableSabado2.ColumnCount = 1
+        Me.tableSabado2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableSabado2.Location = New System.Drawing.Point(0, 60)
+        Me.tableSabado2.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableSabado2.Name = "tableSabado2"
+        Me.tableSabado2.RowCount = 1
+        Me.tableSabado2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableSabado2.Size = New System.Drawing.Size(144, 60)
+        Me.tableSabado2.TabIndex = 1
+        '
+        'tableSabado1
+        '
+        Me.tableSabado1.ColumnCount = 1
+        Me.tableSabado1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableSabado1.Location = New System.Drawing.Point(0, 0)
+        Me.tableSabado1.Margin = New System.Windows.Forms.Padding(0)
+        Me.tableSabado1.Name = "tableSabado1"
+        Me.tableSabado1.RowCount = 1
+        Me.tableSabado1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableSabado1.Size = New System.Drawing.Size(144, 60)
+        Me.tableSabado1.TabIndex = 0
+        '
         'pnlMaterias
         '
         Me.pnlMaterias.AutoScroll = True
         Me.pnlMaterias.Controls.Add(Me.btnSinAsignar)
-        Me.pnlMaterias.Controls.Add(Me.Button1)
-        Me.pnlMaterias.Controls.Add(Me.Button2)
-        Me.pnlMaterias.Controls.Add(Me.Button3)
         Me.pnlMaterias.Location = New System.Drawing.Point(25, 150)
         Me.pnlMaterias.Name = "pnlMaterias"
         Me.pnlMaterias.Size = New System.Drawing.Size(168, 360)
         Me.pnlMaterias.TabIndex = 182
         '
-        'Button1
+        'btnSinAsignar
         '
-        Me.Button1.BackColor = System.Drawing.Color.White
-        Me.Button1.FlatAppearance.BorderColor = System.Drawing.Color.Red
-        Me.Button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Location = New System.Drawing.Point(3, 69)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(144, 60)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "Biología" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "123"
-        Me.Button1.UseVisualStyleBackColor = False
-        '
-        'Button2
-        '
-        Me.Button2.BackColor = System.Drawing.Color.White
-        Me.Button2.FlatAppearance.BorderColor = System.Drawing.Color.Red
-        Me.Button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Location = New System.Drawing.Point(3, 135)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(144, 60)
-        Me.Button2.TabIndex = 1
-        Me.Button2.Text = "Matemática" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "321"
-        Me.Button2.UseVisualStyleBackColor = False
-        '
-        'Button3
-        '
-        Me.Button3.BackColor = System.Drawing.Color.White
-        Me.Button3.FlatAppearance.BorderColor = System.Drawing.Color.Red
-        Me.Button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button3.Location = New System.Drawing.Point(3, 201)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(144, 60)
-        Me.Button3.TabIndex = 2
-        Me.Button3.Text = "Informática" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "124"
-        Me.Button3.UseVisualStyleBackColor = False
+        Me.btnSinAsignar.BackColor = System.Drawing.Color.White
+        Me.btnSinAsignar.FlatAppearance.BorderColor = System.Drawing.Color.Red
+        Me.btnSinAsignar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.btnSinAsignar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
+        Me.btnSinAsignar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSinAsignar.Location = New System.Drawing.Point(3, 3)
+        Me.btnSinAsignar.Name = "btnSinAsignar"
+        Me.btnSinAsignar.Size = New System.Drawing.Size(144, 60)
+        Me.btnSinAsignar.TabIndex = 3
+        Me.btnSinAsignar.Text = "Sin asignar"
+        Me.btnSinAsignar.UseVisualStyleBackColor = False
         '
         'pnlBorde10
         '
@@ -852,14 +1078,6 @@ Partial Class frmAdminHorarios
         Me.pnlBorde10.Name = "pnlBorde10"
         Me.pnlBorde10.Size = New System.Drawing.Size(1, 360)
         Me.pnlBorde10.TabIndex = 183
-        '
-        'pnlBorde11
-        '
-        pnlBorde11.BackColor = System.Drawing.Color.White
-        pnlBorde11.Location = New System.Drawing.Point(192, 150)
-        pnlBorde11.Name = "pnlBorde11"
-        pnlBorde11.Size = New System.Drawing.Size(1, 360)
-        pnlBorde11.TabIndex = 184
         '
         'pnlBorde12
         '
@@ -876,272 +1094,6 @@ Partial Class frmAdminHorarios
         Me.pnlBorde13.Name = "pnlBorde13"
         Me.pnlBorde13.Size = New System.Drawing.Size(168, 1)
         Me.pnlBorde13.TabIndex = 186
-        '
-        'btnSinAsignar
-        '
-        Me.btnSinAsignar.BackColor = System.Drawing.Color.White
-        Me.btnSinAsignar.FlatAppearance.BorderColor = System.Drawing.Color.Red
-        Me.btnSinAsignar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.btnSinAsignar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
-        Me.btnSinAsignar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSinAsignar.Location = New System.Drawing.Point(3, 3)
-        Me.btnSinAsignar.Name = "btnSinAsignar"
-        Me.btnSinAsignar.Size = New System.Drawing.Size(144, 60)
-        Me.btnSinAsignar.TabIndex = 3
-        Me.btnSinAsignar.Text = "Sin asignar"
-        Me.btnSinAsignar.UseVisualStyleBackColor = False
-        '
-        'tableJueves1
-        '
-        Me.tableJueves1.ColumnCount = 1
-        Me.tableJueves1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableJueves1.Location = New System.Drawing.Point(0, 0)
-        Me.tableJueves1.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableJueves1.Name = "tableJueves1"
-        Me.tableJueves1.RowCount = 1
-        Me.tableJueves1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableJueves1.Size = New System.Drawing.Size(144, 60)
-        Me.tableJueves1.TabIndex = 0
-        '
-        'tableJueves2
-        '
-        Me.tableJueves2.ColumnCount = 1
-        Me.tableJueves2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableJueves2.Location = New System.Drawing.Point(0, 60)
-        Me.tableJueves2.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableJueves2.Name = "tableJueves2"
-        Me.tableJueves2.RowCount = 1
-        Me.tableJueves2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableJueves2.Size = New System.Drawing.Size(144, 60)
-        Me.tableJueves2.TabIndex = 1
-        '
-        'tableJueves3
-        '
-        Me.tableJueves3.ColumnCount = 1
-        Me.tableJueves3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableJueves3.Location = New System.Drawing.Point(0, 120)
-        Me.tableJueves3.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableJueves3.Name = "tableJueves3"
-        Me.tableJueves3.RowCount = 1
-        Me.tableJueves3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableJueves3.Size = New System.Drawing.Size(144, 60)
-        Me.tableJueves3.TabIndex = 2
-        '
-        'tableJueves4
-        '
-        Me.tableJueves4.ColumnCount = 1
-        Me.tableJueves4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableJueves4.Location = New System.Drawing.Point(0, 180)
-        Me.tableJueves4.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableJueves4.Name = "tableJueves4"
-        Me.tableJueves4.RowCount = 1
-        Me.tableJueves4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableJueves4.Size = New System.Drawing.Size(144, 60)
-        Me.tableJueves4.TabIndex = 3
-        '
-        'tableJueves5
-        '
-        Me.tableJueves5.ColumnCount = 1
-        Me.tableJueves5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableJueves5.Location = New System.Drawing.Point(0, 240)
-        Me.tableJueves5.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableJueves5.Name = "tableJueves5"
-        Me.tableJueves5.RowCount = 1
-        Me.tableJueves5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableJueves5.Size = New System.Drawing.Size(144, 60)
-        Me.tableJueves5.TabIndex = 4
-        '
-        'tableJueves6
-        '
-        Me.tableJueves6.ColumnCount = 1
-        Me.tableJueves6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableJueves6.Location = New System.Drawing.Point(0, 300)
-        Me.tableJueves6.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableJueves6.Name = "tableJueves6"
-        Me.tableJueves6.RowCount = 1
-        Me.tableJueves6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableJueves6.Size = New System.Drawing.Size(144, 60)
-        Me.tableJueves6.TabIndex = 5
-        '
-        'tableJueves7
-        '
-        Me.tableJueves7.ColumnCount = 1
-        Me.tableJueves7.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableJueves7.Location = New System.Drawing.Point(0, 360)
-        Me.tableJueves7.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableJueves7.Name = "tableJueves7"
-        Me.tableJueves7.RowCount = 1
-        Me.tableJueves7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableJueves7.Size = New System.Drawing.Size(144, 60)
-        Me.tableJueves7.TabIndex = 6
-        '
-        'tableViernes1
-        '
-        Me.tableViernes1.ColumnCount = 1
-        Me.tableViernes1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableViernes1.Location = New System.Drawing.Point(0, 0)
-        Me.tableViernes1.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableViernes1.Name = "tableViernes1"
-        Me.tableViernes1.RowCount = 1
-        Me.tableViernes1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableViernes1.Size = New System.Drawing.Size(144, 60)
-        Me.tableViernes1.TabIndex = 0
-        '
-        'tableViernes2
-        '
-        Me.tableViernes2.ColumnCount = 1
-        Me.tableViernes2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableViernes2.Location = New System.Drawing.Point(0, 60)
-        Me.tableViernes2.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableViernes2.Name = "tableViernes2"
-        Me.tableViernes2.RowCount = 1
-        Me.tableViernes2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableViernes2.Size = New System.Drawing.Size(144, 60)
-        Me.tableViernes2.TabIndex = 1
-        '
-        'tableViernes3
-        '
-        Me.tableViernes3.ColumnCount = 1
-        Me.tableViernes3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableViernes3.Location = New System.Drawing.Point(0, 120)
-        Me.tableViernes3.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableViernes3.Name = "tableViernes3"
-        Me.tableViernes3.RowCount = 1
-        Me.tableViernes3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableViernes3.Size = New System.Drawing.Size(144, 60)
-        Me.tableViernes3.TabIndex = 2
-        '
-        'tableViernes4
-        '
-        Me.tableViernes4.ColumnCount = 1
-        Me.tableViernes4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableViernes4.Location = New System.Drawing.Point(0, 180)
-        Me.tableViernes4.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableViernes4.Name = "tableViernes4"
-        Me.tableViernes4.RowCount = 1
-        Me.tableViernes4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableViernes4.Size = New System.Drawing.Size(144, 60)
-        Me.tableViernes4.TabIndex = 3
-        '
-        'tableViernes5
-        '
-        Me.tableViernes5.ColumnCount = 1
-        Me.tableViernes5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableViernes5.Location = New System.Drawing.Point(0, 240)
-        Me.tableViernes5.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableViernes5.Name = "tableViernes5"
-        Me.tableViernes5.RowCount = 1
-        Me.tableViernes5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableViernes5.Size = New System.Drawing.Size(144, 60)
-        Me.tableViernes5.TabIndex = 4
-        '
-        'tableViernes6
-        '
-        Me.tableViernes6.ColumnCount = 1
-        Me.tableViernes6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableViernes6.Location = New System.Drawing.Point(0, 300)
-        Me.tableViernes6.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableViernes6.Name = "tableViernes6"
-        Me.tableViernes6.RowCount = 1
-        Me.tableViernes6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableViernes6.Size = New System.Drawing.Size(144, 60)
-        Me.tableViernes6.TabIndex = 5
-        '
-        'tableViernes7
-        '
-        Me.tableViernes7.ColumnCount = 1
-        Me.tableViernes7.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableViernes7.Location = New System.Drawing.Point(0, 360)
-        Me.tableViernes7.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableViernes7.Name = "tableViernes7"
-        Me.tableViernes7.RowCount = 1
-        Me.tableViernes7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableViernes7.Size = New System.Drawing.Size(144, 60)
-        Me.tableViernes7.TabIndex = 6
-        '
-        'tableSabado1
-        '
-        Me.tableSabado1.ColumnCount = 1
-        Me.tableSabado1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableSabado1.Location = New System.Drawing.Point(0, 0)
-        Me.tableSabado1.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableSabado1.Name = "tableSabado1"
-        Me.tableSabado1.RowCount = 1
-        Me.tableSabado1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableSabado1.Size = New System.Drawing.Size(144, 60)
-        Me.tableSabado1.TabIndex = 0
-        '
-        'tableSabado2
-        '
-        Me.tableSabado2.ColumnCount = 1
-        Me.tableSabado2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableSabado2.Location = New System.Drawing.Point(0, 60)
-        Me.tableSabado2.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableSabado2.Name = "tableSabado2"
-        Me.tableSabado2.RowCount = 1
-        Me.tableSabado2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableSabado2.Size = New System.Drawing.Size(144, 60)
-        Me.tableSabado2.TabIndex = 1
-        '
-        'tableSabado3
-        '
-        Me.tableSabado3.ColumnCount = 1
-        Me.tableSabado3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableSabado3.Location = New System.Drawing.Point(0, 120)
-        Me.tableSabado3.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableSabado3.Name = "tableSabado3"
-        Me.tableSabado3.RowCount = 1
-        Me.tableSabado3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableSabado3.Size = New System.Drawing.Size(144, 60)
-        Me.tableSabado3.TabIndex = 2
-        '
-        'tableSabado4
-        '
-        Me.tableSabado4.ColumnCount = 1
-        Me.tableSabado4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableSabado4.Location = New System.Drawing.Point(0, 180)
-        Me.tableSabado4.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableSabado4.Name = "tableSabado4"
-        Me.tableSabado4.RowCount = 1
-        Me.tableSabado4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableSabado4.Size = New System.Drawing.Size(144, 60)
-        Me.tableSabado4.TabIndex = 3
-        '
-        'tableSabado5
-        '
-        Me.tableSabado5.ColumnCount = 1
-        Me.tableSabado5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableSabado5.Location = New System.Drawing.Point(0, 240)
-        Me.tableSabado5.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableSabado5.Name = "tableSabado5"
-        Me.tableSabado5.RowCount = 1
-        Me.tableSabado5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableSabado5.Size = New System.Drawing.Size(144, 60)
-        Me.tableSabado5.TabIndex = 4
-        '
-        'tableSabado6
-        '
-        Me.tableSabado6.ColumnCount = 1
-        Me.tableSabado6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableSabado6.Location = New System.Drawing.Point(0, 300)
-        Me.tableSabado6.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableSabado6.Name = "tableSabado6"
-        Me.tableSabado6.RowCount = 1
-        Me.tableSabado6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableSabado6.Size = New System.Drawing.Size(144, 60)
-        Me.tableSabado6.TabIndex = 5
-        '
-        'tableSabado7
-        '
-        Me.tableSabado7.ColumnCount = 1
-        Me.tableSabado7.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableSabado7.Location = New System.Drawing.Point(0, 360)
-        Me.tableSabado7.Margin = New System.Windows.Forms.Padding(0)
-        Me.tableSabado7.Name = "tableSabado7"
-        Me.tableSabado7.RowCount = 1
-        Me.tableSabado7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableSabado7.Size = New System.Drawing.Size(144, 60)
-        Me.tableSabado7.TabIndex = 6
         '
         'frmAdminHorarios
         '
@@ -1232,9 +1184,6 @@ Partial Class frmAdminHorarios
     Friend WithEvents pnlBorde10 As System.Windows.Forms.Panel
     Friend WithEvents pnlBorde12 As System.Windows.Forms.Panel
     Friend WithEvents pnlBorde13 As System.Windows.Forms.Panel
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents Button3 As System.Windows.Forms.Button
     Friend WithEvents tableLunes1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents tableLunes7 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents tableLunes6 As System.Windows.Forms.TableLayoutPanel
