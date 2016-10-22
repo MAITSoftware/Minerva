@@ -34,7 +34,7 @@ Partial Class frmAdminSalones
         Me.lblTurno1 = New System.Windows.Forms.Label()
         Me.lblTurno3 = New System.Windows.Forms.Label()
         Me.lblTurno2 = New System.Windows.Forms.Label()
-        Me.cmbTurno4 = New System.Windows.Forms.ComboBox()
+        Me.cmbTurno2 = New System.Windows.Forms.ComboBox()
         Me.lblTurno4 = New System.Windows.Forms.Label()
         Me.lblTurno5 = New System.Windows.Forms.Label()
         Me.txtComentarios = New System.Windows.Forms.TextBox()
@@ -48,9 +48,9 @@ Partial Class frmAdminSalones
         Me.btnEditarPlantilla = New System.Windows.Forms.Button()
         Me.pnlSalones = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmbTurno1 = New System.Windows.Forms.ComboBox()
-        Me.cmbTurno2 = New System.Windows.Forms.ComboBox()
-        Me.cmbTurno5 = New System.Windows.Forms.ComboBox()
         Me.cmbTurno3 = New System.Windows.Forms.ComboBox()
+        Me.cmbTurno5 = New System.Windows.Forms.ComboBox()
+        Me.cmbTurno33 = New System.Windows.Forms.ComboBox()
         Me.btnNuevoSalon = New System.Windows.Forms.Button()
         Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         lblSalones = New System.Windows.Forms.Label()
@@ -167,9 +167,9 @@ Partial Class frmAdminSalones
         Me.lblTurno1.ForeColor = System.Drawing.Color.PaleGreen
         Me.lblTurno1.Location = New System.Drawing.Point(314, 129)
         Me.lblTurno1.Name = "lblTurno1"
-        Me.lblTurno1.Size = New System.Drawing.Size(89, 29)
+        Me.lblTurno1.Size = New System.Drawing.Size(132, 29)
         Me.lblTurno1.TabIndex = 17
-        Me.lblTurno1.Text = "Turno 1"
+        Me.lblTurno1.Text = "T. matutino"
         '
         'lblTurno3
         '
@@ -181,6 +181,7 @@ Partial Class frmAdminSalones
         Me.lblTurno3.Size = New System.Drawing.Size(89, 29)
         Me.lblTurno3.TabIndex = 19
         Me.lblTurno3.Text = "Turno 3"
+        Me.lblTurno3.Visible = False
         '
         'lblTurno2
         '
@@ -189,20 +190,20 @@ Partial Class frmAdminSalones
         Me.lblTurno2.ForeColor = System.Drawing.Color.PaleGreen
         Me.lblTurno2.Location = New System.Drawing.Point(314, 202)
         Me.lblTurno2.Name = "lblTurno2"
-        Me.lblTurno2.Size = New System.Drawing.Size(89, 29)
+        Me.lblTurno2.Size = New System.Drawing.Size(130, 29)
         Me.lblTurno2.TabIndex = 21
-        Me.lblTurno2.Text = "Turno 2"
+        Me.lblTurno2.Text = "T. nocturno"
         '
-        'cmbTurno4
+        'cmbTurno2
         '
-        Me.cmbTurno4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbTurno4.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.cmbTurno4.FormattingEnabled = True
-        Me.cmbTurno4.Items.AddRange(New Object() {"Sin asignar"})
-        Me.cmbTurno4.Location = New System.Drawing.Point(461, 161)
-        Me.cmbTurno4.Name = "cmbTurno4"
-        Me.cmbTurno4.Size = New System.Drawing.Size(121, 34)
-        Me.cmbTurno4.TabIndex = 24
+        Me.cmbTurno2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbTurno2.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.cmbTurno2.FormattingEnabled = True
+        Me.cmbTurno2.Items.AddRange(New Object() {"Sin asignar"})
+        Me.cmbTurno2.Location = New System.Drawing.Point(461, 161)
+        Me.cmbTurno2.Name = "cmbTurno2"
+        Me.cmbTurno2.Size = New System.Drawing.Size(121, 34)
+        Me.cmbTurno2.TabIndex = 24
         '
         'lblTurno4
         '
@@ -211,9 +212,9 @@ Partial Class frmAdminSalones
         Me.lblTurno4.ForeColor = System.Drawing.Color.PaleGreen
         Me.lblTurno4.Location = New System.Drawing.Point(456, 129)
         Me.lblTurno4.Name = "lblTurno4"
-        Me.lblTurno4.Size = New System.Drawing.Size(90, 29)
+        Me.lblTurno4.Size = New System.Drawing.Size(145, 29)
         Me.lblTurno4.TabIndex = 23
-        Me.lblTurno4.Text = "Turno 4"
+        Me.lblTurno4.Text = "T. vespertino"
         '
         'lblTurno5
         '
@@ -225,6 +226,7 @@ Partial Class frmAdminSalones
         Me.lblTurno5.Size = New System.Drawing.Size(89, 29)
         Me.lblTurno5.TabIndex = 25
         Me.lblTurno5.Text = "Turno 5"
+        Me.lblTurno5.Visible = False
         '
         'txtComentarios
         '
@@ -358,16 +360,16 @@ Partial Class frmAdminSalones
         Me.cmbTurno1.Size = New System.Drawing.Size(121, 34)
         Me.cmbTurno1.TabIndex = 37
         '
-        'cmbTurno2
+        'cmbTurno3
         '
-        Me.cmbTurno2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbTurno2.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.cmbTurno2.FormattingEnabled = True
-        Me.cmbTurno2.Items.AddRange(New Object() {"Sin asignar"})
-        Me.cmbTurno2.Location = New System.Drawing.Point(319, 240)
-        Me.cmbTurno2.Name = "cmbTurno2"
-        Me.cmbTurno2.Size = New System.Drawing.Size(121, 34)
-        Me.cmbTurno2.TabIndex = 39
+        Me.cmbTurno3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbTurno3.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.cmbTurno3.FormattingEnabled = True
+        Me.cmbTurno3.Items.AddRange(New Object() {"Sin asignar"})
+        Me.cmbTurno3.Location = New System.Drawing.Point(319, 240)
+        Me.cmbTurno3.Name = "cmbTurno3"
+        Me.cmbTurno3.Size = New System.Drawing.Size(121, 34)
+        Me.cmbTurno3.TabIndex = 39
         '
         'cmbTurno5
         '
@@ -379,17 +381,19 @@ Partial Class frmAdminSalones
         Me.cmbTurno5.Name = "cmbTurno5"
         Me.cmbTurno5.Size = New System.Drawing.Size(121, 34)
         Me.cmbTurno5.TabIndex = 38
+        Me.cmbTurno5.Visible = False
         '
-        'cmbTurno3
+        'cmbTurno33
         '
-        Me.cmbTurno3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbTurno3.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.cmbTurno3.FormattingEnabled = True
-        Me.cmbTurno3.Items.AddRange(New Object() {"Sin asignar"})
-        Me.cmbTurno3.Location = New System.Drawing.Point(319, 309)
-        Me.cmbTurno3.Name = "cmbTurno3"
-        Me.cmbTurno3.Size = New System.Drawing.Size(121, 34)
-        Me.cmbTurno3.TabIndex = 40
+        Me.cmbTurno33.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbTurno33.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.cmbTurno33.FormattingEnabled = True
+        Me.cmbTurno33.Items.AddRange(New Object() {"Sin asignar"})
+        Me.cmbTurno33.Location = New System.Drawing.Point(319, 309)
+        Me.cmbTurno33.Name = "cmbTurno33"
+        Me.cmbTurno33.Size = New System.Drawing.Size(121, 34)
+        Me.cmbTurno33.TabIndex = 40
+        Me.cmbTurno33.Visible = False
         '
         'btnNuevoSalon
         '
@@ -420,8 +424,8 @@ Partial Class frmAdminSalones
         Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.lblSalonesAsignados)
         Me.Controls.Add(Me.btnNuevoSalon)
+        Me.Controls.Add(Me.cmbTurno33)
         Me.Controls.Add(Me.cmbTurno3)
-        Me.Controls.Add(Me.cmbTurno2)
         Me.Controls.Add(Me.cmbTurno5)
         Me.Controls.Add(Me.cmbTurno1)
         Me.Controls.Add(Me.btnCancelarEdicion)
@@ -429,7 +433,7 @@ Partial Class frmAdminSalones
         Me.Controls.Add(Me.lblComentarios)
         Me.Controls.Add(Me.txtComentarios)
         Me.Controls.Add(Me.lblTurno5)
-        Me.Controls.Add(Me.cmbTurno4)
+        Me.Controls.Add(Me.cmbTurno2)
         Me.Controls.Add(Me.lblTurno4)
         Me.Controls.Add(Me.lblTurno2)
         Me.Controls.Add(Me.lblTurno3)
@@ -460,7 +464,7 @@ Partial Class frmAdminSalones
     Friend WithEvents lblTurno1 As System.Windows.Forms.Label
     Friend WithEvents lblTurno3 As System.Windows.Forms.Label
     Friend WithEvents lblTurno2 As System.Windows.Forms.Label
-    Friend WithEvents cmbTurno4 As System.Windows.Forms.ComboBox
+    Friend WithEvents cmbTurno2 As System.Windows.Forms.ComboBox
     Friend WithEvents lblTurno4 As System.Windows.Forms.Label
     Friend WithEvents lblTurno5 As System.Windows.Forms.Label
     Friend WithEvents txtComentarios As System.Windows.Forms.TextBox
@@ -469,9 +473,9 @@ Partial Class frmAdminSalones
     Friend WithEvents pnlFondo As System.Windows.Forms.Panel
     Friend WithEvents pnlSalones As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents cmbTurno1 As System.Windows.Forms.ComboBox
-    Friend WithEvents cmbTurno2 As System.Windows.Forms.ComboBox
-    Friend WithEvents cmbTurno5 As System.Windows.Forms.ComboBox
     Friend WithEvents cmbTurno3 As System.Windows.Forms.ComboBox
+    Friend WithEvents cmbTurno5 As System.Windows.Forms.ComboBox
+    Friend WithEvents cmbTurno33 As System.Windows.Forms.ComboBox
     Friend WithEvents pnlSalonPlantilla As System.Windows.Forms.Panel
     Friend WithEvents btnEliminarPlantilla As System.Windows.Forms.Button
     Friend WithEvents btnEditarPlantilla As System.Windows.Forms.Button

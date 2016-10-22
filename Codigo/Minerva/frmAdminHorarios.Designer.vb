@@ -32,7 +32,6 @@ Partial Class frmAdminHorarios
         Me.tableLunes3 = New System.Windows.Forms.TableLayoutPanel()
         Me.tableLunes2 = New System.Windows.Forms.TableLayoutPanel()
         Me.tableLunes1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         Me.lblGrupo = New System.Windows.Forms.Label()
         Me.cmbGrupo = New System.Windows.Forms.ComboBox()
         Me.lblLunes = New System.Windows.Forms.Label()
@@ -104,16 +103,21 @@ Partial Class frmAdminHorarios
         Me.pnlBorde13 = New System.Windows.Forms.Panel()
         Me.lblSeleccioneGrupo = New System.Windows.Forms.Label()
         Me.btnGuardado = New System.Windows.Forms.Button()
+        Me.lblTapaMaterias = New System.Windows.Forms.Label()
+        Me.btnLimpiar = New System.Windows.Forms.Button()
+        Me.btnDeshacer = New System.Windows.Forms.PictureBox()
+        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         lblTitulo = New System.Windows.Forms.Label()
         pnlBorde11 = New System.Windows.Forms.Panel()
         Me.tableLunes.SuspendLayout()
-        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tableMartes.SuspendLayout()
         Me.tableMiercoles.SuspendLayout()
         Me.tableJueves.SuspendLayout()
         Me.tableViernes.SuspendLayout()
         Me.tableSabado.SuspendLayout()
         Me.pnlMaterias.SuspendLayout()
+        CType(Me.btnDeshacer, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblTitulo
@@ -126,6 +130,14 @@ Partial Class frmAdminHorarios
         lblTitulo.Size = New System.Drawing.Size(336, 46)
         lblTitulo.TabIndex = 124
         lblTitulo.Text = "Gestión de horarios"
+        '
+        'pnlBorde11
+        '
+        pnlBorde11.BackColor = System.Drawing.Color.White
+        pnlBorde11.Location = New System.Drawing.Point(192, 150)
+        pnlBorde11.Name = "pnlBorde11"
+        pnlBorde11.Size = New System.Drawing.Size(1, 360)
+        pnlBorde11.TabIndex = 184
         '
         'tableLunes
         '
@@ -234,24 +246,6 @@ Partial Class frmAdminHorarios
         Me.tableLunes1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tableLunes1.Size = New System.Drawing.Size(144, 60)
         Me.tableLunes1.TabIndex = 0
-        '
-        'pnlBorde11
-        '
-        pnlBorde11.BackColor = System.Drawing.Color.White
-        pnlBorde11.Location = New System.Drawing.Point(192, 150)
-        pnlBorde11.Name = "pnlBorde11"
-        pnlBorde11.Size = New System.Drawing.Size(1, 360)
-        pnlBorde11.TabIndex = 184
-        '
-        'imgLogoMAITs
-        '
-        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
-        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.imgLogoMAITs.Location = New System.Drawing.Point(1085, 13)
-        Me.imgLogoMAITs.Name = "imgLogoMAITs"
-        Me.imgLogoMAITs.Size = New System.Drawing.Size(92, 44)
-        Me.imgLogoMAITs.TabIndex = 125
-        Me.imgLogoMAITs.TabStop = False
         '
         'lblGrupo
         '
@@ -1112,21 +1106,66 @@ Partial Class frmAdminHorarios
         '
         Me.btnGuardado.AutoSize = True
         Me.btnGuardado.Font = New System.Drawing.Font("Corbel", 12.0!)
-        Me.btnGuardado.Location = New System.Drawing.Point(368, 21)
+        Me.btnGuardado.Location = New System.Drawing.Point(520, 21)
         Me.btnGuardado.Name = "btnGuardado"
-        Me.btnGuardado.Size = New System.Drawing.Size(132, 29)
+        Me.btnGuardado.Size = New System.Drawing.Size(135, 29)
         Me.btnGuardado.TabIndex = 188
         Me.btnGuardado.Text = "Guardar cambios"
         Me.btnGuardado.UseVisualStyleBackColor = True
+        '
+        'lblTapaMaterias
+        '
+        Me.lblTapaMaterias.Location = New System.Drawing.Point(0, 136)
+        Me.lblTapaMaterias.Name = "lblTapaMaterias"
+        Me.lblTapaMaterias.Size = New System.Drawing.Size(202, 382)
+        Me.lblTapaMaterias.TabIndex = 189
+        '
+        'btnLimpiar
+        '
+        Me.btnLimpiar.AutoSize = True
+        Me.btnLimpiar.Font = New System.Drawing.Font("Corbel", 12.0!)
+        Me.btnLimpiar.Location = New System.Drawing.Point(375, 21)
+        Me.btnLimpiar.Name = "btnLimpiar"
+        Me.btnLimpiar.Size = New System.Drawing.Size(139, 29)
+        Me.btnLimpiar.TabIndex = 190
+        Me.btnLimpiar.Text = "Limpiar todo"
+        Me.btnLimpiar.UseVisualStyleBackColor = True
+        '
+        'btnDeshacer
+        '
+        Me.btnDeshacer.BackColor = System.Drawing.Color.Transparent
+        Me.btnDeshacer.BackgroundImage = Global.Minerva.My.Resources.Resources.cancelar_normal
+        Me.btnDeshacer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btnDeshacer.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnDeshacer.Location = New System.Drawing.Point(155, 106)
+        Me.btnDeshacer.Name = "btnDeshacer"
+        Me.btnDeshacer.Size = New System.Drawing.Size(20, 20)
+        Me.btnDeshacer.TabIndex = 191
+        Me.btnDeshacer.TabStop = False
+        Me.btnDeshacer.Visible = False
+        '
+        'imgLogoMAITs
+        '
+        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
+        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoMAITs.Location = New System.Drawing.Point(1085, 13)
+        Me.imgLogoMAITs.Name = "imgLogoMAITs"
+        Me.imgLogoMAITs.Size = New System.Drawing.Size(92, 44)
+        Me.imgLogoMAITs.TabIndex = 125
+        Me.imgLogoMAITs.TabStop = False
         '
         'frmAdminHorarios
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
-        Me.Controls.Add(Me.lblSeleccioneGrupo)
-        Me.Controls.Add(Me.btnGuardado)
         Me.Controls.Add(lblTitulo)
+        Me.Controls.Add(Me.lblTapaMaterias)
+        Me.Controls.Add(Me.lblSeleccioneGrupo)
+        Me.Controls.Add(Me.btnDeshacer)
+        Me.Controls.Add(Me.btnLimpiar)
+        Me.Controls.Add(Me.imgLogoMAITs)
+        Me.Controls.Add(Me.btnGuardado)
         Me.Controls.Add(Me.pnlBorde13)
         Me.Controls.Add(Me.pnlBorde12)
         Me.Controls.Add(pnlBorde11)
@@ -1157,7 +1196,6 @@ Partial Class frmAdminHorarios
         Me.Controls.Add(Me.lblLunes)
         Me.Controls.Add(Me.lblGrupo)
         Me.Controls.Add(Me.cmbGrupo)
-        Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.tableMartes)
         Me.Controls.Add(Me.tableMiercoles)
         Me.Controls.Add(Me.tableJueves)
@@ -1166,13 +1204,14 @@ Partial Class frmAdminHorarios
         Me.Name = "frmAdminHorarios"
         Me.Size = New System.Drawing.Size(1180, 518)
         Me.tableLunes.ResumeLayout(False)
-        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tableMartes.ResumeLayout(False)
         Me.tableMiercoles.ResumeLayout(False)
         Me.tableJueves.ResumeLayout(False)
         Me.tableViernes.ResumeLayout(False)
         Me.tableSabado.ResumeLayout(False)
         Me.pnlMaterias.ResumeLayout(False)
+        CType(Me.btnDeshacer, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1257,5 +1296,8 @@ Partial Class frmAdminHorarios
     Friend WithEvents lblSeleccioneGrupo As System.Windows.Forms.Label
     Friend WithEvents btnGuardado As System.Windows.Forms.Button
     Friend WithEvents tableLunes As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents lblTapaMaterias As System.Windows.Forms.Label
+    Friend WithEvents btnLimpiar As System.Windows.Forms.Button
+    Friend WithEvents btnDeshacer As System.Windows.Forms.PictureBox
 
 End Class

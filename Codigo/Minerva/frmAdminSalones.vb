@@ -3,6 +3,9 @@
 
     Friend totalSalones As Integer = 0
     Dim salonPreview As Object = New Button()
+    Friend grupoTurno1 As Object = {"-1", "-1"}
+    Friend grupoTurno2 As Object = {"-1", "-1"}
+    Friend grupoTurno3 As Object = {"-1", "-1"}
 
     Private Sub frmAdminSalones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al cargar la ventana cargarSalones y Grupos, y habilitar los controles.
@@ -118,12 +121,12 @@
         cmbPlanta.SelectedIndex = -1
         cmbTurno1.Enabled = habilitado
         cmbTurno1.SelectedIndex = 0
-        cmbTurno2.Enabled = habilitado
-        cmbTurno2.SelectedIndex = 0
         cmbTurno3.Enabled = habilitado
         cmbTurno3.SelectedIndex = 0
-        cmbTurno4.Enabled = habilitado
-        cmbTurno4.SelectedIndex = 0
+        cmbTurno33.Enabled = habilitado
+        cmbTurno33.SelectedIndex = 0
+        cmbTurno2.Enabled = habilitado
+        cmbTurno2.SelectedIndex = 0
         cmbTurno5.Enabled = habilitado
         cmbTurno5.SelectedIndex = 0
         txtComentarios.Enabled = habilitado

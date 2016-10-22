@@ -3,7 +3,6 @@
 
     Friend totalUsuarios As Integer = 0
     Friend tipoSeleccionado As String = "Funcionario"
-    Friend usuarioHabilitado As Boolean = False
     Friend previsualizando As Boolean = False
 
     Private Sub frmAdminUsuarios_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -159,13 +158,10 @@
         txtContraseña.Enabled = False
     End Sub
 
-    Private Sub chkHabilitado_CheckedChanged(sender As Object, e As EventArgs) Handles chkHabilitado.CheckedChanged
-        ' Se encarga de setear la variable usuariohabilitado cuando el valor de chkHabilitado cambia
+    Private Sub chkHabilitado_CheckedChanged(sender As Object, e As EventArgs) Handles chkHabilitado.Click
         If previsualizando Then
-            chkHabilitado.Checked = usuarioHabilitado
-            Return
+            chkHabilitado.Checked = Not chkHabilitado.Checked
         End If
-        usuarioHabilitado = chkHabilitado.Checked
     End Sub
 
     Private Sub txtID_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtID.KeyPress

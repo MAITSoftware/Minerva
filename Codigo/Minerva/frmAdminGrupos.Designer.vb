@@ -45,6 +45,8 @@ Partial Class frmAdminGrupos
         Me.cmbOrientacion = New System.Windows.Forms.ComboBox()
         Me.chkDiscapacitado = New System.Windows.Forms.CheckBox()
         Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
+        Me.lblSalon = New System.Windows.Forms.Label()
+        Me.lblSalonReal = New System.Windows.Forms.Label()
         lblTitulo = New System.Windows.Forms.Label()
         lblGrupos = New System.Windows.Forms.Label()
         CType(Me.numGrado, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -146,9 +148,9 @@ Partial Class frmAdminGrupos
         Me.lblTrayecto.ForeColor = System.Drawing.Color.PaleGreen
         Me.lblTrayecto.Location = New System.Drawing.Point(20, 129)
         Me.lblTrayecto.Name = "lblTrayecto"
-        Me.lblTrayecto.Size = New System.Drawing.Size(102, 29)
+        Me.lblTrayecto.Size = New System.Drawing.Size(75, 29)
         Me.lblTrayecto.TabIndex = 86
-        Me.lblTrayecto.Text = "Trayecto"
+        Me.lblTrayecto.Text = "Grado"
         '
         'numGrado
         '
@@ -315,11 +317,35 @@ Partial Class frmAdminGrupos
         Me.imgLogoMAITs.TabIndex = 123
         Me.imgLogoMAITs.TabStop = False
         '
+        'lblSalon
+        '
+        Me.lblSalon.AutoSize = True
+        Me.lblSalon.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblSalon.ForeColor = System.Drawing.Color.PaleGreen
+        Me.lblSalon.Location = New System.Drawing.Point(437, 221)
+        Me.lblSalon.Name = "lblSalon"
+        Me.lblSalon.Size = New System.Drawing.Size(71, 29)
+        Me.lblSalon.TabIndex = 124
+        Me.lblSalon.Text = "Salón"
+        '
+        'lblSalonReal
+        '
+        Me.lblSalonReal.AutoSize = True
+        Me.lblSalonReal.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblSalonReal.ForeColor = System.Drawing.Color.White
+        Me.lblSalonReal.Location = New System.Drawing.Point(437, 258)
+        Me.lblSalonReal.Name = "lblSalonReal"
+        Me.lblSalonReal.Size = New System.Drawing.Size(125, 29)
+        Me.lblSalonReal.TabIndex = 125
+        Me.lblSalonReal.Text = "Sin asignar"
+        '
         'frmAdminGrupos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.lblSalonReal)
+        Me.Controls.Add(Me.lblSalon)
         Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.chkDiscapacitado)
         Me.Controls.Add(Me.cmbOrientacion)
@@ -369,5 +395,7 @@ Partial Class frmAdminGrupos
     Friend WithEvents cmbOrientacion As System.Windows.Forms.ComboBox
     Friend WithEvents chkDiscapacitado As System.Windows.Forms.CheckBox
     Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
+    Friend WithEvents lblSalon As System.Windows.Forms.Label
+    Friend WithEvents lblSalonReal As System.Windows.Forms.Label
 
 End Class

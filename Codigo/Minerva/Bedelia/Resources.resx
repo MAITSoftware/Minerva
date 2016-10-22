@@ -142,4 +142,10 @@
   <data name="warningBlanco" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\warningBlanco.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cancelar_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cancelar_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cancelar_normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cancelar_normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

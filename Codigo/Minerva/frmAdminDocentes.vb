@@ -184,6 +184,9 @@
         docentePreview = New Button()
         btnAgregarAsignatura_Click(Nothing, Nothing)
         habilitarAsignaturas(False)
+
+        Call New ToolTip().SetToolTip(btnAgregarAsignatura, "Limpia los campos de texto")
+        Call New ToolTip().SetToolTip(btnEliminarAsignatura, "Elimina la asignatura seleccionada")
     End Sub
 
     Private Sub btnAgregarAsignatura_Leave(sender As Object, e As EventArgs) Handles btnAgregarAsignatura.MouseLeave
@@ -281,6 +284,9 @@
 
     Private Sub lstAsignaturas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstAsignaturas.SelectedIndexChanged
         ' Al cambiar la seleccion en la lista de asignaturas, habilita o deshabilita el botón eliminarAsignatura
+        If btnAgregarAsignatura.Visible = False Then
+            Return
+        End If
         btnEliminarAsignatura.Visible = False
         If lstAsignaturas.SelectedItems.Count > 0 Then
             btnEliminarAsignatura.Visible = True
@@ -339,6 +345,7 @@
 
     Public Sub cargarMaterias(ByVal CI As String)
         Dim DB As New BaseDeDatos()
+        lstAsignaturas.Enabled = True
         DB.cargarMaterias_frmAdminDocentes(CI, Me)
     End Sub
 

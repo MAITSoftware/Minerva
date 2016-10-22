@@ -94,7 +94,9 @@
 
     Private Sub btnSalones_Click(sender As Object, e As EventArgs) Handles btnSalones.Click
         If btnActual Is sender Then
-            Return
+            If TypeOf (pnlTrabajo) Is frmAdminSalones Then
+                Return
+            End If
         End If
 
         Me.Controls.Remove(pnlTrabajo)
@@ -109,7 +111,9 @@
 
     Private Sub btnGrupos_Click(sender As Object, e As EventArgs) Handles btnGrupos.Click
         If btnActual Is sender Then
-            Return
+            If TypeOf (pnlTrabajo) Is frmAdminGrupos Then
+                Return
+            End If
         End If
 
         Me.Controls.Remove(pnlTrabajo)
@@ -162,7 +166,9 @@
 
     Private Sub btnUsuarios_Click(sender As Object, e As EventArgs) Handles btnUsuarios.Click
         If btnActual Is sender Then
-            Return
+            If TypeOf (pnlTrabajo) Is frmAdminUsuarios Then
+                Return
+            End If
         End If
 
         Me.Controls.Remove(pnlTrabajo)

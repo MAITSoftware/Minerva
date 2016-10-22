@@ -4,6 +4,7 @@
     Friend totalGrupos As Integer = 0
     Friend prevSelect As String
     Friend frmMain As frmMain
+    Dim previsualizando As Boolean = False
 
     Public Sub New(ByVal frmMain As frmMain)
         InitializeComponent()
@@ -87,6 +88,7 @@
         btnAgregar.Visible = True
         btnAgregar.Text = "Agregar grupo"
         cmbOrientacion.Enabled = False
+        previsualizando = False
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
@@ -177,6 +179,7 @@
         ' carga los datos del grupo y los coloca en la interfaz
         Dim DB As New BaseDeDatos()
         DB.cargarDatos_frmAdminGrupos(grupo, Me)
+        previsualizando = True
     End Sub
 
     Public Sub actualizarDB()
@@ -201,5 +204,11 @@
 
         Dim DB As New BaseDeDatos()
         DB.eliminarGrupo_frmAdminGrupos(sender, Me)
+    End Sub
+
+    Private Sub chkDiscapacitado_CheckedChanged(sender As Object, e As EventArgs) Handles chkDiscapacitado.Click
+        If previsualizando Then
+            chkDiscapacitado.Checked = Not chkDiscapacitado.Checked
+        End If
     End Sub
 End Class
