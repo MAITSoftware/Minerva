@@ -1657,6 +1657,9 @@ Public Class BaseDeDatos
 
     Public Sub guardarHorarios_frmAdminHorarios(ByVal frm As frmAdminHorarios)
         Dim dias As Object
+        Dim ventanaEspere As New frmEspere()
+        ventanaEspere.Show()
+        frm.ParentForm.Controls(0).Enabled = False
 
         frm.Cursor = Cursors.WaitCursor
         frm.pnlMaterias.Enabled = False
@@ -1671,405 +1674,427 @@ Public Class BaseDeDatos
                                      frm.horarioTercera, frm.finTercera, frm.horarioCuarta, frm.finCuarta, _
                                      frm.horarioQuinta, frm.finQuinta, frm.horarioSexta, frm.finSexta, _
                                      frm.horarioExtra, frm.finExtra}
+
         dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"}
         horarios(0) = frm.horarioPrimera
         horarios(1) = frm.finPrimera
+
         For Each dia As String In dias
             For hora_n As Integer = 0 To 13
-
-                Dim conexion As New Conexion()
-                Using cmd As New MySqlCommand()
-                    With cmd
-                        .Connection = conexion.Conn
-                        .CommandText = "DELETE FROM `Genera` WHERE HoraInicio=@HoraInicio and HoraFin=@HoraFin and Dia=@Dia and IdGrupo=@IdGrupo and IdOrientacion=@IdOrientacion and Grado=@Grado;"
-                        .CommandType = CommandType.Text
-                        Dim idGrupo As String = frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).ToString()
-                        .Parameters.AddWithValue("@HoraInicio", horarios(hora_n) + ":00")
-                        .Parameters.AddWithValue("@HoraFin", horarios(hora_n + 1) + ":00")
-                        .Parameters.AddWithValue("@Dia", dia)
-                        .Parameters.AddWithValue("@IdGrupo", idGrupo.Substring(1, idGrupo.Length - 1))
-                        .Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim()))
-                        .Parameters.AddWithValue("@IdOrientacion", frm._IdOrientacion)
-                    End With
-                    Try
-                        cmd.ExecuteNonQuery()
-                        conexion.Close() 'Cierra la conexión
-                    Catch ex As Exception
-                        MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End Try
-                End Using
-
-                Dim x As String = ""
                 Dim conexion2 As New Conexion()
                 Using cmd2 As New MySqlCommand()
-                    With cmd2
-                        .Connection = conexion2.Conn
-                        .CommandText = "INSERT INTO `Genera` VALUES (@HoraInicio, @HoraFin, @Dia, @Grado, @IdAsignatura, @IdGrupo, @IdOrientacion, @CiPersona)"
-                        .CommandType = CommandType.Text
-                        Dim idGrupo As String = frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).ToString()
-                        .Parameters.AddWithValue("@HoraInicio", horarios(hora_n) + ":00")
-                        .Parameters.AddWithValue("@HoraFin", horarios(hora_n + 1) + ":00")
-                        .Parameters.AddWithValue("@Dia", dia)
-                        .Parameters.AddWithValue("@IdGrupo", idGrupo.Substring(1, idGrupo.Length - 1))
-                        .Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim()))
-                        .Parameters.AddWithValue("@IdOrientacion", frm._IdOrientacion)
+                    cmd2.Connection = conexion2.Conn
+                    cmd2.CommandText = "INSERT INTO `Genera` VALUES (@HoraInicio, @HoraFin, @Dia, @Grado, @IdAsignatura, @IdGrupo, @IdOrientacion, @CiPersona)"
+                    cmd2.CommandType = CommandType.Text
+                    Dim idGrupo As String = frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).ToString()
+                    cmd2.Parameters.AddWithValue("@HoraInicio", horarios(hora_n) + ":00")
+                    cmd2.Parameters.AddWithValue("@HoraFin", horarios(hora_n + 1) + ":00")
+                    cmd2.Parameters.AddWithValue("@Dia", dia)
+                    cmd2.Parameters.AddWithValue("@IdGrupo", idGrupo.Substring(1, idGrupo.Length - 1))
+                    cmd2.Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim()))
+                    cmd2.Parameters.AddWithValue("@IdOrientacion", frm._IdOrientacion)
 
-                        Dim btn As Button = New Button()
-
-                        If dia.Equals("Lunes") Then
-                            If horarios(hora_n).Equals(frm.horarioPrimera) Then
-                                Try
-                                    btn = frm.tableLunes1.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioSegunda) Then
-                                Try
-                                    btn = frm.tableLunes2.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioTercera) Then
-                                Try
-                                    btn = frm.tableLunes3.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioCuarta) Then
-                                Try
-                                    btn = frm.tableLunes4.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioQuinta) Then
-                                Try
-                                    btn = frm.tableLunes5.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioSexta) Then
-                                Try
-                                    btn = frm.tableLunes6.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioExtra) Then
-                                Try
-                                    btn = frm.tableLunes7.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                        End If
-                        If dia.Equals("Martes") Then
-                            If horarios(hora_n).Equals(frm.horarioPrimera) Then
-                                Try
-                                    btn = frm.tableMartes1.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioSegunda) Then
-                                Try
-                                    btn = frm.tableMartes2.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioTercera) Then
-                                Try
-                                    btn = frm.tableMartes3.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioCuarta) Then
-                                Try
-                                    btn = frm.tableMartes4.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioQuinta) Then
-                                Try
-                                    btn = frm.tableMartes5.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioSexta) Then
-                                Try
-                                    btn = frm.tableMartes6.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioExtra) Then
-                                Try
-                                    btn = frm.tableMartes7.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                        End If
-                        If dia.Equals("Miércoles") Then
-                            If horarios(hora_n).Equals(frm.horarioPrimera) Then
-                                Try
-                                    btn = frm.tableMiercoles1.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioSegunda) Then
-                                Try
-                                    btn = frm.tableMiercoles2.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioTercera) Then
-                                Try
-                                    btn = frm.tableMiercoles3.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioCuarta) Then
-                                Try
-                                    btn = frm.tableMiercoles4.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioQuinta) Then
-                                Try
-                                    btn = frm.tableMiercoles5.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioSexta) Then
-                                Try
-                                    btn = frm.tableMiercoles6.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioExtra) Then
-                                Try
-                                    btn = frm.tableMiercoles7.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                        End If
-                        If dia.Equals("Jueves") Then
-                            If horarios(hora_n).Equals(frm.horarioPrimera) Then
-                                Try
-                                    btn = frm.tableJueves1.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioSegunda) Then
-                                Try
-                                    btn = frm.tableJueves2.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioTercera) Then
-                                Try
-                                    btn = frm.tableJueves3.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioCuarta) Then
-                                Try
-                                    btn = frm.tableJueves4.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioQuinta) Then
-                                Try
-                                    btn = frm.tableJueves5.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioSexta) Then
-                                Try
-                                    btn = frm.tableJueves6.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioExtra) Then
-                                Try
-                                    btn = frm.tableJueves7.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                        End If
-                        If dia.Equals("Viernes") Then
-                            If horarios(hora_n).Equals(frm.horarioPrimera) Then
-                                Try
-                                    btn = frm.tableViernes1.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioSegunda) Then
-                                Try
-                                    btn = frm.tableViernes2.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioTercera) Then
-                                Try
-                                    btn = frm.tableViernes3.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioCuarta) Then
-                                Try
-                                    btn = frm.tableViernes4.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioQuinta) Then
-                                Try
-                                    btn = frm.tableViernes5.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioSexta) Then
-                                Try
-                                    btn = frm.tableViernes6.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioExtra) Then
-                                Try
-                                    btn = frm.tableViernes7.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                        End If
-                        If dia.Equals("Sábado") Then
-                            If horarios(hora_n).Equals(frm.horarioPrimera) Then
-                                Try
-                                    btn = frm.tableSabado1.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioSegunda) Then
-                                Try
-                                    btn = frm.tableSabado2.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioTercera) Then
-                                Try
-                                    btn = frm.tableSabado3.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioCuarta) Then
-                                Try
-                                    btn = frm.tableSabado4.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioQuinta) Then
-                                Try
-                                    btn = frm.tableSabado5.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioSexta) Then
-                                Try
-                                    btn = frm.tableSabado6.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                            If horarios(hora_n).Equals(frm.horarioExtra) Then
-                                Try
-                                    btn = frm.tableSabado7.Controls(0)
-                                Catch ex As Exception
-                                    btn = New Button()
-                                    btn.Tag = {"-1", "-1"}
-                                End Try
-                            End If
-                        End If
+                    Dim btn As Button = New Button()
 
 
-                        .Parameters.AddWithValue("@IdAsignatura", btn.Tag(0))
-                        .Parameters.AddWithValue("@CiPersona", btn.Tag(1))
-                    End With
+                    If dia.Equals("Lunes") Then
+                        If horarios(hora_n).Equals(frm.horarioPrimera) Then
+                            Try
+                                btn = frm.tableLunes1.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioSegunda) Then
+                            Try
+                                btn = frm.tableLunes2.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioTercera) Then
+                            Try
+                                btn = frm.tableLunes3.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioCuarta) Then
+                            Try
+                                btn = frm.tableLunes4.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioQuinta) Then
+                            Try
+                                btn = frm.tableLunes5.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioSexta) Then
+                            Try
+                                btn = frm.tableLunes6.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioExtra) Then
+                            Try
+                                btn = frm.tableLunes7.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                    End If
+                    If dia.Equals("Martes") Then
+                        If horarios(hora_n).Equals(frm.horarioPrimera) Then
+                            Try
+                                btn = frm.tableMartes1.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioSegunda) Then
+                            Try
+                                btn = frm.tableMartes2.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioTercera) Then
+                            Try
+                                btn = frm.tableMartes3.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioCuarta) Then
+                            Try
+                                btn = frm.tableMartes4.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioQuinta) Then
+                            Try
+                                btn = frm.tableMartes5.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioSexta) Then
+                            Try
+                                btn = frm.tableMartes6.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioExtra) Then
+                            Try
+                                btn = frm.tableMartes7.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                    End If
+                    If dia.Equals("Miércoles") Then
+                        If horarios(hora_n).Equals(frm.horarioPrimera) Then
+                            Try
+                                btn = frm.tableMiercoles1.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioSegunda) Then
+                            Try
+                                btn = frm.tableMiercoles2.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioTercera) Then
+                            Try
+                                btn = frm.tableMiercoles3.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioCuarta) Then
+                            Try
+                                btn = frm.tableMiercoles4.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioQuinta) Then
+                            Try
+                                btn = frm.tableMiercoles5.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioSexta) Then
+                            Try
+                                btn = frm.tableMiercoles6.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioExtra) Then
+                            Try
+                                btn = frm.tableMiercoles7.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                    End If
+                    If dia.Equals("Jueves") Then
+                        If horarios(hora_n).Equals(frm.horarioPrimera) Then
+                            Try
+                                btn = frm.tableJueves1.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioSegunda) Then
+                            Try
+                                btn = frm.tableJueves2.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioTercera) Then
+                            Try
+                                btn = frm.tableJueves3.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioCuarta) Then
+                            Try
+                                btn = frm.tableJueves4.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioQuinta) Then
+                            Try
+                                btn = frm.tableJueves5.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioSexta) Then
+                            Try
+                                btn = frm.tableJueves6.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioExtra) Then
+                            Try
+                                btn = frm.tableJueves7.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                    End If
+                    If dia.Equals("Viernes") Then
+                        If horarios(hora_n).Equals(frm.horarioPrimera) Then
+                            Try
+                                btn = frm.tableViernes1.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioSegunda) Then
+                            Try
+                                btn = frm.tableViernes2.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioTercera) Then
+                            Try
+                                btn = frm.tableViernes3.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioCuarta) Then
+                            Try
+                                btn = frm.tableViernes4.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioQuinta) Then
+                            Try
+                                btn = frm.tableViernes5.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioSexta) Then
+                            Try
+                                btn = frm.tableViernes6.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioExtra) Then
+                            Try
+                                btn = frm.tableViernes7.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                    End If
+                    If dia.Equals("Sábado") Then
+                        If horarios(hora_n).Equals(frm.horarioPrimera) Then
+                            Try
+                                btn = frm.tableSabado1.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioSegunda) Then
+                            Try
+                                btn = frm.tableSabado2.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioTercera) Then
+                            Try
+                                btn = frm.tableSabado3.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioCuarta) Then
+                            Try
+                                btn = frm.tableSabado4.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioQuinta) Then
+                            Try
+                                btn = frm.tableSabado5.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioSexta) Then
+                            Try
+                                btn = frm.tableSabado6.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                        If horarios(hora_n).Equals(frm.horarioExtra) Then
+                            Try
+                                btn = frm.tableSabado7.Controls(0)
+                            Catch ex As Exception
+                                btn = New Button()
+                                btn.Tag = {"-1", "-1"}
+                            End Try
+                        End If
+                    End If
+
+
+                    cmd2.Parameters.AddWithValue("@IdAsignatura", btn.Tag(0))
+                    cmd2.Parameters.AddWithValue("@CiPersona", btn.Tag(1))
+
                     Try
+                        Dim conexion_check As New Conexion()
+                        Dim cmd_check As New MySqlCommand()
+                        cmd_check.Connection = conexion_check.Conn
+                        cmd_check.CommandType = CommandType.Text
+                        cmd_check.CommandText = "select HoraOrden, Dia, CiPersona, NombreProfesor from Calendario where CiPersona=@CiPersona and HoraOrden=@horaInicio and Dia=@dia;"
+                        If Not btn.Tag(1).Equals("-1") Then
+                            cmd_check.Parameters.AddWithValue("@horainicio", horarios(hora_n))
+                            cmd_check.Parameters.AddWithValue("@CiPersona", btn.Tag(1))
+                            cmd_check.Parameters.AddWithValue("@dia", dia)
+                            Dim reader_check = cmd_check.ExecuteReader()
+                            While reader_check.Read()
+                                ventanaEspere.Hide()
+                                Dim result As Integer = MessageBox.Show("El profesor '" & reader_check("NombreProfesor") & "'ya tiene una materia el día: " & dia & " a la hora " & horarios(hora_n), "Error!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                                ventanaEspere.Show()
+                                ventanaEspere.BringToFront()
+                                hora_n += 1
+                                Continue For
+                            End While
+                            reader_check.Close()
+                            conexion_check.Close()
+                        End If
+
+                        Dim conexion As New Conexion()
+                        Using cmd As New MySqlCommand()
+                            With cmd
+                                .Connection = conexion.Conn
+                                .CommandText = "DELETE FROM `Genera` WHERE HoraInicio=@HoraInicio and HoraFin=@HoraFin and Dia=@Dia and IdGrupo=@IdGrupo and IdOrientacion=@IdOrientacion and Grado=@Grado;"
+                                .CommandType = CommandType.Text
+                                idGrupo = frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).ToString()
+                                .Parameters.AddWithValue("@HoraInicio", horarios(hora_n) + ":00")
+                                .Parameters.AddWithValue("@HoraFin", horarios(hora_n + 1) + ":00")
+                                .Parameters.AddWithValue("@Dia", dia)
+                                .Parameters.AddWithValue("@IdGrupo", idGrupo.Substring(1, idGrupo.Length - 1))
+                                .Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim()))
+                                .Parameters.AddWithValue("@IdOrientacion", frm._IdOrientacion)
+                            End With
+                            Try
+                                cmd.ExecuteNonQuery()
+                                conexion.Close() 'Cierra la conexión
+                            Catch ex As Exception
+                                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            End Try
+                        End Using
+
                         cmd2.ExecuteNonQuery()
                         conexion2.Close() 'Cierra la conexión
                     Catch ex As Exception
@@ -2090,6 +2115,9 @@ Public Class BaseDeDatos
         frm.tableViernes.Enabled = True
         frm.tableSabado.Enabled = True
 
+
+        frm.ParentForm.Controls(0).Enabled = True
+        ventanaEspere.Hide()
         cargarMaterias_frmAdminHorarios(frm)
     End Sub
 End Class

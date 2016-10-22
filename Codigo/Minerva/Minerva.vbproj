@@ -145,6 +145,12 @@
     <Compile Include="frmDia.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="frmEspere.Designer.vb">
+      <DependentUpon>frmEspere.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmEspere.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmIngresarRegistro.Designer.vb">
       <DependentUpon>frmIngresarRegistro.vb</DependentUpon>
     </Compile>
@@ -209,6 +215,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDia.resx">
       <DependentUpon>frmDia.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEspere.resx">
+      <DependentUpon>frmEspere.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmIngresarRegistro.resx">
       <DependentUpon>frmIngresarRegistro.vb</DependentUpon>

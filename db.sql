@@ -156,7 +156,8 @@ create table `Tiene_Ta` (
 create view AsignaturasTomadas AS select IdAsignatura, IdGrupo, Grado from Tiene_Ag;
 create view Calendario AS select Asignatura.IdAsignatura as IdAsignatura, DATE_FORMAT(HoraInicio, '%H:%i') as HoraOrden, CONCAT(DATE_FORMAT(HoraInicio, '%H:%i'), " - ", DATE_FORMAT(HoraFin, '%H:%i')) as Hora, Dia, CONCAT(Grado, " ", IdGrupo) as Grupo, CONCAT(NombrePersona, ' ', ApellidoPersona) as NombreProfesor, Persona.CiPersona, NombreAsignatura as Materia from Genera, Asignatura, Persona where Genera.IdAsignatura=Asignatura.IdAsignatura and Genera.CiPersona=Persona.CiPersona;
 create view AsignaturasOrientaciones as select IdOrientacion, Grado, Asignatura.IdAsignatura as IdAsignatura, CargaHoraria, NombreAsignatura from Tiene_Ta, Asignatura where Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura;
-
+create view Grupos AS select CONCAT(Grado, IdGrupo) as Grupo from Grupo;
+create view ProfesorEnsenia as select HoraOrden, Dia, Calendario.CiPersona, CONCAT(NombrePersona, ' ', ApellidoPersona) as NombreProfesor from Calendario, Persona where Calendario.CiPersona=Persona.ciPersona;
 -- Datos pre-cargados
 
 INSERT INTO `Curso` VALUES (1, "EMT"), (2, "CBT"); 
