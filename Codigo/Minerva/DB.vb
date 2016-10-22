@@ -900,7 +900,7 @@ Public Class BaseDeDatos
                 If frm.btnAgregarDocente.Text.StartsWith("Agregar docente") Then
                     .CommandText = "INSERT INTO `Profesor` VALUES (@CiPersona, @NombreProfesor, @ApellidoProfesor, @GradoProfesor);"
                 Else
-                    .CommandText = "UPDATE `Profesor` SET NombreProfesor=@NombreProfesor, ApellidoProfesor=@ApellidoProfesor, GradoProfesor=@GradoProfesor WHERE CiPersona=@CiPersona;"
+                    .CommandText = "UPDATE `Profesor` SET NombrePersona=@NombreProfesor, ApellidoPersona=@ApellidoProfesor, GradoProfesor=@GradoProfesor WHERE CiPersona=@CiPersona;"
                 End If
 
                 .Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
@@ -911,20 +911,22 @@ Public Class BaseDeDatos
 
             Try
                 Dim subConexion As New Conexion()
-                If frm.btnAgregarDocente.Text.StartsWith("Agregar docente") Then
-                    Using subCmd As New MySqlCommand()
-                        With subCmd
-                            .Connection = conexion.Conn
+                Using subCmd As New MySqlCommand()
+                    With subCmd
+                        .Connection = conexion.Conn
+                        If frm.btnAgregarDocente.Text.StartsWith("Agregar docente") Then
                             .CommandText = "INSERT INTO `Persona` VALUES (@CiPersona, @NombreProfesor, @ApellidoProfesor);"
-                            .CommandType = CommandType.Text
-                            .Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
-                            .Parameters.AddWithValue("@NombreProfesor", frm.txtNombre.Text)
-                            .Parameters.AddWithValue("@ApellidoProfesor", frm.txtApellido.Text)
-                        End With
-                        subCmd.ExecuteNonQuery()
-                        subConexion.Close()
-                    End Using
-                End If
+                        Else
+                            .CommandText = "UPDATE `Persona` SET NombrePersona=@NombreProfesor, ApellidoPersona=@ApellidoProfesor where CiPersona=@CiPersona;"
+                        End If
+                        .CommandType = CommandType.Text
+                        .Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
+                        .Parameters.AddWithValue("@NombreProfesor", frm.txtNombre.Text)
+                        .Parameters.AddWithValue("@ApellidoProfesor", frm.txtApellido.Text)
+                    End With
+                    subCmd.ExecuteNonQuery()
+                    subConexion.Close()
+                End Using
 
                 cmd.ExecuteNonQuery()
                 conexion.Close()
@@ -984,6 +986,18 @@ Public Class BaseDeDatos
                 .Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
             End With
             Try
+                Dim subConexion As New Conexion()
+                Dim subCmd As New MySqlCommand()
+                subCmd.Connection = subConexion.Conn
+                subCmd.CommandType = CommandType.Text
+                subCmd.CommandText = "UPDATE `Genera` SET `CiPersona`='-1' WHERE `IdAsignatura`=@IdAsignatura and `IdGrupo`=@IdGrupo and`CiPersona`=@CiPersona and `Grado`=@Grado;"
+                subCmd.Parameters.AddWithValue("@IdAsignatura", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(0).Text)
+                subCmd.Parameters.AddWithValue("@IdGrupo", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Substring(frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.IndexOf(" "), frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Length - 1).Trim())
+                subCmd.Parameters.AddWithValue("@Grado", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Substring(0, frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.IndexOf(" ")).Trim())
+                subCmd.Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
+                subCmd.ExecuteNonQuery()
+                subConexion.Close()
+
                 cmd.ExecuteNonQuery()
                 conexion.Close() 'Cierra la conexión
                 frm.cargarMaterias(frm.txtCI.Text)
@@ -1205,8 +1219,27 @@ Public Class BaseDeDatos
                         frm._IdOrientacion = reader("IdOrientacion")
                         Dim materia As Button
                         materia = New Button()
-                        materia.Text = reader("NombreAsignatura")
-                        materia.Tag = reader("IdAsignatura")
+
+                        ' Quien enseña la materia?
+                        Dim subCmd As New MySqlCommand()
+                        Dim subConexion As New Conexion()
+                        Dim nombreProfesor As String = "Sin profesor"
+                        Dim ciProfesor As String = Nothing
+                        subCmd.Connection = subConexion.Conn
+                        subCmd.CommandText = "select Tiene_ag.CiPersona, Concat(NombrePersona, ' ', ApellidoPersona) as 'Profesor' from Tiene_ag, Persona where IdAsignatura=@IdAsignatura and IdGrupo=@IdGrupo and Grado=@Grado and Tiene_ag.CiPersona=Persona.CiPersona;"
+                        subCmd.Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim()))
+                        subCmd.Parameters.AddWithValue("@IdGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).Trim())
+                        subCmd.Parameters.AddWithValue("@IdAsignatura", reader("IdAsignatura"))
+                        Dim subReader As MySqlDataReader = subCmd.ExecuteReader()
+                        While subReader.Read()
+                            nombreProfesor = subReader("Profesor")
+                            ciProfesor = subReader("CiPersona")
+                        End While
+                        subReader.Close()
+                        subConexion.Close()
+
+                        materia.Text = reader("NombreAsignatura") & vbCrLf & nombreProfesor
+                        materia.Tag = {reader("IdAsignatura"), ciProfesor}
                         If materia.Text.Equals("Sin asignar") Then
                             Continue While
                         End If
@@ -1255,7 +1288,7 @@ Public Class BaseDeDatos
                         botonesMaterias(Index).RemoveAt(botonesMaterias(Index).Count - 1)
 
                         Dim materia As New Button()
-                        materia.Text = reader("Materia")
+                        materia.Text = reader("Materia") & vbCrLf & reader("NombreProfesor")
                         materia.Size = frm.btnSinAsignar.Size
                         materia.FlatStyle = FlatStyle.Flat
                         materia.FlatAppearance.BorderColor = frm.btnSinAsignar.FlatAppearance.BorderColor
@@ -1264,7 +1297,7 @@ Public Class BaseDeDatos
                         materia.FlatAppearance.MouseDownBackColor = frm.btnSinAsignar.FlatAppearance.MouseDownBackColor
                         materia.FlatAppearance.MouseOverBackColor = frm.btnSinAsignar.FlatAppearance.MouseOverBackColor
                         materia.BackColor = Color.White
-                        materia.Tag = reader("IdAsignatura")
+                        materia.Tag = {reader("IdAsignatura"), reader("CiPersona")}
                         AddHandler materia.MouseDown, AddressOf frm.Materia_MouseDown
 
                         If reader("Dia").Equals("Lunes") Then
@@ -1568,7 +1601,7 @@ Public Class BaseDeDatos
                 Using cmd2 As New MySqlCommand()
                     With cmd2
                         .Connection = conexion2.Conn
-                        .CommandText = "INSERT INTO `Genera` VALUES (@HoraInicio, @HoraFin, @Dia, @Grado, @IdAsignatura, @IdGrupo, @IdOrientacion, 12345678)"
+                        .CommandText = "INSERT INTO `Genera` VALUES (@HoraInicio, @HoraFin, @Dia, @Grado, @IdAsignatura, @IdGrupo, @IdOrientacion, @CiProfesor)"
                         .CommandType = CommandType.Text
                         Dim idGrupo As String = frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).ToString()
                         .Parameters.AddWithValue("@HoraInicio", horarios(hora_n) + ":00")
@@ -1586,7 +1619,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableLunes1.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioSegunda) Then
@@ -1594,7 +1627,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableLunes2.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioTercera) Then
@@ -1602,7 +1635,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableLunes3.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioCuarta) Then
@@ -1610,7 +1643,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableLunes4.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioQuinta) Then
@@ -1618,7 +1651,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableLunes5.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioSexta) Then
@@ -1626,7 +1659,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableLunes6.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioExtra) Then
@@ -1634,7 +1667,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableLunes7.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                         End If
@@ -1644,7 +1677,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableMartes1.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioSegunda) Then
@@ -1652,7 +1685,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableMartes2.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioTercera) Then
@@ -1660,7 +1693,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableMartes3.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioCuarta) Then
@@ -1668,7 +1701,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableMartes4.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioQuinta) Then
@@ -1676,7 +1709,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableMartes5.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioSexta) Then
@@ -1684,7 +1717,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableMartes6.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioExtra) Then
@@ -1692,7 +1725,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableMartes7.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                         End If
@@ -1702,7 +1735,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableMiercoles1.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioSegunda) Then
@@ -1710,7 +1743,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableMiercoles2.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioTercera) Then
@@ -1718,7 +1751,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableMiercoles3.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioCuarta) Then
@@ -1726,7 +1759,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableMiercoles4.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioQuinta) Then
@@ -1734,7 +1767,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableMiercoles5.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioSexta) Then
@@ -1742,7 +1775,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableMiercoles6.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioExtra) Then
@@ -1750,7 +1783,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableMiercoles7.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                         End If
@@ -1760,7 +1793,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableJueves1.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioSegunda) Then
@@ -1768,7 +1801,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableJueves2.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioTercera) Then
@@ -1776,7 +1809,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableJueves3.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioCuarta) Then
@@ -1784,7 +1817,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableJueves4.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioQuinta) Then
@@ -1792,7 +1825,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableJueves5.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioSexta) Then
@@ -1800,7 +1833,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableJueves6.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioExtra) Then
@@ -1808,7 +1841,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableJueves7.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                         End If
@@ -1818,7 +1851,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableViernes1.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioSegunda) Then
@@ -1826,7 +1859,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableViernes2.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioTercera) Then
@@ -1834,7 +1867,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableViernes3.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioCuarta) Then
@@ -1842,7 +1875,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableViernes4.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioQuinta) Then
@@ -1850,7 +1883,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableViernes5.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioSexta) Then
@@ -1858,7 +1891,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableViernes6.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioExtra) Then
@@ -1866,7 +1899,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableViernes7.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                         End If
@@ -1876,7 +1909,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableSabado1.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioSegunda) Then
@@ -1884,7 +1917,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableSabado2.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioTercera) Then
@@ -1892,7 +1925,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableSabado3.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioCuarta) Then
@@ -1900,7 +1933,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableSabado4.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioQuinta) Then
@@ -1908,7 +1941,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableSabado5.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioSexta) Then
@@ -1916,7 +1949,7 @@ Public Class BaseDeDatos
                                     btn = frm.tableSabado6.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                             If horarios(hora_n).Equals(frm.horarioExtra) Then
@@ -1924,13 +1957,14 @@ Public Class BaseDeDatos
                                     btn = frm.tableSabado7.Controls(0)
                                 Catch ex As Exception
                                     btn = New Button()
-                                    btn.Tag = "-1"
+                                    btn.Tag = {"-1", "-1"}
                                 End Try
                             End If
                         End If
 
 
-                        .Parameters.AddWithValue("@IdAsignatura", btn.Tag)
+                        .Parameters.AddWithValue("@IdAsignatura", btn.Tag(0))
+                        .Parameters.AddWithValue("@CiProfesor", btn.Tag(1))
                     End With
                     Try
                         cmd2.ExecuteNonQuery()

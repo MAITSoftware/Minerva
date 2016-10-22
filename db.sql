@@ -182,6 +182,8 @@ VALUES
 ('13:00', '13:45', 'Sábado', 2), ('13:50', '14:35', 'Sábado', 2), ('14:40', '15:25', 'Sábado', 2), ('15:30', '16:15', 'Sábado', 2), ('16:20', '17:05', 'Sábado', 2), ('17:10', '17:55', 'Sábado', 2), ('18:00', '18:45', 'Sábado', 2)
 ;
 
+INSERT INTO `Persona` VALUES (-1, "Sin", "profesor");
+INSERT INTO `Profesor` VALUES (-1, "Sin", "profesor", 7);
 
 -- Datos de prueba. 2do y 3ero BG.
 INSERT INTO `Persona` VALUES (1, "ro", "ot");
