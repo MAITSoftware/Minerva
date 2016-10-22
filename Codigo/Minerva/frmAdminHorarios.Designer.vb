@@ -23,8 +23,8 @@ Partial Class frmAdminHorarios
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim lblTitulo As System.Windows.Forms.Label
-        Dim tableLunes As System.Windows.Forms.TableLayoutPanel
         Dim pnlBorde11 As System.Windows.Forms.Panel
+        Me.tableLunes = New System.Windows.Forms.TableLayoutPanel()
         Me.tableLunes7 = New System.Windows.Forms.TableLayoutPanel()
         Me.tableLunes6 = New System.Windows.Forms.TableLayoutPanel()
         Me.tableLunes5 = New System.Windows.Forms.TableLayoutPanel()
@@ -102,10 +102,11 @@ Partial Class frmAdminHorarios
         Me.pnlBorde10 = New System.Windows.Forms.Panel()
         Me.pnlBorde12 = New System.Windows.Forms.Panel()
         Me.pnlBorde13 = New System.Windows.Forms.Panel()
+        Me.lblSeleccioneGrupo = New System.Windows.Forms.Label()
+        Me.btnGuardado = New System.Windows.Forms.Button()
         lblTitulo = New System.Windows.Forms.Label()
-        tableLunes = New System.Windows.Forms.TableLayoutPanel()
         pnlBorde11 = New System.Windows.Forms.Panel()
-        tableLunes.SuspendLayout()
+        Me.tableLunes.SuspendLayout()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tableMartes.SuspendLayout()
         Me.tableMiercoles.SuspendLayout()
@@ -128,27 +129,27 @@ Partial Class frmAdminHorarios
         '
         'tableLunes
         '
-        tableLunes.ColumnCount = 1
-        tableLunes.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        tableLunes.Controls.Add(Me.tableLunes7, 0, 6)
-        tableLunes.Controls.Add(Me.tableLunes6, 0, 5)
-        tableLunes.Controls.Add(Me.tableLunes5, 0, 4)
-        tableLunes.Controls.Add(Me.tableLunes4, 0, 3)
-        tableLunes.Controls.Add(Me.tableLunes3, 0, 2)
-        tableLunes.Controls.Add(Me.tableLunes2, 0, 1)
-        tableLunes.Controls.Add(Me.tableLunes1, 0, 0)
-        tableLunes.Location = New System.Drawing.Point(272, 90)
-        tableLunes.Name = "tableLunes"
-        tableLunes.RowCount = 7
-        tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
-        tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
-        tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
-        tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
-        tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
-        tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
-        tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
-        tableLunes.Size = New System.Drawing.Size(144, 420)
-        tableLunes.TabIndex = 146
+        Me.tableLunes.ColumnCount = 1
+        Me.tableLunes.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tableLunes.Controls.Add(Me.tableLunes7, 0, 6)
+        Me.tableLunes.Controls.Add(Me.tableLunes6, 0, 5)
+        Me.tableLunes.Controls.Add(Me.tableLunes5, 0, 4)
+        Me.tableLunes.Controls.Add(Me.tableLunes4, 0, 3)
+        Me.tableLunes.Controls.Add(Me.tableLunes3, 0, 2)
+        Me.tableLunes.Controls.Add(Me.tableLunes2, 0, 1)
+        Me.tableLunes.Controls.Add(Me.tableLunes1, 0, 0)
+        Me.tableLunes.Location = New System.Drawing.Point(272, 90)
+        Me.tableLunes.Name = "tableLunes"
+        Me.tableLunes.RowCount = 7
+        Me.tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.tableLunes.Size = New System.Drawing.Size(144, 420)
+        Me.tableLunes.TabIndex = 146
         '
         'tableLunes7
         '
@@ -1052,6 +1053,7 @@ Partial Class frmAdminHorarios
         '
         Me.pnlMaterias.AutoScroll = True
         Me.pnlMaterias.Controls.Add(Me.btnSinAsignar)
+        Me.pnlMaterias.Enabled = False
         Me.pnlMaterias.Location = New System.Drawing.Point(25, 150)
         Me.pnlMaterias.Name = "pnlMaterias"
         Me.pnlMaterias.Size = New System.Drawing.Size(168, 360)
@@ -1095,11 +1097,36 @@ Partial Class frmAdminHorarios
         Me.pnlBorde13.Size = New System.Drawing.Size(168, 1)
         Me.pnlBorde13.TabIndex = 186
         '
+        'lblSeleccioneGrupo
+        '
+        Me.lblSeleccioneGrupo.Font = New System.Drawing.Font("Corbel", 36.0!, System.Drawing.FontStyle.Bold)
+        Me.lblSeleccioneGrupo.ForeColor = System.Drawing.Color.White
+        Me.lblSeleccioneGrupo.Location = New System.Drawing.Point(208, 0)
+        Me.lblSeleccioneGrupo.Name = "lblSeleccioneGrupo"
+        Me.lblSeleccioneGrupo.Size = New System.Drawing.Size(972, 518)
+        Me.lblSeleccioneGrupo.TabIndex = 187
+        Me.lblSeleccioneGrupo.Text = "Para modificar los horarios" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "debe escoger un grupo"
+        Me.lblSeleccioneGrupo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'btnGuardado
+        '
+        Me.btnGuardado.AutoSize = True
+        Me.btnGuardado.Font = New System.Drawing.Font("Corbel", 12.0!)
+        Me.btnGuardado.Location = New System.Drawing.Point(368, 21)
+        Me.btnGuardado.Name = "btnGuardado"
+        Me.btnGuardado.Size = New System.Drawing.Size(132, 29)
+        Me.btnGuardado.TabIndex = 188
+        Me.btnGuardado.Text = "Guardar cambios"
+        Me.btnGuardado.UseVisualStyleBackColor = True
+        '
         'frmAdminHorarios
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.lblSeleccioneGrupo)
+        Me.Controls.Add(Me.btnGuardado)
+        Me.Controls.Add(lblTitulo)
         Me.Controls.Add(Me.pnlBorde13)
         Me.Controls.Add(Me.pnlBorde12)
         Me.Controls.Add(pnlBorde11)
@@ -1121,7 +1148,7 @@ Partial Class frmAdminHorarios
         Me.Controls.Add(Me.lblHora3)
         Me.Controls.Add(Me.lblHora2)
         Me.Controls.Add(Me.lblHora1)
-        Me.Controls.Add(tableLunes)
+        Me.Controls.Add(Me.tableLunes)
         Me.Controls.Add(Me.lblSabado)
         Me.Controls.Add(Me.lblViernes)
         Me.Controls.Add(Me.lblJueves)
@@ -1131,7 +1158,6 @@ Partial Class frmAdminHorarios
         Me.Controls.Add(Me.lblGrupo)
         Me.Controls.Add(Me.cmbGrupo)
         Me.Controls.Add(Me.imgLogoMAITs)
-        Me.Controls.Add(lblTitulo)
         Me.Controls.Add(Me.tableMartes)
         Me.Controls.Add(Me.tableMiercoles)
         Me.Controls.Add(Me.tableJueves)
@@ -1139,7 +1165,7 @@ Partial Class frmAdminHorarios
         Me.Controls.Add(Me.tableSabado)
         Me.Name = "frmAdminHorarios"
         Me.Size = New System.Drawing.Size(1180, 518)
-        tableLunes.ResumeLayout(False)
+        Me.tableLunes.ResumeLayout(False)
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tableMartes.ResumeLayout(False)
         Me.tableMiercoles.ResumeLayout(False)
@@ -1228,5 +1254,8 @@ Partial Class frmAdminHorarios
     Friend WithEvents tableSabado3 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents tableSabado2 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents tableSabado1 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents lblSeleccioneGrupo As System.Windows.Forms.Label
+    Friend WithEvents btnGuardado As System.Windows.Forms.Button
+    Friend WithEvents tableLunes As System.Windows.Forms.TableLayoutPanel
 
 End Class

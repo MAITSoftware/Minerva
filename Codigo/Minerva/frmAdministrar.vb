@@ -125,12 +125,15 @@
 
     Private Sub btnDocentes_Click(sender As Object, e As EventArgs) Handles btnDocentes.Click
         If btnActual Is sender Then
-            Return
+            If TypeOf (pnlTrabajo) Is frmAdminDocentes Then
+                Return
+            End If
         End If
 
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño()
         pnlTrabajo = New frmAdminDocentes()
+
         Me.Size = New Point(1024, 575)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)
@@ -141,7 +144,9 @@
 
     Private Sub btnHorarios_Click(sender As Object, e As EventArgs) Handles btnHorarios.Click
         If btnActual Is sender Then
-            Return
+            If TypeOf (pnlTrabajo) Is frmAdminHorarios Then
+                Return
+            End If
         End If
 
         Me.Controls.Remove(pnlTrabajo)

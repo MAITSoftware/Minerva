@@ -338,7 +338,7 @@
     End Sub
 
     Public Sub cargarMaterias(ByVal CI As String)
-        Dim Db As New BaseDeDatos()
+        Dim DB As New BaseDeDatos()
         DB.cargarMaterias_frmAdminDocentes(CI, Me)
     End Sub
 

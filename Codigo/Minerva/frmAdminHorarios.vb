@@ -3,13 +3,21 @@
     Dim prevHover As Control = New Control()
     Dim prevSelect As String = Nothing
 
+    Friend _IdOrientacion As String = Nothing
     Friend horarioPrimera As String = "13:00"
+    Friend finPrimera As String = "13:45"
     Friend horarioSegunda As String = "13:50"
+    Friend finSegunda As String = "14:35"
     Friend horarioTercera As String = "14:40"
+    Friend finTercera As String = "15:25"
     Friend horarioCuarta As String = "15:30"
+    Friend finCuarta As String = "16:15"
     Friend horarioQuinta As String = "16:20"
+    Friend finQuinta As String = "17:05"
     Friend horarioSexta As String = "17:10"
+    Friend finSexta As String = "17:55"
     Friend horarioExtra As String = "18:00"
+    Friend finExtra As String = "18:45"
 
     Dim tablas As Object = Nothing
 
@@ -50,6 +58,7 @@
                 x = New Button()
                 x.Text = "Sin asignar"
                 x.Size = btnSinAsignar.Size
+                x.Tag = "-1"
                 x.FlatStyle = FlatStyle.Flat
                 x.FlatAppearance.BorderColor = btnSinAsignar.FlatAppearance.BorderColor
                 x.FlatAppearance.BorderSize = btnSinAsignar.FlatAppearance.BorderSize
@@ -78,9 +87,6 @@
 
 
     Private Sub frmAdminHorarios_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim DB As New BaseDeDatos()
-        DB.cargarGrupos_frmAdminHorarios(Me)
-
         For Each c As Control In pnlMaterias.Controls
             AddHandler c.MouseDown, AddressOf Materia_MouseDown
         Next
@@ -102,22 +108,36 @@
                 AddHandler c.MouseDown, AddressOf Materia_MouseDown
             Next
         Next
+
+        Dim DB As New BaseDeDatos()
+        DB.cargarGrupos_frmAdminHorarios(Me)
     End Sub
 
     Private Sub cmbGrupo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbGrupo.SelectedIndexChanged
         If cmbGrupo.Text.Equals(prevSelect) Then
             Return
         End If
-        btnSinAsignar.Parent = Me
-        pnlMaterias.Controls.Clear()
-        pnlMaterias.Controls.Add(btnSinAsignar)
+
         prevSelect = cmbGrupo.Text
 
         For Each tabla As Control In tablas
             tabla.Controls.Clear()
         Next
 
+        lblSeleccioneGrupo.Visible = False
+        pnlMaterias.Enabled = True
+        If cmbGrupo.Text.Equals("...") Then
+            lblSeleccioneGrupo.Visible = True
+            pnlMaterias.Enabled = False
+            Return
+        End If
+
         Dim DB As New BaseDeDatos()
         DB.cargarMaterias_frmAdminHorarios(Me)
+    End Sub
+
+    Private Sub btnGuardado_Click(sender As Object, e As EventArgs) Handles btnGuardado.Click
+        Dim DB As New BaseDeDatos()
+        DB.guardarHorarios_frmAdminHorarios(Me)
     End Sub
 End Class

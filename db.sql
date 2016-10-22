@@ -187,7 +187,7 @@ VALUES
 INSERT INTO `Persona` VALUES (1, "ro", "ot");
 INSERT INTO `Usuario` VALUES (1, "ro", "ot", "Administrador", "1", True);
 INSERT INTO `Salon` VALUES (17, "", "Exterior"), (8, "", "Alta");
-INSERT INTO `Grupo` VALUES ("BG", False, 3, 123, 17, 2), ("BG", False, 2, 123, 17, 2);
+INSERT INTO `Grupo` VALUES ("BG", False, 3, 123, 17, 2), ("BH", False, 2, 123, 17, 2);
 INSERT INTO `Area` VALUES 
 (1, "Informática");
 
@@ -258,23 +258,23 @@ INSERT INTO `Tiene_Ag` VALUES
 (10, "BG", 3, 123, 12345678, now(), 7),
 (11, "BG", 3, 123, 12345678, now(), 7),
 
-(16, "BG", 2, 123, 123, now(), 7),
-(5, "BG", 2, 123, 123, now(), 7),
-(19, "BG", 2, 123, 123, now(), 7),
-(9, "BG", 2, 123, 123, now(), 7),
-(3, "BG", 2, 123, 123, now(), 7),
-(4, "BG", 2, 123, 123, now(), 7),
-(15, "BG", 2, 123, 123, now(), 7),
-(2, "BG", 2, 123, 123, now(), 7),
-(14, "BG", 2, 123, 123, now(), 7),
-(18, "BG", 2, 123, 123, now(), 7),
-(6, "BG", 2, 123, 123, now(), 7),
-(16, "BG", 2, 123, 123, now(), 7);
+(16, "BH", 2, 123, 123, now(), 7),
+(5, "BH", 2, 123, 123, now(), 7),
+(19, "BH", 2, 123, 123, now(), 7),
+(9, "BH", 2, 123, 123, now(), 7),
+(3, "BH", 2, 123, 123, now(), 7),
+(4, "BH", 2, 123, 123, now(), 7),
+(15, "BH", 2, 123, 123, now(), 7),
+(2, "BH", 2, 123, 123, now(), 7),
+(14, "BH", 2, 123, 123, now(), 7),
+(18, "BH", 2, 123, 123, now(), 7),
+(6, "BH", 2, 123, 123, now(), 7),
+(17, "BH", 2, 123, 123, now(), 7);
 
 INSERT INTO `Genera` VALUES
 -- Inicio, Fin, Dia, 3, Asignatura, BG, 123, 12345678
 
-('13:00', '13:45', 'Lunes', 3, 1, "BG", 123, 12345678),
+-- ('13:00', '13:45', 'Lunes', 3, 1, "BG", 123, 12345678),
 ('13:50', '14:35', 'Lunes', 3, 1, "BG", 123, 12345678),
 ('14:40', '15:25', 'Lunes', 3, 1, "BG", 123, 12345678),
 ('15:30', '16:15', 'Lunes', 3, 2, "BG", 123, 12345678),
