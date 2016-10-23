@@ -173,7 +173,7 @@
 
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño()
-        pnlTrabajo = New frmAdminUsuarios()
+        pnlTrabajo = New frmAdminUsuarios(Me.frmMain.nombreUsuario)
         Me.Size = New Point(1024, 575)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)

@@ -45,6 +45,7 @@ Public Class BaseDeDatos
                     MsgBox("Acceso no autorizado" & vbCrLf & "El administrador aún debe confirmar su registro", MsgBoxStyle.Information, "Minerva · Registro a confirmar")
                     frm.lblDatosInc.Text = "Cuenta no autorizada"
                     frm.pnlError.Visible = True
+                    frm.Cursor = Cursors.Default
                     Return
                 End If
                 If reader("TipoUsuario").Equals("Administrador") Then
@@ -58,13 +59,11 @@ Public Class BaseDeDatos
             conexion.Close()
         End Using
 
+        frm.Cursor = Cursors.Default
         If accesoDenegado Then
             frm.lblDatosInc.Text = "Datos incorrectos!"
             frm.pnlError.Visible = True
-            frm.Cursor = Cursors.Default
-            frm.Enabled = True
         Else
-            frm.Enabled = False
             Dim minerva As New frmMain(False, frm.cuentaUsuario, frm.administrador)
             minerva.Show()
             frm.Hide()
@@ -224,10 +223,40 @@ Public Class BaseDeDatos
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                frm.cboGrupo.Items.Add(reader("Grado").ToString() & " " & reader("IdGrupo") & " (" & reader("NombreTurno") & ")")
+                frm.cboGrupo.Items.Add(reader("Grado").ToString() & " " & reader("IdGrupo"))
             End While
             reader.Close()
         End Using
+    End Sub
+
+    Public Sub cargarDatosGrupo_frmMain(ByVal frm As frmMain)
+        ' Materias
+        Dim conexion As New Conexion()
+        Dim cmd As New MySqlCommand()
+        cmd.Connection = conexion.Conn
+        cmd.CommandType = CommandType.Text
+        cmd.CommandText = "select DISTINCT NombreTurno, Grupo.IdSalon, NombreAsignatura, CONCAT(NombrePersona, ' ' , ApellidoPersona) as NombreProfesor, Orientacion.NombreOrientacion, Curso.NombreCurso, Genera.IdGrupo, Genera.Grado from Tiene_Ta, Asignatura, Persona, Genera, Grupo, Orientacion, Curso, Turno where Grupo.IdTurno=Turno.IdTurno and Grupo.IdOrientacion=Orientacion.IdOrientacion and Orientacion.IdCurso=Curso.IdCurso and Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura and Persona.CiPersona=Genera.CiPersona and Genera.Grado=@Grado and Genera.IdGrupo=@IdGrupo;"
+        cmd.Parameters.AddWithValue("@IdGrupo", frm.cboGrupo.Text.Substring(frm.cboGrupo.Text.IndexOf(" "), frm.cboGrupo.Text.Length - 1).Trim())
+        cmd.Parameters.AddWithValue("@Grado", Integer.Parse(frm.cboGrupo.Text.Substring(0, frm.cboGrupo.Text.IndexOf(" ")).Trim()))
+        Dim reader As MySqlDataReader = cmd.ExecuteReader()
+        Dim materias As String = ""
+        Dim profesores As String = ""
+        While reader.Read()
+            materias = materias & vbCrLf & reader("NombreAsignatura")
+            profesores = profesores & vbCrLf & reader("NombreProfesor")
+            frm.lblValorTipoCurso.Text = reader("NombreCurso")
+            frm.lblValorTipoSalon.Text = reader("IdSalon")
+            If frm.lblValorTipoSalon.Text.Equals("-1") Then
+                frm.lblValorTipoSalon.Text = "Sin asignar"
+            End If
+            frm.lblValorTipoGrado.Text = reader("Grado")
+            frm.lblValorTipoTurno.Text = reader("NombreTurno")
+        End While
+        frm.lblNomMateria.Text = materias
+        frm.lblNomProfesor.Text = profesores
+        reader.Close()
+        conexion.Close()
+
     End Sub
 
     Public Sub cargarMateriasGrupo_frmMain(ByVal frm As frmMain)
@@ -242,7 +271,7 @@ Public Class BaseDeDatos
                     .CommandText = "select * from Calendario where Dia=@Dia and Grupo=@StringGrupo order by HoraOrden;"
                     .CommandType = CommandType.Text
                     .Parameters.AddWithValue("@Dia", dia)
-                    .Parameters.AddWithValue("@StringGrupo", frm.cboGrupo.Text.Substring(0, frm.cboGrupo.Text.IndexOf(" (")).Trim())
+                    .Parameters.AddWithValue("@StringGrupo", frm.cboGrupo.Text)
                 End With
 
                 Dim reader As MySqlDataReader = cmd.ExecuteReader()
@@ -2056,7 +2085,8 @@ Public Class BaseDeDatos
                         cmd_check.Connection = conexion_check.Conn
                         cmd_check.CommandType = CommandType.Text
                         cmd_check.CommandText = "select HoraOrden, Dia, CiPersona, NombreProfesor from Calendario where CiPersona=@CiPersona and HoraOrden=@horaInicio and Dia=@dia;"
-                        If Not btn.Tag(1).Equals("-1") Then
+                        If Not btn.Tag(1).ToString().Equals("-1") Then
+
                             cmd_check.Parameters.AddWithValue("@horainicio", horarios(hora_n))
                             cmd_check.Parameters.AddWithValue("@CiPersona", btn.Tag(1))
                             cmd_check.Parameters.AddWithValue("@dia", dia)

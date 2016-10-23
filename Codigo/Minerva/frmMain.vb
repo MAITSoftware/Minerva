@@ -31,7 +31,7 @@
             Return
         End If
 
-        lblNomGrupo.Text = "Grupo" & vbCrLf & cboGrupo.Text.Substring(0, cboGrupo.Text.IndexOf(" (")).Trim()
+        lblNomGrupo.Text = "Grupo" & vbCrLf & cboGrupo.Text.Trim()
         lblSeleccioneGrupo.Visible = cboGrupo.SelectedIndex = -1
         lblSeleccioneGrupo2.Visible = cboGrupo.SelectedIndex = -1
 
@@ -44,6 +44,7 @@
 
         Dim DB As New BaseDeDatos()
         DB.cargarMateriasGrupo_frmMain(Me)
+        DB.cargarDatosGrupo_frmMain(Me)
         imgLogo.Focus()
 
     End Sub
@@ -65,14 +66,6 @@
         End If
     End Sub
 
-    Private Sub cboCurso_SelectedIndexChanged(sender As Object, e As EventArgs)
-        ' Esto solo es para prueba: Al seleccionar el tipo de curso agrega más datos al día
-        Lunes.agregarHora("13:00", "Son las")
-        Lunes.agregarHora("14:00", "7:30am :(")
-        Lunes.agregarHora("15:00", "tengo")
-        Lunes.agregarHora("16:00", "que")
-        Lunes.agregarHora("17:00", "Dormir")
-    End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         ' Al clickear salir, nos desloguea y muestra la ventana de inicio

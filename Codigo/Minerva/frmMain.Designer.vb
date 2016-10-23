@@ -31,16 +31,11 @@ Partial Class frmMain
         Me.pnlMaterias = New System.Windows.Forms.Panel()
         Me.lblNomMateria = New System.Windows.Forms.Label()
         Me.lblNomProfesor = New System.Windows.Forms.Label()
-        Me.lblValorSalon = New System.Windows.Forms.Label()
-        Me.lblValorCantAlumnos = New System.Windows.Forms.Label()
-        Me.lblValorTurno = New System.Windows.Forms.Label()
-        Me.lblValorGrado = New System.Windows.Forms.Label()
-        Me.lblValorTipo = New System.Windows.Forms.Label()
-        Me.lblValorAdscripto = New System.Windows.Forms.Label()
+        Me.lblValorTipoSalon = New System.Windows.Forms.Label()
+        Me.lblValorTipoTurno = New System.Windows.Forms.Label()
+        Me.lblValorTipoCurso = New System.Windows.Forms.Label()
         Me.lblSalon = New System.Windows.Forms.Label()
-        Me.lblCantAlumnos = New System.Windows.Forms.Label()
         Me.lblTurno = New System.Windows.Forms.Label()
-        Me.lblAdscripto = New System.Windows.Forms.Label()
         Me.lblGrado = New System.Windows.Forms.Label()
         Me.lblTipo = New System.Windows.Forms.Label()
         Me.lblProfesores = New System.Windows.Forms.Label()
@@ -55,13 +50,14 @@ Partial Class frmMain
         Me.lblGrupo = New System.Windows.Forms.Label()
         Me.pnlSeparador = New System.Windows.Forms.Panel()
         Me.lblSeleccioneGrupo = New System.Windows.Forms.Label()
+        Me.timerDatosUsuario = New System.Windows.Forms.Timer(Me.components)
+        Me.lblValorTipoGrado = New System.Windows.Forms.Label()
         Me.Sábado = New Minerva.frmDia()
         Me.Viernes = New Minerva.frmDia()
         Me.Jueves = New Minerva.frmDia()
         Me.Miércoles = New Minerva.frmDia()
         Me.Martes = New Minerva.frmDia()
         Me.Lunes = New Minerva.frmDia()
-        Me.timerDatosUsuario = New System.Windows.Forms.Timer(Me.components)
         lblHorariosSemana = New System.Windows.Forms.Label()
         Me.pnlInfoCurso.SuspendLayout()
         Me.pnlMaterias.SuspendLayout()
@@ -84,23 +80,19 @@ Partial Class frmMain
         'pnlInfoCurso
         '
         Me.pnlInfoCurso.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.pnlInfoCurso.Controls.Add(Me.lblValorTipoGrado)
         Me.pnlInfoCurso.Controls.Add(Me.lblInfoCurso)
-        Me.pnlInfoCurso.Controls.Add(Me.lblSeleccioneGrupo2)
         Me.pnlInfoCurso.Controls.Add(Me.pnlMaterias)
-        Me.pnlInfoCurso.Controls.Add(Me.lblValorSalon)
-        Me.pnlInfoCurso.Controls.Add(Me.lblValorCantAlumnos)
-        Me.pnlInfoCurso.Controls.Add(Me.lblValorTurno)
-        Me.pnlInfoCurso.Controls.Add(Me.lblValorGrado)
-        Me.pnlInfoCurso.Controls.Add(Me.lblValorTipo)
-        Me.pnlInfoCurso.Controls.Add(Me.lblValorAdscripto)
+        Me.pnlInfoCurso.Controls.Add(Me.lblValorTipoSalon)
+        Me.pnlInfoCurso.Controls.Add(Me.lblValorTipoTurno)
+        Me.pnlInfoCurso.Controls.Add(Me.lblValorTipoCurso)
         Me.pnlInfoCurso.Controls.Add(Me.lblSalon)
-        Me.pnlInfoCurso.Controls.Add(Me.lblCantAlumnos)
         Me.pnlInfoCurso.Controls.Add(Me.lblTurno)
-        Me.pnlInfoCurso.Controls.Add(Me.lblAdscripto)
         Me.pnlInfoCurso.Controls.Add(Me.lblGrado)
         Me.pnlInfoCurso.Controls.Add(Me.lblTipo)
         Me.pnlInfoCurso.Controls.Add(Me.lblProfesores)
         Me.pnlInfoCurso.Controls.Add(Me.lblNomGrupo)
+        Me.pnlInfoCurso.Controls.Add(Me.lblSeleccioneGrupo2)
         Me.pnlInfoCurso.ForeColor = System.Drawing.SystemColors.AppWorkspace
         Me.pnlInfoCurso.Location = New System.Drawing.Point(965, -1)
         Me.pnlInfoCurso.Name = "pnlInfoCurso"
@@ -133,8 +125,8 @@ Partial Class frmMain
         'pnlMaterias
         '
         Me.pnlMaterias.AutoScroll = True
-        Me.pnlMaterias.Controls.Add(Me.lblNomMateria)
         Me.pnlMaterias.Controls.Add(Me.lblNomProfesor)
+        Me.pnlMaterias.Controls.Add(Me.lblNomMateria)
         Me.pnlMaterias.Location = New System.Drawing.Point(2, 178)
         Me.pnlMaterias.Name = "pnlMaterias"
         Me.pnlMaterias.Size = New System.Drawing.Size(297, 172)
@@ -145,7 +137,7 @@ Partial Class frmMain
         Me.lblNomMateria.AutoSize = True
         Me.lblNomMateria.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblNomMateria.ForeColor = System.Drawing.SystemColors.Control
-        Me.lblNomMateria.Location = New System.Drawing.Point(14, 10)
+        Me.lblNomMateria.Location = New System.Drawing.Point(5, -18)
         Me.lblNomMateria.Name = "lblNomMateria"
         Me.lblNomMateria.Size = New System.Drawing.Size(111, 23)
         Me.lblNomMateria.TabIndex = 1
@@ -154,130 +146,75 @@ Partial Class frmMain
         'lblNomProfesor
         '
         Me.lblNomProfesor.AutoSize = True
-        Me.lblNomProfesor.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblNomProfesor.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold)
         Me.lblNomProfesor.ForeColor = System.Drawing.SystemColors.AppWorkspace
-        Me.lblNomProfesor.Location = New System.Drawing.Point(131, 11)
+        Me.lblNomProfesor.Location = New System.Drawing.Point(157, -18)
         Me.lblNomProfesor.Name = "lblNomProfesor"
-        Me.lblNomProfesor.Size = New System.Drawing.Size(109, 20)
+        Me.lblNomProfesor.Size = New System.Drawing.Size(122, 23)
         Me.lblNomProfesor.TabIndex = 1
         Me.lblNomProfesor.Text = "Santiago Vigo"
         '
-        'lblValorSalon
+        'lblValorTipoSalon
         '
-        Me.lblValorSalon.AutoSize = True
-        Me.lblValorSalon.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValorSalon.ForeColor = System.Drawing.SystemColors.AppWorkspace
-        Me.lblValorSalon.Location = New System.Drawing.Point(159, 530)
-        Me.lblValorSalon.Name = "lblValorSalon"
-        Me.lblValorSalon.Size = New System.Drawing.Size(27, 20)
-        Me.lblValorSalon.TabIndex = 6
-        Me.lblValorSalon.Text = "17"
+        Me.lblValorTipoSalon.AutoSize = True
+        Me.lblValorTipoSalon.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValorTipoSalon.ForeColor = System.Drawing.SystemColors.AppWorkspace
+        Me.lblValorTipoSalon.Location = New System.Drawing.Point(159, 455)
+        Me.lblValorTipoSalon.Name = "lblValorTipoSalon"
+        Me.lblValorTipoSalon.Size = New System.Drawing.Size(88, 20)
+        Me.lblValorTipoSalon.TabIndex = 6
+        Me.lblValorTipoSalon.Text = "Sin asignar"
         '
-        'lblValorCantAlumnos
+        'lblValorTipoTurno
         '
-        Me.lblValorCantAlumnos.AutoSize = True
-        Me.lblValorCantAlumnos.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValorCantAlumnos.ForeColor = System.Drawing.SystemColors.AppWorkspace
-        Me.lblValorCantAlumnos.Location = New System.Drawing.Point(206, 498)
-        Me.lblValorCantAlumnos.Name = "lblValorCantAlumnos"
-        Me.lblValorCantAlumnos.Size = New System.Drawing.Size(27, 20)
-        Me.lblValorCantAlumnos.TabIndex = 6
-        Me.lblValorCantAlumnos.Text = "24"
+        Me.lblValorTipoTurno.AutoSize = True
+        Me.lblValorTipoTurno.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValorTipoTurno.ForeColor = System.Drawing.SystemColors.AppWorkspace
+        Me.lblValorTipoTurno.Location = New System.Drawing.Point(85, 426)
+        Me.lblValorTipoTurno.Name = "lblValorTipoTurno"
+        Me.lblValorTipoTurno.Size = New System.Drawing.Size(104, 20)
+        Me.lblValorTipoTurno.TabIndex = 6
+        Me.lblValorTipoTurno.Text = "No disponible"
         '
-        'lblValorTurno
+        'lblValorTipoCurso
         '
-        Me.lblValorTurno.AutoSize = True
-        Me.lblValorTurno.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValorTurno.ForeColor = System.Drawing.SystemColors.AppWorkspace
-        Me.lblValorTurno.Location = New System.Drawing.Point(85, 465)
-        Me.lblValorTurno.Name = "lblValorTurno"
-        Me.lblValorTurno.Size = New System.Drawing.Size(75, 20)
-        Me.lblValorTurno.TabIndex = 6
-        Me.lblValorTurno.Text = "Matutino "
-        '
-        'lblValorGrado
-        '
-        Me.lblValorGrado.AutoSize = True
-        Me.lblValorGrado.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValorGrado.ForeColor = System.Drawing.SystemColors.AppWorkspace
-        Me.lblValorGrado.Location = New System.Drawing.Point(87, 401)
-        Me.lblValorGrado.Name = "lblValorGrado"
-        Me.lblValorGrado.Size = New System.Drawing.Size(18, 20)
-        Me.lblValorGrado.TabIndex = 6
-        Me.lblValorGrado.Text = "3"
-        '
-        'lblValorTipo
-        '
-        Me.lblValorTipo.AutoSize = True
-        Me.lblValorTipo.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValorTipo.ForeColor = System.Drawing.SystemColors.AppWorkspace
-        Me.lblValorTipo.Location = New System.Drawing.Point(147, 369)
-        Me.lblValorTipo.Name = "lblValorTipo"
-        Me.lblValorTipo.Size = New System.Drawing.Size(92, 20)
-        Me.lblValorTipo.TabIndex = 6
-        Me.lblValorTipo.Text = "Bachillerato"
-        '
-        'lblValorAdscripto
-        '
-        Me.lblValorAdscripto.AutoSize = True
-        Me.lblValorAdscripto.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValorAdscripto.ForeColor = System.Drawing.SystemColors.AppWorkspace
-        Me.lblValorAdscripto.Location = New System.Drawing.Point(174, 432)
-        Me.lblValorAdscripto.Name = "lblValorAdscripto"
-        Me.lblValorAdscripto.Size = New System.Drawing.Size(116, 20)
-        Me.lblValorAdscripto.TabIndex = 6
-        Me.lblValorAdscripto.Text = "Gabriela asdsd"
+        Me.lblValorTipoCurso.AutoSize = True
+        Me.lblValorTipoCurso.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValorTipoCurso.ForeColor = System.Drawing.SystemColors.AppWorkspace
+        Me.lblValorTipoCurso.Location = New System.Drawing.Point(85, 368)
+        Me.lblValorTipoCurso.Name = "lblValorTipoCurso"
+        Me.lblValorTipoCurso.Size = New System.Drawing.Size(104, 20)
+        Me.lblValorTipoCurso.TabIndex = 6
+        Me.lblValorTipoCurso.Text = "No disponible"
         '
         'lblSalon
         '
         Me.lblSalon.AutoSize = True
         Me.lblSalon.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblSalon.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblSalon.Location = New System.Drawing.Point(17, 528)
+        Me.lblSalon.Location = New System.Drawing.Point(17, 454)
         Me.lblSalon.Name = "lblSalon"
         Me.lblSalon.Size = New System.Drawing.Size(136, 23)
         Me.lblSalon.TabIndex = 1
         Me.lblSalon.Text = "Salón asignado:"
-        '
-        'lblCantAlumnos
-        '
-        Me.lblCantAlumnos.AutoSize = True
-        Me.lblCantAlumnos.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCantAlumnos.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblCantAlumnos.Location = New System.Drawing.Point(17, 496)
-        Me.lblCantAlumnos.Name = "lblCantAlumnos"
-        Me.lblCantAlumnos.Size = New System.Drawing.Size(183, 23)
-        Me.lblCantAlumnos.TabIndex = 1
-        Me.lblCantAlumnos.Text = "Cantidad de alumnos:"
         '
         'lblTurno
         '
         Me.lblTurno.AutoSize = True
         Me.lblTurno.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTurno.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblTurno.Location = New System.Drawing.Point(17, 463)
+        Me.lblTurno.Location = New System.Drawing.Point(17, 425)
         Me.lblTurno.Name = "lblTurno"
         Me.lblTurno.Size = New System.Drawing.Size(62, 23)
         Me.lblTurno.TabIndex = 1
         Me.lblTurno.Text = "Turno:"
-        '
-        'lblAdscripto
-        '
-        Me.lblAdscripto.AutoSize = True
-        Me.lblAdscripto.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAdscripto.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblAdscripto.Location = New System.Drawing.Point(17, 431)
-        Me.lblAdscripto.Name = "lblAdscripto"
-        Me.lblAdscripto.Size = New System.Drawing.Size(156, 23)
-        Me.lblAdscripto.TabIndex = 1
-        Me.lblAdscripto.Text = "Adscripto a cargo:"
         '
         'lblGrado
         '
         Me.lblGrado.AutoSize = True
         Me.lblGrado.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGrado.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblGrado.Location = New System.Drawing.Point(17, 399)
+        Me.lblGrado.Location = New System.Drawing.Point(17, 396)
         Me.lblGrado.Name = "lblGrado"
         Me.lblGrado.Size = New System.Drawing.Size(64, 23)
         Me.lblGrado.TabIndex = 1
@@ -290,9 +227,9 @@ Partial Class frmMain
         Me.lblTipo.ForeColor = System.Drawing.Color.PaleGreen
         Me.lblTipo.Location = New System.Drawing.Point(17, 367)
         Me.lblTipo.Name = "lblTipo"
-        Me.lblTipo.Size = New System.Drawing.Size(124, 23)
+        Me.lblTipo.Size = New System.Drawing.Size(62, 23)
         Me.lblTipo.TabIndex = 1
-        Me.lblTipo.Text = "Tipo de curso:"
+        Me.lblTipo.Text = "Curso:"
         '
         'lblProfesores
         '
@@ -314,7 +251,7 @@ Partial Class frmMain
         Me.lblNomGrupo.Name = "lblNomGrupo"
         Me.lblNomGrupo.Size = New System.Drawing.Size(300, 76)
         Me.lblNomGrupo.TabIndex = 1
-        Me.lblNomGrupo.Text = "Grupo" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3ero BG"
+        Me.lblNomGrupo.Text = "Grupo" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3 BG"
         Me.lblNomGrupo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'pnlFiltro
@@ -432,6 +369,21 @@ Partial Class frmMain
         Me.lblSeleccioneGrupo.Text = "Para visualizar los horarios," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "debe escoger un grupo"
         Me.lblSeleccioneGrupo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'timerDatosUsuario
+        '
+        Me.timerDatosUsuario.Interval = 300
+        '
+        'lblValorTipoGrado
+        '
+        Me.lblValorTipoGrado.AutoSize = True
+        Me.lblValorTipoGrado.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValorTipoGrado.ForeColor = System.Drawing.SystemColors.AppWorkspace
+        Me.lblValorTipoGrado.Location = New System.Drawing.Point(85, 397)
+        Me.lblValorTipoGrado.Name = "lblValorTipoGrado"
+        Me.lblValorTipoGrado.Size = New System.Drawing.Size(104, 20)
+        Me.lblValorTipoGrado.TabIndex = 22
+        Me.lblValorTipoGrado.Text = "No disponible"
+        '
         'Sábado
         '
         Me.Sábado.BackColor = System.Drawing.Color.Transparent
@@ -480,10 +432,6 @@ Partial Class frmMain
         Me.Lunes.Size = New System.Drawing.Size(256, 210)
         Me.Lunes.TabIndex = 27
         '
-        'timerDatosUsuario
-        '
-        Me.timerDatosUsuario.Interval = 300
-        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -522,18 +470,13 @@ Partial Class frmMain
     Friend WithEvents lblNomMateria As System.Windows.Forms.Label
     Friend WithEvents lblProfesores As System.Windows.Forms.Label
     Friend WithEvents lblInfoCurso As System.Windows.Forms.Label
-    Friend WithEvents lblValorAdscripto As System.Windows.Forms.Label
-    Friend WithEvents lblCantAlumnos As System.Windows.Forms.Label
     Friend WithEvents lblTurno As System.Windows.Forms.Label
     Friend WithEvents lblTipo As System.Windows.Forms.Label
-    Friend WithEvents lblValorSalon As System.Windows.Forms.Label
-    Friend WithEvents lblValorCantAlumnos As System.Windows.Forms.Label
-    Friend WithEvents lblValorTurno As System.Windows.Forms.Label
+    Friend WithEvents lblValorTipoSalon As System.Windows.Forms.Label
+    Friend WithEvents lblValorTipoTurno As System.Windows.Forms.Label
     Friend WithEvents lblSalon As System.Windows.Forms.Label
     Friend WithEvents pnlFiltro As System.Windows.Forms.Panel
-    Friend WithEvents lblValorGrado As System.Windows.Forms.Label
-    Friend WithEvents lblValorTipo As System.Windows.Forms.Label
-    Friend WithEvents lblAdscripto As System.Windows.Forms.Label
+    Friend WithEvents lblValorTipoCurso As System.Windows.Forms.Label
     Friend WithEvents lblGrado As System.Windows.Forms.Label
     Friend WithEvents lblNomGrupo As System.Windows.Forms.Label
     Friend WithEvents lblNomProfesor As System.Windows.Forms.Label
@@ -555,5 +498,6 @@ Partial Class frmMain
     Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
     Friend WithEvents lblUsuario As System.Windows.Forms.Label
     Friend WithEvents timerDatosUsuario As System.Windows.Forms.Timer
+    Friend WithEvents lblValorTipoGrado As System.Windows.Forms.Label
 
 End Class

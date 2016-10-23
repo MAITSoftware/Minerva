@@ -76,7 +76,6 @@
 
     Private Sub Login(sender As Object, e As EventArgs) Handles btnEntrar.Click
         Me.Cursor = Cursors.WaitCursor
-        Me.Enabled = False
         Dim DB As New BaseDeDatos()
         DB.Login_frmLogin(Me)
     End Sub

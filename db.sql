@@ -169,10 +169,7 @@ INSERT INTO `Trayecto` VALUES (
  1, 123, 0), (2, 123, 0), (3, 123, 0), (4, 123, 0), (
  1, 321, 0), (2, 321, 0), (3, 321, 0), (4, 321, 0), (
  1, 981, 0), (2, 981, 0), (3, 981, 0), (4, 981, 0);
- INSERT INTO `Area` VALUES (150, "Pack 1"), (151, "Pack 2");
-INSERT INTO `Asignatura` VALUES (
-111, "Biología", 150), (232, "Coso", 150), (333, "BlaBla", 151);
- INSERT INTO `Turno` VALUES (1, "Matutino"), (2, "Vespertino"), (3, "Nocturno"), (4, "Turno 4"), (5, "Turno 5");
+ INSERT INTO `Turno` VALUES (1, "Matutino"), (2, "Vespertino"), (3, "Nocturno");
  INSERT INTO `Salon` VALUES (-1, "", "");
  INSERT INTO `Asignacion` 
 VALUES
@@ -187,9 +184,6 @@ INSERT INTO `Persona` VALUES (-1, "Sin", "profesor");
 INSERT INTO `Profesor` VALUES (-1, "Sin", "profesor", 7);
 
 -- Datos de prueba. 2do y 3ero BG.
-INSERT INTO `Persona` VALUES (1, "ro", "ot");
-INSERT INTO `Usuario` VALUES (1, "ro", "ot", "Administrador", "1", True);
-INSERT INTO `Salon` VALUES (17, "", "Exterior"), (8, "", "Alta");
 INSERT INTO `Area` VALUES 
 (1, "Informática");
 
@@ -240,9 +234,3 @@ INSERT INTO `Tiene_Ta` VALUES
 (6, 2, 3, 123),
 (17, 2, 2, 123)
 ;
-
-
-INSERT INTO `Persona` VALUES (12345678, "Profesor", "defecto"),
-(123, "John", "Smith");
-INSERT INTO `Profesor` VALUES (12345678, "Profesor", "defecto", 7);
-INSERT INTO `Profesor` VALUES (123, "John", "Smith", 6);

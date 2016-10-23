@@ -4,7 +4,15 @@
     Friend totalUsuarios As Integer = 0
     Friend tipoSeleccionado As String = "Funcionario"
     Friend previsualizando As Boolean = False
+    Dim miUsuario As String = "asd"
 
+    Public Sub New(ByVal usuario As String)
+
+        ' Llamada necesaria para el diseñador.
+        InitializeComponent()
+        Me.miUsuario = usuario
+
+    End Sub
     Private Sub frmAdminUsuarios_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al iniciar el programa, cargar los usuarios, y reiniciar la interfaz
         cargarUsuarios()
@@ -55,7 +63,9 @@
         AddHandler btnEliminar.Click, AddressOf eliminarUsuario
 
         pnlTemporal.Controls.Add(btnUsuario)
-        pnlTemporal.Controls.Add(btnEliminar)
+        If Not IDUsuario.Equals(miUsuario) Then
+            pnlTemporal.Controls.Add(btnEliminar)
+        End If
         pnlTemporal.Controls.Add(btnEditar)
 
         pnlUsuarios.Controls.Add(pnlTemporal)
@@ -86,16 +96,6 @@
     End Sub
 
     Private Sub rad_CheckedChanged(sender As Object, e As EventArgs) Handles radFuncionario.CheckedChanged, radAdministrador.CheckedChanged
-        If previsualizando Then
-            If tipoSeleccionado.Equals("Funcionario") Then
-                radFuncionario.Checked = True
-                radAdministrador.Checked = False
-            Else
-                radFuncionario.Checked = False
-                radAdministrador.Checked = True
-            End If
-            Return
-        End If
         If sender.Checked Then
             tipoSeleccionado = sender.Text
         End If
@@ -125,6 +125,8 @@
         txtID.Text = ""
         txtContraseña.Text = ""
         tipoSeleccionado = "Funcionario"
+        radAdministrador.Enabled = True
+        radFuncionario.Enabled = True
     End Sub
 
     Private Sub editarUsuario(sender As Object, e As EventArgs)
@@ -138,6 +140,16 @@
         cargarDatos(sender.Tag)
         txtID.Enabled = False
         previsualizando = False
+
+        If Not sender.Tag.Equals(miUsuario) Then
+            radAdministrador.Enabled = True
+            radFuncionario.Enabled = True
+            chkHabilitado.Enabled = True
+        Else
+            radAdministrador.Enabled = False
+            radFuncionario.Enabled = False
+            chkHabilitado.Enabled = False
+        End If
     End Sub
 
     Private Sub verUsuario_Click(sender As Object, e As EventArgs)
@@ -156,6 +168,8 @@
         btnAgregar.Visible = False
         txtID.Enabled = False
         txtContraseña.Enabled = False
+        radAdministrador.Enabled = False
+        radFuncionario.Enabled = False
     End Sub
 
     Private Sub chkHabilitado_CheckedChanged(sender As Object, e As EventArgs) Handles chkHabilitado.Click
@@ -177,6 +191,7 @@
     Public Sub cargarUsuarios()
         Dim DB As New BaseDeDatos()
         DB.cargarUsuarios_frmAdminUsuarios(Me)
+
     End Sub
 
     Public Sub eliminarUsuario(sender As Object, e As EventArgs)
@@ -194,6 +209,8 @@
         ' Carga los datos del usuario y los muestra en pantalla
         Dim DB As New BaseDeDatos()
         DB.cargarDatos_frmAdminUsuarios(ID, Me)
+
+
     End Sub
 
     Public Sub actualizarDB()

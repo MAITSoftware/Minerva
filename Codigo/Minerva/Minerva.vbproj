@@ -267,6 +267,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Minerva.ico" />
+    <None Include="Resources\default %281%29.gif" />
+    <None Include="Resources\default.gif" />
     <None Include="Resources\cancelar_normal.png" />
     <None Include="Resources\cancelar_hover.png" />
     <None Include="Resources\plugin-broom2.png" />
