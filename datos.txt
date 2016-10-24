@@ -1,0 +1,289 @@
+CURSO 001 CBT
+
+GRADO 1
+
+027 Biología (1ºer Ciclo)
+059 Ciencias fisico - quimicas (1er ciclo)
+221 Educación visual y plastica
+244 Educación física
+243 educación de la sexualidad
+060 ciencias geográficas
+364 historia
+373 idioma español (1er ciclo)
+383 informática - ciclo basico
+387 ingles - ciclo básico
+801 matematica nivel 1
+025 basica agraria
+004 taller administracion
+534 nutricion ciclo basico
+423 introd. diseño y tec de la cons
+244 educacion fisica
+400 instalacion electricas
+800 taller de mecanica
+833 taller de musica y canto
+922 teatros y comunicaciones
+383 informática ciclo básico
+036 carpinteria 1
+221 educacion visual y plastica
+728 taller de corte y confeccion
+935 tecnología
+
+
+GRADO 2
+027
+059
+221
+244
+243
+060
+064
+364
+373
+383
+387
+801
+025
+004
+534
+423
+244
+400
+800
+833
+922
+383
+036
+415
+221
+935
+
+GRADO 3
+027
+221
+244
+0591
+415
+060
+364
+387
+459
+801
+0592
+025
+004
+334
+423
+244
+400
+800
+833
+922
+383
+036
+312
+387
+504
+221
+935
+550
+
+CURSO 048 EMP
+ORIENTACION 007 administracion
+
+GRADO 1
+014
+108
+148
+518
+518
+176
+388
+802
+147
+147
+
+GRADO 2
+028
+364
+108
+148
+176
+538
+388
+802
+240
+147
+147
+
+ORIENTACION 107 asistente de dirección
+GRADO 1
+028
+364
+108
+148
+176
+538
+388
+802
+240
+568
+829
+
+ORIENTACION 344 electrotecnia
+GRADO 1
+014
+196
+320
+272
+451
+802
+400
+854
+
+ORIENTACION 397 GASTRONOMIA C/S/B
+GRADO 1
+014
+332
+663
+176
+802
+592
+330
+648
+
+ORIENTACION 401 GASTRONOMIA COCINA
+146
+028
+364
+330
+533
+535
+330
+
+CURSO 049 EMT
+ORIENTACION 008 administracion
+grado 1
+014
+146
+364
+141
+185
+320
+388
+146
+802
+802
+
+grado 2
+014
+364
+141
+802
+146
+388
+185
+802
+146
+624
+
+grado 3
+141
+028
+064
+282
+107
+141
+239
+312
+388
+802
+802
+
+ORIENTACION 237 construccion
+GRADO 1
+015
+014
+364
+320
+802
+388
+710
+802
+602
+524
+231
+
+GRADO 2
+015
+014
+364
+320
+802
+388
+711
+802
+602
+624
+231
+
+ORIENTACION 25A DEPORTE Y RECREACION
+GRADO 1
+014
+028
+364
+146
+388
+538
+802
+262
+
+GRADO 2
+014
+364
+146
+388
+262
+538
+802
+655
+028
+624
+262
+
+GRADO 3
+320
+064
+802
+312
+320
+146
+388
+802
+655
+6161
+262
+
+
+ORIENTACION 331 ELECTROMECANICA AUTOMOTRIZ
+GRADO 2
+014
+364
+276
+269
+270
+320
+802
+388
+802
+624
+188
+
+GRADO 3
+146
+064
+269
+270
+276
+312
+320
+388
