@@ -46,7 +46,6 @@
         DB.cargarMateriasGrupo_frmMain(Me)
         DB.cargarDatosGrupo_frmMain(Me)
         imgLogo.Focus()
-
     End Sub
 
     Private Sub Minerva_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed

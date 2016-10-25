@@ -126,29 +126,4 @@
   <metadata name="mnuEdicionDocente.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnAgregarAsignatura.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAGYktHRAD/AP8A/6C9p5MAAAQ5SURBVHhe7Z3LThRREIZrhCX6CAbx8gRm5AlMdIO6F91IvKNu
-        XJDoadnoHk3cG2OIOyOgz2FAfQvFBZB4qbJnQpgwWj0zp+bv4e/kBEIOXVX/19W3OVUjUsctyZQUcl+S
-        fNCxoeNHa9jv9rd7OqbqGFq9fE5ySoVe1vFLx2/HeCeLcrJeQdbF20LuKIAdB4ROUDuaTbfqEmYd/Gwo
-        hBc9gOgEs6TBNuoQMLaPhTweAIwSTiEL2MGie5fkfIXrheea8lP3dxY9bEz/lmVMxVsfWHbs3gTYndg4
-        ZtDIXiW5mgFGO4tmkUPH9C3Jx4xAVjGDRvUqyRGFsZ0RyJY8k8Oo4eP5lWQ6I4z2aauJFziqR0kuBQC5
-        gBo+nl9J5rIDKeQaXuCoHiW5nh2I2eDmVIBAnEJFTSOQKKWddgjEKVTUNAKJUtpph0CcQkVNI5AopZ12
-        CMQpVNQ0AolS2mmHQJxCRU0jkCilnXYIxClU1DQCiVLaaYdAnEJFTSOQKKWddgjEKVTUNAKJUtpph0Cc
-        QkVNI5AopZ12CMQpVNQ0AolS2mmHQJxCRU0jkCilnXYI5D9C2TpYW95ZyIz+tEVsucergHVZZiN3HHMt
-        zab7X0tsNRRlSYBVteZc+OwptBmFOabhmgK6Ur0+paxcssKWURACMYZ1BXPOcwJv6MSHCsJKvxADGSWf
-        rLT7qY5D3cEkeU4Q4QeiVQfvs5V14KN0BNYnlkJu7CVSdkjopSi/PkFjH2zb2nHi+C6UJG+ZHUM/O7wp
-        gViTFn/vEGZEvkyzi/ykAXnA7Bh6drQ7TcwbEHvw45GPoYGWayf5SiAwB+RnA7JJIDBANg3IdwKBAfLN
-        gHwhEBggGwZkjUBggKwYEGsYybssBA3s9RUfDGEOxtaDYfm0bp0+mSXD1eD17rssa6XKl4vDPCA7Xi6W
-        WXKbWTK0s0SXvitJlgglHEqXD6jKExg/wo27jjg+wm1fVayVapJPzJZs2WLaVmxXW7ZpndWxqmOLcPqG
-        Yxqu6CKSy3pPO+ZZcfKvxQ8TurMmF8r1sLCuXFzY1DHRH4Rh/jeXkg5T/X1sEwiBgCkA5g4zhEDAFABz
-        hxlCIGAKgLnDDCEQMAXA3GGGEAiYAmDuMEMIBEwBMHeYIQQCpgCYO8wQAgFTAMwdZgiBgCkA5g4zhEDA
-        FABzhxlCIGAKgLnDDAEDYl+LmnuNLb96tQL0Qi4GAJmp4NEBn/pEzmQHkuT0AVe5Qvj8gvsKYkVNzVuu
-        /T4qjNGxU3bvzFP3ZyUB3CoqUNan5CgaWtf9jlf0htP/KmCtVAfbXM26rVasXCKLvQokeTSwU1chC5S3
-        fwUaCmQQ7Wut2rXRvzvcQ6lAkps6eml5vq2nvo42rBR1MAokOapQXurwdN62smNrGXJiMMa5l+4KLMox
-        PernWxXC1qPeuuLZsDsoqxq+q2OyjhL+AQ4EOdKLS/crAAAAAElFTkSuQmCC
-</value>
-  </data>
 </root>

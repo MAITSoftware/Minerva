@@ -4,6 +4,7 @@
     Friend totalDocentes As Integer = 0
     Friend docentePreview As Object = New Button()
     Friend prevSelect As String
+    Friend prevGrupoSelect As String
 
     Private Sub frmAdminDocentes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al cargar la ventana, cargar la lista de docentes, y rellenar los combos con los datos adecuados
@@ -133,7 +134,7 @@
         lstAsignaturas.Items.Clear()
         btnAgregarAsignatura.Enabled = habilitadas
         btnEliminarAsignatura.Enabled = habilitadas
-        cmbArea.Enabled = habilitadas
+        cmbArea.Enabled = False
         cmbArea.SelectedIndex = -1
         cmbAsignatura.Enabled = False
         cmbAsignatura.SelectedIndex = -1
@@ -221,6 +222,23 @@
         numGradoArea.Value = 1
     End Sub
 
+    Private Sub cmbGrupo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbGrupo.SelectedIndexChanged
+        ' Al cambiar el id del area cargas las ASignaturas de la misma
+        If cmbGrupo.Text.Equals(prevGrupoSelect) Then
+            Return
+        End If
+        cmbArea.SelectedIndex = -1
+
+        prevGrupoSelect = cmbGrupo.Text
+        cmbArea.Enabled = False
+        If Not String.IsNullOrWhiteSpace(cmbGrupo.Text) Then
+            cmbArea.Enabled = True
+        Else
+            Return
+        End If
+        cargarAreas()
+    End Sub
+
     Private Sub cmbArea_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbArea.SelectedIndexChanged
         ' Al cambiar el id del area cargas las ASignaturas de la misma
         If cmbArea.Text.Equals(prevSelect) Then
@@ -302,6 +320,11 @@
     End Sub
 
     ' Persistencia
+    Public Sub cargarAreas()
+        Dim Db As New BaseDeDatos()
+        Db.cargarAreas_frmAdminDocentes(Me)
+    End Sub
+
     Public Sub rellenarCombos()
         Dim DB As New BaseDeDatos()
         DB.rellenarCombos_frmAdminDocentes(Me)
