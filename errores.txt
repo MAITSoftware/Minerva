@@ -1,21 +1,3 @@
-Errores conocidos
-- El administrador se puede eliminar a si mismo
-- Si se des-asigna un salón a un grupo, el mismo no queda guardado
-- Se pueden eliminar grupos que tienen asignaturas asignada
-- Falta hacer lo más importante (El algoritmo para generar los horarios.)
-- La pestaña horarios en administrar, no muestra nada, ya que no hay datos.
-- El checkbox de Discapacitado en la zona de Grupos, se puede cambiar en la previsualización.
-- Los grupos no se pueden modificar (posiblemente quede así).
-- El ID del grupo admite valores no admisibles (Ejemplo paréntesis)
-- No se muestran los horarios en la ventana principal, ya que no hay datos guardados.
-- No se notifica al usuario que aún no hay grupos agregados.
-- Las información del panel derecho no se carga.
-- La tabulación no anda como debería.
-- Al tocar enter en algún campo de registro o inicio, no se acciona el botón que debería (Ej: Enter en el campo contraseña para entrar)
-- Los campos de texto no están limitados.
-- El trayecto está mal
-- El programa no carga los trayectos desde la base de datos.
-- Se le pueden asignar dos salones al mismo grupo.
-- Lo salones solo pueden tener un ID de número (ej: Biblioteca no puede estar agregada)
-- Los ID de grupos (Ej: BG, BH, F1) no pueden contener espacios (no sé si es un error.) (posiblemente quede así.)
-- Se puede clickear la pestaña docentes aún cuando no hay grupos.
+﻿Errores conocidos
+- Si hay horarios asignados (que no tienen profesor), y se les asigna un profesor, 
+y dichos horarios se interponen con otros del mismo profesor, el programa no lo notifica.

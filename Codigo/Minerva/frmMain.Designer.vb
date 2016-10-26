@@ -27,10 +27,10 @@ Partial Class frmMain
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.pnlInfoCurso = New System.Windows.Forms.Panel()
         Me.lblInfoCurso = New System.Windows.Forms.Label()
-        Me.lblSeleccioneGrupo2 = New System.Windows.Forms.Label()
+        Me.lblValorTipoGrado = New System.Windows.Forms.Label()
         Me.pnlMaterias = New System.Windows.Forms.Panel()
-        Me.lblNomMateria = New System.Windows.Forms.Label()
         Me.lblNomProfesor = New System.Windows.Forms.Label()
+        Me.lblNomMateria = New System.Windows.Forms.Label()
         Me.lblValorTipoSalon = New System.Windows.Forms.Label()
         Me.lblValorTipoTurno = New System.Windows.Forms.Label()
         Me.lblValorTipoCurso = New System.Windows.Forms.Label()
@@ -40,7 +40,9 @@ Partial Class frmMain
         Me.lblTipo = New System.Windows.Forms.Label()
         Me.lblProfesores = New System.Windows.Forms.Label()
         Me.lblNomGrupo = New System.Windows.Forms.Label()
+        Me.lblSeleccioneGrupo2 = New System.Windows.Forms.Label()
         Me.pnlFiltro = New System.Windows.Forms.Panel()
+        Me.btnRecargar = New System.Windows.Forms.PictureBox()
         Me.lblUsuario = New System.Windows.Forms.Label()
         Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         Me.btnSalir = New System.Windows.Forms.Button()
@@ -51,7 +53,8 @@ Partial Class frmMain
         Me.pnlSeparador = New System.Windows.Forms.Panel()
         Me.lblSeleccioneGrupo = New System.Windows.Forms.Label()
         Me.timerDatosUsuario = New System.Windows.Forms.Timer(Me.components)
-        Me.lblValorTipoGrado = New System.Windows.Forms.Label()
+        Me.btnRefrescarHorarios = New System.Windows.Forms.PictureBox()
+        Me.timerbtnrefrescar = New System.Windows.Forms.Timer(Me.components)
         Me.Sábado = New Minerva.frmDia()
         Me.Viernes = New Minerva.frmDia()
         Me.Jueves = New Minerva.frmDia()
@@ -62,8 +65,10 @@ Partial Class frmMain
         Me.pnlInfoCurso.SuspendLayout()
         Me.pnlMaterias.SuspendLayout()
         Me.pnlFiltro.SuspendLayout()
+        CType(Me.btnRecargar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnRefrescarHorarios, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblHorariosSemana
@@ -74,14 +79,14 @@ Partial Class frmMain
         lblHorariosSemana.Location = New System.Drawing.Point(24, 177)
         lblHorariosSemana.Name = "lblHorariosSemana"
         lblHorariosSemana.Size = New System.Drawing.Size(486, 59)
-        lblHorariosSemana.TabIndex = 1
+        lblHorariosSemana.TabIndex = 9
         lblHorariosSemana.Text = "Horarios de la semana"
         '
         'pnlInfoCurso
         '
         Me.pnlInfoCurso.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
-        Me.pnlInfoCurso.Controls.Add(Me.lblValorTipoGrado)
         Me.pnlInfoCurso.Controls.Add(Me.lblInfoCurso)
+        Me.pnlInfoCurso.Controls.Add(Me.lblValorTipoGrado)
         Me.pnlInfoCurso.Controls.Add(Me.pnlMaterias)
         Me.pnlInfoCurso.Controls.Add(Me.lblValorTipoSalon)
         Me.pnlInfoCurso.Controls.Add(Me.lblValorTipoTurno)
@@ -106,21 +111,20 @@ Partial Class frmMain
         Me.lblInfoCurso.Location = New System.Drawing.Point(-1, 11)
         Me.lblInfoCurso.Name = "lblInfoCurso"
         Me.lblInfoCurso.Size = New System.Drawing.Size(300, 40)
-        Me.lblInfoCurso.TabIndex = 1
-        Me.lblInfoCurso.Text = "Información del curso" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.lblInfoCurso.TabIndex = 0
+        Me.lblInfoCurso.Text = "Información del grupo"
         Me.lblInfoCurso.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'lblSeleccioneGrupo2
+        'lblValorTipoGrado
         '
-        Me.lblSeleccioneGrupo2.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
-        Me.lblSeleccioneGrupo2.Font = New System.Drawing.Font("Corbel", 28.0!, System.Drawing.FontStyle.Bold)
-        Me.lblSeleccioneGrupo2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblSeleccioneGrupo2.Location = New System.Drawing.Point(3, 46)
-        Me.lblSeleccioneGrupo2.Name = "lblSeleccioneGrupo2"
-        Me.lblSeleccioneGrupo2.Size = New System.Drawing.Size(297, 676)
-        Me.lblSeleccioneGrupo2.TabIndex = 21
-        Me.lblSeleccioneGrupo2.Text = "No disponible" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        Me.lblSeleccioneGrupo2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblValorTipoGrado.AutoSize = True
+        Me.lblValorTipoGrado.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValorTipoGrado.ForeColor = System.Drawing.SystemColors.AppWorkspace
+        Me.lblValorTipoGrado.Location = New System.Drawing.Point(85, 397)
+        Me.lblValorTipoGrado.Name = "lblValorTipoGrado"
+        Me.lblValorTipoGrado.Size = New System.Drawing.Size(104, 20)
+        Me.lblValorTipoGrado.TabIndex = 7
+        Me.lblValorTipoGrado.Text = "No disponible"
         '
         'pnlMaterias
         '
@@ -130,29 +134,28 @@ Partial Class frmMain
         Me.pnlMaterias.Location = New System.Drawing.Point(2, 178)
         Me.pnlMaterias.Name = "pnlMaterias"
         Me.pnlMaterias.Size = New System.Drawing.Size(297, 172)
-        Me.pnlMaterias.TabIndex = 10
-        '
-        'lblNomMateria
-        '
-        Me.lblNomMateria.AutoSize = True
-        Me.lblNomMateria.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNomMateria.ForeColor = System.Drawing.SystemColors.Control
-        Me.lblNomMateria.Location = New System.Drawing.Point(5, -18)
-        Me.lblNomMateria.Name = "lblNomMateria"
-        Me.lblNomMateria.Size = New System.Drawing.Size(111, 23)
-        Me.lblNomMateria.TabIndex = 1
-        Me.lblNomMateria.Text = "Matemática:"
+        Me.pnlMaterias.TabIndex = 4
         '
         'lblNomProfesor
         '
         Me.lblNomProfesor.AutoSize = True
-        Me.lblNomProfesor.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold)
+        Me.lblNomProfesor.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
         Me.lblNomProfesor.ForeColor = System.Drawing.SystemColors.AppWorkspace
-        Me.lblNomProfesor.Location = New System.Drawing.Point(157, -18)
+        Me.lblNomProfesor.Location = New System.Drawing.Point(178, -18)
         Me.lblNomProfesor.Name = "lblNomProfesor"
-        Me.lblNomProfesor.Size = New System.Drawing.Size(122, 23)
+        Me.lblNomProfesor.Size = New System.Drawing.Size(0, 20)
         Me.lblNomProfesor.TabIndex = 1
-        Me.lblNomProfesor.Text = "Santiago Vigo"
+        '
+        'lblNomMateria
+        '
+        Me.lblNomMateria.AutoSize = True
+        Me.lblNomMateria.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.lblNomMateria.ForeColor = System.Drawing.SystemColors.Control
+        Me.lblNomMateria.Location = New System.Drawing.Point(5, -18)
+        Me.lblNomMateria.Name = "lblNomMateria"
+        Me.lblNomMateria.Size = New System.Drawing.Size(96, 20)
+        Me.lblNomMateria.TabIndex = 0
+        Me.lblNomMateria.Text = "Matemática:"
         '
         'lblValorTipoSalon
         '
@@ -162,7 +165,7 @@ Partial Class frmMain
         Me.lblValorTipoSalon.Location = New System.Drawing.Point(159, 455)
         Me.lblValorTipoSalon.Name = "lblValorTipoSalon"
         Me.lblValorTipoSalon.Size = New System.Drawing.Size(88, 20)
-        Me.lblValorTipoSalon.TabIndex = 6
+        Me.lblValorTipoSalon.TabIndex = 11
         Me.lblValorTipoSalon.Text = "Sin asignar"
         '
         'lblValorTipoTurno
@@ -195,7 +198,7 @@ Partial Class frmMain
         Me.lblSalon.Location = New System.Drawing.Point(17, 454)
         Me.lblSalon.Name = "lblSalon"
         Me.lblSalon.Size = New System.Drawing.Size(136, 23)
-        Me.lblSalon.TabIndex = 1
+        Me.lblSalon.TabIndex = 10
         Me.lblSalon.Text = "Salón asignado:"
         '
         'lblTurno
@@ -206,7 +209,7 @@ Partial Class frmMain
         Me.lblTurno.Location = New System.Drawing.Point(17, 425)
         Me.lblTurno.Name = "lblTurno"
         Me.lblTurno.Size = New System.Drawing.Size(62, 23)
-        Me.lblTurno.TabIndex = 1
+        Me.lblTurno.TabIndex = 9
         Me.lblTurno.Text = "Turno:"
         '
         'lblGrado
@@ -217,7 +220,7 @@ Partial Class frmMain
         Me.lblGrado.Location = New System.Drawing.Point(17, 396)
         Me.lblGrado.Name = "lblGrado"
         Me.lblGrado.Size = New System.Drawing.Size(64, 23)
-        Me.lblGrado.TabIndex = 1
+        Me.lblGrado.TabIndex = 8
         Me.lblGrado.Text = "Grado:"
         '
         'lblTipo
@@ -228,7 +231,7 @@ Partial Class frmMain
         Me.lblTipo.Location = New System.Drawing.Point(17, 367)
         Me.lblTipo.Name = "lblTipo"
         Me.lblTipo.Size = New System.Drawing.Size(62, 23)
-        Me.lblTipo.TabIndex = 1
+        Me.lblTipo.TabIndex = 5
         Me.lblTipo.Text = "Curso:"
         '
         'lblProfesores
@@ -239,24 +242,37 @@ Partial Class frmMain
         Me.lblProfesores.Location = New System.Drawing.Point(17, 143)
         Me.lblProfesores.Name = "lblProfesores"
         Me.lblProfesores.Size = New System.Drawing.Size(188, 23)
-        Me.lblProfesores.TabIndex = 1
+        Me.lblProfesores.TabIndex = 3
         Me.lblProfesores.Text = "Materias y profesores"
         '
         'lblNomGrupo
         '
-        Me.lblNomGrupo.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblNomGrupo.Font = New System.Drawing.Font("Verdana", 30.25!, System.Drawing.FontStyle.Bold)
         Me.lblNomGrupo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
         Me.lblNomGrupo.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.lblNomGrupo.Location = New System.Drawing.Point(0, 46)
+        Me.lblNomGrupo.Location = New System.Drawing.Point(0, 52)
         Me.lblNomGrupo.Name = "lblNomGrupo"
         Me.lblNomGrupo.Size = New System.Drawing.Size(300, 76)
         Me.lblNomGrupo.TabIndex = 1
-        Me.lblNomGrupo.Text = "Grupo" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3 BG"
+        Me.lblNomGrupo.Text = "X XX"
         Me.lblNomGrupo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblSeleccioneGrupo2
+        '
+        Me.lblSeleccioneGrupo2.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.lblSeleccioneGrupo2.Font = New System.Drawing.Font("Corbel", 28.0!, System.Drawing.FontStyle.Bold)
+        Me.lblSeleccioneGrupo2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
+        Me.lblSeleccioneGrupo2.Location = New System.Drawing.Point(-2, 52)
+        Me.lblSeleccioneGrupo2.Name = "lblSeleccioneGrupo2"
+        Me.lblSeleccioneGrupo2.Size = New System.Drawing.Size(302, 670)
+        Me.lblSeleccioneGrupo2.TabIndex = 12
+        Me.lblSeleccioneGrupo2.Text = "No disponible" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.lblSeleccioneGrupo2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'pnlFiltro
         '
         Me.pnlFiltro.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.pnlFiltro.Controls.Add(Me.btnRecargar)
         Me.pnlFiltro.Controls.Add(Me.lblUsuario)
         Me.pnlFiltro.Controls.Add(Me.imgLogoMAITs)
         Me.pnlFiltro.Controls.Add(Me.btnSalir)
@@ -267,7 +283,18 @@ Partial Class frmMain
         Me.pnlFiltro.Location = New System.Drawing.Point(-5, -1)
         Me.pnlFiltro.Name = "pnlFiltro"
         Me.pnlFiltro.Size = New System.Drawing.Size(970, 175)
-        Me.pnlFiltro.TabIndex = 1
+        Me.pnlFiltro.TabIndex = 0
+        '
+        'btnRecargar
+        '
+        Me.btnRecargar.BackgroundImage = Global.Minerva.My.Resources.Resources.refrescar_normal
+        Me.btnRecargar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnRecargar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnRecargar.Location = New System.Drawing.Point(643, 53)
+        Me.btnRecargar.Name = "btnRecargar"
+        Me.btnRecargar.Size = New System.Drawing.Size(25, 25)
+        Me.btnRecargar.TabIndex = 129
+        Me.btnRecargar.TabStop = False
         '
         'lblUsuario
         '
@@ -277,7 +304,7 @@ Partial Class frmMain
         Me.lblUsuario.Location = New System.Drawing.Point(199, 138)
         Me.lblUsuario.Name = "lblUsuario"
         Me.lblUsuario.Size = New System.Drawing.Size(183, 24)
-        Me.lblUsuario.TabIndex = 128
+        Me.lblUsuario.TabIndex = 0
         Me.lblUsuario.Text = "Bienvenido invitado."
         '
         'imgLogoMAITs
@@ -298,7 +325,7 @@ Partial Class frmMain
         Me.btnSalir.Location = New System.Drawing.Point(17, 138)
         Me.btnSalir.Name = "btnSalir"
         Me.btnSalir.Size = New System.Drawing.Size(176, 28)
-        Me.btnSalir.TabIndex = 6
+        Me.btnSalir.TabIndex = 1
         Me.btnSalir.Text = "Cerrar sesión"
         Me.btnSalir.UseVisualStyleBackColor = False
         '
@@ -310,7 +337,7 @@ Partial Class frmMain
         Me.btnAdministrar.Location = New System.Drawing.Point(17, 104)
         Me.btnAdministrar.Name = "btnAdministrar"
         Me.btnAdministrar.Size = New System.Drawing.Size(176, 28)
-        Me.btnAdministrar.TabIndex = 5
+        Me.btnAdministrar.TabIndex = 0
         Me.btnAdministrar.Text = "Administrar"
         Me.btnAdministrar.UseVisualStyleBackColor = False
         Me.btnAdministrar.Visible = False
@@ -337,7 +364,7 @@ Partial Class frmMain
         Me.cboGrupo.Location = New System.Drawing.Point(351, 88)
         Me.cboGrupo.Name = "cboGrupo"
         Me.cboGrupo.Size = New System.Drawing.Size(317, 28)
-        Me.cboGrupo.TabIndex = 0
+        Me.cboGrupo.TabIndex = 2
         '
         'lblGrupo
         '
@@ -346,8 +373,8 @@ Partial Class frmMain
         Me.lblGrupo.Location = New System.Drawing.Point(351, 46)
         Me.lblGrupo.Name = "lblGrupo"
         Me.lblGrupo.Size = New System.Drawing.Size(317, 39)
-        Me.lblGrupo.TabIndex = 1
-        Me.lblGrupo.Text = "➤ Grupo"
+        Me.lblGrupo.TabIndex = 3
+        Me.lblGrupo.Text = "Grupo"
         Me.lblGrupo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'pnlSeparador
@@ -356,7 +383,7 @@ Partial Class frmMain
         Me.pnlSeparador.Location = New System.Drawing.Point(963, 0)
         Me.pnlSeparador.Name = "pnlSeparador"
         Me.pnlSeparador.Size = New System.Drawing.Size(2, 175)
-        Me.pnlSeparador.TabIndex = 13
+        Me.pnlSeparador.TabIndex = 2
         '
         'lblSeleccioneGrupo
         '
@@ -365,7 +392,7 @@ Partial Class frmMain
         Me.lblSeleccioneGrupo.Location = New System.Drawing.Point(-5, 177)
         Me.lblSeleccioneGrupo.Name = "lblSeleccioneGrupo"
         Me.lblSeleccioneGrupo.Size = New System.Drawing.Size(970, 508)
-        Me.lblSeleccioneGrupo.TabIndex = 20
+        Me.lblSeleccioneGrupo.TabIndex = 10
         Me.lblSeleccioneGrupo.Text = "Para visualizar los horarios," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "debe escoger un grupo"
         Me.lblSeleccioneGrupo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
@@ -373,16 +400,20 @@ Partial Class frmMain
         '
         Me.timerDatosUsuario.Interval = 300
         '
-        'lblValorTipoGrado
+        'btnRefrescarHorarios
         '
-        Me.lblValorTipoGrado.AutoSize = True
-        Me.lblValorTipoGrado.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValorTipoGrado.ForeColor = System.Drawing.SystemColors.AppWorkspace
-        Me.lblValorTipoGrado.Location = New System.Drawing.Point(85, 397)
-        Me.lblValorTipoGrado.Name = "lblValorTipoGrado"
-        Me.lblValorTipoGrado.Size = New System.Drawing.Size(104, 20)
-        Me.lblValorTipoGrado.TabIndex = 22
-        Me.lblValorTipoGrado.Text = "No disponible"
+        Me.btnRefrescarHorarios.BackgroundImage = Global.Minerva.My.Resources.Resources.refrescar_normal
+        Me.btnRefrescarHorarios.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnRefrescarHorarios.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnRefrescarHorarios.Location = New System.Drawing.Point(898, 194)
+        Me.btnRefrescarHorarios.Name = "btnRefrescarHorarios"
+        Me.btnRefrescarHorarios.Size = New System.Drawing.Size(25, 25)
+        Me.btnRefrescarHorarios.TabIndex = 130
+        Me.btnRefrescarHorarios.TabStop = False
+        '
+        'timerbtnrefrescar
+        '
+        Me.timerbtnrefrescar.Interval = 1000
         '
         'Sábado
         '
@@ -390,7 +421,8 @@ Partial Class frmMain
         Me.Sábado.Location = New System.Drawing.Point(667, 462)
         Me.Sábado.Name = "Sábado"
         Me.Sábado.Size = New System.Drawing.Size(256, 210)
-        Me.Sábado.TabIndex = 32
+        Me.Sábado.TabIndex = 8
+        Me.Sábado.TabStop = False
         '
         'Viernes
         '
@@ -398,7 +430,8 @@ Partial Class frmMain
         Me.Viernes.Location = New System.Drawing.Point(365, 462)
         Me.Viernes.Name = "Viernes"
         Me.Viernes.Size = New System.Drawing.Size(256, 210)
-        Me.Viernes.TabIndex = 31
+        Me.Viernes.TabIndex = 7
+        Me.Viernes.TabStop = False
         '
         'Jueves
         '
@@ -406,7 +439,8 @@ Partial Class frmMain
         Me.Jueves.Location = New System.Drawing.Point(63, 462)
         Me.Jueves.Name = "Jueves"
         Me.Jueves.Size = New System.Drawing.Size(256, 210)
-        Me.Jueves.TabIndex = 30
+        Me.Jueves.TabIndex = 6
+        Me.Jueves.TabStop = False
         '
         'Miércoles
         '
@@ -414,7 +448,8 @@ Partial Class frmMain
         Me.Miércoles.Location = New System.Drawing.Point(667, 243)
         Me.Miércoles.Name = "Miércoles"
         Me.Miércoles.Size = New System.Drawing.Size(256, 210)
-        Me.Miércoles.TabIndex = 29
+        Me.Miércoles.TabIndex = 3
+        Me.Miércoles.TabStop = False
         '
         'Martes
         '
@@ -422,7 +457,8 @@ Partial Class frmMain
         Me.Martes.Location = New System.Drawing.Point(365, 243)
         Me.Martes.Name = "Martes"
         Me.Martes.Size = New System.Drawing.Size(256, 210)
-        Me.Martes.TabIndex = 28
+        Me.Martes.TabIndex = 4
+        Me.Martes.TabStop = False
         '
         'Lunes
         '
@@ -430,14 +466,15 @@ Partial Class frmMain
         Me.Lunes.Location = New System.Drawing.Point(63, 243)
         Me.Lunes.Name = "Lunes"
         Me.Lunes.Size = New System.Drawing.Size(256, 210)
-        Me.Lunes.TabIndex = 27
+        Me.Lunes.TabIndex = 5
+        Me.Lunes.TabStop = False
         '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1264, 681)
-        Me.Controls.Add(Me.lblSeleccioneGrupo)
+        Me.Controls.Add(Me.btnRefrescarHorarios)
         Me.Controls.Add(Me.Sábado)
         Me.Controls.Add(Me.Viernes)
         Me.Controls.Add(Me.Jueves)
@@ -448,6 +485,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.pnlSeparador)
         Me.Controls.Add(Me.pnlFiltro)
         Me.Controls.Add(Me.pnlInfoCurso)
+        Me.Controls.Add(Me.lblSeleccioneGrupo)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -460,8 +498,10 @@ Partial Class frmMain
         Me.pnlMaterias.PerformLayout()
         Me.pnlFiltro.ResumeLayout(False)
         Me.pnlFiltro.PerformLayout()
+        CType(Me.btnRecargar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnRefrescarHorarios, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -499,5 +539,8 @@ Partial Class frmMain
     Friend WithEvents lblUsuario As System.Windows.Forms.Label
     Friend WithEvents timerDatosUsuario As System.Windows.Forms.Timer
     Friend WithEvents lblValorTipoGrado As System.Windows.Forms.Label
+    Friend WithEvents btnRecargar As System.Windows.Forms.PictureBox
+    Friend WithEvents btnRefrescarHorarios As System.Windows.Forms.PictureBox
+    Friend WithEvents timerbtnrefrescar As System.Windows.Forms.Timer
 
 End Class

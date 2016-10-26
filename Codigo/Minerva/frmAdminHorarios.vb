@@ -18,11 +18,12 @@
     Friend finSexta As String = "17:55"
     Friend horarioExtra As String = "18:00"
     Friend finExtra As String = "18:45"
+    Friend frmMain As frmMain
 
     Dim tablas As Object = Nothing
 
-    Public Sub New()
-
+    Public Sub New(ByVal frmMain As frmMain)
+        Me.frmMain = frmMain
         ' Llamada necesaria para el diseñador.
         InitializeComponent()
 
@@ -69,6 +70,7 @@
                 x.FlatAppearance.MouseDownBackColor = btnSinAsignar.FlatAppearance.MouseDownBackColor
                 x.FlatAppearance.MouseOverBackColor = btnSinAsignar.FlatAppearance.MouseOverBackColor
                 x.BackColor = Color.White
+                x.TabStop = False
                 AddHandler x.MouseDown, AddressOf Materia_MouseDown
                 sender.Controls.Add(x)
             Else
@@ -118,6 +120,8 @@
 
         Dim DB As New BaseDeDatos()
         DB.cargarGrupos_frmAdminHorarios(Me)
+        cmbGrupo.Focus()
+        Call New ToolTip().SetToolTip(btnDeshacer, "Carga los horarios desde la base de datos (elimina las modificaciones)")
     End Sub
 
     Private Sub cmbGrupo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbGrupo.SelectedIndexChanged
@@ -144,15 +148,22 @@
         lblTapaMaterias.Visible = False
         pnlMaterias.Enabled = True
         btnDeshacer.Visible = True
+
+        btnGuardado.TabStop = True
+        btnLimpiar.TabStop = True
+
         If cmbGrupo.Text.Equals("...") Then
             lblSeleccioneGrupo.Visible = True
             lblTapaMaterias.Visible = True
             pnlMaterias.Enabled = False
             btnDeshacer.Visible = False
+            btnGuardado.TabStop = False
+            btnLimpiar.TabStop = False
             Return
         End If
 
         Dim DB As New BaseDeDatos()
+        DB.cargarHorarios_frmAdminHorarios(Me)
         DB.cargarMaterias_frmAdminHorarios(Me)
     End Sub
 
@@ -184,5 +195,15 @@
     Private Sub btnDeshacer_Enter(sender As Object, e As EventArgs) Handles btnDeshacer.MouseEnter
         ' al entrar a el botón btnDeshacer cambiar la imagen
         btnDeshacer.BackgroundImage = My.Resources.cancelar_hover()
+    End Sub
+
+    Public Sub actHorarios()
+        lblHora1.Text = horarioPrimera.Substring(0, horarioPrimera.Length - 3)
+        lblHora2.Text = horarioSegunda.Substring(0, horarioSegunda.Length - 3)
+        lblHora3.Text = horarioTercera.Substring(0, horarioTercera.Length - 3)
+        lblHora4.Text = horarioCuarta.Substring(0, horarioCuarta.Length - 3)
+        lblHora5.Text = horarioQuinta.Substring(0, horarioQuinta.Length - 3)
+        lblHora6.Text = horarioSexta.Substring(0, horarioSexta.Length - 3)
+        lblHora7.Text = horarioExtra.Substring(0, horarioExtra.Length - 3)
     End Sub
 End Class

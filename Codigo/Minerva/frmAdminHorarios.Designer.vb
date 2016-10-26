@@ -107,6 +107,8 @@ Partial Class frmAdminHorarios
         Me.btnLimpiar = New System.Windows.Forms.Button()
         Me.btnDeshacer = New System.Windows.Forms.PictureBox()
         Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
+        Me.pnlOcultarExtra = New System.Windows.Forms.Panel()
+        Me.pnlBordeOculto = New System.Windows.Forms.Panel()
         lblTitulo = New System.Windows.Forms.Label()
         pnlBorde11 = New System.Windows.Forms.Panel()
         Me.tableLunes.SuspendLayout()
@@ -268,7 +270,7 @@ Partial Class frmAdminHorarios
         Me.cmbGrupo.Location = New System.Drawing.Point(25, 99)
         Me.cmbGrupo.Name = "cmbGrupo"
         Me.cmbGrupo.Size = New System.Drawing.Size(123, 34)
-        Me.cmbGrupo.TabIndex = 127
+        Me.cmbGrupo.TabIndex = 0
         '
         'lblLunes
         '
@@ -1056,6 +1058,7 @@ Partial Class frmAdminHorarios
         'btnSinAsignar
         '
         Me.btnSinAsignar.BackColor = System.Drawing.Color.White
+        Me.btnSinAsignar.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnSinAsignar.FlatAppearance.BorderColor = System.Drawing.Color.Red
         Me.btnSinAsignar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.btnSinAsignar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
@@ -1064,6 +1067,7 @@ Partial Class frmAdminHorarios
         Me.btnSinAsignar.Name = "btnSinAsignar"
         Me.btnSinAsignar.Size = New System.Drawing.Size(144, 60)
         Me.btnSinAsignar.TabIndex = 3
+        Me.btnSinAsignar.TabStop = False
         Me.btnSinAsignar.Text = "Sin asignar"
         Me.btnSinAsignar.UseVisualStyleBackColor = False
         '
@@ -1098,7 +1102,7 @@ Partial Class frmAdminHorarios
         Me.lblSeleccioneGrupo.Location = New System.Drawing.Point(208, 0)
         Me.lblSeleccioneGrupo.Name = "lblSeleccioneGrupo"
         Me.lblSeleccioneGrupo.Size = New System.Drawing.Size(972, 518)
-        Me.lblSeleccioneGrupo.TabIndex = 187
+        Me.lblSeleccioneGrupo.TabIndex = 3
         Me.lblSeleccioneGrupo.Text = "Para modificar los horarios" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "debe escoger un grupo"
         Me.lblSeleccioneGrupo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
@@ -1109,7 +1113,8 @@ Partial Class frmAdminHorarios
         Me.btnGuardado.Location = New System.Drawing.Point(520, 21)
         Me.btnGuardado.Name = "btnGuardado"
         Me.btnGuardado.Size = New System.Drawing.Size(135, 29)
-        Me.btnGuardado.TabIndex = 188
+        Me.btnGuardado.TabIndex = 2
+        Me.btnGuardado.TabStop = False
         Me.btnGuardado.Text = "Guardar cambios"
         Me.btnGuardado.UseVisualStyleBackColor = True
         '
@@ -1127,7 +1132,8 @@ Partial Class frmAdminHorarios
         Me.btnLimpiar.Location = New System.Drawing.Point(375, 21)
         Me.btnLimpiar.Name = "btnLimpiar"
         Me.btnLimpiar.Size = New System.Drawing.Size(139, 29)
-        Me.btnLimpiar.TabIndex = 190
+        Me.btnLimpiar.TabIndex = 1
+        Me.btnLimpiar.TabStop = False
         Me.btnLimpiar.Text = "Limpiar todo"
         Me.btnLimpiar.UseVisualStyleBackColor = True
         '
@@ -1154,14 +1160,33 @@ Partial Class frmAdminHorarios
         Me.imgLogoMAITs.TabIndex = 125
         Me.imgLogoMAITs.TabStop = False
         '
+        'pnlOcultarExtra
+        '
+        Me.pnlOcultarExtra.Location = New System.Drawing.Point(199, 450)
+        Me.pnlOcultarExtra.Name = "pnlOcultarExtra"
+        Me.pnlOcultarExtra.Size = New System.Drawing.Size(981, 60)
+        Me.pnlOcultarExtra.TabIndex = 192
+        Me.pnlOcultarExtra.Visible = False
+        '
+        'pnlBordeOculto
+        '
+        Me.pnlBordeOculto.BackColor = System.Drawing.Color.White
+        Me.pnlBordeOculto.Location = New System.Drawing.Point(271, 449)
+        Me.pnlBordeOculto.Name = "pnlBordeOculto"
+        Me.pnlBordeOculto.Size = New System.Drawing.Size(877, 1)
+        Me.pnlBordeOculto.TabIndex = 193
+        Me.pnlBordeOculto.Visible = False
+        '
         'frmAdminHorarios
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.Controls.Add(lblTitulo)
-        Me.Controls.Add(Me.lblTapaMaterias)
         Me.Controls.Add(Me.lblSeleccioneGrupo)
+        Me.Controls.Add(Me.lblTapaMaterias)
+        Me.Controls.Add(Me.pnlBordeOculto)
+        Me.Controls.Add(Me.pnlOcultarExtra)
         Me.Controls.Add(Me.btnDeshacer)
         Me.Controls.Add(Me.btnLimpiar)
         Me.Controls.Add(Me.imgLogoMAITs)
@@ -1299,5 +1324,7 @@ Partial Class frmAdminHorarios
     Friend WithEvents lblTapaMaterias As System.Windows.Forms.Label
     Friend WithEvents btnLimpiar As System.Windows.Forms.Button
     Friend WithEvents btnDeshacer As System.Windows.Forms.PictureBox
+    Friend WithEvents pnlOcultarExtra As System.Windows.Forms.Panel
+    Friend WithEvents pnlBordeOculto As System.Windows.Forms.Panel
 
 End Class

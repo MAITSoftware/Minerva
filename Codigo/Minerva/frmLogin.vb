@@ -72,6 +72,12 @@
         End If
     End Sub
 
+    Private Sub EnterClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtUsuario.KeyDown, txtContraseña.KeyDown
+        If e.KeyCode.Equals(Keys.Enter) Then
+            btnEntrar.PerformClick()
+        End If
+    End Sub
+
     ' Persistencia
 
     Private Sub Login(sender As Object, e As EventArgs) Handles btnEntrar.Click

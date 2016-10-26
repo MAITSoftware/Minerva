@@ -13,6 +13,7 @@
         cargarGrupos()
 
         controlesHabilitados(True)
+        txtIDSalon.Focus()
     End Sub
 
     Public Sub agregarSalon(ByVal idSalon As String)
@@ -30,6 +31,7 @@
         btnSalon.Location = btnSalonPlantilla.Location
         btnSalon.Cursor = btnSalonPlantilla.Cursor
         btnSalon.Font = btnSalonPlantilla.Font
+        btnSalon.TabStop = False
 
         btnSalon.Tag = idSalon
         AddHandler btnSalon.Click, AddressOf verSalon
@@ -41,6 +43,7 @@
         btnEditar.BackColor = btnEditarPlantilla.BackColor
         btnEditar.Location = btnEditarPlantilla.Location
         btnEditar.Cursor = btnEditarPlantilla.Cursor
+        btnEditar.TabStop = False
 
         btnEditar.Tag = idSalon
         AddHandler btnEditar.Click, AddressOf editarSalon
@@ -52,6 +55,7 @@
         btnEliminar.BackColor = btnEliminarPlantilla.BackColor
         btnEliminar.Location = btnEliminarPlantilla.Location
         btnEliminar.Cursor = btnEliminarPlantilla.Cursor
+        btnEliminar.TabStop = False
 
         btnEliminar.Tag = idSalon
         AddHandler btnEliminar.Click, AddressOf eliminarSalon

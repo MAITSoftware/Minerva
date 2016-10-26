@@ -82,7 +82,7 @@ Partial Class frmAdminGrupos
         Me.lblIDGrupo.AutoSize = True
         Me.lblIDGrupo.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblIDGrupo.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblIDGrupo.Location = New System.Drawing.Point(22, 129)
+        Me.lblIDGrupo.Location = New System.Drawing.Point(179, 221)
         Me.lblIDGrupo.Name = "lblIDGrupo"
         Me.lblIDGrupo.Size = New System.Drawing.Size(104, 29)
         Me.lblIDGrupo.TabIndex = 67
@@ -96,7 +96,7 @@ Partial Class frmAdminGrupos
         Me.cmbTurno.Location = New System.Drawing.Point(25, 253)
         Me.cmbTurno.Name = "cmbTurno"
         Me.cmbTurno.Size = New System.Drawing.Size(116, 34)
-        Me.cmbTurno.TabIndex = 77
+        Me.cmbTurno.TabIndex = 3
         '
         'lblTurno
         '
@@ -112,10 +112,11 @@ Partial Class frmAdminGrupos
         'txtIDGrupo
         '
         Me.txtIDGrupo.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.txtIDGrupo.Location = New System.Drawing.Point(27, 161)
+        Me.txtIDGrupo.Location = New System.Drawing.Point(184, 253)
+        Me.txtIDGrupo.MaxLength = 4
         Me.txtIDGrupo.Name = "txtIDGrupo"
         Me.txtIDGrupo.Size = New System.Drawing.Size(121, 34)
-        Me.txtIDGrupo.TabIndex = 80
+        Me.txtIDGrupo.TabIndex = 4
         Me.txtIDGrupo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblCurso
@@ -123,7 +124,7 @@ Partial Class frmAdminGrupos
         Me.lblCurso.AutoSize = True
         Me.lblCurso.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblCurso.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblCurso.Location = New System.Drawing.Point(179, 129)
+        Me.lblCurso.Location = New System.Drawing.Point(22, 129)
         Me.lblCurso.Name = "lblCurso"
         Me.lblCurso.Size = New System.Drawing.Size(71, 29)
         Me.lblCurso.TabIndex = 81
@@ -134,7 +135,7 @@ Partial Class frmAdminGrupos
         Me.lblOrientacion.AutoSize = True
         Me.lblOrientacion.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblOrientacion.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblOrientacion.Location = New System.Drawing.Point(349, 129)
+        Me.lblOrientacion.Location = New System.Drawing.Point(179, 129)
         Me.lblOrientacion.Name = "lblOrientacion"
         Me.lblOrientacion.Size = New System.Drawing.Size(134, 29)
         Me.lblOrientacion.TabIndex = 83
@@ -145,7 +146,7 @@ Partial Class frmAdminGrupos
         Me.lblTrayecto.AutoSize = True
         Me.lblTrayecto.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblTrayecto.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblTrayecto.Location = New System.Drawing.Point(179, 221)
+        Me.lblTrayecto.Location = New System.Drawing.Point(443, 129)
         Me.lblTrayecto.Name = "lblTrayecto"
         Me.lblTrayecto.Size = New System.Drawing.Size(75, 29)
         Me.lblTrayecto.TabIndex = 86
@@ -158,7 +159,7 @@ Partial Class frmAdminGrupos
         Me.btnNuevoGrupo.Location = New System.Drawing.Point(378, 21)
         Me.btnNuevoGrupo.Name = "btnNuevoGrupo"
         Me.btnNuevoGrupo.Size = New System.Drawing.Size(105, 29)
-        Me.btnNuevoGrupo.TabIndex = 97
+        Me.btnNuevoGrupo.TabIndex = 7
         Me.btnNuevoGrupo.Text = "Nuevo grupo"
         Me.btnNuevoGrupo.UseVisualStyleBackColor = True
         Me.btnNuevoGrupo.Visible = False
@@ -182,7 +183,7 @@ Partial Class frmAdminGrupos
         Me.btnAgregar.Location = New System.Drawing.Point(461, 410)
         Me.btnAgregar.Name = "btnAgregar"
         Me.btnAgregar.Size = New System.Drawing.Size(154, 29)
-        Me.btnAgregar.TabIndex = 98
+        Me.btnAgregar.TabIndex = 6
         Me.btnAgregar.Text = "Agregar grupo"
         Me.btnAgregar.UseVisualStyleBackColor = True
         '
@@ -266,10 +267,10 @@ Partial Class frmAdminGrupos
         Me.cmbCurso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbCurso.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbCurso.FormattingEnabled = True
-        Me.cmbCurso.Location = New System.Drawing.Point(184, 161)
+        Me.cmbCurso.Location = New System.Drawing.Point(27, 161)
         Me.cmbCurso.Name = "cmbCurso"
         Me.cmbCurso.Size = New System.Drawing.Size(140, 34)
-        Me.cmbCurso.TabIndex = 119
+        Me.cmbCurso.TabIndex = 0
         '
         'cmbOrientacion
         '
@@ -278,10 +279,10 @@ Partial Class frmAdminGrupos
         Me.cmbOrientacion.Enabled = False
         Me.cmbOrientacion.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbOrientacion.FormattingEnabled = True
-        Me.cmbOrientacion.Location = New System.Drawing.Point(354, 161)
+        Me.cmbOrientacion.Location = New System.Drawing.Point(184, 161)
         Me.cmbOrientacion.Name = "cmbOrientacion"
         Me.cmbOrientacion.Size = New System.Drawing.Size(239, 34)
-        Me.cmbOrientacion.TabIndex = 120
+        Me.cmbOrientacion.TabIndex = 1
         '
         'chkDiscapacitado
         '
@@ -291,7 +292,7 @@ Partial Class frmAdminGrupos
         Me.chkDiscapacitado.Location = New System.Drawing.Point(27, 322)
         Me.chkDiscapacitado.Name = "chkDiscapacitado"
         Me.chkDiscapacitado.Size = New System.Drawing.Size(256, 33)
-        Me.chkDiscapacitado.TabIndex = 121
+        Me.chkDiscapacitado.TabIndex = 5
         Me.chkDiscapacitado.Text = "Alumno discapacitado"
         Me.chkDiscapacitado.UseVisualStyleBackColor = True
         '
@@ -334,10 +335,10 @@ Partial Class frmAdminGrupos
         Me.cmbGrado.Enabled = False
         Me.cmbGrado.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbGrado.FormattingEnabled = True
-        Me.cmbGrado.Location = New System.Drawing.Point(184, 253)
+        Me.cmbGrado.Location = New System.Drawing.Point(448, 161)
         Me.cmbGrado.Name = "cmbGrado"
         Me.cmbGrado.Size = New System.Drawing.Size(140, 34)
-        Me.cmbGrado.TabIndex = 126
+        Me.cmbGrado.TabIndex = 2
         '
         'frmAdminGrupos
         '

@@ -98,7 +98,7 @@ Partial Class frmRegistro
         Me.btnEntrar.Location = New System.Drawing.Point(74, 394)
         Me.btnEntrar.Name = "btnEntrar"
         Me.btnEntrar.Size = New System.Drawing.Size(222, 41)
-        Me.btnEntrar.TabIndex = 19
+        Me.btnEntrar.TabIndex = 2
         Me.btnEntrar.Text = "Confirmar"
         Me.btnEntrar.UseVisualStyleBackColor = False
         '
@@ -111,7 +111,7 @@ Partial Class frmRegistro
         Me.btnCancelar.Location = New System.Drawing.Point(74, 455)
         Me.btnCancelar.Name = "btnCancelar"
         Me.btnCancelar.Size = New System.Drawing.Size(222, 41)
-        Me.btnCancelar.TabIndex = 20
+        Me.btnCancelar.TabIndex = 3
         Me.btnCancelar.Text = "Cancelar"
         Me.btnCancelar.UseVisualStyleBackColor = False
         '
@@ -149,9 +149,10 @@ Partial Class frmRegistro
         '
         Me.txtContraseña.Font = New System.Drawing.Font("Corbel", 15.0!)
         Me.txtContraseña.Location = New System.Drawing.Point(52, 302)
+        Me.txtContraseña.MaxLength = 25
         Me.txtContraseña.Name = "txtContraseña"
         Me.txtContraseña.Size = New System.Drawing.Size(267, 32)
-        Me.txtContraseña.TabIndex = 25
+        Me.txtContraseña.TabIndex = 1
         Me.txtContraseña.UseSystemPasswordChar = True
         '
         'lblContraseña
@@ -172,7 +173,7 @@ Partial Class frmRegistro
         Me.txtUsuario.MaxLength = 8
         Me.txtUsuario.Name = "txtUsuario"
         Me.txtUsuario.Size = New System.Drawing.Size(267, 32)
-        Me.txtUsuario.TabIndex = 23
+        Me.txtUsuario.TabIndex = 0
         '
         'imgMinerva
         '

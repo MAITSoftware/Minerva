@@ -13,6 +13,10 @@
         Me.nombreUsuario = usuario
         cboGrupo.SelectedIndex = 0
         cargarDatos()
+
+        Call New ToolTip().SetToolTip(btnRecargar, "Recarga la lista de grupos")
+        Call New ToolTip().SetToolTip(btnRefrescarHorarios, "Actualiza la lista de horarios")
+        timerbtnrefrescar.Enabled = True
     End Sub
 
     Private Sub btnAdministrar_showMenu(sender As Object, e As EventArgs) Handles btnAdministrar.Click
@@ -22,16 +26,20 @@
     End Sub
 
     Private Sub cboGrupo_Changed(sender As Object, e As EventArgs) Handles cboGrupo.SelectedIndexChanged
+        btnRefrescarHorarios.Enabled = False
+        btnRecargar.Enabled = False
+
         ' Actualiza la información e horarios del grupo tras la selección de grupos
         If cboGrupo.Text.Equals("Elija un grupo") Then
             lblSeleccioneGrupo.Visible = True
             lblSeleccioneGrupo.BringToFront()
             lblSeleccioneGrupo2.Visible = True
             lblSeleccioneGrupo2.BringToFront()
+            timerbtnrefrescar.Enabled = True
             Return
         End If
 
-        lblNomGrupo.Text = "Grupo" & vbCrLf & cboGrupo.Text.Trim()
+        lblNomGrupo.Text = cboGrupo.Text.Trim()
         lblSeleccioneGrupo.Visible = cboGrupo.SelectedIndex = -1
         lblSeleccioneGrupo2.Visible = cboGrupo.SelectedIndex = -1
 
@@ -42,6 +50,7 @@
         Viernes.limpiar()
         Sábado.limpiar()
 
+        timerbtnrefrescar.Enabled = True
         Dim DB As New BaseDeDatos()
         DB.cargarMateriasGrupo_frmMain(Me)
         DB.cargarDatosGrupo_frmMain(Me)
@@ -87,5 +96,40 @@
     Private Sub cargarNombre()
         Dim DB As New BaseDeDatos()
         DB.cargarNombre_frmMain(Me)
+    End Sub
+
+    Private Sub btnRecargar_Leave(sender As Object, e As EventArgs) Handles btnRecargar.MouseLeave, btnRefrescarHorarios.MouseLeave
+        ' al dejar el botón btnEliminarAsignatura cambiar la imagen
+        sender.BackgroundImage = My.Resources.refrescar_normal()
+    End Sub
+
+    Private Sub btnRecargar_Enter(sender As Object, e As EventArgs) Handles btnRecargar.MouseEnter, btnRefrescarHorarios.MouseEnter
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        sender.BackgroundImage = My.Resources.refrescar_hover()
+    End Sub
+
+
+    Private Sub btnRecargar_Click(sender As Object, e As EventArgs) Handles btnRecargar.Click
+        cargarDatos()
+    End Sub
+
+    Private Sub btnRefrescarHorarios_Click(sender As Object, e As EventArgs) Handles btnRefrescarHorarios.Click
+        Dim currentIndex As Object
+        currentIndex = cboGrupo.SelectedIndex
+        cboGrupo.SelectedIndex = 0
+        cboGrupo.SelectedIndex = currentIndex
+    End Sub
+
+    Private Sub timerbtnrefrescar_Tick(sender As Object, e As EventArgs) Handles timerbtnrefrescar.Tick
+        btnRefrescarHorarios.Enabled = True
+        btnRecargar.Enabled = True
+        timerbtnrefrescar.Enabled = False
+    End Sub
+
+    Public Sub recargarGrupo()
+        Dim grupo As String
+        grupo = cboGrupo.Text
+        cboGrupo.SelectedIndex = 0
+        cboGrupo.SelectedIndex = cboGrupo.FindStringExact(grupo)
     End Sub
 End Class

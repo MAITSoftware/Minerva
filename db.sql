@@ -155,11 +155,11 @@ create table `Tiene_Ta` (
 
 -- Views para que la profe sea feliz
 create view AsignaturasTomadas AS select IdAsignatura, IdGrupo, Grado from Tiene_Ag;
-create view Calendario AS select Asignatura.IdAsignatura as IdAsignatura, DATE_FORMAT(HoraInicio, '%H:%i') as HoraOrden, CONCAT(DATE_FORMAT(HoraInicio, '%H:%i'), " - ", DATE_FORMAT(HoraFin, '%H:%i')) as Hora, Dia, CONCAT(Grado, " ", IdGrupo) as Grupo, CONCAT(NombrePersona, ' ', ApellidoPersona) as NombreProfesor, Persona.CiPersona, NombreAsignatura as Materia from Genera, Asignatura, Persona where Genera.IdAsignatura=Asignatura.IdAsignatura and Genera.CiPersona=Persona.CiPersona;
+create view Calendario AS select Asignatura.IdAsignatura as IdAsignatura, HoraInicio, DATE_FORMAT(HoraInicio, '%H:%i') as HoraOrden, CONCAT(DATE_FORMAT(HoraInicio, '%H:%i'), " - ", DATE_FORMAT(HoraFin, '%H:%i')) as Hora, Dia, CONCAT(Grado, " ", IdGrupo) as Grupo, CONCAT(NombrePersona, ' ', ApellidoPersona) as NombreProfesor, Persona.CiPersona, NombreAsignatura as Materia from Genera, Asignatura, Persona where Genera.IdAsignatura=Asignatura.IdAsignatura and Genera.CiPersona=Persona.CiPersona;
 create view AsignaturasOrientaciones as select IdOrientacion, Grado, Asignatura.IdAsignatura as IdAsignatura, CargaHoraria, NombreAsignatura from Tiene_Ta, Asignatura where Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura;
 create view Grupos AS select IdGrupo, CONCAT(Grado, IdGrupo) as Grupo from Grupo;
 create view ProfesorEnsenia as select HoraOrden, Dia, Calendario.CiPersona, CONCAT(NombrePersona, ' ', ApellidoPersona) as NombreProfesor from Calendario, Persona where Calendario.CiPersona=Persona.ciPersona;
-create view DatosGrupos as select Grupo.IdSalon as Salon, Orientacion.NombreOrientacion as Orientacion, Curso.NombreCurso as Curso, Grupo.Grado as Grado, Grupo.IdGrupo as IdGrupo, Turno.NombreTurno from Curso, Orientacion, Grupo, Turno where Grupo.IdTurno=Turno.IdTurno and Orientacion.IdOrientacion=Grupo.IdOrientacion and orientacion.idcurso=curso.idcurso;
+create view DatosGrupos as select Grupo.IdSalon as Salon, Orientacion.IdOrientacion, Orientacion.NombreOrientacion as Orientacion, Curso.NombreCurso as Curso, Grupo.Grado as Grado, Grupo.IdGrupo as IdGrupo, Turno.NombreTurno from Curso, Orientacion, Grupo, Turno where Grupo.IdTurno=Turno.IdTurno and Orientacion.IdOrientacion=Grupo.IdOrientacion and orientacion.idcurso=curso.idcurso;
 create view AsignaturasGrupo as select DISTINCT NombreAsignatura, CONCAT(NombrePersona, ' ' , ApellidoPersona) as NombreProfesor, Grupo.Grado, Grupo.IdGrupo from Tiene_Ta, Asignatura, Genera, Persona, Grupo where Genera.Grado="1" and Genera.IdGrupo="BG" and Genera.IdOrientacion=Grupo.IdOrientacion;
 
 -- Datos necesarios

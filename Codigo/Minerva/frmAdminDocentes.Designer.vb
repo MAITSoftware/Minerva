@@ -125,6 +125,7 @@ Partial Class frmAdminDocentes
         '
         Me.txtNombre.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.txtNombre.Location = New System.Drawing.Point(174, 142)
+        Me.txtNombre.MaxLength = 25
         Me.txtNombre.Name = "txtNombre"
         Me.txtNombre.Size = New System.Drawing.Size(111, 34)
         Me.txtNombre.TabIndex = 1
@@ -199,6 +200,7 @@ Partial Class frmAdminDocentes
         '
         Me.txtApellido.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.txtApellido.Location = New System.Drawing.Point(308, 142)
+        Me.txtApellido.MaxLength = 25
         Me.txtApellido.Name = "txtApellido"
         Me.txtApellido.Size = New System.Drawing.Size(111, 34)
         Me.txtApellido.TabIndex = 2
@@ -224,7 +226,7 @@ Partial Class frmAdminDocentes
         Me.cmbGrupo.Location = New System.Drawing.Point(295, 345)
         Me.cmbGrupo.Name = "cmbGrupo"
         Me.cmbGrupo.Size = New System.Drawing.Size(123, 27)
-        Me.cmbGrupo.TabIndex = 95
+        Me.cmbGrupo.TabIndex = 7
         '
         'lblGrupo
         '
@@ -245,7 +247,7 @@ Partial Class frmAdminDocentes
         Me.btnAgregarMateria.Location = New System.Drawing.Point(448, 458)
         Me.btnAgregarMateria.Name = "btnAgregarMateria"
         Me.btnAgregarMateria.Size = New System.Drawing.Size(164, 29)
-        Me.btnAgregarMateria.TabIndex = 102
+        Me.btnAgregarMateria.TabIndex = 11
         Me.btnAgregarMateria.Text = "Confirmar agregación"
         Me.btnAgregarMateria.UseVisualStyleBackColor = True
         Me.btnAgregarMateria.Visible = False
@@ -285,6 +287,7 @@ Partial Class frmAdminDocentes
         Me.btnDocentePlantilla.Name = "btnDocentePlantilla"
         Me.btnDocentePlantilla.Size = New System.Drawing.Size(207, 48)
         Me.btnDocentePlantilla.TabIndex = 0
+        Me.btnDocentePlantilla.TabStop = False
         Me.btnDocentePlantilla.Text = "Template docente"
         Me.btnDocentePlantilla.UseVisualStyleBackColor = False
         '
@@ -300,6 +303,7 @@ Partial Class frmAdminDocentes
         Me.btnEliminarPlantilla.Name = "btnEliminarPlantilla"
         Me.btnEliminarPlantilla.Size = New System.Drawing.Size(89, 23)
         Me.btnEliminarPlantilla.TabIndex = 2
+        Me.btnEliminarPlantilla.TabStop = False
         Me.btnEliminarPlantilla.Text = "Eliminar"
         Me.btnEliminarPlantilla.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.btnEliminarPlantilla.UseVisualStyleBackColor = False
@@ -316,6 +320,7 @@ Partial Class frmAdminDocentes
         Me.btnEditarPlantilla.Name = "btnEditarPlantilla"
         Me.btnEditarPlantilla.Size = New System.Drawing.Size(89, 23)
         Me.btnEditarPlantilla.TabIndex = 1
+        Me.btnEditarPlantilla.TabStop = False
         Me.btnEditarPlantilla.Text = "Editar"
         Me.btnEditarPlantilla.UseVisualStyleBackColor = False
         '
@@ -345,7 +350,7 @@ Partial Class frmAdminDocentes
         Me.btnNuevoDocente.Location = New System.Drawing.Point(378, 21)
         Me.btnNuevoDocente.Name = "btnNuevoDocente"
         Me.btnNuevoDocente.Size = New System.Drawing.Size(121, 29)
-        Me.btnNuevoDocente.TabIndex = 106
+        Me.btnNuevoDocente.TabIndex = 6
         Me.btnNuevoDocente.Text = "Nuevo docente"
         Me.btnNuevoDocente.UseVisualStyleBackColor = True
         Me.btnNuevoDocente.Visible = False
@@ -369,7 +374,7 @@ Partial Class frmAdminDocentes
         Me.btnCancelarEdicion.Location = New System.Drawing.Point(462, 220)
         Me.btnCancelarEdicion.Name = "btnCancelarEdicion"
         Me.btnCancelarEdicion.Size = New System.Drawing.Size(154, 29)
-        Me.btnCancelarEdicion.TabIndex = 113
+        Me.btnCancelarEdicion.TabIndex = 5
         Me.btnCancelarEdicion.Text = "Cancelar edición"
         Me.btnCancelarEdicion.UseVisualStyleBackColor = True
         Me.btnCancelarEdicion.Visible = False
@@ -394,7 +399,7 @@ Partial Class frmAdminDocentes
         Me.numGradoArea.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numGradoArea.Name = "numGradoArea"
         Me.numGradoArea.Size = New System.Drawing.Size(106, 27)
-        Me.numGradoArea.TabIndex = 115
+        Me.numGradoArea.TabIndex = 10
         Me.numGradoArea.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'lstAsignaturas
@@ -407,7 +412,8 @@ Partial Class frmAdminDocentes
         Me.lstAsignaturas.MultiSelect = False
         Me.lstAsignaturas.Name = "lstAsignaturas"
         Me.lstAsignaturas.Size = New System.Drawing.Size(238, 145)
-        Me.lstAsignaturas.TabIndex = 116
+        Me.lstAsignaturas.TabIndex = 12
+        Me.lstAsignaturas.TabStop = False
         Me.lstAsignaturas.UseCompatibleStateImageBehavior = False
         Me.lstAsignaturas.View = System.Windows.Forms.View.Details
         '
@@ -436,7 +442,7 @@ Partial Class frmAdminDocentes
         Me.cmbArea.Location = New System.Drawing.Point(429, 345)
         Me.cmbArea.Name = "cmbArea"
         Me.cmbArea.Size = New System.Drawing.Size(183, 27)
-        Me.cmbArea.TabIndex = 117
+        Me.cmbArea.TabIndex = 8
         '
         'cmbAsignatura
         '
@@ -448,7 +454,7 @@ Partial Class frmAdminDocentes
         Me.cmbAsignatura.Location = New System.Drawing.Point(295, 415)
         Me.cmbAsignatura.Name = "cmbAsignatura"
         Me.cmbAsignatura.Size = New System.Drawing.Size(182, 27)
-        Me.cmbAsignatura.TabIndex = 118
+        Me.cmbAsignatura.TabIndex = 9
         '
         'mnuEdicionDocente
         '
@@ -504,7 +510,7 @@ Partial Class frmAdminDocentes
         Me.numGrado.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numGrado.Name = "numGrado"
         Me.numGrado.Size = New System.Drawing.Size(120, 34)
-        Me.numGrado.TabIndex = 121
+        Me.numGrado.TabIndex = 3
         Me.numGrado.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'imgLogoMAITs

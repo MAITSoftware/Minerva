@@ -17,6 +17,7 @@
         ' Al iniciar el programa, cargar los usuarios, y reiniciar la interfaz
         cargarUsuarios()
         nuevoUsuario(Nothing, Nothing)
+        txtID.Focus()
     End Sub
 
     Public Sub agregarUsuario(ByVal IDUsuario As String, ByVal Tipo As String)
@@ -36,6 +37,7 @@
         btnUsuario.Location = btnUsuarioPlantilla.Location
         btnUsuario.Cursor = btnUsuarioPlantilla.Cursor
         btnUsuario.Font = btnUsuarioPlantilla.Font
+        btnUsuario.TabStop = False
 
         btnUsuario.Tag = IDUsuario
         AddHandler btnUsuario.Click, AddressOf verUsuario_Click
@@ -47,6 +49,7 @@
         btnEditar.BackColor = btnEditarPlantilla.BackColor
         btnEditar.Location = btnEditarPlantilla.Location
         btnEditar.Cursor = btnEditarPlantilla.Cursor
+        btnEditar.TabStop = False
 
         btnEditar.Tag = IDUsuario
         AddHandler btnEditar.Click, AddressOf editarUsuario
@@ -58,6 +61,7 @@
         btnEliminar.BackColor = btnEliminarPlantilla.BackColor
         btnEliminar.Location = btnEliminarPlantilla.Location
         btnEliminar.Cursor = btnEliminarPlantilla.Cursor
+        btnEliminar.TabStop = False
 
         btnEliminar.Tag = {IDUsuario, btnUsuario.Text.Replace(vbCrLf, " ")}
         AddHandler btnEliminar.Click, AddressOf eliminarUsuario
@@ -113,6 +117,8 @@
         txtID.Enabled = True
         txtContraseña.Enabled = True
         radFuncionario.Checked = True
+        txtNombre.Enabled = True
+        txtApellido.Enabled = True
         tipoSeleccionado = "Funcionario"
         limpiarControles()
     End Sub
@@ -124,6 +130,8 @@
         radFuncionario.Checked = True
         txtID.Text = ""
         txtContraseña.Text = ""
+        txtNombre.Text = ""
+        txtApellido.Text = ""
         tipoSeleccionado = "Funcionario"
         radAdministrador.Enabled = True
         radFuncionario.Enabled = True
@@ -170,6 +178,8 @@
         txtContraseña.Enabled = False
         radAdministrador.Enabled = False
         radFuncionario.Enabled = False
+        txtNombre.Enabled = False
+        txtApellido.Enabled = False
     End Sub
 
     Private Sub chkHabilitado_CheckedChanged(sender As Object, e As EventArgs) Handles chkHabilitado.Click
@@ -209,8 +219,6 @@
         ' Carga los datos del usuario y los muestra en pantalla
         Dim DB As New BaseDeDatos()
         DB.cargarDatos_frmAdminUsuarios(ID, Me)
-
-
     End Sub
 
     Public Sub actualizarDB()

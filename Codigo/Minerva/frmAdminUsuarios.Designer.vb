@@ -44,6 +44,10 @@ Partial Class frmAdminUsuarios
         Me.btnAgregar = New System.Windows.Forms.Button()
         Me.btnCancelar = New System.Windows.Forms.Button()
         Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
+        Me.lblNombre = New System.Windows.Forms.Label()
+        Me.txtNombre = New System.Windows.Forms.TextBox()
+        Me.lblApellido = New System.Windows.Forms.Label()
+        Me.txtApellido = New System.Windows.Forms.TextBox()
         lblTitulo = New System.Windows.Forms.Label()
         lblUsuarios = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
@@ -82,7 +86,7 @@ Partial Class frmAdminUsuarios
         Me.btnNuevoUsuario.Location = New System.Drawing.Point(378, 21)
         Me.btnNuevoUsuario.Name = "btnNuevoUsuario"
         Me.btnNuevoUsuario.Size = New System.Drawing.Size(121, 29)
-        Me.btnNuevoUsuario.TabIndex = 110
+        Me.btnNuevoUsuario.TabIndex = 7
         Me.btnNuevoUsuario.Text = "Nuevo usuario"
         Me.btnNuevoUsuario.UseVisualStyleBackColor = True
         Me.btnNuevoUsuario.Visible = False
@@ -205,7 +209,7 @@ Partial Class frmAdminUsuarios
         Me.txtID.MaxLength = 8
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(214, 34)
-        Me.txtID.TabIndex = 111
+        Me.txtID.TabIndex = 0
         '
         'lblContraseña
         '
@@ -222,19 +226,20 @@ Partial Class frmAdminUsuarios
         '
         Me.txtContraseña.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.txtContraseña.Location = New System.Drawing.Point(273, 166)
+        Me.txtContraseña.MaxLength = 25
         Me.txtContraseña.Name = "txtContraseña"
         Me.txtContraseña.Size = New System.Drawing.Size(214, 34)
-        Me.txtContraseña.TabIndex = 113
+        Me.txtContraseña.TabIndex = 1
         '
         'chkHabilitado
         '
         Me.chkHabilitado.AutoSize = True
         Me.chkHabilitado.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.chkHabilitado.ForeColor = System.Drawing.Color.PaleGreen
-        Me.chkHabilitado.Location = New System.Drawing.Point(25, 269)
+        Me.chkHabilitado.Location = New System.Drawing.Point(334, 358)
         Me.chkHabilitado.Name = "chkHabilitado"
         Me.chkHabilitado.Size = New System.Drawing.Size(190, 31)
-        Me.chkHabilitado.TabIndex = 115
+        Me.chkHabilitado.TabIndex = 5
         Me.chkHabilitado.Text = "Acceso aprobado"
         Me.chkHabilitado.UseVisualStyleBackColor = True
         '
@@ -247,7 +252,7 @@ Partial Class frmAdminUsuarios
         Me.radFuncionario.Location = New System.Drawing.Point(32, 38)
         Me.radFuncionario.Name = "radFuncionario"
         Me.radFuncionario.Size = New System.Drawing.Size(138, 31)
-        Me.radFuncionario.TabIndex = 116
+        Me.radFuncionario.TabIndex = 0
         Me.radFuncionario.TabStop = True
         Me.radFuncionario.Text = "Funcionario"
         Me.radFuncionario.UseVisualStyleBackColor = True
@@ -260,7 +265,7 @@ Partial Class frmAdminUsuarios
         Me.radAdministrador.Location = New System.Drawing.Point(32, 75)
         Me.radAdministrador.Name = "radAdministrador"
         Me.radAdministrador.Size = New System.Drawing.Size(162, 31)
-        Me.radAdministrador.TabIndex = 117
+        Me.radAdministrador.TabIndex = 1
         Me.radAdministrador.Text = "Administrador"
         Me.radAdministrador.UseVisualStyleBackColor = True
         '
@@ -270,10 +275,10 @@ Partial Class frmAdminUsuarios
         Me.grpTipoCuenta.Controls.Add(Me.radAdministrador)
         Me.grpTipoCuenta.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.grpTipoCuenta.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.grpTipoCuenta.Location = New System.Drawing.Point(273, 224)
+        Me.grpTipoCuenta.Location = New System.Drawing.Point(25, 313)
         Me.grpTipoCuenta.Name = "grpTipoCuenta"
         Me.grpTipoCuenta.Size = New System.Drawing.Size(273, 120)
-        Me.grpTipoCuenta.TabIndex = 118
+        Me.grpTipoCuenta.TabIndex = 4
         Me.grpTipoCuenta.TabStop = False
         Me.grpTipoCuenta.Text = "Tipo de cuenta"
         '
@@ -281,10 +286,10 @@ Partial Class frmAdminUsuarios
         '
         Me.btnAgregar.AutoSize = True
         Me.btnAgregar.Font = New System.Drawing.Font("Corbel", 12.0!)
-        Me.btnAgregar.Location = New System.Drawing.Point(453, 391)
+        Me.btnAgregar.Location = New System.Drawing.Point(453, 398)
         Me.btnAgregar.Name = "btnAgregar"
         Me.btnAgregar.Size = New System.Drawing.Size(146, 29)
-        Me.btnAgregar.TabIndex = 119
+        Me.btnAgregar.TabIndex = 6
         Me.btnAgregar.Text = "Agregar usuario"
         Me.btnAgregar.UseVisualStyleBackColor = True
         '
@@ -292,10 +297,10 @@ Partial Class frmAdminUsuarios
         '
         Me.btnCancelar.AutoSize = True
         Me.btnCancelar.Font = New System.Drawing.Font("Corbel", 12.0!)
-        Me.btnCancelar.Location = New System.Drawing.Point(453, 426)
+        Me.btnCancelar.Location = New System.Drawing.Point(453, 433)
         Me.btnCancelar.Name = "btnCancelar"
         Me.btnCancelar.Size = New System.Drawing.Size(146, 29)
-        Me.btnCancelar.TabIndex = 120
+        Me.btnCancelar.TabIndex = 7
         Me.btnCancelar.Text = "Cancelar edición"
         Me.btnCancelar.UseVisualStyleBackColor = True
         Me.btnCancelar.Visible = False
@@ -310,10 +315,54 @@ Partial Class frmAdminUsuarios
         Me.imgLogoMAITs.TabIndex = 125
         Me.imgLogoMAITs.TabStop = False
         '
+        'lblNombre
+        '
+        Me.lblNombre.AutoSize = True
+        Me.lblNombre.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblNombre.ForeColor = System.Drawing.Color.PaleGreen
+        Me.lblNombre.Location = New System.Drawing.Point(20, 224)
+        Me.lblNombre.Name = "lblNombre"
+        Me.lblNombre.Size = New System.Drawing.Size(96, 29)
+        Me.lblNombre.TabIndex = 127
+        Me.lblNombre.Text = "Nombre"
+        '
+        'txtNombre
+        '
+        Me.txtNombre.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.txtNombre.Location = New System.Drawing.Point(25, 256)
+        Me.txtNombre.MaxLength = 25
+        Me.txtNombre.Name = "txtNombre"
+        Me.txtNombre.Size = New System.Drawing.Size(214, 34)
+        Me.txtNombre.TabIndex = 2
+        '
+        'lblApellido
+        '
+        Me.lblApellido.AutoSize = True
+        Me.lblApellido.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblApellido.ForeColor = System.Drawing.Color.PaleGreen
+        Me.lblApellido.Location = New System.Drawing.Point(268, 224)
+        Me.lblApellido.Name = "lblApellido"
+        Me.lblApellido.Size = New System.Drawing.Size(98, 29)
+        Me.lblApellido.TabIndex = 129
+        Me.lblApellido.Text = "Apellido"
+        '
+        'txtApellido
+        '
+        Me.txtApellido.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.txtApellido.Location = New System.Drawing.Point(273, 256)
+        Me.txtApellido.MaxLength = 25
+        Me.txtApellido.Name = "txtApellido"
+        Me.txtApellido.Size = New System.Drawing.Size(214, 34)
+        Me.txtApellido.TabIndex = 3
+        '
         'frmAdminUsuarios
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.lblApellido)
+        Me.Controls.Add(Me.txtApellido)
+        Me.Controls.Add(Me.lblNombre)
+        Me.Controls.Add(Me.txtNombre)
         Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.btnCancelar)
         Me.Controls.Add(Me.btnAgregar)
@@ -359,5 +408,9 @@ Partial Class frmAdminUsuarios
     Friend WithEvents btnAgregar As System.Windows.Forms.Button
     Friend WithEvents btnCancelar As System.Windows.Forms.Button
     Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
+    Friend WithEvents lblNombre As System.Windows.Forms.Label
+    Friend WithEvents txtNombre As System.Windows.Forms.TextBox
+    Friend WithEvents lblApellido As System.Windows.Forms.Label
+    Friend WithEvents txtApellido As System.Windows.Forms.TextBox
 
 End Class

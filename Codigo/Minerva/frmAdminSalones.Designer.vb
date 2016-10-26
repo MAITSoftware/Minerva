@@ -102,7 +102,7 @@ Partial Class frmAdminSalones
         Me.btnAgregar.Location = New System.Drawing.Point(461, 410)
         Me.btnAgregar.Name = "btnAgregar"
         Me.btnAgregar.Size = New System.Drawing.Size(154, 29)
-        Me.btnAgregar.TabIndex = 4
+        Me.btnAgregar.TabIndex = 6
         Me.btnAgregar.Text = "Agregar salón"
         Me.btnAgregar.UseVisualStyleBackColor = True
         '
@@ -110,9 +110,10 @@ Partial Class frmAdminSalones
         '
         Me.txtIDSalon.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.txtIDSalon.Location = New System.Drawing.Point(26, 161)
+        Me.txtIDSalon.MaxLength = 2
         Me.txtIDSalon.Name = "txtIDSalon"
         Me.txtIDSalon.Size = New System.Drawing.Size(114, 34)
-        Me.txtIDSalon.TabIndex = 6
+        Me.txtIDSalon.TabIndex = 0
         Me.txtIDSalon.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblIDSalon
@@ -135,7 +136,7 @@ Partial Class frmAdminSalones
         Me.cmbPlanta.Location = New System.Drawing.Point(160, 161)
         Me.cmbPlanta.Name = "cmbPlanta"
         Me.cmbPlanta.Size = New System.Drawing.Size(121, 34)
-        Me.cmbPlanta.TabIndex = 11
+        Me.cmbPlanta.TabIndex = 1
         '
         'lblPlanta
         '
@@ -203,7 +204,7 @@ Partial Class frmAdminSalones
         Me.cmbTurno2.Location = New System.Drawing.Point(461, 161)
         Me.cmbTurno2.Name = "cmbTurno2"
         Me.cmbTurno2.Size = New System.Drawing.Size(121, 34)
-        Me.cmbTurno2.TabIndex = 24
+        Me.cmbTurno2.TabIndex = 4
         '
         'lblTurno4
         '
@@ -236,7 +237,7 @@ Partial Class frmAdminSalones
         Me.txtComentarios.Multiline = True
         Me.txtComentarios.Name = "txtComentarios"
         Me.txtComentarios.Size = New System.Drawing.Size(256, 129)
-        Me.txtComentarios.TabIndex = 27
+        Me.txtComentarios.TabIndex = 2
         '
         'lblComentarios
         '
@@ -256,7 +257,7 @@ Partial Class frmAdminSalones
         Me.btnCancelarEdicion.Location = New System.Drawing.Point(461, 445)
         Me.btnCancelarEdicion.Name = "btnCancelarEdicion"
         Me.btnCancelarEdicion.Size = New System.Drawing.Size(154, 29)
-        Me.btnCancelarEdicion.TabIndex = 30
+        Me.btnCancelarEdicion.TabIndex = 7
         Me.btnCancelarEdicion.Text = "Cancelar edición"
         Me.btnCancelarEdicion.UseVisualStyleBackColor = True
         Me.btnCancelarEdicion.Visible = False
@@ -358,7 +359,7 @@ Partial Class frmAdminSalones
         Me.cmbTurno1.Location = New System.Drawing.Point(319, 161)
         Me.cmbTurno1.Name = "cmbTurno1"
         Me.cmbTurno1.Size = New System.Drawing.Size(121, 34)
-        Me.cmbTurno1.TabIndex = 37
+        Me.cmbTurno1.TabIndex = 3
         '
         'cmbTurno3
         '
@@ -369,7 +370,7 @@ Partial Class frmAdminSalones
         Me.cmbTurno3.Location = New System.Drawing.Point(319, 240)
         Me.cmbTurno3.Name = "cmbTurno3"
         Me.cmbTurno3.Size = New System.Drawing.Size(121, 34)
-        Me.cmbTurno3.TabIndex = 39
+        Me.cmbTurno3.TabIndex = 5
         '
         'cmbTurno5
         '
@@ -402,7 +403,7 @@ Partial Class frmAdminSalones
         Me.btnNuevoSalon.Location = New System.Drawing.Point(378, 21)
         Me.btnNuevoSalon.Name = "btnNuevoSalon"
         Me.btnNuevoSalon.Size = New System.Drawing.Size(100, 29)
-        Me.btnNuevoSalon.TabIndex = 34
+        Me.btnNuevoSalon.TabIndex = 8
         Me.btnNuevoSalon.Text = "Nuevo salón"
         Me.btnNuevoSalon.UseVisualStyleBackColor = True
         Me.btnNuevoSalon.Visible = False

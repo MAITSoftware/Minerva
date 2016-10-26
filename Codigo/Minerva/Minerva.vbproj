@@ -252,8 +252,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="Diagrama de clases.cd" />
     <None Include="Resources\logoMAITS.png" />
   </ItemGroup>
   <ItemGroup>
@@ -267,6 +265,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Minerva.ico" />
+    <None Include="Resources\refrescar_hover.png" />
+    <None Include="Resources\refrescar_normal.png" />
     <None Include="Resources\default %281%29.gif" />
     <None Include="Resources\default.gif" />
     <None Include="Resources\cancelar_normal.png" />

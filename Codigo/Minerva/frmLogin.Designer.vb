@@ -55,7 +55,7 @@ Partial Class frmLogin
         Me.btnEntrar.Location = New System.Drawing.Point(74, 394)
         Me.btnEntrar.Name = "btnEntrar"
         Me.btnEntrar.Size = New System.Drawing.Size(222, 41)
-        Me.btnEntrar.TabIndex = 7
+        Me.btnEntrar.TabIndex = 2
         Me.btnEntrar.Text = "Ingresar"
         Me.btnEntrar.UseVisualStyleBackColor = False
         '
@@ -68,7 +68,7 @@ Partial Class frmLogin
         Me.btnCancelar.Location = New System.Drawing.Point(74, 455)
         Me.btnCancelar.Name = "btnCancelar"
         Me.btnCancelar.Size = New System.Drawing.Size(222, 41)
-        Me.btnCancelar.TabIndex = 9
+        Me.btnCancelar.TabIndex = 3
         Me.btnCancelar.Text = "Cancelar"
         Me.btnCancelar.UseVisualStyleBackColor = False
         '
@@ -79,7 +79,7 @@ Partial Class frmLogin
         Me.lblNombrePrograma.Location = New System.Drawing.Point(0, 116)
         Me.lblNombrePrograma.Name = "lblNombrePrograma"
         Me.lblNombrePrograma.Size = New System.Drawing.Size(369, 66)
-        Me.lblNombrePrograma.TabIndex = 5
+        Me.lblNombrePrograma.TabIndex = 4
         Me.lblNombrePrograma.Text = "Ingresar a Minerva"
         Me.lblNombrePrograma.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
@@ -111,7 +111,7 @@ Partial Class frmLogin
         Me.lblDatosInc.Location = New System.Drawing.Point(0, 0)
         Me.lblDatosInc.Name = "lblDatosInc"
         Me.lblDatosInc.Size = New System.Drawing.Size(365, 30)
-        Me.lblDatosInc.TabIndex = 7
+        Me.lblDatosInc.TabIndex = 0
         Me.lblDatosInc.Text = "Datos incorrectos!"
         Me.lblDatosInc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
@@ -127,7 +127,7 @@ Partial Class frmLogin
         Me.lblUsuario.Location = New System.Drawing.Point(46, 195)
         Me.lblUsuario.Name = "lblUsuario"
         Me.lblUsuario.Size = New System.Drawing.Size(105, 33)
-        Me.lblUsuario.TabIndex = 11
+        Me.lblUsuario.TabIndex = 5
         Me.lblUsuario.Text = "Usuario"
         '
         'txtUsuario
@@ -137,15 +137,16 @@ Partial Class frmLogin
         Me.txtUsuario.MaxLength = 8
         Me.txtUsuario.Name = "txtUsuario"
         Me.txtUsuario.Size = New System.Drawing.Size(267, 32)
-        Me.txtUsuario.TabIndex = 12
+        Me.txtUsuario.TabIndex = 0
         '
         'txtContraseña
         '
         Me.txtContraseña.Font = New System.Drawing.Font("Corbel", 15.0!)
         Me.txtContraseña.Location = New System.Drawing.Point(52, 302)
+        Me.txtContraseña.MaxLength = 25
         Me.txtContraseña.Name = "txtContraseña"
         Me.txtContraseña.Size = New System.Drawing.Size(267, 32)
-        Me.txtContraseña.TabIndex = 14
+        Me.txtContraseña.TabIndex = 1
         Me.txtContraseña.UseSystemPasswordChar = True
         '
         'lblContraseña
@@ -156,7 +157,7 @@ Partial Class frmLogin
         Me.lblContraseña.Location = New System.Drawing.Point(46, 266)
         Me.lblContraseña.Name = "lblContraseña"
         Me.lblContraseña.Size = New System.Drawing.Size(148, 33)
-        Me.lblContraseña.TabIndex = 13
+        Me.lblContraseña.TabIndex = 6
         Me.lblContraseña.Text = "Contraseña"
         '
         'lblIngreseUsuario
@@ -168,7 +169,7 @@ Partial Class frmLogin
         Me.lblIngreseUsuario.Location = New System.Drawing.Point(63, 232)
         Me.lblIngreseUsuario.Name = "lblIngreseUsuario"
         Me.lblIngreseUsuario.Size = New System.Drawing.Size(256, 30)
-        Me.lblIngreseUsuario.TabIndex = 15
+        Me.lblIngreseUsuario.TabIndex = 7
         Me.lblIngreseUsuario.Text = "Ingrese su usuario"
         Me.lblIngreseUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -181,7 +182,7 @@ Partial Class frmLogin
         Me.lblIngreseContraseña.Location = New System.Drawing.Point(64, 303)
         Me.lblIngreseContraseña.Name = "lblIngreseContraseña"
         Me.lblIngreseContraseña.Size = New System.Drawing.Size(256, 30)
-        Me.lblIngreseContraseña.TabIndex = 16
+        Me.lblIngreseContraseña.TabIndex = 8
         Me.lblIngreseContraseña.Text = "Ingrese su contraseña"
         Me.lblIngreseContraseña.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '

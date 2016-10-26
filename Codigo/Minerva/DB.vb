@@ -20,7 +20,7 @@ Public Class Conexion
 
     Public Sub Close()
         ' Cierra la conexión
-        Conn.Close()
+        Conn.Dispose()
     End Sub
 End Class
 
@@ -227,54 +227,73 @@ Public Class BaseDeDatos
             End While
             reader.Close()
         End Using
+        conexion.Close()
     End Sub
 
     Public Sub cargarDatosGrupo_frmMain(ByVal frm As frmMain)
-
         Dim conexion As New Conexion()
+        Dim subconexion As New Conexion()
 
         Dim cmd As MySqlCommand
         cmd = New MySqlCommand()
         cmd.Connection = conexion.Conn
         cmd.CommandType = CommandType.Text
-        cmd.CommandText = "select * from DatosGrupos where IdGrupo=@IdGrupo and Grado=@IdGrado"
-        cmd.Parameters.AddWithValue("@IdGrupo", frm.cboGrupo.Text.Substring(frm.cboGrupo.Text.IndexOf(" "), frm.cboGrupo.Text.Length))
-        cmd.Parameters.AddWithValue("@Grado", frm.cboGrupo.Text.Substring(0, frm.cboGrupo.Text.IndexOf(" ")).Trim())
+        cmd.CommandText = "select *, CONCAT(Grado, ' ', IdGrupo) as Grupo from DatosGrupos;"
 
-        Console.WriteLine(frm.cboGrupo.Text.Substring(frm.cboGrupo.Text.IndexOf(" "), frm.cboGrupo.Text.Length))
-        Console.WriteLine(frm.cboGrupo.Text.Substring(0, frm.cboGrupo.Text.IndexOf(" ")).Trim())
         Dim reader As MySqlDataReader = cmd.ExecuteReader()
         Dim materias As String = ""
         Dim profesores As String = ""
+        Dim idOrientacion As String = ""
+        Dim grado As String = ""
+        Dim idgrupo As String = ""
 
         While reader.Read()
-            frm.lblValorTipoCurso.Text = reader("Curso")
-            frm.lblValorTipoSalon.Text = reader("Salon")
-            If frm.lblValorTipoSalon.Text.Equals("-1") Then
-                frm.lblValorTipoSalon.Text = "Sin asignar"
+            If reader("Grupo").ToString().Equals(frm.cboGrupo.Text) Then
+                frm.lblValorTipoCurso.Text = reader("Curso")
+                frm.lblValorTipoSalon.Text = reader("Salon")
+                If frm.lblValorTipoSalon.Text.Equals("-1") Then
+                    frm.lblValorTipoSalon.Text = "Sin asignar"
+                End If
+                frm.lblValorTipoGrado.Text = reader("Grado")
+                frm.lblValorTipoTurno.Text = reader("NombreTurno")
+                grado = reader("Grado")
+                idgrupo = reader("IdGrupo")
+                idOrientacion = reader("IdOrientacion").ToString()
             End If
-            frm.lblValorTipoGrado.Text = reader("Grado")
-            frm.lblValorTipoTurno.Text = reader("NombreTurno")
         End While
-        reader.Close()
+        reader.Dispose()
 
         cmd = New MySqlCommand()
         cmd.Connection = conexion.Conn
         cmd.CommandType = CommandType.Text
-
-        cmd.CommandText = "select * from AsignaturasGrupo where IdGrupo=@IdGrupo and Grado=@IdGrado"
-        cmd.Parameters.AddWithValue("@IdGrupo", frm.cboGrupo.Text.Substring(frm.cboGrupo.Text.IndexOf(" "), frm.cboGrupo.Text.Length).Trim())
-        cmd.Parameters.AddWithValue("@Grado", Integer.Parse(frm.cboGrupo.Text.Substring(0, frm.cboGrupo.Text.IndexOf(" ")).Trim()))
+        cmd.CommandText = "select Tiene_ta.IdAsignatura, Tiene_Ta.Grado, Tiene_Ta.IdOrientacion, NombreAsignatura from tiene_ta, asignatura where IdOrientacion=@IdOrientacion and Grado=@Grado and Tiene_ta.IdAsignatura=Asignatura.IdAsignatura;"
+        cmd.Parameters.AddWithValue("@IdOrientacion", idOrientacion)
+        cmd.Parameters.AddWithValue("@Grado", frm.lblValorTipoGrado.Text)
         reader = cmd.ExecuteReader()
         While reader.Read()
+            Dim subcmd As New MySqlCommand()
+            subcmd.Connection = subconexion.Conn
+            subcmd.CommandType = CommandType.Text
+            subcmd.CommandText = "select Tiene_ag.IdAsignatura, tiene_ag.IdGrupo, tiene_ag.Grado, tiene_ag.IdOrientacion, CONCAT(NombrePersona, ' ', ApellidoPersona) as Profesor from Tiene_ag, Persona where IdOrientacion=@IdOrientacion and IdAsignatura=@IdAsignatura and IdGrupo=@IdGrupo and Grado=@Grado and Persona.CiPersona=Tiene_ag.CiPersona;"
+            subcmd.Parameters.AddWithValue("@IdOrientacion", idOrientacion)
+            subcmd.Parameters.AddWithValue("@IdAsignatura", reader("IdAsignatura"))
+            subcmd.Parameters.AddWithValue("@IdGrupo", idgrupo)
+            subcmd.Parameters.AddWithValue("@Grado", grado)
+            Dim subreader As MySqlDataReader = subcmd.ExecuteReader()
+            Dim profesor = "Sin asignar"
+            While subreader.Read()
+                profesor = subreader("Profesor")
+            End While
             materias = materias & vbCrLf & reader("NombreAsignatura")
-            profesores = profesores & vbCrLf & reader("NombreProfesor")
+            profesores = profesores & vbCrLf & profesor
+            subreader.Dispose()
         End While
 
         frm.lblNomMateria.Text = materias
         frm.lblNomProfesor.Text = profesores
-
+        reader.Dispose()
         conexion.Close()
+        subconexion.Close()
     End Sub
 
     Public Sub cargarMateriasGrupo_frmMain(ByVal frm As frmMain)
@@ -319,6 +338,7 @@ Public Class BaseDeDatos
                 reader.Close()
             End Using
         Next
+        conexion.Close()
         frm.Cursor = Cursors.Default
     End Sub
 
@@ -349,11 +369,12 @@ Public Class BaseDeDatos
     End Sub
 
     Public Sub guardarSalones_frmAdminSalones(ByVal frm As frmAdminSalones)
+        Dim conexion As New Conexion()
+        Dim subConexion As New Conexion()
         ' Guardo los horarios del salón.
         For Turno As Integer = 1 To 3
             Using cmd As New MySqlCommand()
                 With cmd
-                    Dim conexion As New Conexion()
 
                     Dim txtSalon As String
                     cmd.Connection = conexion.Conn
@@ -370,7 +391,6 @@ Public Class BaseDeDatos
                             txtSalon = "-1"
                         Else
                             If Not (frm.grupoTurno1(0).Equals("-1") Or frm.grupoTurno1(1).Equals("-1")) Then
-                                Dim subConexion As New Conexion()
                                 Dim subCmd As New MySqlCommand()
                                 subCmd.CommandText = "UPDATE `Grupo` SET IdSalon=@IdSalon WHERE IdGrupo=@IdGrupo and IdTurno=@IdTurno and Grado=@Grado;"
                                 subCmd.CommandType = CommandType.Text
@@ -380,7 +400,6 @@ Public Class BaseDeDatos
                                 subCmd.Parameters.AddWithValue("@IdGrupo", frm.grupoTurno1(1))
                                 subCmd.Parameters.AddWithValue("@IdTurno", 2)
                                 subCmd.ExecuteNonQuery()
-                                subConexion.Close()
                             End If
                             cmd.Parameters.AddWithValue("@IdGrupo", frm.cmbTurno1.Text.Substring(frm.cmbTurno1.Text.IndexOf(" "), frm.cmbTurno1.Text.Length - 1).Trim())
                             cmd.Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbTurno1.Text.Substring(0, frm.cmbTurno1.Text.IndexOf(" ")).Trim()))
@@ -395,7 +414,6 @@ Public Class BaseDeDatos
                             cmd.Parameters.AddWithValue("@IdGrupo", frm.grupoTurno2(1))
                         Else
                             If Not (frm.grupoTurno2(0).Equals("-1") Or frm.grupoTurno2(1).Equals("-1")) Then
-                                Dim subConexion As New Conexion()
                                 Dim subCmd As New MySqlCommand()
                                 subCmd.CommandText = "UPDATE `Grupo` SET IdSalon=@IdSalon WHERE IdGrupo=@IdGrupo and IdTurno=@IdTurno and Grado=@Grado;"
                                 subCmd.CommandType = CommandType.Text
@@ -405,7 +423,6 @@ Public Class BaseDeDatos
                                 subCmd.Parameters.AddWithValue("@IdGrupo", frm.grupoTurno2(1))
                                 subCmd.Parameters.AddWithValue("@IdTurno", 2)
                                 subCmd.ExecuteNonQuery()
-                                subConexion.Close()
                             End If
 
                             cmd.Parameters.AddWithValue("@IdGrupo", frm.cmbTurno2.Text.Substring(frm.cmbTurno2.Text.IndexOf(" "), frm.cmbTurno2.Text.Length - 1).Trim())
@@ -421,7 +438,6 @@ Public Class BaseDeDatos
                             txtSalon = "-1"
                         Else
                             If Not (frm.grupoTurno3(0).Equals("-1") Or frm.grupoTurno3(1).Equals("-1")) Then
-                                Dim subConexion As New Conexion()
                                 Dim subCmd As New MySqlCommand()
                                 subCmd.CommandText = "UPDATE `Grupo` SET IdSalon=@IdSalon WHERE IdGrupo=@IdGrupo and IdTurno=@IdTurno and Grado=@Grado;"
                                 subCmd.CommandType = CommandType.Text
@@ -431,7 +447,6 @@ Public Class BaseDeDatos
                                 subCmd.Parameters.AddWithValue("@IdGrupo", frm.grupoTurno3(1))
                                 subCmd.Parameters.AddWithValue("@IdTurno", 2)
                                 subCmd.ExecuteNonQuery()
-                                subConexion.Close()
                             End If
                             cmd.Parameters.AddWithValue("@IdGrupo", frm.cmbTurno3.Text.Substring(frm.cmbTurno3.Text.IndexOf(" "), frm.cmbTurno3.Text.Length - 1).Trim())
                             cmd.Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbTurno3.Text.Substring(0, frm.cmbTurno3.Text.IndexOf(" ")).Trim()))
@@ -448,16 +463,14 @@ Public Class BaseDeDatos
                         txtSalon = frm.txtIDSalon.Text
                     End If
 
-                    Console.WriteLine(txtSalon)
-                    Console.WriteLine(Turno)
-
                     cmd.Parameters.AddWithValue("@IdTurno", Turno)
                     cmd.Parameters.AddWithValue("@IdSalon", txtSalon)
                     cmd.ExecuteNonQuery()
-                    conexion.Close()
                 End With
             End Using
         Next
+        conexion.Close()
+        subconexion.close()
     End Sub
 
     Public Sub cargarGrupos_frmAdminSalones(ByVal frm As frmAdminSalones)
@@ -526,6 +539,7 @@ Public Class BaseDeDatos
                 Else
                     MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 End If
+                conexion.Close()
             End Try
         End Using
     End Sub
@@ -548,10 +562,8 @@ Public Class BaseDeDatos
                 frm.cmbPlanta.SelectedIndex = frm.cmbPlanta.FindStringExact(reader("PlantaSalon"))
             End While
             reader.Close()
-            conexion.Close()
         End Using
 
-        Dim conexionSalones As New Conexion()
         ' Carga los horarios del salón.
         frm.grupoTurno1 = {"-1", "-1"}
         frm.grupoTurno2 = {"-1", "-1"}
@@ -559,7 +571,7 @@ Public Class BaseDeDatos
         For Turno As Integer = 1 To 3
             Using cmd As New MySqlCommand()
                 With cmd
-                    .Connection = conexionSalones.Conn
+                    .Connection = conexion.Conn
                     .CommandText = "SELECT Grupo.IdGrupo, Grupo.Grado FROM `Salon`, `Grupo` WHERE Salon.IdSalon=Grupo.IdSalon and Grupo.IdTurno=@IdTurno and Salon.IdSalon=@IdSalon;"
                     .CommandType = CommandType.Text
                     .Parameters.AddWithValue("@IdSalon", idSalon)
@@ -583,7 +595,7 @@ Public Class BaseDeDatos
                 reader.Close()
             End Using
         Next
-        conexionSalones.Close()
+        conexion.Close()
     End Sub
 
     Public Sub eliminarSalon_frmAdminSalones(ByVal sender As System.Object, ByVal frm As frmAdminSalones)
@@ -598,7 +610,6 @@ Public Class BaseDeDatos
             frm.totalSalones -= 1
             Try
                 cmd.ExecuteNonQuery()
-                conexion.Close() 'Cierra la conexión
                 frm.cargarSalones()
                 frm.btnNuevoSalon_Click(Nothing, Nothing)
                 MessageBox.Show("Salón '" + sender.tag + "' eliminado.", "Salón eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -606,6 +617,8 @@ Public Class BaseDeDatos
                 MessageBox.Show("El salón no se puede eliminar, ya que está asignado a un grupo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Using
+
+        conexion.Close() 'Cierra la conexión
     End Sub
 
     Public Sub cargarUsuarios_frmAdminUsuarios(ByVal frm As frmAdminUsuarios)
@@ -675,6 +688,8 @@ Public Class BaseDeDatos
                 frm.txtContraseña.Text = reader("ContraseñaUsuario")
                 frm.chkHabilitado.Checked = reader("AprobacionUsuario")
                 frm.tipoSeleccionado = reader("TipoUsuario")
+                frm.txtNombre.Text = reader("NombrePersona")
+                frm.txtApellido.Text = reader("ApellidoPersona")
                 If reader("TipoUsuario").Equals("Funcionario") Then
                     frm.radFuncionario.Checked = True
                 Else
@@ -696,12 +711,14 @@ Public Class BaseDeDatos
                 .CommandType = CommandType.Text
 
                 If frm.btnAgregar.Text.Equals("Agregar usuario") Then
-                    .CommandText = "INSERT INTO `Usuario` VALUES (@CiPersona, NULL, NULL, @TipoUsuario, @ContraseñaUsuario, @AprobacionUsuario);"
+                    .CommandText = "INSERT INTO `Usuario` VALUES (@CiPersona, @Nombre, @Apellido, @TipoUsuario, @ContraseñaUsuario, @AprobacionUsuario);"
                 Else
-                    .CommandText = "UPDATE `Usuario` SET TipoUsuario=@TipoUsuario, ContraseñaUsuario=@ContraseñaUsuario, AprobacionUsuario=@AprobacionUsuario WHERE CiPersona=@CiPersona;"
+                    .CommandText = "UPDATE `Usuario` SET NombrePersona=@Nombre, ApellidoPersona=@Apellido, TipoUsuario=@TipoUsuario, ContraseñaUsuario=@ContraseñaUsuario, AprobacionUsuario=@AprobacionUsuario WHERE CiPersona=@CiPersona;"
                 End If
 
                 .Parameters.AddWithValue("@CiPersona", frm.txtID.Text)
+                .Parameters.AddWithValue("@Nombre", frm.txtNombre.Text)
+                .Parameters.AddWithValue("@Apellido", frm.txtApellido.Text)
                 .Parameters.AddWithValue("@ContraseñaUsuario", frm.txtContraseña.Text)
                 .Parameters.AddWithValue("@AprobacionUsuario", frm.chkHabilitado.Checked)
                 .Parameters.AddWithValue("@TipoUsuario", frm.tipoSeleccionado)
@@ -709,20 +726,20 @@ Public Class BaseDeDatos
 
             Try
                 If frm.btnAgregar.Text.Equals("Agregar usuario") Then
-                    Dim subConexion As New Conexion()
                     Using subCmd As New MySqlCommand()
                         With subCmd
-                            .Connection = subConexion.Conn
-                            .CommandText = "INSERT INTO `Persona` VALUES (@CiPersona, NULL, NULL);"
+                            .Connection = conexion.Conn
+                            .CommandText = "INSERT INTO `Persona` VALUES (@CiPersona, @Nombre, @Apellido);"
                             .CommandType = CommandType.Text
                             .Parameters.AddWithValue("@CiPersona", frm.txtID.Text)
+                            .Parameters.AddWithValue("@Nombre", frm.txtNombre.Text)
+                            .Parameters.AddWithValue("@Apellido", frm.txtApellido.Text)
                         End With
                         subCmd.ExecuteNonQuery()
                     End Using
                 End If
 
                 cmd.ExecuteNonQuery()
-                conexion.Close()
                 If frm.btnAgregar.Text.Equals("Agregar usuario") Then
                     MessageBox.Show("Usuario agregado correctamente", "Usuario agregado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
                 Else
@@ -738,6 +755,8 @@ Public Class BaseDeDatos
                 End If
             End Try
         End Using
+
+        conexion.Close()
     End Sub
 
     Public Sub cargarGrupos_frmAdminGrupos(ByVal frm As frmAdminGrupos)
@@ -779,11 +798,11 @@ Public Class BaseDeDatos
                     frm.cmbGrado.Items.Add(reader("Grado"))
                 End While
                 reader.Close()
-                conexion.Close()
             End Using
         Catch ex As Exception
             ' Asumo que está viendo datos.
         End Try
+        conexion.Close()
     End Sub
 
     Public Sub cargarOrientaciones_frmAdminGrupos(ByVal frm As frmAdminGrupos)
@@ -840,8 +859,8 @@ Public Class BaseDeDatos
                 frm.cmbTurno.Items.Add(reader("NombreTurno"))
             End While
             reader.Close()
-            conexion.Close()
         End Using
+        conexion.Close()
     End Sub
 
     Public Sub cargarDatos_frmAdminGrupos(ByVal grupo As Object, ByVal frm As frmAdminGrupos)
@@ -881,8 +900,8 @@ Public Class BaseDeDatos
                 frm.cmbGrado.Enabled = False
             End While
             reader.Close()
-            conexion.Close()
         End Using
+        conexion.Close()
     End Sub
 
     Public Sub actualizarDB_frmAdminGrupos(ByVal frm As frmAdminGrupos)
@@ -904,8 +923,7 @@ Public Class BaseDeDatos
 
             Try
                 Dim subCmd As New MySqlCommand()
-                Dim subConexion As New Conexion()
-                subCmd.Connection = subConexion.Conn
+                subCmd.Connection = conexion.Conn
                 subCmd.CommandType = CommandType.Text
                 subCmd.CommandText = "SELECT IdGrupo from Grupos where IdGrupo=@IdGrupo"
                 subCmd.Parameters.AddWithValue("@IdGrupo", frm.txtIDGrupo.Text)
@@ -916,7 +934,6 @@ Public Class BaseDeDatos
                 End While
 
                 reader.Close()
-                subConexion.Close()
 
                 cmd.ExecuteNonQuery()
                 frm.cargarGrupos()
@@ -932,6 +949,7 @@ Public Class BaseDeDatos
                 Console.WriteLine(ex.ToString())
             End Try
         End Using
+        conexion.Close()
     End Sub
 
     Public Sub eliminarGrupo_frmAdminGrupos(ByVal sender As System.Object, ByVal frm As frmAdminGrupos)
@@ -946,20 +964,15 @@ Public Class BaseDeDatos
                 .Parameters.AddWithValue("@Grado", sender.Tag(1))
             End With
             Try
-                Dim subConexion As New Conexion()
                 Dim subCmd As New MySqlCommand()
-                subCmd.Connection = subConexion.Conn
+                subCmd.Connection = conexion.Conn
                 subCmd.CommandType = CommandType.Text
                 subCmd.CommandText = "DELETE FROM Genera WHERE `IdGrupo`=@IdGrupo and `Grado`=@Grado;"
-                Console.WriteLine(sender.Tag(0))
-                Console.WriteLine(sender.Tag(1))
                 subCmd.Parameters.AddWithValue("@IdGrupo", sender.Tag(0))
                 subCmd.Parameters.AddWithValue("@Grado", sender.Tag(1))
                 subCmd.ExecuteNonQuery()
-                subConexion.Close()
 
                 cmd.ExecuteNonQuery()
-                conexion.Close() 'Cierra la conexión
                 frm.cargarGrupos()
                 frm.btnNuevoGrupo_Click(Nothing, Nothing)
 
@@ -970,6 +983,8 @@ Public Class BaseDeDatos
                 Console.WriteLine(ex.ToString())
             End Try
         End Using
+
+        conexion.Close() 'Cierra la conexión
     End Sub
 
     Public Sub cargarTurnos_frmAdminGrupos(ByVal frm As frmAdminGrupos)
@@ -989,8 +1004,8 @@ Public Class BaseDeDatos
                 frm.cmbTurno.Items.Add(reader("NombreTurno").ToString())
             End While
             reader.Close()
-            conexion.Close()
         End Using
+        conexion.Close()
     End Sub
 
     Public Sub cargarAreas_frmAdminDocentes(ByVal frm As frmAdminDocentes)
@@ -1009,8 +1024,6 @@ Public Class BaseDeDatos
             IdOrientacion = reader("IdOrientacion").ToString()
         End While
         reader.Close()
-
-        Console.WriteLine(IdOrientacion)
 
         Using subCmd As New MySqlCommand()
             With subCmd
@@ -1098,7 +1111,6 @@ Public Class BaseDeDatos
             End With
 
             Try
-                Dim subConexion As New Conexion()
                 Using subCmd As New MySqlCommand()
                     With subCmd
                         .Connection = conexion.Conn
@@ -1113,11 +1125,9 @@ Public Class BaseDeDatos
                         .Parameters.AddWithValue("@ApellidoProfesor", frm.txtApellido.Text)
                     End With
                     subCmd.ExecuteNonQuery()
-                    subConexion.Close()
                 End Using
 
                 cmd.ExecuteNonQuery()
-                conexion.Close()
 
                 frm.cargarDocentes()
                 If frm.btnAgregarDocente.Text.StartsWith("Agregar docente") Then
@@ -1135,12 +1145,12 @@ Public Class BaseDeDatos
                 End If
             End Try
         End Using
-
+        conexion.Close()
     End Sub
 
-    Public Sub cargarDatos_frmAdminDocentes(ByVal ciDocente As String, ByVal frm as frmAdminDocentes)
+    Public Sub cargarDatos_frmAdminDocentes(ByVal ciDocente As String, ByVal frm As frmAdminDocentes)
         ' carga los datos del docente
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -1161,8 +1171,8 @@ Public Class BaseDeDatos
         End Using
     End Sub
 
-    Public Sub eliminarAsignatura_frmAdminDocentes(sender As Object, ByVal frm as frmAdminDocentes)
-        Dim conexion as New Conexion()
+    Public Sub eliminarAsignatura_frmAdminDocentes(sender As Object, ByVal frm As frmAdminDocentes)
+        Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -1174,9 +1184,8 @@ Public Class BaseDeDatos
                 .Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
             End With
             Try
-                Dim subConexion As New Conexion()
                 Dim subCmd As New MySqlCommand()
-                subCmd.Connection = subConexion.Conn
+                subCmd.Connection = conexion.Conn
                 subCmd.CommandType = CommandType.Text
                 subCmd.CommandText = "UPDATE `Genera` SET `CiPersona`='-1' WHERE `IdAsignatura`=@IdAsignatura and `IdGrupo`=@IdGrupo and`CiPersona`=@CiPersona and `Grado`=@Grado;"
                 subCmd.Parameters.AddWithValue("@IdAsignatura", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(0).Text)
@@ -1184,10 +1193,8 @@ Public Class BaseDeDatos
                 subCmd.Parameters.AddWithValue("@Grado", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Substring(0, frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.IndexOf(" ")).Trim())
                 subCmd.Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
                 subCmd.ExecuteNonQuery()
-                subConexion.Close()
 
                 cmd.ExecuteNonQuery()
-                conexion.Close() 'Cierra la conexión
                 frm.cargarMaterias(frm.txtCI.Text)
                 frm.btnEliminarAsignatura.Visible = False
                 MessageBox.Show("Asignatura eliminada.", "Asignatura eliminada.", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -1195,9 +1202,10 @@ Public Class BaseDeDatos
                 MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Using
+        conexion.Close() 'Cierra la conexión
     End Sub
 
-    Public Sub eliminarDocente_frmAdminDocentes(sender As Object, ByVal frm as frmAdminDocentes)
+    Public Sub eliminarDocente_frmAdminDocentes(sender As Object, ByVal frm As frmAdminDocentes)
         Dim conexion As Conexion
         conexion = New Conexion()
 
@@ -1229,16 +1237,14 @@ Public Class BaseDeDatos
             Try
                 cmd.ExecuteNonQuery()
                 conexion.Close() 'Cierra la conexión
-                Dim subConexion As New Conexion()
                 Using subCmd As New MySqlCommand()
                     With subCmd
-                        .Connection = subConexion.Conn
+                        .Connection = conexion.Conn
                         .CommandText = "DELETE FROM `Persona` WHERE CiPersona=@CiPersona;"
                         .CommandType = CommandType.Text
                         .Parameters.AddWithValue("@CiPersona", sender.Tag(0))
                     End With
                     subCmd.ExecuteNonQuery()
-                    subConexion.Close()
                 End Using
                 frm.cargarDocentes()
                 frm.btnNuevoDocente_Click(Nothing, Nothing)
@@ -1248,10 +1254,9 @@ Public Class BaseDeDatos
                 MessageBox.Show("El docente no se puede eliminar, ya que tiene materias asignadas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 ' No encontre una forma de arreglarlo. :/ así que tengo que crear el docente nuevamente.
                 Try
-                    Dim subSubConexion As New Conexion()
                     Using subSubCmd As New MySqlCommand()
                         With subSubCmd
-                            .Connection = subSubConexion.Conn
+                            .Connection = conexion.Conn
                             .CommandText = "INSERT INTO `Profesor` VALUES (@CiPersona, @NombrePersona, @ApellidoPersona, @GradoProfesor)"
                             .CommandType = CommandType.Text
                             .Parameters.AddWithValue("@CiPersona", ci)
@@ -1260,19 +1265,19 @@ Public Class BaseDeDatos
                             .Parameters.AddWithValue("@GradoProfesor", grado)
                         End With
                         subSubCmd.ExecuteNonQuery()
-                        subSubConexion.Close()
                     End Using
                 Catch exx As Exception
                 End Try
                 Console.WriteLine(ex.ToString())
             End Try
         End Using
+        conexion.Close()
     End Sub
 
-    Public Sub cargarMaterias_frmAdminDocentes(ByVal CI As String, ByVal frm as frmAdminDocentes)
+    Public Sub cargarMaterias_frmAdminDocentes(ByVal CI As String, ByVal frm As frmAdminDocentes)
         ' Carga la lista de materias a la lista
         frm.lstAsignaturas.Items.Clear()
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -1293,9 +1298,9 @@ Public Class BaseDeDatos
         End Using
     End Sub
 
-    Public Sub actualizarDBMaterias_frmAdminDocentes(ByVal frm as frmAdminDocentes)
+    Public Sub actualizarDBMaterias_frmAdminDocentes(ByVal frm As frmAdminDocentes)
         ' Se encarga de manejar la DB (parte asignaturas del docente), agrega o edita asignaturas.
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         Dim yaEsta As Boolean = False
 
         Using cmd As New MySqlCommand()
@@ -1351,11 +1356,9 @@ Public Class BaseDeDatos
 
             Try
                 cmd.ExecuteNonQuery()
-                conexion.Close()
 
-                Dim subConexion As New Conexion()
                 Dim subCmd As New MySqlCommand()
-                subCmd.Connection = subConexion.Conn
+                subCmd.Connection = conexion.Conn
                 subCmd.CommandType = CommandType.Text
                 subCmd.CommandText = "UPDATE `Genera` SET `CiPersona`=@CiPersona WHERE `IdAsignatura`=@IdAsignatura and `IdGrupo`=@IdGrupo and `Grado`=@Grado;"
                 subCmd.Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
@@ -1363,7 +1366,6 @@ Public Class BaseDeDatos
                 subCmd.Parameters.AddWithValue("@IdGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.IndexOf(" - ")).Trim())
                 subCmd.Parameters.AddWithValue("@Grado", frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim())
                 subCmd.ExecuteNonQuery()
-                subConexion.Close()
 
                 frm.cargarMaterias(frm.txtCI.Text)
                 ' Deshabilita la edición de datos del docente.
@@ -1378,9 +1380,10 @@ Public Class BaseDeDatos
                 End If
             End Try
         End Using
+        conexion.Close()
     End Sub
 
-    Public Sub cargarAsignaturas_frmAdminDocentes(ByVal frm as frmAdminDocentes)
+    Public Sub cargarAsignaturas_frmAdminDocentes(ByVal frm As frmAdminDocentes)
         ' Carga las asignaturas al combo
         Dim conexion As New Conexion()
         Dim IdOrientacion As String
@@ -1423,8 +1426,8 @@ Public Class BaseDeDatos
                 End If
             End While
             reader.Close()
-            conexion.Close()
         End Using
+        conexion.Close()
     End Sub
 
     Public Sub cargarGrupos_frmAdminHorarios(ByVal frm As frmAdminHorarios)
@@ -1451,6 +1454,7 @@ Public Class BaseDeDatos
 
     Public Sub cargarMaterias_frmAdminHorarios(ByVal frm As frmAdminHorarios)
         Dim conexion As New Conexion()
+        Dim subConexion As New Conexion()
 
         frm.btnSinAsignar.Parent = frm
         frm.pnlMaterias.Controls.Clear()
@@ -1483,10 +1487,11 @@ Public Class BaseDeDatos
                         frm._IdOrientacion = reader("IdOrientacion")
                         Dim materia As Button
                         materia = New Button()
+                        materia.TabStop = False
+                        materia.Cursor = Cursors.Hand
 
                         ' Quien enseña la materia?
                         Dim subCmd As New MySqlCommand()
-                        Dim subConexion As New Conexion()
                         Dim nombreProfesor As String = "Sin profesor"
                         Dim ciProfesor As String = "-1"
                         subCmd.Connection = subConexion.Conn
@@ -1500,7 +1505,6 @@ Public Class BaseDeDatos
                             ciProfesor = subReader("CiPersona")
                         End While
                         subReader.Close()
-                        subConexion.Close()
 
                         materia.Text = reader("NombreAsignatura") & vbCrLf & nombreProfesor
                         materia.Tag = {reader("IdAsignatura"), ciProfesor}
@@ -1529,8 +1533,9 @@ Public Class BaseDeDatos
                     Next
                 End While
                 reader.Close()
-                conexion.Close()
             End Using
+            conexion.Close()
+            subConexion.Close()
 
             conexion = New Conexion()
             Using cmd As New MySqlCommand()
@@ -1552,6 +1557,8 @@ Public Class BaseDeDatos
                         botonesMaterias(Index).RemoveAt(botonesMaterias(Index).Count - 1)
 
                         Dim materia As New Button()
+                        materia.TabStop = False
+                        materia.Cursor = Cursors.Hand
                         materia.Text = reader("Materia") & vbCrLf & reader("NombreProfesor")
                         materia.Size = frm.btnSinAsignar.Size
                         materia.FlatStyle = FlatStyle.Flat
@@ -1566,37 +1573,37 @@ Public Class BaseDeDatos
 
                         If reader("Dia").Equals("Lunes") Then
                             ' Mismo condicionaaaaal :'/
-                            If reader("HoraOrden").ToString().Equals(frm.horarioPrimera) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioPrimera) Then
                                 If Not (frm.tableLunes1.Controls.Count > 0) Then
                                     frm.tableLunes1.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioSegunda) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioSegunda) Then
                                 If Not (frm.tableLunes2.Controls.Count > 0) Then
                                     frm.tableLunes2.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioTercera) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioTercera) Then
                                 If Not (frm.tableLunes3.Controls.Count > 0) Then
                                     frm.tableLunes3.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioCuarta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioCuarta) Then
                                 If Not (frm.tableLunes4.Controls.Count > 0) Then
                                     frm.tableLunes4.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioQuinta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioQuinta) Then
                                 If Not (frm.tableLunes5.Controls.Count > 0) Then
                                     frm.tableLunes5.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioSexta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioSexta) Then
                                 If Not (frm.tableLunes6.Controls.Count > 0) Then
                                     frm.tableLunes6.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioExtra) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioExtra) Then
                                 If Not (frm.tableLunes7.Controls.Count > 0) Then
                                     frm.tableLunes7.Controls.Add(materia)
                                 End If
@@ -1604,37 +1611,37 @@ Public Class BaseDeDatos
                         End If
                         If reader("Dia").Equals("Martes") Then
                             ' Mismo condicionaaaaal :'/
-                            If reader("HoraOrden").ToString().Equals(frm.horarioPrimera) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioPrimera) Then
                                 If Not (frm.tableMartes1.Controls.Count > 0) Then
                                     frm.tableMartes1.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioSegunda) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioSegunda) Then
                                 If Not (frm.tableMartes2.Controls.Count > 0) Then
                                     frm.tableMartes2.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioTercera) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioTercera) Then
                                 If Not (frm.tableMartes3.Controls.Count > 0) Then
                                     frm.tableMartes3.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioCuarta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioCuarta) Then
                                 If Not (frm.tableMartes4.Controls.Count > 0) Then
                                     frm.tableMartes4.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioQuinta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioQuinta) Then
                                 If Not (frm.tableMartes5.Controls.Count > 0) Then
                                     frm.tableMartes5.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioSexta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioSexta) Then
                                 If Not (frm.tableMartes6.Controls.Count > 0) Then
                                     frm.tableMartes6.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioExtra) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioExtra) Then
                                 If Not (frm.tableMartes7.Controls.Count > 0) Then
                                     frm.tableMartes7.Controls.Add(materia)
                                 End If
@@ -1642,37 +1649,37 @@ Public Class BaseDeDatos
                         End If
                         If reader("Dia").Equals("Miércoles") Then
                             ' Mismo condicionaaaaal :'/
-                            If reader("HoraOrden").ToString().Equals(frm.horarioPrimera) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioPrimera) Then
                                 If Not (frm.tableMiercoles1.Controls.Count > 0) Then
                                     frm.tableMiercoles1.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioSegunda) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioSegunda) Then
                                 If Not (frm.tableMiercoles2.Controls.Count > 0) Then
                                     frm.tableMiercoles2.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioTercera) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioTercera) Then
                                 If Not (frm.tableMiercoles3.Controls.Count > 0) Then
                                     frm.tableMiercoles3.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioCuarta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioCuarta) Then
                                 If Not (frm.tableMiercoles4.Controls.Count > 0) Then
                                     frm.tableMiercoles4.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioQuinta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioQuinta) Then
                                 If Not (frm.tableMiercoles5.Controls.Count > 0) Then
                                     frm.tableMiercoles5.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioSexta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioSexta) Then
                                 If Not (frm.tableMiercoles6.Controls.Count > 0) Then
                                     frm.tableMiercoles6.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioExtra) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioExtra) Then
                                 If Not (frm.tableMiercoles7.Controls.Count > 0) Then
                                     frm.tableMiercoles7.Controls.Add(materia)
                                 End If
@@ -1681,37 +1688,37 @@ Public Class BaseDeDatos
 
                         If reader("Dia").Equals("Jueves") Then
                             ' Mismo condicionaaaaal :'/
-                            If reader("HoraOrden").ToString().Equals(frm.horarioPrimera) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioPrimera) Then
                                 If Not (frm.tableJueves1.Controls.Count > 0) Then
                                     frm.tableJueves1.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioSegunda) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioSegunda) Then
                                 If Not (frm.tableJueves2.Controls.Count > 0) Then
                                     frm.tableJueves2.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioTercera) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioTercera) Then
                                 If Not (frm.tableJueves3.Controls.Count > 0) Then
                                     frm.tableJueves3.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioCuarta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioCuarta) Then
                                 If Not (frm.tableJueves4.Controls.Count > 0) Then
                                     frm.tableJueves4.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioQuinta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioQuinta) Then
                                 If Not (frm.tableJueves5.Controls.Count > 0) Then
                                     frm.tableJueves5.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioSexta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioSexta) Then
                                 If Not (frm.tableJueves6.Controls.Count > 0) Then
                                     frm.tableJueves6.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioExtra) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioExtra) Then
                                 If Not (frm.tableJueves7.Controls.Count > 0) Then
                                     frm.tableJueves7.Controls.Add(materia)
                                 End If
@@ -1720,37 +1727,37 @@ Public Class BaseDeDatos
 
                         If reader("Dia").Equals("Viernes") Then
                             ' Mismo condicionaaaaal :'/
-                            If reader("HoraOrden").ToString().Equals(frm.horarioPrimera) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioPrimera) Then
                                 If Not (frm.tableViernes1.Controls.Count > 0) Then
                                     frm.tableViernes1.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioSegunda) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioSegunda) Then
                                 If Not (frm.tableViernes2.Controls.Count > 0) Then
                                     frm.tableViernes2.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioTercera) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioTercera) Then
                                 If Not (frm.tableViernes3.Controls.Count > 0) Then
                                     frm.tableViernes3.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioCuarta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioCuarta) Then
                                 If Not (frm.tableViernes4.Controls.Count > 0) Then
                                     frm.tableViernes4.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioQuinta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioQuinta) Then
                                 If Not (frm.tableViernes5.Controls.Count > 0) Then
                                     frm.tableViernes5.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioSexta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioSexta) Then
                                 If Not (frm.tableViernes6.Controls.Count > 0) Then
                                     frm.tableViernes6.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioExtra) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioExtra) Then
                                 If Not (frm.tableViernes7.Controls.Count > 0) Then
                                     frm.tableViernes7.Controls.Add(materia)
                                 End If
@@ -1758,37 +1765,37 @@ Public Class BaseDeDatos
                         End If
                         If reader("Dia").Equals("Sábado") Then
                             ' Mismo condicionaaaaal :'/
-                            If reader("HoraOrden").ToString().Equals(frm.horarioPrimera) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioPrimera) Then
                                 If Not (frm.tableSabado1.Controls.Count > 0) Then
                                     frm.tableSabado1.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioSegunda) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioSegunda) Then
                                 If Not (frm.tableSabado2.Controls.Count > 0) Then
                                     frm.tableSabado2.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioTercera) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioTercera) Then
                                 If Not (frm.tableSabado3.Controls.Count > 0) Then
                                     frm.tableSabado3.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioCuarta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioCuarta) Then
                                 If Not (frm.tableSabado4.Controls.Count > 0) Then
                                     frm.tableSabado4.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioQuinta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioQuinta) Then
                                 If Not (frm.tableSabado5.Controls.Count > 0) Then
                                     frm.tableSabado5.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioSexta) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioSexta) Then
                                 If Not (frm.tableSabado6.Controls.Count > 0) Then
                                     frm.tableSabado6.Controls.Add(materia)
                                 End If
                             End If
-                            If reader("HoraOrden").ToString().Equals(frm.horarioExtra) Then
+                            If reader("HoraInicio").ToString().Equals(frm.horarioExtra) Then
                                 If Not (frm.tableSabado7.Controls.Count > 0) Then
                                     frm.tableSabado7.Controls.Add(materia)
                                 End If
@@ -1799,12 +1806,11 @@ Public Class BaseDeDatos
                     End Try
                 End While
                 reader.Close()
-                conexion.Close()
             End Using
-
         Catch ex As Exception
             Console.WriteLine(ex.ToString())
         End Try
+        conexion.Close()
 
         frm.Cursor = Cursors.Default
         frm.pnlMaterias.Enabled = True
@@ -1816,7 +1822,68 @@ Public Class BaseDeDatos
         frm.tableSabado.Enabled = True
     End Sub
 
+    Public Sub cargarHorarios_frmAdminHorarios(ByVal frm As frmAdminHorarios)
+        Dim conexion As New Conexion()
+        Dim cmd As New MySqlCommand()
+        cmd.Connection = conexion.Conn
+        cmd.CommandType = CommandType.Text
+        cmd.CommandText = "select IdTurno from Grupo where Grado=@Grado and IdGrupo=@IdGrupo;"
+        cmd.Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim()))
+        cmd.Parameters.AddWithValue("@IdGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).Trim())
+        Dim reader As MySqlDataReader = cmd.ExecuteReader()
+        reader.Read()
+        Dim IdTurno As String = reader("IdTurno").ToString()
+        reader.Close()
+
+        cmd = New MySqlCommand()
+        cmd.Connection = conexion.Conn
+        cmd.CommandType = CommandType.Text
+        cmd.CommandText = "select DISTINCT HoraInicio, HoraFin from Asignacion where IdTurno=@IdTurno;"
+        cmd.Parameters.AddWithValue("@IdTurno", IdTurno)
+
+        Dim posActual As Integer = 1
+        reader = cmd.ExecuteReader()
+        While reader.Read()
+            If posActual = 1 Then
+                frm.horarioPrimera = reader("HoraInicio").ToString()
+                frm.finPrimera = reader("HoraFin").ToString()
+            ElseIf posActual = 2 Then
+                frm.horarioSegunda = reader("HoraInicio").ToString()
+                frm.finSegunda = reader("HoraFin").ToString()
+            ElseIf posActual = 3 Then
+                frm.horarioTercera = reader("HoraInicio").ToString()
+                frm.finTercera = reader("HoraFin").ToString()
+            ElseIf posActual = 4 Then
+                frm.horarioCuarta = reader("HoraInicio").ToString()
+                frm.finCuarta = reader("HoraFin").ToString()
+            ElseIf posActual = 5 Then
+                frm.horarioQuinta = reader("HoraInicio").ToString()
+                frm.finQuinta = reader("HoraFin").ToString()
+            ElseIf posActual = 6 Then
+                frm.horarioSexta = reader("HoraInicio").ToString()
+                frm.finSexta = reader("HoraFin").ToString()
+            ElseIf posActual = 7 Then
+                frm.horarioExtra = reader("HoraInicio").ToString()
+                frm.finExtra = reader("HoraFin").ToString()
+            End If
+            posActual += 1
+        End While
+
+        If IdTurno.ToString().Equals("3") Then
+            frm.pnlBordeOculto.Visible = True
+            frm.pnlOcultarExtra.Visible = True
+        Else
+            frm.pnlBordeOculto.Visible = False
+            frm.pnlOcultarExtra.Visible = False
+        End If
+        frm.actHorarios()
+        reader.Close()
+        conexion.Close()
+    End Sub
     Public Sub guardarHorarios_frmAdminHorarios(ByVal frm As frmAdminHorarios)
+        Dim conexion As New Conexion()
+        Dim conexion2 As New Conexion()
+        Dim conexion_check As New Conexion()
         Dim dias As Object
         Dim ventanaEspere As New frmEspere()
         ventanaEspere.Show()
@@ -1844,14 +1911,13 @@ Public Class BaseDeDatos
 
         For Each dia As String In dias
             For hora_n As Integer = 0 To 13
-                Dim conexion2 As New Conexion()
                 Using cmd2 As New MySqlCommand()
                     cmd2.Connection = conexion2.Conn
                     cmd2.CommandText = "INSERT INTO `Genera` VALUES (@HoraInicio, @HoraFin, @Dia, @Grado, @IdAsignatura, @IdGrupo, @IdOrientacion, @CiPersona)"
                     cmd2.CommandType = CommandType.Text
                     Dim idGrupo As String = frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).ToString()
-                    cmd2.Parameters.AddWithValue("@HoraInicio", horarios(hora_n) + ":00")
-                    cmd2.Parameters.AddWithValue("@HoraFin", horarios(hora_n + 1) + ":00")
+                    cmd2.Parameters.AddWithValue("@HoraInicio", horarios(hora_n))
+                    cmd2.Parameters.AddWithValue("@HoraFin", horarios(hora_n + 1))
                     cmd2.Parameters.AddWithValue("@Dia", dia)
                     cmd2.Parameters.AddWithValue("@IdGrupo", idGrupo.Substring(1, idGrupo.Length - 1))
                     cmd2.Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim()))
@@ -2213,11 +2279,10 @@ Public Class BaseDeDatos
                     cmd2.Parameters.AddWithValue("@CiPersona", btn.Tag(1))
 
                     Try
-                        Dim conexion_check As New Conexion()
                         Dim cmd_check As New MySqlCommand()
                         cmd_check.Connection = conexion_check.Conn
                         cmd_check.CommandType = CommandType.Text
-                        cmd_check.CommandText = "select IdAsignatura, Grupo, HoraOrden, Dia, CiPersona, NombreProfesor from Calendario where CiPersona=@CiPersona and HoraOrden=@horaInicio and Dia=@dia;"
+                        cmd_check.CommandText = "select IdAsignatura, Grupo, HoraOrden, Dia, CiPersona, NombreProfesor from Calendario where CiPersona=@CiPersona and HoraInicio=@horaInicio and Dia=@dia;"
                         If Not btn.Tag(1).ToString().Equals("-1") Then
 
                             cmd_check.Parameters.AddWithValue("@horainicio", horarios(hora_n))
@@ -2237,7 +2302,6 @@ Public Class BaseDeDatos
                                 Continue For
                             End While
                             reader_check.Close()
-                            conexion_check.Close()
                         End If
 
                         If huboError Then
@@ -2245,15 +2309,14 @@ Public Class BaseDeDatos
                             Exit For
                         End If
 
-                        Dim conexion As New Conexion()
                         Using cmd As New MySqlCommand()
                             With cmd
                                 .Connection = conexion.Conn
                                 .CommandText = "DELETE FROM `Genera` WHERE HoraInicio=@HoraInicio and HoraFin=@HoraFin and Dia=@Dia and IdGrupo=@IdGrupo and IdOrientacion=@IdOrientacion and Grado=@Grado;"
                                 .CommandType = CommandType.Text
                                 idGrupo = frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).ToString()
-                                .Parameters.AddWithValue("@HoraInicio", horarios(hora_n) + ":00")
-                                .Parameters.AddWithValue("@HoraFin", horarios(hora_n + 1) + ":00")
+                                .Parameters.AddWithValue("@HoraInicio", horarios(hora_n))
+                                .Parameters.AddWithValue("@HoraFin", horarios(hora_n + 1))
                                 .Parameters.AddWithValue("@Dia", dia)
                                 .Parameters.AddWithValue("@IdGrupo", idGrupo.Substring(1, idGrupo.Length - 1))
                                 .Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim()))
@@ -2261,14 +2324,12 @@ Public Class BaseDeDatos
                             End With
                             Try
                                 cmd.ExecuteNonQuery()
-                                conexion.Close() 'Cierra la conexión
                             Catch ex As Exception
                                 MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                             End Try
                         End Using
 
                         cmd2.ExecuteNonQuery()
-                        conexion2.Close() 'Cierra la conexión
                     Catch ex As Exception
                         MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End Try
@@ -2280,6 +2341,9 @@ Public Class BaseDeDatos
                 Exit For
             End If
         Next
+        conexion.Close()
+        conexion2.Close()
+        conexion_check.Close()
 
         frm.Cursor = Cursors.Default
         frm.pnlMaterias.Enabled = True
@@ -2294,5 +2358,7 @@ Public Class BaseDeDatos
         frm.ParentForm.Controls(0).Enabled = True
         ventanaEspere.Hide()
         cargarMaterias_frmAdminHorarios(frm)
+
+        frm.frmMain.recargarGrupo()
     End Sub
 End Class

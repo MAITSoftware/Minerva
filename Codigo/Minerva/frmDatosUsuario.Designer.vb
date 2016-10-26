@@ -39,7 +39,7 @@ Partial Class frmDatosUsuario
         Me.btnAceptar.Location = New System.Drawing.Point(256, 145)
         Me.btnAceptar.Name = "btnAceptar"
         Me.btnAceptar.Size = New System.Drawing.Size(84, 27)
-        Me.btnAceptar.TabIndex = 0
+        Me.btnAceptar.TabIndex = 2
         Me.btnAceptar.Text = "Aceptar"
         Me.btnAceptar.UseVisualStyleBackColor = True
         '
@@ -49,7 +49,7 @@ Partial Class frmDatosUsuario
         Me.btnCancelar.Location = New System.Drawing.Point(346, 144)
         Me.btnCancelar.Name = "btnCancelar"
         Me.btnCancelar.Size = New System.Drawing.Size(84, 27)
-        Me.btnCancelar.TabIndex = 1
+        Me.btnCancelar.TabIndex = 3
         Me.btnCancelar.Text = "Salir"
         Me.btnCancelar.UseVisualStyleBackColor = True
         '
@@ -71,7 +71,7 @@ Partial Class frmDatosUsuario
         Me.txtNombre.MaxLength = 25
         Me.txtNombre.Name = "txtNombre"
         Me.txtNombre.Size = New System.Drawing.Size(178, 30)
-        Me.txtNombre.TabIndex = 3
+        Me.txtNombre.TabIndex = 0
         '
         'txtApellido
         '
@@ -80,7 +80,7 @@ Partial Class frmDatosUsuario
         Me.txtApellido.MaxLength = 25
         Me.txtApellido.Name = "txtApellido"
         Me.txtApellido.Size = New System.Drawing.Size(178, 30)
-        Me.txtApellido.TabIndex = 5
+        Me.txtApellido.TabIndex = 1
         '
         'Label1
         '

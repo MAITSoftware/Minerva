@@ -41,7 +41,7 @@ Partial Class frmIngresarRegistro
         Me.lblMinerva.Location = New System.Drawing.Point(23, 231)
         Me.lblMinerva.Name = "lblMinerva"
         Me.lblMinerva.Size = New System.Drawing.Size(321, 97)
-        Me.lblMinerva.TabIndex = 2
+        Me.lblMinerva.TabIndex = 3
         Me.lblMinerva.Text = "Minerva"
         '
         'btnRegistro
@@ -53,7 +53,7 @@ Partial Class frmIngresarRegistro
         Me.btnRegistro.Location = New System.Drawing.Point(72, 389)
         Me.btnRegistro.Name = "btnRegistro"
         Me.btnRegistro.Size = New System.Drawing.Size(222, 41)
-        Me.btnRegistro.TabIndex = 4
+        Me.btnRegistro.TabIndex = 1
         Me.btnRegistro.Text = "Registrarse"
         Me.btnRegistro.UseVisualStyleBackColor = False
         '
@@ -66,7 +66,7 @@ Partial Class frmIngresarRegistro
         Me.btnIngresar.Location = New System.Drawing.Point(72, 328)
         Me.btnIngresar.Name = "btnIngresar"
         Me.btnIngresar.Size = New System.Drawing.Size(222, 41)
-        Me.btnIngresar.TabIndex = 4
+        Me.btnIngresar.TabIndex = 0
         Me.btnIngresar.Text = "Ingresar"
         Me.btnIngresar.UseVisualStyleBackColor = False
         '
@@ -79,7 +79,7 @@ Partial Class frmIngresarRegistro
         Me.btnInvitado.Location = New System.Drawing.Point(72, 451)
         Me.btnInvitado.Name = "btnInvitado"
         Me.btnInvitado.Size = New System.Drawing.Size(222, 41)
-        Me.btnInvitado.TabIndex = 4
+        Me.btnInvitado.TabIndex = 2
         Me.btnInvitado.Text = "Entrar como Invitado"
         Me.btnInvitado.UseVisualStyleBackColor = False
         '

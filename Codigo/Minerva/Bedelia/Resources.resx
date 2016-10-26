@@ -127,17 +127,17 @@
   <data name="borrar_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\borrar_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="agregar_normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\agregar_normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cancelar_normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cancelar_normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="warningRojo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\warningRojo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cancelar_normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cancelar_normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="logoMinerva" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logoMinerva.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="agregar_normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\agregar_normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="logoMAITS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logoMAITS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -145,7 +145,13 @@
   <data name="borrar_normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\borrar_normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="refrescar_normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\refrescar_normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="warningBlanco" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\warningBlanco.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="refrescar_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\refrescar_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

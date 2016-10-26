@@ -11,6 +11,7 @@
         lstAsignaturas.FullRowSelect = True
         cargarDocentes()
         rellenarCombos()
+        txtCI.Focus()
     End Sub
 
     Public Sub agregarDocente(ByVal ciDocente As String, ByVal txtDocente As String)
@@ -28,6 +29,7 @@
         btnDocente.Location = btnDocentePlantilla.Location
         btnDocente.Cursor = btnDocentePlantilla.Cursor
         btnDocente.Font = btnDocentePlantilla.Font
+        btnDocente.TabStop = False
 
         btnDocente.Tag = ciDocente
         AddHandler btnDocente.Click, AddressOf verDocente
@@ -39,6 +41,7 @@
         btnEditar.BackColor = btnEditarPlantilla.BackColor
         btnEditar.Location = btnEditarPlantilla.Location
         btnEditar.Cursor = btnEditarPlantilla.Cursor
+        btnEditar.TabStop = False
 
         btnEditar.Tag = ciDocente
         AddHandler btnEditar.MouseUp, AddressOf mnuEditarDocente
@@ -50,6 +53,7 @@
         btnEliminar.BackColor = btnEliminarPlantilla.BackColor
         btnEliminar.Location = btnEliminarPlantilla.Location
         btnEliminar.Cursor = btnEliminarPlantilla.Cursor
+        btnEliminar.TabStop = False
 
         btnEliminar.Tag = {ciDocente, txtDocente.Replace(ControlChars.NewLine, " ")}
         AddHandler btnEliminar.Click, AddressOf eliminarDocente
@@ -383,4 +387,5 @@
         Dim DB As New BaseDeDatos()
         DB.cargarAsignaturas_frmAdminDocentes(Me)
     End Sub
+
 End Class

@@ -32,9 +32,16 @@
 
     Private Sub frmDatosUsuario_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lblNombreUsuario.Text = _frmMain.nombreUsuario
+        txtNombre.Focus()
     End Sub
 
     Private Sub btnAceptar_Click(sender As Object, e As EventArgs) Handles btnAceptar.Click
         checkDatos()
+    End Sub
+
+    Private Sub EnterClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtNombre.KeyDown, txtApellido.KeyDown
+        If e.KeyCode.Equals(Keys.Enter) Then
+            btnAceptar.PerformClick()
+        End If
     End Sub
 End Class

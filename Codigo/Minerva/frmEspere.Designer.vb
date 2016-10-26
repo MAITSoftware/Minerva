@@ -41,16 +41,15 @@ Partial Class frmEspere
         Me.lblEspere.AutoSize = True
         Me.lblEspere.Font = New System.Drawing.Font("Corbel", 30.0!)
         Me.lblEspere.ForeColor = System.Drawing.Color.White
-        Me.lblEspere.Location = New System.Drawing.Point(59, 81)
+        Me.lblEspere.Location = New System.Drawing.Point(55, 81)
         Me.lblEspere.Name = "lblEspere"
-        Me.lblEspere.Size = New System.Drawing.Size(282, 49)
+        Me.lblEspere.Size = New System.Drawing.Size(290, 49)
         Me.lblEspere.TabIndex = 0
-        Me.lblEspere.Text = "Espere porfavor"
+        Me.lblEspere.Text = "Espere por favor"
         '
         'frmEspere
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.PaleGreen
         Me.ClientSize = New System.Drawing.Size(400, 210)
         Me.ControlBox = False

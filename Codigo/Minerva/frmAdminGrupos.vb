@@ -20,6 +20,7 @@
 
         cmbOrientacion.Enabled = False
         cmbGrado.Enabled = False
+        cmbCurso.Focus()
     End Sub
 
     Public Sub agregarGrupo(ByVal IDGrupo As String, ByVal Trayecto As String, ByVal IDTurno As String, ByVal idTexto As String, ByVal nombreTurno As String)
@@ -39,6 +40,7 @@
         btnGrupo.Location = btnGrupoPlantilla.Location
         btnGrupo.Cursor = btnGrupoPlantilla.Cursor
         btnGrupo.Font = btnGrupoPlantilla.Font
+        btnGrupo.TabStop = False
 
         btnGrupo.Tag = {IDGrupo, Trayecto, IDTurno, nombreTurno}
         AddHandler btnGrupo.Click, AddressOf verGrupo
@@ -50,6 +52,7 @@
         btnEliminar.BackColor = btnEliminarPlantilla.BackColor
         btnEliminar.Location = btnEliminarPlantilla.Location
         btnEliminar.Cursor = btnEliminarPlantilla.Cursor
+        btnEliminar.TabStop = False
 
         btnEliminar.Tag = {IDGrupo, Trayecto, IDTurno, nombreTurno}
         AddHandler btnEliminar.Click, AddressOf eliminarGrupo
@@ -92,6 +95,7 @@
         cmbOrientacion.Enabled = False
         cmbGrado.Enabled = False
         previsualizando = False
+        chkDiscapacitado.TabStop = True
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
@@ -127,6 +131,8 @@
     Private Sub verGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
         ' Llama a previsualizarGrupo cuando un botón es clickeado.
         previsualizarGrupo(sender.Tag(0), sender.Tag(1).ToString(), sender.Tag(2))
+
+        chkDiscapacitado.TabStop = False
     End Sub
 
     Private Sub previsualizarGrupo(ByVal id As String, ByVal grado As String, ByVal turno As String)
