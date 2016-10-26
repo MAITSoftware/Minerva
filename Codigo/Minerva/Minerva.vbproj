@@ -271,14 +271,10 @@
     <None Include="Resources\default.gif" />
     <None Include="Resources\cancelar_normal.png" />
     <None Include="Resources\cancelar_hover.png" />
-    <None Include="Resources\plugin-broom2.png" />
-    <None Include="Resources\borrar_hover1.png" />
     <None Include="Resources\borrar_normal.png" />
-    <None Include="Resources\agregar_normal1.png" />
     <None Include="Resources\agregar_hover.png" />
     <None Include="Resources\borrar_hover.png" />
     <None Include="Resources\agregar_normal.png" />
-    <None Include="Resources\IMG_0412.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
