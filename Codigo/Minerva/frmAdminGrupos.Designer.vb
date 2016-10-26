@@ -31,7 +31,6 @@ Partial Class frmAdminGrupos
         Me.lblCurso = New System.Windows.Forms.Label()
         Me.lblOrientacion = New System.Windows.Forms.Label()
         Me.lblTrayecto = New System.Windows.Forms.Label()
-        Me.numGrado = New System.Windows.Forms.NumericUpDown()
         Me.btnNuevoGrupo = New System.Windows.Forms.Button()
         Me.lblNuevoGrupo = New System.Windows.Forms.Label()
         Me.btnAgregar = New System.Windows.Forms.Button()
@@ -47,9 +46,9 @@ Partial Class frmAdminGrupos
         Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         Me.lblSalon = New System.Windows.Forms.Label()
         Me.lblSalonReal = New System.Windows.Forms.Label()
+        Me.cmbGrado = New System.Windows.Forms.ComboBox()
         lblTitulo = New System.Windows.Forms.Label()
         lblGrupos = New System.Windows.Forms.Label()
-        CType(Me.numGrado, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlFondo.SuspendLayout()
         Me.pnlGrupoPlantilla.SuspendLayout()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -83,7 +82,7 @@ Partial Class frmAdminGrupos
         Me.lblIDGrupo.AutoSize = True
         Me.lblIDGrupo.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblIDGrupo.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblIDGrupo.Location = New System.Drawing.Point(179, 129)
+        Me.lblIDGrupo.Location = New System.Drawing.Point(22, 129)
         Me.lblIDGrupo.Name = "lblIDGrupo"
         Me.lblIDGrupo.Size = New System.Drawing.Size(104, 29)
         Me.lblIDGrupo.TabIndex = 67
@@ -113,7 +112,7 @@ Partial Class frmAdminGrupos
         'txtIDGrupo
         '
         Me.txtIDGrupo.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.txtIDGrupo.Location = New System.Drawing.Point(184, 161)
+        Me.txtIDGrupo.Location = New System.Drawing.Point(27, 161)
         Me.txtIDGrupo.Name = "txtIDGrupo"
         Me.txtIDGrupo.Size = New System.Drawing.Size(121, 34)
         Me.txtIDGrupo.TabIndex = 80
@@ -124,7 +123,7 @@ Partial Class frmAdminGrupos
         Me.lblCurso.AutoSize = True
         Me.lblCurso.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblCurso.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblCurso.Location = New System.Drawing.Point(352, 129)
+        Me.lblCurso.Location = New System.Drawing.Point(179, 129)
         Me.lblCurso.Name = "lblCurso"
         Me.lblCurso.Size = New System.Drawing.Size(71, 29)
         Me.lblCurso.TabIndex = 81
@@ -135,7 +134,7 @@ Partial Class frmAdminGrupos
         Me.lblOrientacion.AutoSize = True
         Me.lblOrientacion.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblOrientacion.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblOrientacion.Location = New System.Drawing.Point(179, 221)
+        Me.lblOrientacion.Location = New System.Drawing.Point(349, 129)
         Me.lblOrientacion.Name = "lblOrientacion"
         Me.lblOrientacion.Size = New System.Drawing.Size(134, 29)
         Me.lblOrientacion.TabIndex = 83
@@ -146,22 +145,11 @@ Partial Class frmAdminGrupos
         Me.lblTrayecto.AutoSize = True
         Me.lblTrayecto.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblTrayecto.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblTrayecto.Location = New System.Drawing.Point(20, 129)
+        Me.lblTrayecto.Location = New System.Drawing.Point(179, 221)
         Me.lblTrayecto.Name = "lblTrayecto"
         Me.lblTrayecto.Size = New System.Drawing.Size(75, 29)
         Me.lblTrayecto.TabIndex = 86
         Me.lblTrayecto.Text = "Grado"
-        '
-        'numGrado
-        '
-        Me.numGrado.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.numGrado.Location = New System.Drawing.Point(27, 162)
-        Me.numGrado.Maximum = New Decimal(New Integer() {4, 0, 0, 0})
-        Me.numGrado.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.numGrado.Name = "numGrado"
-        Me.numGrado.Size = New System.Drawing.Size(120, 34)
-        Me.numGrado.TabIndex = 87
-        Me.numGrado.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'btnNuevoGrupo
         '
@@ -278,7 +266,7 @@ Partial Class frmAdminGrupos
         Me.cmbCurso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbCurso.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbCurso.FormattingEnabled = True
-        Me.cmbCurso.Location = New System.Drawing.Point(357, 161)
+        Me.cmbCurso.Location = New System.Drawing.Point(184, 161)
         Me.cmbCurso.Name = "cmbCurso"
         Me.cmbCurso.Size = New System.Drawing.Size(140, 34)
         Me.cmbCurso.TabIndex = 119
@@ -290,7 +278,7 @@ Partial Class frmAdminGrupos
         Me.cmbOrientacion.Enabled = False
         Me.cmbOrientacion.Font = New System.Drawing.Font("Corbel", 16.0!)
         Me.cmbOrientacion.FormattingEnabled = True
-        Me.cmbOrientacion.Location = New System.Drawing.Point(184, 253)
+        Me.cmbOrientacion.Location = New System.Drawing.Point(354, 161)
         Me.cmbOrientacion.Name = "cmbOrientacion"
         Me.cmbOrientacion.Size = New System.Drawing.Size(239, 34)
         Me.cmbOrientacion.TabIndex = 120
@@ -322,7 +310,7 @@ Partial Class frmAdminGrupos
         Me.lblSalon.AutoSize = True
         Me.lblSalon.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblSalon.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblSalon.Location = New System.Drawing.Point(437, 221)
+        Me.lblSalon.Location = New System.Drawing.Point(349, 221)
         Me.lblSalon.Name = "lblSalon"
         Me.lblSalon.Size = New System.Drawing.Size(71, 29)
         Me.lblSalon.TabIndex = 124
@@ -333,17 +321,30 @@ Partial Class frmAdminGrupos
         Me.lblSalonReal.AutoSize = True
         Me.lblSalonReal.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblSalonReal.ForeColor = System.Drawing.Color.White
-        Me.lblSalonReal.Location = New System.Drawing.Point(437, 258)
+        Me.lblSalonReal.Location = New System.Drawing.Point(349, 258)
         Me.lblSalonReal.Name = "lblSalonReal"
         Me.lblSalonReal.Size = New System.Drawing.Size(125, 29)
         Me.lblSalonReal.TabIndex = 125
         Me.lblSalonReal.Text = "Sin asignar"
+        '
+        'cmbGrado
+        '
+        Me.cmbGrado.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbGrado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbGrado.Enabled = False
+        Me.cmbGrado.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.cmbGrado.FormattingEnabled = True
+        Me.cmbGrado.Location = New System.Drawing.Point(184, 253)
+        Me.cmbGrado.Name = "cmbGrado"
+        Me.cmbGrado.Size = New System.Drawing.Size(140, 34)
+        Me.cmbGrado.TabIndex = 126
         '
         'frmAdminGrupos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.cmbGrado)
         Me.Controls.Add(Me.lblSalonReal)
         Me.Controls.Add(Me.lblSalon)
         Me.Controls.Add(Me.imgLogoMAITs)
@@ -354,7 +355,6 @@ Partial Class frmAdminGrupos
         Me.Controls.Add(Me.btnNuevoGrupo)
         Me.Controls.Add(Me.lblNuevoGrupo)
         Me.Controls.Add(lblTitulo)
-        Me.Controls.Add(Me.numGrado)
         Me.Controls.Add(Me.lblTrayecto)
         Me.Controls.Add(Me.lblOrientacion)
         Me.Controls.Add(Me.lblCurso)
@@ -365,7 +365,6 @@ Partial Class frmAdminGrupos
         Me.Controls.Add(Me.pnlFondo)
         Me.Name = "frmAdminGrupos"
         Me.Size = New System.Drawing.Size(1004, 493)
-        CType(Me.numGrado, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlFondo.ResumeLayout(False)
         Me.pnlFondo.PerformLayout()
         Me.pnlGrupoPlantilla.ResumeLayout(False)
@@ -381,7 +380,6 @@ Partial Class frmAdminGrupos
     Friend WithEvents lblCurso As System.Windows.Forms.Label
     Friend WithEvents lblOrientacion As System.Windows.Forms.Label
     Friend WithEvents lblTrayecto As System.Windows.Forms.Label
-    Friend WithEvents numGrado As System.Windows.Forms.NumericUpDown
     Friend WithEvents btnNuevoGrupo As System.Windows.Forms.Button
     Friend WithEvents lblNuevoGrupo As System.Windows.Forms.Label
     Friend WithEvents btnAgregar As System.Windows.Forms.Button
@@ -397,5 +395,6 @@ Partial Class frmAdminGrupos
     Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
     Friend WithEvents lblSalon As System.Windows.Forms.Label
     Friend WithEvents lblSalonReal As System.Windows.Forms.Label
+    Friend WithEvents cmbGrado As System.Windows.Forms.ComboBox
 
 End Class

@@ -763,6 +763,29 @@ Public Class BaseDeDatos
         End Using
     End Sub
 
+    Public Sub cargarGrados_frmAdminGrupos(ByVal frm As frmAdminGrupos)
+        Dim conexion As New Conexion()
+        frm.cmbGrado.Items.Clear()
+        Try
+            Using cmd As New MySqlCommand()
+                With cmd
+                    .Connection = conexion.Conn
+                    .CommandText = "select * from Trayecto where IdOrientacion=@IdOrientacion;"
+                    .CommandType = CommandType.Text
+                    .Parameters.AddWithValue("@IdOrientacion", frm.cmbOrientacion.Text.Substring(0, frm.cmbOrientacion.Text.IndexOf(" (")).Trim())
+                End With
+                Dim reader As MySqlDataReader = cmd.ExecuteReader()
+                While reader.Read()
+                    frm.cmbGrado.Items.Add(reader("Grado"))
+                End While
+                reader.Close()
+                conexion.Close()
+            End Using
+        Catch ex As Exception
+            ' Asumo que está viendo datos.
+        End Try
+    End Sub
+
     Public Sub cargarOrientaciones_frmAdminGrupos(ByVal frm As frmAdminGrupos)
         ' carga las orientaciones a los combobox
         Dim conexion As New Conexion()
@@ -837,20 +860,25 @@ Public Class BaseDeDatos
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
                 frm.txtIDGrupo.Text = reader("IdGrupo")
-                frm.numGrado.Value = Integer.Parse(reader("Grado"))
                 frm.cmbCurso.SelectedIndex = frm.cmbCurso.FindStringExact(reader("IDCurso").ToString() & " (" & reader("NombreCurso") & ")")
-                frm.cargarOrientaciones()
                 frm.chkDiscapacitado.Checked = reader("Discapacitado")
                 frm.cmbTurno.SelectedIndex = reader("IDTurno") - 1
+
                 frm.cmbOrientacion.Items.Clear()
                 frm.cmbOrientacion.Items.Add(reader("IdOrientacion").ToString() & " (" & reader("NombreOrientacion").ToString() & ")")
                 frm.cmbOrientacion.SelectedIndex = 0
-                frm.cmbOrientacion.Enabled = False
+
+                frm.cmbGrado.Items.Clear()
+                frm.cmbGrado.Items.Add(reader("Grado"))
+                frm.cmbGrado.SelectedIndex = 0
+
                 Dim salon As String = reader("IdSalon")
                 If salon.Equals("-1") Then
                     salon = "Sin asignar"
                 End If
                 frm.lblSalonReal.Text = salon
+                frm.cmbOrientacion.Enabled = False
+                frm.cmbGrado.Enabled = False
             End While
             reader.Close()
             conexion.Close()
@@ -869,7 +897,7 @@ Public Class BaseDeDatos
 
                 .Parameters.AddWithValue("@IDGrupo", frm.txtIDGrupo.Text)
                 .Parameters.AddWithValue("@Discapacitado", frm.chkDiscapacitado.Checked)
-                .Parameters.AddWithValue("@Grado", frm.numGrado.Value)
+                .Parameters.AddWithValue("@Grado", frm.cmbGrado.Text)
                 .Parameters.AddWithValue("@IdOrientacion", frm.cmbOrientacion.Text.Substring(0, frm.cmbOrientacion.Text.IndexOf(" (")).Trim())
                 .Parameters.AddWithValue("@IdTurno", frm.cmbTurno.SelectedIndex + 1)
             End With
@@ -987,8 +1015,9 @@ Public Class BaseDeDatos
         Using subCmd As New MySqlCommand()
             With subCmd
                 .Connection = conexion.Conn
-                .CommandText = "select DISTINCT Area.IdArea, NombreArea from (select Asignatura.IdArea from Tiene_ta, Asignatura where Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura and Tiene_ta.IdOrientacion=@IdOrientacion) Orientacion, Area where Orientacion.IdArea=Area.IdArea;"
+                .CommandText = "select DISTINCT Area.IdArea, NombreArea from (select Asignatura.IdArea from Tiene_ta, Asignatura where Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura and Tiene_ta.IdOrientacion=@IdOrientacion and Tiene_ta.Grado=@Grado) Orientacion, Area where Orientacion.IdArea=Area.IdArea;"
                 .Parameters.AddWithValue("@IdOrientacion", IdOrientacion)
+                .Parameters.AddWithValue("@Grado", frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim())
                 .CommandType = CommandType.Text
             End With
 
@@ -1373,11 +1402,12 @@ Public Class BaseDeDatos
         Using subCmd As New MySqlCommand()
             With subCmd
                 .Connection = conexion.Conn
-                .CommandText = "select Asignatura.IdArea, Asignatura.IdAsignatura, Asignatura.NombreAsignatura, Tiene_Ta.IdOrientacion from (select DISTINCT Area.IdArea, NombreArea from (select Asignatura.IdArea from Tiene_ta, Asignatura where Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura and Tiene_ta.IdOrientacion=@IdOrientacion) Orientacion, Area where Orientacion.IdArea=Area.IdArea) Areas, Asignatura, Tiene_ta where Asignatura.IdArea=Areas.IdArea and Tiene_ta.IdAsignatura=Asignatura.IdAsignatura and Tiene_Ta.Grado=@Grado and IdOrientacion=@IdOrientacion1;"
+                .CommandText = "select Asignatura.IdArea, Asignatura.IdAsignatura, Asignatura.NombreAsignatura, Tiene_Ta.IdOrientacion from (select DISTINCT Area.IdArea, NombreArea from (select Asignatura.IdArea from Tiene_ta, Asignatura where Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura and Tiene_ta.IdOrientacion=@IdOrientacion) Orientacion, Area where Orientacion.IdArea=Area.IdArea) Areas, Asignatura, Tiene_ta where Asignatura.IdArea=Areas.IdArea and Tiene_ta.IdAsignatura=Asignatura.IdAsignatura and Tiene_Ta.Grado=@Grado and IdOrientacion=@IdOrientacion1 and Asignatura.IdArea=@IdArea;"
                 .CommandType = CommandType.Text
                 .Parameters.AddWithValue("@Grado", grado)
                 .Parameters.AddWithValue("@IdOrientacion", IdOrientacion)
                 .Parameters.AddWithValue("@IdOrientacion1", IdOrientacion)
+                .Parameters.AddWithValue("@IdArea", frm.cmbArea.Text.Substring(0, frm.cmbArea.Text.IndexOf(" - ")))
                 Console.WriteLine(grado)
                 Console.WriteLine(IdOrientacion)
             End With

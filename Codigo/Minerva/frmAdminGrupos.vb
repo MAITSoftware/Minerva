@@ -3,6 +3,7 @@
 
     Friend totalGrupos As Integer = 0
     Friend prevSelect As String
+    Friend prevOrientacionSelect As String
     Friend frmMain As frmMain
     Dim previsualizando As Boolean = False
 
@@ -18,6 +19,7 @@
         rellenarCombos()
 
         cmbOrientacion.Enabled = False
+        cmbGrado.Enabled = False
     End Sub
 
     Public Sub agregarGrupo(ByVal IDGrupo As String, ByVal Trayecto As String, ByVal IDTurno As String, ByVal idTexto As String, ByVal nombreTurno As String)
@@ -74,8 +76,8 @@
         cmbCurso.SelectedIndex = -1
         cmbOrientacion.Enabled = habilitado
         cmbOrientacion.SelectedIndex = -1
-        numGrado.Enabled = habilitado
-        numGrado.Value = 1
+        cmbGrado.Enabled = habilitado
+        cmbGrado.SelectedIndex = -1
         chkDiscapacitado.Enabled = True
         chkDiscapacitado.Checked = False
     End Sub
@@ -88,6 +90,7 @@
         btnAgregar.Visible = True
         btnAgregar.Text = "Agregar grupo"
         cmbOrientacion.Enabled = False
+        cmbGrado.Enabled = False
         previsualizando = False
     End Sub
 
@@ -192,6 +195,11 @@
         DB.cargarTurnos_frmAdminGrupos(Me)
     End Sub
 
+    Public Sub cargarGrados()
+        Dim DB As New BaseDeDatos()
+        DB.cargarGrados_frmAdminGrupos(Me)
+    End Sub
+
     Private Sub eliminarGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
         ' Le pregunta al usuario si quiere eliminar el grupo, de ser correcto, lo elimina
         Dim grupo As String
@@ -210,5 +218,19 @@
         If previsualizando Then
             chkDiscapacitado.Checked = Not chkDiscapacitado.Checked
         End If
+    End Sub
+
+    Private Sub cmbOrientacion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbOrientacion.SelectedIndexChanged
+        If cmbOrientacion.Text.Equals(prevOrientacionSelect) Then
+            Return
+        End If
+
+        cmbGrado.SelectedIndex = -1
+        cargarGrados()
+        cmbGrado.Enabled = False
+        If Not String.IsNullOrWhiteSpace(cmbOrientacion.Text) Then
+            cmbGrado.Enabled = True
+        End If
+        prevOrientacionSelect = cmbOrientacion.Text
     End Sub
 End Class

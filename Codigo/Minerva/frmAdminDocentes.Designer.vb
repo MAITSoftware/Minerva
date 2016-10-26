@@ -165,11 +165,11 @@ Partial Class frmAdminDocentes
         Me.lblHsSemanales.AutoSize = True
         Me.lblHsSemanales.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblHsSemanales.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblHsSemanales.Location = New System.Drawing.Point(479, 375)
+        Me.lblHsSemanales.Location = New System.Drawing.Point(478, 383)
         Me.lblHsSemanales.Name = "lblHsSemanales"
-        Me.lblHsSemanales.Size = New System.Drawing.Size(154, 29)
+        Me.lblHsSemanales.Size = New System.Drawing.Size(92, 29)
         Me.lblHsSemanales.TabIndex = 88
-        Me.lblHsSemanales.Text = "Grado de área"
+        Me.lblHsSemanales.Text = "Gr. área"
         '
         'lblAsignatura
         '
@@ -177,7 +177,7 @@ Partial Class frmAdminDocentes
         Me.lblAsignatura.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblAsignatura.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblAsignatura.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblAsignatura.Location = New System.Drawing.Point(294, 383)
+        Me.lblAsignatura.Location = New System.Drawing.Point(291, 383)
         Me.lblAsignatura.Name = "lblAsignatura"
         Me.lblAsignatura.Size = New System.Drawing.Size(125, 29)
         Me.lblAsignatura.TabIndex = 86
@@ -189,7 +189,7 @@ Partial Class frmAdminDocentes
         Me.lblArea.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblArea.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblArea.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblArea.Location = New System.Drawing.Point(443, 313)
+        Me.lblArea.Location = New System.Drawing.Point(424, 313)
         Me.lblArea.Name = "lblArea"
         Me.lblArea.Size = New System.Drawing.Size(61, 29)
         Me.lblArea.TabIndex = 84
@@ -221,7 +221,7 @@ Partial Class frmAdminDocentes
         Me.cmbGrupo.Enabled = False
         Me.cmbGrupo.Font = New System.Drawing.Font("Corbel", 12.0!)
         Me.cmbGrupo.FormattingEnabled = True
-        Me.cmbGrupo.Location = New System.Drawing.Point(298, 345)
+        Me.cmbGrupo.Location = New System.Drawing.Point(295, 345)
         Me.cmbGrupo.Name = "cmbGrupo"
         Me.cmbGrupo.Size = New System.Drawing.Size(123, 27)
         Me.cmbGrupo.TabIndex = 95
@@ -232,7 +232,7 @@ Partial Class frmAdminDocentes
         Me.lblGrupo.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblGrupo.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblGrupo.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblGrupo.Location = New System.Drawing.Point(294, 313)
+        Me.lblGrupo.Location = New System.Drawing.Point(291, 313)
         Me.lblGrupo.Name = "lblGrupo"
         Me.lblGrupo.Size = New System.Drawing.Size(76, 29)
         Me.lblGrupo.TabIndex = 94
@@ -389,11 +389,11 @@ Partial Class frmAdminDocentes
         '
         Me.numGradoArea.Cursor = System.Windows.Forms.Cursors.Default
         Me.numGradoArea.Enabled = False
-        Me.numGradoArea.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.numGradoArea.Location = New System.Drawing.Point(484, 407)
+        Me.numGradoArea.Font = New System.Drawing.Font("Corbel", 12.0!)
+        Me.numGradoArea.Location = New System.Drawing.Point(483, 415)
         Me.numGradoArea.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numGradoArea.Name = "numGradoArea"
-        Me.numGradoArea.Size = New System.Drawing.Size(106, 34)
+        Me.numGradoArea.Size = New System.Drawing.Size(106, 27)
         Me.numGradoArea.TabIndex = 115
         Me.numGradoArea.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
@@ -433,7 +433,7 @@ Partial Class frmAdminDocentes
         Me.cmbArea.Enabled = False
         Me.cmbArea.Font = New System.Drawing.Font("Corbel", 12.0!)
         Me.cmbArea.FormattingEnabled = True
-        Me.cmbArea.Location = New System.Drawing.Point(448, 345)
+        Me.cmbArea.Location = New System.Drawing.Point(429, 345)
         Me.cmbArea.Name = "cmbArea"
         Me.cmbArea.Size = New System.Drawing.Size(183, 27)
         Me.cmbArea.TabIndex = 117
@@ -445,7 +445,7 @@ Partial Class frmAdminDocentes
         Me.cmbAsignatura.Enabled = False
         Me.cmbAsignatura.Font = New System.Drawing.Font("Corbel", 12.0!)
         Me.cmbAsignatura.FormattingEnabled = True
-        Me.cmbAsignatura.Location = New System.Drawing.Point(298, 415)
+        Me.cmbAsignatura.Location = New System.Drawing.Point(295, 415)
         Me.cmbAsignatura.Name = "cmbAsignatura"
         Me.cmbAsignatura.Size = New System.Drawing.Size(182, 27)
         Me.cmbAsignatura.TabIndex = 118
@@ -475,7 +475,7 @@ Partial Class frmAdminDocentes
         Me.btnEliminarAsignatura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.btnEliminarAsignatura.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnEliminarAsignatura.Enabled = False
-        Me.btnEliminarAsignatura.Location = New System.Drawing.Point(262, 387)
+        Me.btnEliminarAsignatura.Location = New System.Drawing.Point(263, 373)
         Me.btnEliminarAsignatura.Name = "btnEliminarAsignatura"
         Me.btnEliminarAsignatura.Size = New System.Drawing.Size(25, 25)
         Me.btnEliminarAsignatura.TabIndex = 120
@@ -489,7 +489,7 @@ Partial Class frmAdminDocentes
         Me.btnAgregarAsignatura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.btnAgregarAsignatura.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnAgregarAsignatura.Enabled = False
-        Me.btnAgregarAsignatura.Location = New System.Drawing.Point(262, 356)
+        Me.btnAgregarAsignatura.Location = New System.Drawing.Point(608, 387)
         Me.btnAgregarAsignatura.Name = "btnAgregarAsignatura"
         Me.btnAgregarAsignatura.Size = New System.Drawing.Size(25, 25)
         Me.btnAgregarAsignatura.TabIndex = 119
