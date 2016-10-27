@@ -53,9 +53,6 @@ Partial Class frmMain
         Me.lblSeleccioneGrupo = New System.Windows.Forms.Label()
         Me.timerDatosUsuario = New System.Windows.Forms.Timer(Me.components)
         Me.timerbtnrefrescar = New System.Windows.Forms.Timer(Me.components)
-        Me.btnVistaSemana = New System.Windows.Forms.PictureBox()
-        Me.btnVistaDias = New System.Windows.Forms.PictureBox()
-        Me.btnRefrescarHorarios = New System.Windows.Forms.PictureBox()
         Me.Grilla = New Minerva.frmVistaGrilla()
         Me.Sábado = New Minerva.frmDia()
         Me.Viernes = New Minerva.frmDia()
@@ -63,6 +60,10 @@ Partial Class frmMain
         Me.Miércoles = New Minerva.frmDia()
         Me.Martes = New Minerva.frmDia()
         Me.Lunes = New Minerva.frmDia()
+        Me.btnFullscreen = New System.Windows.Forms.PictureBox()
+        Me.btnVistaSemana = New System.Windows.Forms.PictureBox()
+        Me.btnVistaDias = New System.Windows.Forms.PictureBox()
+        Me.btnRefrescarHorarios = New System.Windows.Forms.PictureBox()
         lblHorariosSemana = New System.Windows.Forms.Label()
         Me.pnlInfoCurso.SuspendLayout()
         Me.pnlMaterias.SuspendLayout()
@@ -70,6 +71,7 @@ Partial Class frmMain
         CType(Me.btnRecargar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnFullscreen, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnVistaSemana, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnVistaDias, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnRefrescarHorarios, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -399,40 +401,6 @@ Partial Class frmMain
         '
         Me.timerbtnrefrescar.Interval = 1000
         '
-        'btnVistaSemana
-        '
-        Me.btnVistaSemana.BackgroundImage = Global.Minerva.My.Resources.Resources.semana_normal
-        Me.btnVistaSemana.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnVistaSemana.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnVistaSemana.Location = New System.Drawing.Point(912, 184)
-        Me.btnVistaSemana.Name = "btnVistaSemana"
-        Me.btnVistaSemana.Size = New System.Drawing.Size(45, 45)
-        Me.btnVistaSemana.TabIndex = 132
-        Me.btnVistaSemana.TabStop = False
-        '
-        'btnVistaDias
-        '
-        Me.btnVistaDias.BackgroundImage = Global.Minerva.My.Resources.Resources.dia_seleccionado
-        Me.btnVistaDias.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnVistaDias.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnVistaDias.Enabled = False
-        Me.btnVistaDias.Location = New System.Drawing.Point(861, 184)
-        Me.btnVistaDias.Name = "btnVistaDias"
-        Me.btnVistaDias.Size = New System.Drawing.Size(45, 45)
-        Me.btnVistaDias.TabIndex = 131
-        Me.btnVistaDias.TabStop = False
-        '
-        'btnRefrescarHorarios
-        '
-        Me.btnRefrescarHorarios.BackgroundImage = Global.Minerva.My.Resources.Resources.refrescar_normal
-        Me.btnRefrescarHorarios.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnRefrescarHorarios.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnRefrescarHorarios.Location = New System.Drawing.Point(812, 194)
-        Me.btnRefrescarHorarios.Name = "btnRefrescarHorarios"
-        Me.btnRefrescarHorarios.Size = New System.Drawing.Size(25, 25)
-        Me.btnRefrescarHorarios.TabIndex = 130
-        Me.btnRefrescarHorarios.TabStop = False
-        '
         'Grilla
         '
         Me.Grilla.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
@@ -440,6 +408,7 @@ Partial Class frmMain
         Me.Grilla.Name = "Grilla"
         Me.Grilla.Size = New System.Drawing.Size(923, 432)
         Me.Grilla.TabIndex = 133
+        Me.Grilla.TabStop = False
         Me.Grilla.Visible = False
         '
         'Sábado
@@ -496,11 +465,58 @@ Partial Class frmMain
         Me.Lunes.TabIndex = 5
         Me.Lunes.TabStop = False
         '
+        'btnFullscreen
+        '
+        Me.btnFullscreen.BackgroundImage = Global.Minerva.My.Resources.Resources.fullscreen_normal
+        Me.btnFullscreen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnFullscreen.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnFullscreen.Location = New System.Drawing.Point(917, 191)
+        Me.btnFullscreen.Name = "btnFullscreen"
+        Me.btnFullscreen.Size = New System.Drawing.Size(30, 30)
+        Me.btnFullscreen.TabIndex = 134
+        Me.btnFullscreen.TabStop = False
+        Me.btnFullscreen.Visible = False
+        '
+        'btnVistaSemana
+        '
+        Me.btnVistaSemana.BackgroundImage = Global.Minerva.My.Resources.Resources.semana_normal
+        Me.btnVistaSemana.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnVistaSemana.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnVistaSemana.Location = New System.Drawing.Point(866, 184)
+        Me.btnVistaSemana.Name = "btnVistaSemana"
+        Me.btnVistaSemana.Size = New System.Drawing.Size(45, 45)
+        Me.btnVistaSemana.TabIndex = 132
+        Me.btnVistaSemana.TabStop = False
+        '
+        'btnVistaDias
+        '
+        Me.btnVistaDias.BackgroundImage = Global.Minerva.My.Resources.Resources.dia_seleccionado
+        Me.btnVistaDias.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnVistaDias.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnVistaDias.Enabled = False
+        Me.btnVistaDias.Location = New System.Drawing.Point(815, 184)
+        Me.btnVistaDias.Name = "btnVistaDias"
+        Me.btnVistaDias.Size = New System.Drawing.Size(45, 45)
+        Me.btnVistaDias.TabIndex = 131
+        Me.btnVistaDias.TabStop = False
+        '
+        'btnRefrescarHorarios
+        '
+        Me.btnRefrescarHorarios.BackgroundImage = Global.Minerva.My.Resources.Resources.refrescar_normal
+        Me.btnRefrescarHorarios.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnRefrescarHorarios.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnRefrescarHorarios.Location = New System.Drawing.Point(753, 194)
+        Me.btnRefrescarHorarios.Name = "btnRefrescarHorarios"
+        Me.btnRefrescarHorarios.Size = New System.Drawing.Size(25, 25)
+        Me.btnRefrescarHorarios.TabIndex = 130
+        Me.btnRefrescarHorarios.TabStop = False
+        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1264, 681)
+        Me.Controls.Add(Me.btnFullscreen)
         Me.Controls.Add(Me.Grilla)
         Me.Controls.Add(Me.btnVistaSemana)
         Me.Controls.Add(Me.btnVistaDias)
@@ -531,6 +547,7 @@ Partial Class frmMain
         CType(Me.btnRecargar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnFullscreen, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnVistaSemana, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnVistaDias, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnRefrescarHorarios, System.ComponentModel.ISupportInitialize).EndInit()
@@ -576,5 +593,6 @@ Partial Class frmMain
     Friend WithEvents btnVistaDias As System.Windows.Forms.PictureBox
     Friend WithEvents btnVistaSemana As System.Windows.Forms.PictureBox
     Friend WithEvents Grilla As Minerva.frmVistaGrilla
+    Friend WithEvents btnFullscreen As System.Windows.Forms.PictureBox
 
 End Class

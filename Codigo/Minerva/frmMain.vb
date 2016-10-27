@@ -19,6 +19,7 @@
         Call New ToolTip().SetToolTip(btnRefrescarHorarios, "Actualiza la lista de horarios")
         Call New ToolTip().SetToolTip(btnVistaDias, "Ver como días (individuales)")
         Call New ToolTip().SetToolTip(btnVistaSemana, "Ver como semana (lista)")
+        Call New ToolTip().SetToolTip(btnFullscreen, "Ver grilla en pantalla completa")
         timerbtnrefrescar.Enabled = True
     End Sub
 
@@ -31,6 +32,7 @@
     Private Sub cboGrupo_Changed(sender As Object, e As EventArgs) Handles cboGrupo.SelectedIndexChanged
         btnRefrescarHorarios.Enabled = False
         btnRecargar.Enabled = False
+        btnFullscreen.Visible = False
 
         ' Actualiza la información e horarios del grupo tras la selección de grupos
         If cboGrupo.Text.Equals("Elija un grupo") Then
@@ -55,6 +57,7 @@
         Grilla.dgvMaterias.Rows.Clear()
         If vista.Equals("Semana") Then
             Grilla.Visible = True
+            btnFullscreen.Visible = True
         Else
             Grilla.Visible = False
         End If
@@ -139,10 +142,10 @@
 
     Private Sub btnVistaSemana_Enter(sender As Object, e As EventArgs) Handles btnVistaSemana.MouseEnter
         ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
-        sender.BackgroundImage = My.Resources.semana_hover()
         If Not sender.enabled Then
             Return
         End If
+        sender.BackgroundImage = My.Resources.semana_hover()
     End Sub
 
     Private Sub btnVistaSemana_Leave(sender As Object, e As EventArgs) Handles btnVistaSemana.MouseLeave
@@ -151,6 +154,22 @@
             Return
         End If
         sender.BackgroundImage = My.Resources.semana_normal()
+    End Sub
+
+    Private Sub btnFullscreen_Enter(sender As Object, e As EventArgs) Handles btnFullscreen.MouseEnter
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        If Not sender.enabled Then
+            Return
+        End If
+        sender.BackgroundImage = My.Resources.fullscreen_hover()
+    End Sub
+
+    Private Sub btnFullscreen_Leave(sender As Object, e As EventArgs) Handles btnFullscreen.MouseLeave
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        If Not sender.enabled Then
+            Return
+        End If
+        sender.BackgroundImage = My.Resources.fullscreen_normal()
     End Sub
 
 
@@ -189,5 +208,29 @@
         btnVistaDias.Enabled = True
         btnVistaDias.BackgroundImage = My.Resources.dia_normal()
         recargarGrupo()
+    End Sub
+
+    Private Sub btnFullscreen_Click(sender As Object, e As EventArgs) Handles btnFullscreen.Click
+        sender.BackgroundImage = My.Resources.fullscreen_normal()
+        Dim frmHorariosExternos As New frmHorariosExternos()
+        frmHorariosExternos.Label1.Text = "Horarios del grupo " & cboGrupo.Text
+
+        Dim targetRows = New List(Of DataGridViewRow)
+        For Each sourceRow As DataGridViewRow In Grilla.dgvMaterias.Rows
+            If (Not sourceRow.IsNewRow) Then
+                Dim targetRow = CType(sourceRow.Clone(), DataGridViewRow)
+                For Each cell As DataGridViewCell In sourceRow.Cells
+                    targetRow.Cells(cell.ColumnIndex).Value = cell.Value
+                Next
+
+                targetRows.Add(targetRow)
+            End If
+        Next
+        frmHorariosExternos.Grilla.dgvMaterias.Columns.Clear()
+        For Each column As DataGridViewColumn In Grilla.dgvMaterias.Columns
+            frmHorariosExternos.Grilla.dgvMaterias.Columns.Add(CType(column.Clone(), DataGridViewColumn))
+        Next
+        frmHorariosExternos.Grilla.dgvMaterias.Rows.AddRange(targetRows.ToArray())
+        frmHorariosExternos.ShowDialog(Me)
     End Sub
 End Class

@@ -298,6 +298,7 @@ Public Class BaseDeDatos
 
             lblMateria.Font = New Font("Microsoft Sans Serif", 12, FontStyle.Bold)
             lblProfesor.Font = New Font("Microsoft Sans Serif", 12)
+            lblProfesor.Padding = New Padding(0, 0, 0, 5)
 
             lblMateria.ForeColor = Color.White
 
@@ -389,16 +390,25 @@ Public Class BaseDeDatos
             row_dia(0) = hora.Substring(0, hora.Length - 3)
             For Each dia As String In dias
                 Dim testCmd As New MySqlCommand()
-                testCmd.CommandText = "select Materia from (select DISTINCT * from Calendario where HoraInicio=@HoraInicio and Grupo=@Grupo) Resultado where Dia=@Dia;"
+                testCmd.CommandText = "select IdAsignatura, Materia, NombreProfesor from (select DISTINCT * from Calendario where HoraInicio=@HoraInicio and Grupo=@Grupo) Resultado where Dia=@Dia;"
                 testCmd.CommandType = CommandType.Text
                 testCmd.Connection = conexion.Conn
                 testCmd.Parameters.AddWithValue("@HoraInicio", hora)
                 testCmd.Parameters.AddWithValue("@Grupo", frm.cboGrupo.Text)
                 testCmd.Parameters.AddWithValue("@Dia", dia)
                 reader = testCmd.ExecuteReader()
+                Dim huboResultado As Boolean = False
                 While reader.Read()
-                    row_dia(current_dia) = reader("Materia")
+                    huboResultado = True
+                    If reader("IdAsignatura").Equals("-1") Then
+                        row_dia(current_dia) = "" & vbCrLf & ""
+                        Continue While
+                    End If
+                    row_dia(current_dia) = reader("Materia") & vbCrLf & reader("NombreProfesor")
                 End While
+                If Not huboResultado Then
+                    row_dia(current_dia) = "Sin definir" & vbCrLf
+                End If
                 reader.Close()
                 current_dia += 1
             Next

@@ -41,9 +41,9 @@ Partial Class frmVistaGrilla
         Me.dgvMaterias.AllowUserToDeleteRows = False
         Me.dgvMaterias.AllowUserToResizeColumns = False
         Me.dgvMaterias.AllowUserToResizeRows = False
-        Me.dgvMaterias.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader
+        Me.dgvMaterias.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvMaterias.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        Me.dgvMaterias.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.dgvMaterias.BackgroundColor = System.Drawing.Color.White
         Me.dgvMaterias.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvMaterias.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -56,13 +56,14 @@ Partial Class frmVistaGrilla
         Me.dgvMaterias.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvMaterias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvMaterias.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Hora, Me.Lunes, Me.Martes, Me.Miércoles, Me.Jueves, Me.Viernes, Me.Sábado})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
         DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.Padding = New System.Windows.Forms.Padding(5)
         DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvMaterias.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvMaterias.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvMaterias.GridColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
@@ -79,6 +80,7 @@ Partial Class frmVistaGrilla
         Me.dgvMaterias.ShowRowErrors = False
         Me.dgvMaterias.Size = New System.Drawing.Size(817, 377)
         Me.dgvMaterias.TabIndex = 0
+        Me.dgvMaterias.TabStop = False
         '
         'Hora
         '
@@ -87,7 +89,7 @@ Partial Class frmVistaGrilla
         Me.Hora.Name = "Hora"
         Me.Hora.ReadOnly = True
         Me.Hora.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Hora.Width = 130
+        Me.Hora.Width = 140
         '
         'Lunes
         '
@@ -97,7 +99,7 @@ Partial Class frmVistaGrilla
         Me.Lunes.ReadOnly = True
         Me.Lunes.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.Lunes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Lunes.Width = 59
+        Me.Lunes.Width = 69
         '
         'Martes
         '
@@ -107,7 +109,7 @@ Partial Class frmVistaGrilla
         Me.Martes.ReadOnly = True
         Me.Martes.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.Martes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Martes.Width = 64
+        Me.Martes.Width = 74
         '
         'Miércoles
         '
@@ -117,7 +119,7 @@ Partial Class frmVistaGrilla
         Me.Miércoles.ReadOnly = True
         Me.Miércoles.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.Miércoles.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Miércoles.Width = 82
+        Me.Miércoles.Width = 92
         '
         'Jueves
         '
@@ -127,7 +129,7 @@ Partial Class frmVistaGrilla
         Me.Jueves.ReadOnly = True
         Me.Jueves.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.Jueves.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Jueves.Width = 65
+        Me.Jueves.Width = 75
         '
         'Viernes
         '
@@ -136,7 +138,7 @@ Partial Class frmVistaGrilla
         Me.Viernes.Name = "Viernes"
         Me.Viernes.ReadOnly = True
         Me.Viernes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Viernes.Width = 69
+        Me.Viernes.Width = 79
         '
         'Sábado
         '
@@ -145,7 +147,7 @@ Partial Class frmVistaGrilla
         Me.Sábado.Name = "Sábado"
         Me.Sábado.ReadOnly = True
         Me.Sábado.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Sábado.Width = 71
+        Me.Sábado.Width = 81
         '
         'frmVistaGrilla
         '
