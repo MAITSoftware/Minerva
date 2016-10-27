@@ -11,6 +11,7 @@
     Private Sub btnCancelar_Click(sender As Object, e As EventArgs) Handles btnCancelar.Click
         ' al clickear cancelar, volver a la ventana inicial
         frmIngresarRegistro.Show()
+        frmIngresarRegistro.BringToFront()
         Me.Dispose()
     End Sub
 

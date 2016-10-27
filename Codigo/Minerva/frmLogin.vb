@@ -14,6 +14,7 @@
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnCancelar.Click
         ' Al clickear cancelar mostrar ventana inicial
         frmIngresarRegistro.Show()
+        frmIngresarRegistro.BringToFront()
         Me.Dispose()
     End Sub
 

@@ -224,6 +224,7 @@ Partial Class frmRegistro
         Me.Controls.Add(Me.txtUsuario)
         Me.Controls.Add(Me.imgMinerva)
         Me.Controls.Add(Me.lblNombrePrograma)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False

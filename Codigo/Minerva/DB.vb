@@ -104,7 +104,7 @@ Public Class BaseDeDatos
                     .Connection = conexion.Conn
                     .CommandText = "INSERT INTO `Usuario` VALUES (@CiPersona, NULL, NULL, @TipoUsuario, @ContraseñaUsuario, @AprobacionUsuario);"
                     .CommandType = CommandType.Text
-                    .Parameters.AddWithValue("@CiPersona", Integer.Parse(frm.txtUsuario.Text))
+                    .Parameters.AddWithValue("@CiPersona", frm.txtUsuario.Text)
                     .Parameters.AddWithValue("@ContraseñaUsuario", frm.txtContraseña.Text)
                     If cantidadAdministradores <= 0 Then
                         .Parameters.AddWithValue("@AprobacionUsuario", True) ' Habilitada
@@ -125,6 +125,7 @@ Public Class BaseDeDatos
                     End If
                     frm.Hide()
                     frmIngresarRegistro.Show()
+                    frmIngresarRegistro.BringToFront()
                     frm.Dispose()
                 Catch ex As Exception
                     frm.pnlError.Visible = True
@@ -172,7 +173,7 @@ Public Class BaseDeDatos
         End Using
 
         MessageBox.Show("Información de usuario actualizada correctamente", "Usuario actualizado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-        '            frm._frmMain.cargarNombre()
+        frm._frmMain.BringToFront()
         frm.Dispose()
     End Sub
 
@@ -201,9 +202,13 @@ Public Class BaseDeDatos
             conexion.Close()
 
             If Not nombreElegido Then
-                Dim x As New frmDatosUsuario(frm)
-                x.ShowDialog(frm)
-                cargarNombre_frmMain(frm)
+                Try
+                    Dim x As New frmDatosUsuario(frm)
+                    x.ShowDialog(frm)
+                    cargarNombre_frmMain(frm)
+                Catch ex As Exception
+                    ' El usuario presionó salir.
+                End Try
             End If
         End Using
     End Sub
@@ -688,8 +693,13 @@ Public Class BaseDeDatos
                 frm.txtContraseña.Text = reader("ContraseñaUsuario")
                 frm.chkHabilitado.Checked = reader("AprobacionUsuario")
                 frm.tipoSeleccionado = reader("TipoUsuario")
-                frm.txtNombre.Text = reader("NombrePersona")
-                frm.txtApellido.Text = reader("ApellidoPersona")
+                Try
+                    frm.txtNombre.Text = reader("NombrePersona")
+                    frm.txtApellido.Text = reader("ApellidoPersona")
+                Catch ex As Exception
+                    frm.txtNombre.Text = ""
+                    frm.txtApellido.Text = ""
+                End Try
                 If reader("TipoUsuario").Equals("Funcionario") Then
                     frm.radFuncionario.Checked = True
                 Else
@@ -1012,6 +1022,7 @@ Public Class BaseDeDatos
         ' Carga areas
         Dim conexion As New Conexion()
         Dim IdOrientacion As String
+        frm.cmbArea.Items.Clear()
 
         Dim cmd As New MySqlCommand()
         cmd.Connection = conexion.Conn
@@ -2294,7 +2305,7 @@ Public Class BaseDeDatos
                                     Continue While
                                 End If
                                 ventanaEspere.Hide()
-                                Dim result As Integer = MessageBox.Show("El profesor '" & reader_check("NombreProfesor") & "'ya tiene una materia el día: " & dia & " a la hora " & horarios(hora_n), "Error!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                                Dim result As Integer = MessageBox.Show("El profesor '" & reader_check("NombreProfesor") & "' ya tiene una materia el día: " & dia & " a la hora " & horarios(hora_n), "Error!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
                                 ventanaEspere.Show()
                                 ventanaEspere.BringToFront()
                                 hora_n += 1

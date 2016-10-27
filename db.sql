@@ -4,14 +4,14 @@ use `Minerva`;
  
  
 create table `Persona` (
-  `CiPersona` INT(8) NOT NULL,
+  `CiPersona` VARCHAR(8) NOT NULL,
   `NombrePersona` VARCHAR(25),
   `ApellidoPersona` VARCHAR(25),
   PRIMARY KEY (`CiPersona`)
 );
  
 create table `Usuario` (
-  `CiPersona` INT(8) NOT NULL,
+  `CiPersona` VARCHAR(8) NOT NULL,
   `NombrePersona` VARCHAR(25),
   `ApellidoPersona` VARCHAR(25),
   `TipoUsuario` VARCHAR(13) NOT NULL,
@@ -22,7 +22,7 @@ create table `Usuario` (
 );
  
 create table `Profesor` (
-  `CiPersona` INT(8) NOT NULL,
+  `CiPersona` VARCHAR(8) NOT NULL,
   `NombrePersona` VARCHAR(25) NOT NULL,
   `ApellidoPersona` VARCHAR(25) NOT NULL,
   `GradoProfesor` INT(3) NOT NULL,
@@ -113,7 +113,7 @@ create table `Genera` (
   `IdAsignatura` VARCHAR(5) NOT NULL,
   `IdGrupo` VARCHAR(4) NOT NULL,
   `IdOrientacion` VARCHAR(4) NOT NULL,
-  `CiPersona` INT(8) NOT NULL,
+  `CiPersona` VARCHAR(8) NOT NULL,
   FOREIGN KEY (`HoraFin`) REFERENCES Asignacion(`HoraFin`),
   FOREIGN KEY (`HoraInicio`) REFERENCES Asignacion(`HoraInicio`),
   FOREIGN KEY (`Dia`) REFERENCES Asignacion(`Dia`),
@@ -131,7 +131,7 @@ create table `Tiene_Ag` (
   `IdGrupo` VARCHAR(4) NOT NULL,
   `Grado` INT(2) NOT NULL,
   `IdOrientacion` VARCHAR(4) NOT NULL,
-  `CiPersona` INT(8) NOT NULL,
+  `CiPersona` VARCHAR(8) NOT NULL,
   `FechaToma` DATE NOT NULL,
   `GradoAreaProfesor` INT(2) NOT NULL,
   FOREIGN KEY (`IdAsignatura`) REFERENCES Asignatura(`IdAsignatura`),

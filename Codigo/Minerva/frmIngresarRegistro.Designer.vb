@@ -115,6 +115,7 @@ Partial Class frmIngresarRegistro
         Me.Controls.Add(Me.btnRegistro)
         Me.Controls.Add(Me.imgLogo)
         Me.Controls.Add(Me.lblMinerva)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False

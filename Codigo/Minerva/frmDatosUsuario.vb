@@ -4,6 +4,7 @@
     Private Sub btnCancelar_Click(sender As Object, e As EventArgs) Handles btnCancelar.Click
         ' Al clickear salir, nos desloguea y muestra la ventana de inicio
         frmIngresarRegistro.Show()
+        frmIngresarRegistro.BringToFront()
         Me.Hide()
         Me._frmMain.Dispose()
     End Sub
