@@ -23,37 +23,38 @@
 
         pnlDias.AutoScroll = True
 
-        labelHorario.AutoSize = False
-        labelHorario.Padding = New Padding(5, 0, 0, 0)
-        labelHorario.Size = New Size(80, 30)
+        labelHorario.AutoSize = True
+        labelHorario.Padding = New Padding(0, 4, 0, 0)
         labelHorario.ForeColor = SystemColors.Control
-        labelHorario.Font = New Font("Candara", 18, FontStyle.Bold)
+        labelHorario.TextAlign = ContentAlignment.MiddleLeft
+        labelHorario.Font = New Font("Courier New", 14, FontStyle.Bold)
         labelHorario.Text = horario
 
-        labelMateria.AutoSize = False
-        labelMateria.Size = New Size(150, 30)
-        labelMateria.TextAlign = ContentAlignment.BottomLeft
+        labelMateria.AutoSize = True
+        labelMateria.Padding = New Padding(0, 3, 0, 0)
+        labelMateria.TextAlign = ContentAlignment.MiddleLeft
         labelMateria.ForeColor = SystemColors.AppWorkspace
-        labelMateria.Font = New Font("Corbel", 15)
+        labelMateria.Font = New Font("Courier New", 14)
         labelMateria.Text = materia
 
-        pnlDias.Controls.Add(labelMateria, 0, totalHoras)
         pnlDias.Controls.Add(labelHorario, 0, totalHoras)
+        pnlDias.Controls.Add(labelMateria, 1, totalHoras)
 
         totalHoras += 1
         Me.Invalidate()
     End Sub
 
     Public Sub limpiar()
+        totalHoras = 0
         lblNoHayHoras.Visible = True
         pnlDias.Controls.Clear()
     End Sub
 
     Private Sub frmDia_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al cargar desactivar el scroll horizontal y poner el nombre del día
-        pnlDias.HorizontalScroll.Maximum = 0
-        pnlDias.AutoScroll = False
-        pnlDias.VerticalScroll.Visible = False
+        'pnlDias.HorizontalScroll.Maximum = 0
+        'pnlDias.AutoScroll = False
+        'pnlDias.VerticalScroll.Visible = False
         lblDia.Text = Me.Name.ToString()
     End Sub
 End Class

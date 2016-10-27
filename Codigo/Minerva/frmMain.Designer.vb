@@ -29,8 +29,6 @@ Partial Class frmMain
         Me.lblInfoCurso = New System.Windows.Forms.Label()
         Me.lblValorTipoGrado = New System.Windows.Forms.Label()
         Me.pnlMaterias = New System.Windows.Forms.Panel()
-        Me.lblNomProfesor = New System.Windows.Forms.Label()
-        Me.lblNomMateria = New System.Windows.Forms.Label()
         Me.lblValorTipoSalon = New System.Windows.Forms.Label()
         Me.lblValorTipoTurno = New System.Windows.Forms.Label()
         Me.lblValorTipoCurso = New System.Windows.Forms.Label()
@@ -61,6 +59,7 @@ Partial Class frmMain
         Me.Miércoles = New Minerva.frmDia()
         Me.Martes = New Minerva.frmDia()
         Me.Lunes = New Minerva.frmDia()
+        Me.tblMaterias = New System.Windows.Forms.TableLayoutPanel()
         lblHorariosSemana = New System.Windows.Forms.Label()
         Me.pnlInfoCurso.SuspendLayout()
         Me.pnlMaterias.SuspendLayout()
@@ -129,33 +128,11 @@ Partial Class frmMain
         'pnlMaterias
         '
         Me.pnlMaterias.AutoScroll = True
-        Me.pnlMaterias.Controls.Add(Me.lblNomProfesor)
-        Me.pnlMaterias.Controls.Add(Me.lblNomMateria)
+        Me.pnlMaterias.Controls.Add(Me.tblMaterias)
         Me.pnlMaterias.Location = New System.Drawing.Point(2, 178)
         Me.pnlMaterias.Name = "pnlMaterias"
         Me.pnlMaterias.Size = New System.Drawing.Size(297, 172)
         Me.pnlMaterias.TabIndex = 4
-        '
-        'lblNomProfesor
-        '
-        Me.lblNomProfesor.AutoSize = True
-        Me.lblNomProfesor.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
-        Me.lblNomProfesor.ForeColor = System.Drawing.SystemColors.AppWorkspace
-        Me.lblNomProfesor.Location = New System.Drawing.Point(178, -18)
-        Me.lblNomProfesor.Name = "lblNomProfesor"
-        Me.lblNomProfesor.Size = New System.Drawing.Size(0, 20)
-        Me.lblNomProfesor.TabIndex = 1
-        '
-        'lblNomMateria
-        '
-        Me.lblNomMateria.AutoSize = True
-        Me.lblNomMateria.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
-        Me.lblNomMateria.ForeColor = System.Drawing.SystemColors.Control
-        Me.lblNomMateria.Location = New System.Drawing.Point(5, -18)
-        Me.lblNomMateria.Name = "lblNomMateria"
-        Me.lblNomMateria.Size = New System.Drawing.Size(96, 20)
-        Me.lblNomMateria.TabIndex = 0
-        Me.lblNomMateria.Text = "Matemática:"
         '
         'lblValorTipoSalon
         '
@@ -469,6 +446,19 @@ Partial Class frmMain
         Me.Lunes.TabIndex = 5
         Me.Lunes.TabStop = False
         '
+        'tblMaterias
+        '
+        Me.tblMaterias.AutoScroll = True
+        Me.tblMaterias.ColumnCount = 2
+        Me.tblMaterias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tblMaterias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tblMaterias.Location = New System.Drawing.Point(1, 3)
+        Me.tblMaterias.Name = "tblMaterias"
+        Me.tblMaterias.RowCount = 1
+        Me.tblMaterias.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tblMaterias.Size = New System.Drawing.Size(293, 166)
+        Me.tblMaterias.TabIndex = 0
+        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -495,7 +485,6 @@ Partial Class frmMain
         Me.pnlInfoCurso.ResumeLayout(False)
         Me.pnlInfoCurso.PerformLayout()
         Me.pnlMaterias.ResumeLayout(False)
-        Me.pnlMaterias.PerformLayout()
         Me.pnlFiltro.ResumeLayout(False)
         Me.pnlFiltro.PerformLayout()
         CType(Me.btnRecargar, System.ComponentModel.ISupportInitialize).EndInit()
@@ -507,7 +496,6 @@ Partial Class frmMain
 
     End Sub
     Friend WithEvents pnlInfoCurso As System.Windows.Forms.Panel
-    Friend WithEvents lblNomMateria As System.Windows.Forms.Label
     Friend WithEvents lblProfesores As System.Windows.Forms.Label
     Friend WithEvents lblInfoCurso As System.Windows.Forms.Label
     Friend WithEvents lblTurno As System.Windows.Forms.Label
@@ -519,7 +507,6 @@ Partial Class frmMain
     Friend WithEvents lblValorTipoCurso As System.Windows.Forms.Label
     Friend WithEvents lblGrado As System.Windows.Forms.Label
     Friend WithEvents lblNomGrupo As System.Windows.Forms.Label
-    Friend WithEvents lblNomProfesor As System.Windows.Forms.Label
     Friend WithEvents imgLogo As System.Windows.Forms.PictureBox
     Friend WithEvents cboGrupo As System.Windows.Forms.ComboBox
     Friend WithEvents lblGrupo As System.Windows.Forms.Label
@@ -542,5 +529,6 @@ Partial Class frmMain
     Friend WithEvents btnRecargar As System.Windows.Forms.PictureBox
     Friend WithEvents btnRefrescarHorarios As System.Windows.Forms.PictureBox
     Friend WithEvents timerbtnrefrescar As System.Windows.Forms.Timer
+    Friend WithEvents tblMaterias As System.Windows.Forms.TableLayoutPanel
 
 End Class

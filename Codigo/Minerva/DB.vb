@@ -238,6 +238,7 @@ Public Class BaseDeDatos
     Public Sub cargarDatosGrupo_frmMain(ByVal frm As frmMain)
         Dim conexion As New Conexion()
         Dim subconexion As New Conexion()
+        frm.tblMaterias.Controls.Clear()
 
         Dim cmd As MySqlCommand
         cmd = New MySqlCommand()
@@ -246,8 +247,6 @@ Public Class BaseDeDatos
         cmd.CommandText = "select *, CONCAT(Grado, ' ', IdGrupo) as Grupo from DatosGrupos;"
 
         Dim reader As MySqlDataReader = cmd.ExecuteReader()
-        Dim materias As String = ""
-        Dim profesores As String = ""
         Dim idOrientacion As String = ""
         Dim grado As String = ""
         Dim idgrupo As String = ""
@@ -275,6 +274,7 @@ Public Class BaseDeDatos
         cmd.Parameters.AddWithValue("@IdOrientacion", idOrientacion)
         cmd.Parameters.AddWithValue("@Grado", frm.lblValorTipoGrado.Text)
         reader = cmd.ExecuteReader()
+        Dim x As Integer = 0
         While reader.Read()
             Dim subcmd As New MySqlCommand()
             subcmd.Connection = subconexion.Conn
@@ -289,13 +289,21 @@ Public Class BaseDeDatos
             While subreader.Read()
                 profesor = subreader("Profesor")
             End While
-            materias = materias & vbCrLf & reader("NombreAsignatura")
-            profesores = profesores & vbCrLf & profesor
+            Dim lblMateria As New Label
+            Dim lblProfesor As New Label
+            lblMateria.AutoSize = True
+            lblProfesor.AutoSize = True
+            lblMateria.Font = New Font("Microsoft Sans Serif", 12, FontStyle.Bold)
+            lblMateria.ForeColor = Color.White
+            lblProfesor.Font = New Font("Microsoft Sans Serif", 12)
+            frm.tblMaterias.Controls.Add(lblMateria, 0, x)
+            frm.tblMaterias.Controls.Add(lblProfesor, 1, x)
+            lblMateria.Text = reader("NombreAsignatura")
+            lblProfesor.Text = profesor
             subreader.Dispose()
+            x += 1
         End While
 
-        frm.lblNomMateria.Text = materias
-        frm.lblNomProfesor.Text = profesores
         reader.Dispose()
         conexion.Close()
         subconexion.Close()
