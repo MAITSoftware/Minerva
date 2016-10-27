@@ -4,6 +4,7 @@
     Dim estadoAnimacion As Boolean = False
     Friend nombreUsuario As String
     Friend Administrador As Boolean = False
+    Friend vista As String = "Día"
 
     Public Sub New(Optional ByVal invitado As Boolean = False, Optional ByVal usuario As String = Nothing, Optional ByVal admin As Boolean = False)
         'inicia el programa, en caso de que sea invitado lo detecta
@@ -16,6 +17,8 @@
 
         Call New ToolTip().SetToolTip(btnRecargar, "Recarga la lista de grupos")
         Call New ToolTip().SetToolTip(btnRefrescarHorarios, "Actualiza la lista de horarios")
+        Call New ToolTip().SetToolTip(btnVistaDias, "Ver como días (individuales)")
+        Call New ToolTip().SetToolTip(btnVistaSemana, "Ver como semana (lista)")
         timerbtnrefrescar.Enabled = True
     End Sub
 
@@ -49,11 +52,17 @@
         Jueves.limpiar()
         Viernes.limpiar()
         Sábado.limpiar()
+        Grilla.dgvMaterias.Rows.Clear()
+        If vista.Equals("Semana") Then
+            Grilla.Visible = True
+        Else
+            Grilla.Visible = False
+        End If
 
         timerbtnrefrescar.Enabled = True
         Dim DB As New BaseDeDatos()
-        DB.cargarMateriasGrupo_frmMain(Me)
         DB.cargarDatosGrupo_frmMain(Me)
+        DB.cargarMateriasGrupo_frmMain(Me)
         imgLogo.Focus()
     End Sub
 
@@ -108,10 +117,42 @@
         sender.BackgroundImage = My.Resources.refrescar_hover()
     End Sub
 
-
     Private Sub btnRecargar_Click(sender As Object, e As EventArgs) Handles btnRecargar.Click
         cargarDatos()
     End Sub
+
+    Private Sub btnVistaDias_Enter(sender As Object, e As EventArgs) Handles btnVistaDias.MouseEnter
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        If Not sender.enabled Then
+            Return
+        End If
+        sender.BackgroundImage = My.Resources.dia_hover()
+    End Sub
+
+    Private Sub btnVistaDias_Leave(sender As Object, e As EventArgs) Handles btnVistaDias.MouseLeave
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        If Not sender.enabled Then
+            Return
+        End If
+        sender.BackgroundImage = My.Resources.dia_normal()
+    End Sub
+
+    Private Sub btnVistaSemana_Enter(sender As Object, e As EventArgs) Handles btnVistaSemana.MouseEnter
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        sender.BackgroundImage = My.Resources.semana_hover()
+        If Not sender.enabled Then
+            Return
+        End If
+    End Sub
+
+    Private Sub btnVistaSemana_Leave(sender As Object, e As EventArgs) Handles btnVistaSemana.MouseLeave
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        If Not sender.enabled Then
+            Return
+        End If
+        sender.BackgroundImage = My.Resources.semana_normal()
+    End Sub
+
 
     Private Sub btnRefrescarHorarios_Click(sender As Object, e As EventArgs) Handles btnRefrescarHorarios.Click
         Dim currentIndex As Object
@@ -131,5 +172,22 @@
         grupo = cboGrupo.Text
         cboGrupo.SelectedIndex = 0
         cboGrupo.SelectedIndex = cboGrupo.FindStringExact(grupo)
+    End Sub
+
+    Private Sub btnVistaDias_Click(sender As Object, e As EventArgs) Handles btnVistaDias.Click
+        vista = "Día"
+        btnVistaDias.Enabled = False
+        btnVistaDias.BackgroundImage = My.Resources.dia_seleccionado()
+        btnVistaSemana.Enabled = True
+        btnVistaSemana.BackgroundImage = My.Resources.semana_normal()
+        recargarGrupo()
+    End Sub
+    Private Sub btnVistaSemana_Click(sender As Object, e As EventArgs) Handles btnVistaSemana.Click
+        vista = "Semana"
+        btnVistaSemana.Enabled = False
+        btnVistaSemana.BackgroundImage = My.Resources.semana_seleccionado()
+        btnVistaDias.Enabled = True
+        btnVistaDias.BackgroundImage = My.Resources.dia_normal()
+        recargarGrupo()
     End Sub
 End Class

@@ -42,7 +42,6 @@ Partial Class frmDia
         '
         'pnlDias
         '
-        Me.pnlDias.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.pnlDias.ColumnCount = 2
         Me.pnlDias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.pnlDias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())

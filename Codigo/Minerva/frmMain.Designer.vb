@@ -29,6 +29,7 @@ Partial Class frmMain
         Me.lblInfoCurso = New System.Windows.Forms.Label()
         Me.lblValorTipoGrado = New System.Windows.Forms.Label()
         Me.pnlMaterias = New System.Windows.Forms.Panel()
+        Me.tblMaterias = New System.Windows.Forms.TableLayoutPanel()
         Me.lblValorTipoSalon = New System.Windows.Forms.Label()
         Me.lblValorTipoTurno = New System.Windows.Forms.Label()
         Me.lblValorTipoCurso = New System.Windows.Forms.Label()
@@ -51,15 +52,17 @@ Partial Class frmMain
         Me.pnlSeparador = New System.Windows.Forms.Panel()
         Me.lblSeleccioneGrupo = New System.Windows.Forms.Label()
         Me.timerDatosUsuario = New System.Windows.Forms.Timer(Me.components)
-        Me.btnRefrescarHorarios = New System.Windows.Forms.PictureBox()
         Me.timerbtnrefrescar = New System.Windows.Forms.Timer(Me.components)
+        Me.btnVistaSemana = New System.Windows.Forms.PictureBox()
+        Me.btnVistaDias = New System.Windows.Forms.PictureBox()
+        Me.btnRefrescarHorarios = New System.Windows.Forms.PictureBox()
+        Me.Grilla = New Minerva.frmVistaGrilla()
         Me.Sábado = New Minerva.frmDia()
         Me.Viernes = New Minerva.frmDia()
         Me.Jueves = New Minerva.frmDia()
         Me.Miércoles = New Minerva.frmDia()
         Me.Martes = New Minerva.frmDia()
         Me.Lunes = New Minerva.frmDia()
-        Me.tblMaterias = New System.Windows.Forms.TableLayoutPanel()
         lblHorariosSemana = New System.Windows.Forms.Label()
         Me.pnlInfoCurso.SuspendLayout()
         Me.pnlMaterias.SuspendLayout()
@@ -67,6 +70,8 @@ Partial Class frmMain
         CType(Me.btnRecargar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnVistaSemana, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnVistaDias, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnRefrescarHorarios, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -119,7 +124,7 @@ Partial Class frmMain
         Me.lblValorTipoGrado.AutoSize = True
         Me.lblValorTipoGrado.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblValorTipoGrado.ForeColor = System.Drawing.SystemColors.AppWorkspace
-        Me.lblValorTipoGrado.Location = New System.Drawing.Point(85, 397)
+        Me.lblValorTipoGrado.Location = New System.Drawing.Point(85, 520)
         Me.lblValorTipoGrado.Name = "lblValorTipoGrado"
         Me.lblValorTipoGrado.Size = New System.Drawing.Size(104, 20)
         Me.lblValorTipoGrado.TabIndex = 7
@@ -131,15 +136,28 @@ Partial Class frmMain
         Me.pnlMaterias.Controls.Add(Me.tblMaterias)
         Me.pnlMaterias.Location = New System.Drawing.Point(2, 178)
         Me.pnlMaterias.Name = "pnlMaterias"
-        Me.pnlMaterias.Size = New System.Drawing.Size(297, 172)
+        Me.pnlMaterias.Size = New System.Drawing.Size(297, 282)
         Me.pnlMaterias.TabIndex = 4
+        '
+        'tblMaterias
+        '
+        Me.tblMaterias.AutoSize = True
+        Me.tblMaterias.ColumnCount = 1
+        Me.tblMaterias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tblMaterias.Dock = System.Windows.Forms.DockStyle.Top
+        Me.tblMaterias.Location = New System.Drawing.Point(0, 0)
+        Me.tblMaterias.Name = "tblMaterias"
+        Me.tblMaterias.RowCount = 1
+        Me.tblMaterias.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 0.0!))
+        Me.tblMaterias.Size = New System.Drawing.Size(297, 0)
+        Me.tblMaterias.TabIndex = 0
         '
         'lblValorTipoSalon
         '
         Me.lblValorTipoSalon.AutoSize = True
         Me.lblValorTipoSalon.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblValorTipoSalon.ForeColor = System.Drawing.SystemColors.AppWorkspace
-        Me.lblValorTipoSalon.Location = New System.Drawing.Point(159, 455)
+        Me.lblValorTipoSalon.Location = New System.Drawing.Point(159, 578)
         Me.lblValorTipoSalon.Name = "lblValorTipoSalon"
         Me.lblValorTipoSalon.Size = New System.Drawing.Size(88, 20)
         Me.lblValorTipoSalon.TabIndex = 11
@@ -150,7 +168,7 @@ Partial Class frmMain
         Me.lblValorTipoTurno.AutoSize = True
         Me.lblValorTipoTurno.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblValorTipoTurno.ForeColor = System.Drawing.SystemColors.AppWorkspace
-        Me.lblValorTipoTurno.Location = New System.Drawing.Point(85, 426)
+        Me.lblValorTipoTurno.Location = New System.Drawing.Point(85, 549)
         Me.lblValorTipoTurno.Name = "lblValorTipoTurno"
         Me.lblValorTipoTurno.Size = New System.Drawing.Size(104, 20)
         Me.lblValorTipoTurno.TabIndex = 6
@@ -161,7 +179,7 @@ Partial Class frmMain
         Me.lblValorTipoCurso.AutoSize = True
         Me.lblValorTipoCurso.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblValorTipoCurso.ForeColor = System.Drawing.SystemColors.AppWorkspace
-        Me.lblValorTipoCurso.Location = New System.Drawing.Point(85, 368)
+        Me.lblValorTipoCurso.Location = New System.Drawing.Point(85, 491)
         Me.lblValorTipoCurso.Name = "lblValorTipoCurso"
         Me.lblValorTipoCurso.Size = New System.Drawing.Size(104, 20)
         Me.lblValorTipoCurso.TabIndex = 6
@@ -172,7 +190,7 @@ Partial Class frmMain
         Me.lblSalon.AutoSize = True
         Me.lblSalon.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblSalon.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblSalon.Location = New System.Drawing.Point(17, 454)
+        Me.lblSalon.Location = New System.Drawing.Point(17, 577)
         Me.lblSalon.Name = "lblSalon"
         Me.lblSalon.Size = New System.Drawing.Size(136, 23)
         Me.lblSalon.TabIndex = 10
@@ -183,7 +201,7 @@ Partial Class frmMain
         Me.lblTurno.AutoSize = True
         Me.lblTurno.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTurno.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblTurno.Location = New System.Drawing.Point(17, 425)
+        Me.lblTurno.Location = New System.Drawing.Point(17, 548)
         Me.lblTurno.Name = "lblTurno"
         Me.lblTurno.Size = New System.Drawing.Size(62, 23)
         Me.lblTurno.TabIndex = 9
@@ -194,7 +212,7 @@ Partial Class frmMain
         Me.lblGrado.AutoSize = True
         Me.lblGrado.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGrado.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblGrado.Location = New System.Drawing.Point(17, 396)
+        Me.lblGrado.Location = New System.Drawing.Point(17, 519)
         Me.lblGrado.Name = "lblGrado"
         Me.lblGrado.Size = New System.Drawing.Size(64, 23)
         Me.lblGrado.TabIndex = 8
@@ -205,7 +223,7 @@ Partial Class frmMain
         Me.lblTipo.AutoSize = True
         Me.lblTipo.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTipo.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblTipo.Location = New System.Drawing.Point(17, 367)
+        Me.lblTipo.Location = New System.Drawing.Point(17, 490)
         Me.lblTipo.Name = "lblTipo"
         Me.lblTipo.Size = New System.Drawing.Size(62, 23)
         Me.lblTipo.TabIndex = 5
@@ -377,20 +395,52 @@ Partial Class frmMain
         '
         Me.timerDatosUsuario.Interval = 300
         '
+        'timerbtnrefrescar
+        '
+        Me.timerbtnrefrescar.Interval = 1000
+        '
+        'btnVistaSemana
+        '
+        Me.btnVistaSemana.BackgroundImage = Global.Minerva.My.Resources.Resources.semana_normal
+        Me.btnVistaSemana.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnVistaSemana.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnVistaSemana.Location = New System.Drawing.Point(912, 184)
+        Me.btnVistaSemana.Name = "btnVistaSemana"
+        Me.btnVistaSemana.Size = New System.Drawing.Size(45, 45)
+        Me.btnVistaSemana.TabIndex = 132
+        Me.btnVistaSemana.TabStop = False
+        '
+        'btnVistaDias
+        '
+        Me.btnVistaDias.BackgroundImage = Global.Minerva.My.Resources.Resources.dia_seleccionado
+        Me.btnVistaDias.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnVistaDias.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnVistaDias.Enabled = False
+        Me.btnVistaDias.Location = New System.Drawing.Point(861, 184)
+        Me.btnVistaDias.Name = "btnVistaDias"
+        Me.btnVistaDias.Size = New System.Drawing.Size(45, 45)
+        Me.btnVistaDias.TabIndex = 131
+        Me.btnVistaDias.TabStop = False
+        '
         'btnRefrescarHorarios
         '
         Me.btnRefrescarHorarios.BackgroundImage = Global.Minerva.My.Resources.Resources.refrescar_normal
         Me.btnRefrescarHorarios.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.btnRefrescarHorarios.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnRefrescarHorarios.Location = New System.Drawing.Point(898, 194)
+        Me.btnRefrescarHorarios.Location = New System.Drawing.Point(812, 194)
         Me.btnRefrescarHorarios.Name = "btnRefrescarHorarios"
         Me.btnRefrescarHorarios.Size = New System.Drawing.Size(25, 25)
         Me.btnRefrescarHorarios.TabIndex = 130
         Me.btnRefrescarHorarios.TabStop = False
         '
-        'timerbtnrefrescar
+        'Grilla
         '
-        Me.timerbtnrefrescar.Interval = 1000
+        Me.Grilla.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Grilla.Location = New System.Drawing.Point(34, 240)
+        Me.Grilla.Name = "Grilla"
+        Me.Grilla.Size = New System.Drawing.Size(923, 432)
+        Me.Grilla.TabIndex = 133
+        Me.Grilla.Visible = False
         '
         'Sábado
         '
@@ -446,24 +496,14 @@ Partial Class frmMain
         Me.Lunes.TabIndex = 5
         Me.Lunes.TabStop = False
         '
-        'tblMaterias
-        '
-        Me.tblMaterias.AutoScroll = True
-        Me.tblMaterias.ColumnCount = 2
-        Me.tblMaterias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tblMaterias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tblMaterias.Location = New System.Drawing.Point(1, 3)
-        Me.tblMaterias.Name = "tblMaterias"
-        Me.tblMaterias.RowCount = 1
-        Me.tblMaterias.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tblMaterias.Size = New System.Drawing.Size(293, 166)
-        Me.tblMaterias.TabIndex = 0
-        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1264, 681)
+        Me.Controls.Add(Me.Grilla)
+        Me.Controls.Add(Me.btnVistaSemana)
+        Me.Controls.Add(Me.btnVistaDias)
         Me.Controls.Add(Me.btnRefrescarHorarios)
         Me.Controls.Add(Me.Sábado)
         Me.Controls.Add(Me.Viernes)
@@ -485,11 +525,14 @@ Partial Class frmMain
         Me.pnlInfoCurso.ResumeLayout(False)
         Me.pnlInfoCurso.PerformLayout()
         Me.pnlMaterias.ResumeLayout(False)
+        Me.pnlMaterias.PerformLayout()
         Me.pnlFiltro.ResumeLayout(False)
         Me.pnlFiltro.PerformLayout()
         CType(Me.btnRecargar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnVistaSemana, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnVistaDias, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnRefrescarHorarios, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -530,5 +573,8 @@ Partial Class frmMain
     Friend WithEvents btnRefrescarHorarios As System.Windows.Forms.PictureBox
     Friend WithEvents timerbtnrefrescar As System.Windows.Forms.Timer
     Friend WithEvents tblMaterias As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents btnVistaDias As System.Windows.Forms.PictureBox
+    Friend WithEvents btnVistaSemana As System.Windows.Forms.PictureBox
+    Friend WithEvents Grilla As Minerva.frmVistaGrilla
 
 End Class

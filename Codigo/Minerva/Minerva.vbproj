@@ -190,6 +190,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="frmVistaGrilla.Designer.vb">
+      <DependentUpon>frmVistaGrilla.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmVistaGrilla.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmAdminDocentes.resx">
@@ -237,6 +243,9 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmVistaGrilla.resx">
+      <DependentUpon>frmVistaGrilla.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Bedelia\app.manifest" />
@@ -265,6 +274,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Minerva.ico" />
+    <None Include="Resources\semana_seleccionado.png" />
+    <None Include="Resources\semana_normal.png" />
+    <None Include="Resources\semana_hover.png" />
+    <None Include="Resources\dia_seleccionado.png" />
+    <None Include="Resources\dia_normal.png" />
+    <None Include="Resources\dia_hover.png" />
+    <None Include="Resources\semana.png" />
+    <None Include="Resources\dia.png" />
     <None Include="Resources\refrescar_hover.png" />
     <None Include="Resources\refrescar_normal.png" />
     <None Include="Resources\default %281%29.gif" />
