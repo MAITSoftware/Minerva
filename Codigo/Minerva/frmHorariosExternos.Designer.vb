@@ -26,6 +26,7 @@ Partial Class frmHorariosExternos
         Me.lblHorario = New System.Windows.Forms.Label()
         Me.Grilla = New Minerva.frmVistaGrilla()
         Me.cboGrupo = New System.Windows.Forms.ComboBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnAceptar
@@ -74,11 +75,22 @@ Partial Class frmHorariosExternos
         Me.cboGrupo.Size = New System.Drawing.Size(213, 67)
         Me.cboGrupo.TabIndex = 4
         '
+        'Button1
+        '
+        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button1.Location = New System.Drawing.Point(1205, 0)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 67)
+        Me.Button1.TabIndex = 5
+        Me.Button1.Text = "Print"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'frmHorariosExternos
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(1280, 720)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.cboGrupo)
         Me.Controls.Add(Me.Grilla)
         Me.Controls.Add(Me.lblHorario)
@@ -99,4 +111,5 @@ Partial Class frmHorariosExternos
     Friend WithEvents Grilla As Minerva.frmVistaGrilla
     Friend WithEvents lblHorario As System.Windows.Forms.Label
     Friend WithEvents cboGrupo As System.Windows.Forms.ComboBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class
