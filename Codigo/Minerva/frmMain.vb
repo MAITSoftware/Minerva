@@ -119,68 +119,6 @@
         DB.cargarNombre_frmMain(Me)
     End Sub
 
-    Private Sub btnRecargar_Leave(sender As Object, e As EventArgs) Handles btnRecargar.MouseLeave, btnRefrescarHorarios.MouseLeave
-        ' al dejar el botón btnEliminarAsignatura cambiar la imagen
-        sender.BackgroundImage = My.Resources.refrescar_normal()
-    End Sub
-
-    Private Sub btnRecargar_Enter(sender As Object, e As EventArgs) Handles btnRecargar.MouseEnter, btnRefrescarHorarios.MouseEnter
-        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
-        sender.BackgroundImage = My.Resources.refrescar_hover()
-    End Sub
-
-    Private Sub btnRecargar_Click(sender As Object, e As EventArgs) Handles btnRecargar.Click
-        recargarGrupo()
-    End Sub
-
-    Private Sub btnVistaDias_Enter(sender As Object, e As EventArgs) Handles btnVistaDias.MouseEnter
-        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
-        If Not sender.enabled Then
-            Return
-        End If
-        sender.BackgroundImage = My.Resources.dia_hover()
-    End Sub
-
-    Private Sub btnVistaDias_Leave(sender As Object, e As EventArgs) Handles btnVistaDias.MouseLeave
-        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
-        If Not sender.enabled Then
-            Return
-        End If
-        sender.BackgroundImage = My.Resources.dia_normal()
-    End Sub
-
-    Private Sub btnVistaSemana_Enter(sender As Object, e As EventArgs) Handles btnVistaSemana.MouseEnter
-        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
-        If Not sender.enabled Then
-            Return
-        End If
-        sender.BackgroundImage = My.Resources.semana_hover()
-    End Sub
-
-    Private Sub btnVistaSemana_Leave(sender As Object, e As EventArgs) Handles btnVistaSemana.MouseLeave
-        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
-        If Not sender.enabled Then
-            Return
-        End If
-        sender.BackgroundImage = My.Resources.semana_normal()
-    End Sub
-
-    Private Sub btnFullscreen_Enter(sender As Object, e As EventArgs) Handles btnFullscreen.MouseEnter
-        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
-        If Not sender.enabled Then
-            Return
-        End If
-        sender.BackgroundImage = My.Resources.fullscreen_hover()
-    End Sub
-
-    Private Sub btnFullscreen_Leave(sender As Object, e As EventArgs) Handles btnFullscreen.MouseLeave
-        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
-        If Not sender.enabled Then
-            Return
-        End If
-        sender.BackgroundImage = My.Resources.fullscreen_normal()
-    End Sub
-
 
     Private Sub btnRefrescarHorarios_Click(sender As Object, e As EventArgs) Handles btnRefrescarHorarios.Click
         recargarGrupo()
@@ -265,8 +203,74 @@
         End If
         sender.BackgroundImage = My.Resources.guardar_como_pdf_normal()
     End Sub
+
     Private Sub btnGuardarPdf_Click(sender As Object, e As EventArgs) Handles btnGuardarPdf.Click
         copiarGrilla()
         frmHorariosExternos.btnExportPDF_Click(sender, e)
     End Sub
+
+    ' Presentación
+
+    Private Sub btnRecargar_Leave(sender As Object, e As EventArgs) Handles btnRecargar.MouseLeave, btnRefrescarHorarios.MouseLeave
+        ' al dejar el botón btnEliminarAsignatura cambiar la imagen
+        sender.BackgroundImage = My.Resources.refrescar_normal()
+    End Sub
+
+    Private Sub btnRecargar_Enter(sender As Object, e As EventArgs) Handles btnRecargar.MouseEnter, btnRefrescarHorarios.MouseEnter
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        sender.BackgroundImage = My.Resources.refrescar_hover()
+    End Sub
+
+    Private Sub btnRecargar_Click(sender As Object, e As EventArgs) Handles btnRecargar.Click
+        recargarGrupo()
+    End Sub
+
+    Private Sub btnVistaDias_Enter(sender As Object, e As EventArgs) Handles btnVistaDias.MouseEnter
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        If Not sender.enabled Then
+            Return
+        End If
+        sender.BackgroundImage = My.Resources.dia_hover()
+    End Sub
+
+    Private Sub btnVistaDias_Leave(sender As Object, e As EventArgs) Handles btnVistaDias.MouseLeave
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        If Not sender.enabled Then
+            Return
+        End If
+        sender.BackgroundImage = My.Resources.dia_normal()
+    End Sub
+
+    Private Sub btnVistaSemana_Enter(sender As Object, e As EventArgs) Handles btnVistaSemana.MouseEnter
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        If Not sender.enabled Then
+            Return
+        End If
+        sender.BackgroundImage = My.Resources.semana_hover()
+    End Sub
+
+    Private Sub btnVistaSemana_Leave(sender As Object, e As EventArgs) Handles btnVistaSemana.MouseLeave
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        If Not sender.enabled Then
+            Return
+        End If
+        sender.BackgroundImage = My.Resources.semana_normal()
+    End Sub
+
+    Private Sub btnFullscreen_Enter(sender As Object, e As EventArgs) Handles btnFullscreen.MouseEnter
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        If Not sender.enabled Then
+            Return
+        End If
+        sender.BackgroundImage = My.Resources.fullscreen_hover()
+    End Sub
+
+    Private Sub btnFullscreen_Leave(sender As Object, e As EventArgs) Handles btnFullscreen.MouseLeave
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        If Not sender.enabled Then
+            Return
+        End If
+        sender.BackgroundImage = My.Resources.fullscreen_normal()
+    End Sub
+
 End Class

@@ -200,26 +200,6 @@
         Call New ToolTip().SetToolTip(btnEliminarAsignatura, "Elimina la asignatura seleccionada")
     End Sub
 
-    Private Sub btnAgregarAsignatura_Leave(sender As Object, e As EventArgs) Handles btnAgregarAsignatura.MouseLeave
-        ' al dejar el botón btnAgregarAsignatura cambiar la imagen
-        btnAgregarAsignatura.BackgroundImage = My.Resources.agregar_normal()
-    End Sub
-
-    Private Sub btnAgregarAsignatura_Enter(sender As Object, e As EventArgs) Handles btnAgregarAsignatura.MouseEnter
-        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
-        btnAgregarAsignatura.BackgroundImage = My.Resources.agregar_hover()
-    End Sub
-
-    Private Sub btnEliminarAsignatura_Leave(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.MouseLeave
-        ' al dejar el botón btnEliminarAsignatura cambiar la imagen
-        btnEliminarAsignatura.BackgroundImage = My.Resources.borrar_normal()
-    End Sub
-
-    Private Sub btnEliminarAsignatura_Enter(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.MouseEnter
-        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
-        btnEliminarAsignatura.BackgroundImage = My.Resources.borrar_hover()
-    End Sub
-
     Private Sub DatosDelDocenteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatosDelDocenteToolStripMenuItem.Click
         ' Al clickear la opción "Datos del docente" en el menu, llamar a editarDocente
         editarDocente(sender)
@@ -310,25 +290,6 @@
         lblNuevoDocente.Text = "Editar materias del docente"
     End Sub
 
-    Private Sub lstAsignaturas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstAsignaturas.SelectedIndexChanged
-        ' Al cambiar la seleccion en la lista de asignaturas, habilita o deshabilita el botón eliminarAsignatura
-        If btnAgregarAsignatura.Visible = False Then
-            Return
-        End If
-        btnEliminarAsignatura.Visible = False
-        If lstAsignaturas.SelectedItems.Count > 0 Then
-            btnEliminarAsignatura.Visible = True
-        End If
-    End Sub
-
-    Private Sub txtCI_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtCI.KeyPress
-        ' Al escribir un caracter que no sea número lo ignora.
-        If Not Char.IsNumber(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
-            e.KeyChar = ""
-            My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)
-        End If
-    End Sub
-
     ' Persistencia
     Public Sub cargarAreas()
         Dim Db As New BaseDeDatos()
@@ -396,6 +357,47 @@
         ' Carga las asignaturas al combo
         Dim DB As New BaseDeDatos()
         DB.cargarAsignaturas_frmAdminDocentes(Me)
+    End Sub
+
+    ' Presentación
+
+    Private Sub btnAgregarAsignatura_Leave(sender As Object, e As EventArgs) Handles btnAgregarAsignatura.MouseLeave
+        ' al dejar el botón btnAgregarAsignatura cambiar la imagen
+        btnAgregarAsignatura.BackgroundImage = My.Resources.agregar_normal()
+    End Sub
+
+    Private Sub btnAgregarAsignatura_Enter(sender As Object, e As EventArgs) Handles btnAgregarAsignatura.MouseEnter
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        btnAgregarAsignatura.BackgroundImage = My.Resources.agregar_hover()
+    End Sub
+
+    Private Sub btnEliminarAsignatura_Leave(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.MouseLeave
+        ' al dejar el botón btnEliminarAsignatura cambiar la imagen
+        btnEliminarAsignatura.BackgroundImage = My.Resources.borrar_normal()
+    End Sub
+
+    Private Sub btnEliminarAsignatura_Enter(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.MouseEnter
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        btnEliminarAsignatura.BackgroundImage = My.Resources.borrar_hover()
+    End Sub
+
+    Private Sub lstAsignaturas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstAsignaturas.SelectedIndexChanged
+        ' Al cambiar la seleccion en la lista de asignaturas, habilita o deshabilita el botón eliminarAsignatura
+        If btnAgregarAsignatura.Visible = False Then
+            Return
+        End If
+        btnEliminarAsignatura.Visible = False
+        If lstAsignaturas.SelectedItems.Count > 0 Then
+            btnEliminarAsignatura.Visible = True
+        End If
+    End Sub
+
+    Private Sub txtCI_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtCI.KeyPress
+        ' Al escribir un caracter que no sea número lo ignora.
+        If Not Char.IsNumber(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.KeyChar = ""
+            My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)
+        End If
     End Sub
 
 End Class

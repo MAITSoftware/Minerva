@@ -11,12 +11,22 @@
         frmIngresarRegistro.Dispose()
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnCancelar.Click
+    Private Sub btnCancelar_Click(sender As Object, e As EventArgs) Handles btnCancelar.Click
         ' Al clickear cancelar mostrar ventana inicial
         frmIngresarRegistro.Show()
         frmIngresarRegistro.BringToFront()
         Me.Dispose()
     End Sub
+
+    ' Persistencia
+
+    Private Sub Login(sender As Object, e As EventArgs) Handles btnEntrar.Click
+        Me.Cursor = Cursors.WaitCursor
+        Dim DB As New BaseDeDatos()
+        DB.Login_frmLogin(Me)
+    End Sub
+
+    ' Presentación
 
     Private Sub timerAnimacion_Tick(sender As Object, e As EventArgs) Handles timerAnimacion.Tick
         ' Cambia el color de la alerta de error cada x segundos
@@ -77,14 +87,6 @@
         If e.KeyCode.Equals(Keys.Enter) Then
             btnEntrar.PerformClick()
         End If
-    End Sub
-
-    ' Persistencia
-
-    Private Sub Login(sender As Object, e As EventArgs) Handles btnEntrar.Click
-        Me.Cursor = Cursors.WaitCursor
-        Dim DB As New BaseDeDatos()
-        DB.Login_frmLogin(Me)
     End Sub
 
 End Class

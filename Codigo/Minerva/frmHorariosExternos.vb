@@ -93,6 +93,8 @@ Public Class frmHorariosExternos
         sender.Enabled = True
     End Sub
 
+    ' Presentación
+
     Private Sub btnGuardarPdf_Enter(sender As Object, e As EventArgs) Handles btnGuardarPdf.MouseEnter
         If Not sender.Enabled Then
             Return
@@ -106,6 +108,7 @@ Public Class frmHorariosExternos
         End If
         sender.BackgroundImage = My.Resources.guardar_como_pdf_normal()
     End Sub
+
     Private Sub btnAceptar_Enter(sender As Object, e As EventArgs) Handles btnAceptar.MouseEnter
         If Not sender.Enabled Then
             Return

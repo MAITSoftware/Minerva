@@ -47,7 +47,7 @@
         End If
     End Sub
 
-    Private Sub Panel_DragDrop(sender As Object, e As DragEventArgs)
+    Private Sub pnl_DragDrop(sender As Object, e As DragEventArgs)
         Dim c As Control = TryCast(e.Data.GetData(e.Data.GetFormats()(0)), Control)
         Console.WriteLine(sender)
         Dim x As Button
@@ -83,7 +83,7 @@
         End If
     End Sub
 
-    Private Sub Panel_DragOver(sender As Object, e As DragEventArgs)
+    Private Sub pnl_DragOver(sender As Object, e As DragEventArgs)
         prevHover.BackColor = Color.FromArgb(35, 35, 35)
         sender.BackColor = Color.FromArgb(50, 50, 50)
         If sender.Controls.Count > 0 And Not (sender Is pnlMaterias) Then
@@ -111,8 +111,8 @@
 
         For Each tabla As Control In tablas
             tabla.AllowDrop = True
-            AddHandler tabla.DragOver, AddressOf Panel_DragOver
-            AddHandler tabla.DragDrop, AddressOf Panel_DragDrop
+            AddHandler tabla.DragOver, AddressOf pnl_DragOver
+            AddHandler tabla.DragDrop, AddressOf pnl_DragDrop
             For Each c As Control In tabla.Controls
                 AddHandler c.MouseDown, AddressOf Materia_MouseDown
             Next
@@ -183,6 +183,16 @@
         Next
     End Sub
 
+    Public Sub actHorarios()
+        lblHora1.Text = horarioPrimera.Substring(0, horarioPrimera.Length - 3)
+        lblHora2.Text = horarioSegunda.Substring(0, horarioSegunda.Length - 3)
+        lblHora3.Text = horarioTercera.Substring(0, horarioTercera.Length - 3)
+        lblHora4.Text = horarioCuarta.Substring(0, horarioCuarta.Length - 3)
+        lblHora5.Text = horarioQuinta.Substring(0, horarioQuinta.Length - 3)
+        lblHora6.Text = horarioSexta.Substring(0, horarioSexta.Length - 3)
+        lblHora7.Text = horarioExtra.Substring(0, horarioExtra.Length - 3)
+    End Sub
+
     Private Sub btnDeshacer_Click(sender As Object, e As EventArgs) Handles btnDeshacer.Click
         cargarGrupo()
     End Sub
@@ -197,13 +207,4 @@
         btnDeshacer.BackgroundImage = My.Resources.cancelar_hover()
     End Sub
 
-    Public Sub actHorarios()
-        lblHora1.Text = horarioPrimera.Substring(0, horarioPrimera.Length - 3)
-        lblHora2.Text = horarioSegunda.Substring(0, horarioSegunda.Length - 3)
-        lblHora3.Text = horarioTercera.Substring(0, horarioTercera.Length - 3)
-        lblHora4.Text = horarioCuarta.Substring(0, horarioCuarta.Length - 3)
-        lblHora5.Text = horarioQuinta.Substring(0, horarioQuinta.Length - 3)
-        lblHora6.Text = horarioSexta.Substring(0, horarioSexta.Length - 3)
-        lblHora7.Text = horarioExtra.Substring(0, horarioExtra.Length - 3)
-    End Sub
 End Class
