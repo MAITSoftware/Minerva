@@ -5,6 +5,12 @@
     Friend docentePreview As Object = New Button()
     Friend prevSelect As String
     Friend prevGrupoSelect As String
+    Friend frmMain As frmMain
+
+    Public Sub New(ByVal frmMain As frmMain)
+        InitializeComponent()
+        Me.frmMain = frmMain
+    End Sub
 
     Private Sub frmAdminDocentes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al cargar la ventana, cargar la lista de docentes, y rellenar los combos con los datos adecuados
@@ -342,6 +348,7 @@
     Public Sub actualizarDB()
         Dim DB As New BaseDeDatos()
         DB.actualizarDB_frmAdminDocentes(Me)
+        frmMain.recargarGrupo()
     End Sub
 
     Public Sub cargarDatos(ByVal ciDocente As String)
@@ -358,6 +365,7 @@
 
         Dim DB As New BaseDeDatos()
         DB.eliminarAsignatura_frmAdminDocentes(sender, Me)
+        frmMain.recargarGrupo()
     End Sub
 
     Public Sub eliminarDocente(sender As Object, e As EventArgs)
@@ -368,6 +376,7 @@
         End If
         Dim DB As New BaseDeDatos()
         DB.eliminarDocente_frmAdminDocentes(sender, Me)
+        frmMain.recargarGrupo()
     End Sub
 
     Public Sub cargarMaterias(ByVal CI As String)
@@ -380,6 +389,7 @@
         ' Se encarga de manejar la DB (parte asignaturas del docente), agrega o edita asignaturas.
         Dim DB As New BaseDeDatos()
         DB.actualizarDBMaterias_frmAdminDocentes(Me)
+        frmMain.recargarGrupo()
     End Sub
 
     Public Sub cargarAsignaturas()

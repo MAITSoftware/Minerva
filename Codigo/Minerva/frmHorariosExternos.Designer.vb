@@ -23,8 +23,9 @@ Partial Class frmHorariosExternos
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.btnAceptar = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblHorario = New System.Windows.Forms.Label()
         Me.Grilla = New Minerva.frmVistaGrilla()
+        Me.cboGrupo = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'btnAceptar
@@ -38,19 +39,19 @@ Partial Class frmHorariosExternos
         Me.btnAceptar.Text = "Volver a Minerva"
         Me.btnAceptar.UseVisualStyleBackColor = True
         '
-        'Label1
+        'lblHorario
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.White
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Label1.Font = New System.Drawing.Font("Corbel", 36.0!, System.Drawing.FontStyle.Bold)
-        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(0, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Padding = New System.Windows.Forms.Padding(0, 0, 0, 20)
-        Me.Label1.Size = New System.Drawing.Size(480, 79)
-        Me.Label1.TabIndex = 3
-        Me.Label1.Text = "Horarios del grupo XX"
+        Me.lblHorario.AutoSize = True
+        Me.lblHorario.BackColor = System.Drawing.Color.White
+        Me.lblHorario.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblHorario.Font = New System.Drawing.Font("Corbel", 36.0!, System.Drawing.FontStyle.Bold)
+        Me.lblHorario.ForeColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.lblHorario.Location = New System.Drawing.Point(0, 0)
+        Me.lblHorario.Name = "lblHorario"
+        Me.lblHorario.Padding = New System.Windows.Forms.Padding(0, 0, 0, 20)
+        Me.lblHorario.Size = New System.Drawing.Size(410, 79)
+        Me.lblHorario.TabIndex = 3
+        Me.lblHorario.Text = "Horarios del grupo"
         '
         'Grilla
         '
@@ -62,13 +63,25 @@ Partial Class frmHorariosExternos
         Me.Grilla.TabIndex = 2
         Me.Grilla.TabStop = False
         '
+        'cboGrupo
+        '
+        Me.cboGrupo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboGrupo.Font = New System.Drawing.Font("Corbel", 36.0!, System.Drawing.FontStyle.Bold)
+        Me.cboGrupo.FormattingEnabled = True
+        Me.cboGrupo.Items.AddRange(New Object() {"3 BG", "2 BG"})
+        Me.cboGrupo.Location = New System.Drawing.Point(400, 0)
+        Me.cboGrupo.Name = "cboGrupo"
+        Me.cboGrupo.Size = New System.Drawing.Size(213, 67)
+        Me.cboGrupo.TabIndex = 4
+        '
         'frmHorariosExternos
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(1280, 720)
+        Me.Controls.Add(Me.cboGrupo)
         Me.Controls.Add(Me.Grilla)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.lblHorario)
         Me.Controls.Add(Me.btnAceptar)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.MaximizeBox = False
@@ -84,5 +97,6 @@ Partial Class frmHorariosExternos
     End Sub
     Friend WithEvents btnAceptar As System.Windows.Forms.Button
     Friend WithEvents Grilla As Minerva.frmVistaGrilla
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents lblHorario As System.Windows.Forms.Label
+    Friend WithEvents cboGrupo As System.Windows.Forms.ComboBox
 End Class

@@ -531,11 +531,11 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tblDias.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.tblDias.ColumnCount = 5
-        Me.tblDias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
-        Me.tblDias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.0!))
-        Me.tblDias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
-        Me.tblDias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.0!))
-        Me.tblDias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
+        Me.tblDias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.25!))
+        Me.tblDias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 3.125!))
+        Me.tblDias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.25!))
+        Me.tblDias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 3.125!))
+        Me.tblDias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.25!))
         Me.tblDias.Controls.Add(Me.Lunes, 0, 0)
         Me.tblDias.Controls.Add(Me.Martes, 2, 0)
         Me.tblDias.Controls.Add(Me.Miércoles, 4, 0)
@@ -545,10 +545,10 @@ Partial Class frmMain
         Me.tblDias.Location = New System.Drawing.Point(34, 63)
         Me.tblDias.Name = "tblDias"
         Me.tblDias.RowCount = 4
-        Me.tblDias.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45.0!))
-        Me.tblDias.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.0!))
-        Me.tblDias.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45.0!))
-        Me.tblDias.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.0!))
+        Me.tblDias.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.875!))
+        Me.tblDias.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.125!))
+        Me.tblDias.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.875!))
+        Me.tblDias.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.125!))
         Me.tblDias.Size = New System.Drawing.Size(924, 438)
         Me.tblDias.TabIndex = 136
         '
@@ -567,67 +567,74 @@ Partial Class frmMain
         '
         'Lunes
         '
+        Me.Lunes.AutoScroll = True
         Me.Lunes.AutoSize = True
+        Me.Lunes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Lunes.BackColor = System.Drawing.Color.Transparent
         Me.Lunes.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Lunes.Location = New System.Drawing.Point(3, 3)
         Me.Lunes.Name = "Lunes"
-        Me.Lunes.Size = New System.Drawing.Size(271, 191)
+        Me.Lunes.Size = New System.Drawing.Size(282, 199)
         Me.Lunes.TabIndex = 5
         Me.Lunes.TabStop = False
         '
         'Martes
         '
         Me.Martes.AutoSize = True
+        Me.Martes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Martes.BackColor = System.Drawing.Color.Transparent
         Me.Martes.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Martes.Location = New System.Drawing.Point(326, 3)
+        Me.Martes.Location = New System.Drawing.Point(319, 3)
         Me.Martes.Name = "Martes"
-        Me.Martes.Size = New System.Drawing.Size(271, 191)
+        Me.Martes.Size = New System.Drawing.Size(282, 199)
         Me.Martes.TabIndex = 4
         Me.Martes.TabStop = False
         '
         'Miércoles
         '
         Me.Miércoles.AutoSize = True
+        Me.Miércoles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Miércoles.BackColor = System.Drawing.Color.Transparent
         Me.Miércoles.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Miércoles.Location = New System.Drawing.Point(649, 3)
+        Me.Miércoles.Location = New System.Drawing.Point(635, 3)
         Me.Miércoles.Name = "Miércoles"
-        Me.Miércoles.Size = New System.Drawing.Size(272, 191)
+        Me.Miércoles.Size = New System.Drawing.Size(286, 199)
         Me.Miércoles.TabIndex = 3
         Me.Miércoles.TabStop = False
         '
         'Sábado
         '
         Me.Sábado.AutoSize = True
+        Me.Sábado.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Sábado.BackColor = System.Drawing.Color.Transparent
         Me.Sábado.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Sábado.Location = New System.Drawing.Point(649, 221)
+        Me.Sábado.Location = New System.Drawing.Point(635, 221)
         Me.Sábado.Name = "Sábado"
-        Me.Sábado.Size = New System.Drawing.Size(272, 191)
+        Me.Sábado.Size = New System.Drawing.Size(286, 199)
         Me.Sábado.TabIndex = 8
         Me.Sábado.TabStop = False
         '
         'Jueves
         '
         Me.Jueves.AutoSize = True
+        Me.Jueves.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Jueves.BackColor = System.Drawing.Color.Transparent
         Me.Jueves.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Jueves.Location = New System.Drawing.Point(3, 221)
         Me.Jueves.Name = "Jueves"
-        Me.Jueves.Size = New System.Drawing.Size(271, 191)
+        Me.Jueves.Size = New System.Drawing.Size(282, 199)
         Me.Jueves.TabIndex = 6
         Me.Jueves.TabStop = False
         '
         'Viernes
         '
         Me.Viernes.AutoSize = True
+        Me.Viernes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Viernes.BackColor = System.Drawing.Color.Transparent
         Me.Viernes.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Viernes.Location = New System.Drawing.Point(326, 221)
+        Me.Viernes.Location = New System.Drawing.Point(319, 221)
         Me.Viernes.Name = "Viernes"
-        Me.Viernes.Size = New System.Drawing.Size(271, 191)
+        Me.Viernes.Size = New System.Drawing.Size(282, 199)
         Me.Viernes.TabIndex = 7
         Me.Viernes.TabStop = False
         '

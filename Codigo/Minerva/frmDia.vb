@@ -35,6 +35,9 @@
         labelMateria.Font = New Font("Courier New", 14)
         labelMateria.Text = materia
 
+        pnlDias.RowStyles.Add(New RowStyle(SizeType.AutoSize))
+        pnlDias.RowStyles.Add(New RowStyle(SizeType.AutoSize))
+
         pnlDias.Controls.Add(labelHorario, 0, totalHoras)
         pnlDias.Controls.Add(labelMateria, 1, totalHoras)
 
@@ -46,6 +49,7 @@
         totalHoras = 0
         lblNoHayHoras.Visible = True
         pnlDias.Controls.Clear()
+        pnlDias.RowStyles.Clear()
     End Sub
 
     Private Sub frmDia_Load(sender As Object, e As EventArgs) Handles MyBase.Load

@@ -218,6 +218,7 @@
 
         Dim DB As New BaseDeDatos()
         DB.eliminarGrupo_frmAdminGrupos(sender, Me)
+        Me.frmMain.recargarGrupo()
     End Sub
 
     Private Sub chkDiscapacitado_CheckedChanged(sender As Object, e As EventArgs) Handles chkDiscapacitado.Click

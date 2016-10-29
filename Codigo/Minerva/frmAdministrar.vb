@@ -101,7 +101,7 @@
 
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño()
-        pnlTrabajo = New frmAdminSalones()
+        pnlTrabajo = New frmAdminSalones(Me.frmMain)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)
         pnlTrabajo.BringToFront()
@@ -136,7 +136,7 @@
 
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño()
-        pnlTrabajo = New frmAdminDocentes()
+        pnlTrabajo = New frmAdminDocentes(Me.frmMain)
 
         Me.Size = New Point(1024, 575)
         Me.Controls.Add(pnlTrabajo)

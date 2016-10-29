@@ -231,7 +231,7 @@ CREATE TABLE `genera` (
   CONSTRAINT `genera_ibfk_1` FOREIGN KEY (`HoraFin`) REFERENCES `asignacion` (`HoraFin`),
   CONSTRAINT `genera_ibfk_2` FOREIGN KEY (`HoraInicio`) REFERENCES `asignacion` (`HoraInicio`),
   CONSTRAINT `genera_ibfk_3` FOREIGN KEY (`Dia`) REFERENCES `asignacion` (`Dia`),
-  CONSTRAINT `genera_ibfk_4` FOREIGN KEY (`Grado`) REFERENCES `grupo` (`Grado`),
+  CONSTRAINT `genera_ibfk_4` FOREIGN KEY (`Grado`) REFERENCES `trayecto` (`Grado`),
   CONSTRAINT `genera_ibfk_5` FOREIGN KEY (`IdAsignatura`) REFERENCES `asignatura` (`IdAsignatura`),
   CONSTRAINT `genera_ibfk_6` FOREIGN KEY (`IdGrupo`) REFERENCES `grupo` (`IdGrupo`),
   CONSTRAINT `genera_ibfk_7` FOREIGN KEY (`IdOrientacion`) REFERENCES `orientacion` (`IdOrientacion`),
@@ -439,7 +439,7 @@ CREATE TABLE `tiene_ag` (
   KEY `CiPersona` (`CiPersona`),
   CONSTRAINT `tiene_ag_ibfk_1` FOREIGN KEY (`IdAsignatura`) REFERENCES `asignatura` (`IdAsignatura`),
   CONSTRAINT `tiene_ag_ibfk_2` FOREIGN KEY (`IdGrupo`) REFERENCES `grupo` (`IdGrupo`),
-  CONSTRAINT `tiene_ag_ibfk_3` FOREIGN KEY (`Grado`) REFERENCES `grupo` (`Grado`),
+  CONSTRAINT `tiene_ag_ibfk_3` FOREIGN KEY (`Grado`) REFERENCES `trayecto` (`Grado`),
   CONSTRAINT `tiene_ag_ibfk_4` FOREIGN KEY (`IdOrientacion`) REFERENCES `orientacion` (`IdOrientacion`),
   CONSTRAINT `tiene_ag_ibfk_5` FOREIGN KEY (`CiPersona`) REFERENCES `persona` (`CiPersona`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

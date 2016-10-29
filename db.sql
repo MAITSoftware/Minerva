@@ -117,7 +117,7 @@ create table `Genera` (
   FOREIGN KEY (`HoraFin`) REFERENCES Asignacion(`HoraFin`),
   FOREIGN KEY (`HoraInicio`) REFERENCES Asignacion(`HoraInicio`),
   FOREIGN KEY (`Dia`) REFERENCES Asignacion(`Dia`),
-  FOREIGN KEY (`Grado`) REFERENCES Grupo(`Grado`),
+  FOREIGN KEY (`Grado`) REFERENCES Trayecto(`Grado`),
   FOREIGN KEY (`IdAsignatura`) REFERENCES Asignatura(`IdAsignatura`),
   FOREIGN KEY (`IdGrupo`) REFERENCES Grupo(`IdGrupo`),
   FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
@@ -136,7 +136,7 @@ create table `Tiene_Ag` (
   `GradoAreaProfesor` INT(2) NOT NULL,
   FOREIGN KEY (`IdAsignatura`) REFERENCES Asignatura(`IdAsignatura`),
   FOREIGN KEY (`IdGrupo`) REFERENCES Grupo(`IdGrupo`),
-  FOREIGN KEY (`Grado`) REFERENCES Grupo(`Grado`),
+  FOREIGN KEY (`Grado`) REFERENCES Trayecto(`Grado`),
   FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
   FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`),
   PRIMARY KEY (`IdAsignatura`, `IdGrupo`, `Grado`, `IdOrientacion`, `CiPersona`)

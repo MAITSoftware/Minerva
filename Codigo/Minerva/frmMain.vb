@@ -5,6 +5,7 @@
     Friend nombreUsuario As String
     Friend Administrador As Boolean = False
     Friend vista As String = "Día"
+    Dim frmHorariosExternos As New frmHorariosExternos(Me)
 
     Public Sub New(Optional ByVal invitado As Boolean = False, Optional ByVal usuario As String = Nothing, Optional ByVal admin As Boolean = False)
         'inicia el programa, en caso de que sea invitado lo detecta
@@ -126,7 +127,7 @@
     End Sub
 
     Private Sub btnRecargar_Click(sender As Object, e As EventArgs) Handles btnRecargar.Click
-        cargarDatos()
+        recargarGrupo()
     End Sub
 
     Private Sub btnVistaDias_Enter(sender As Object, e As EventArgs) Handles btnVistaDias.MouseEnter
@@ -179,10 +180,7 @@
 
 
     Private Sub btnRefrescarHorarios_Click(sender As Object, e As EventArgs) Handles btnRefrescarHorarios.Click
-        Dim currentIndex As Object
-        currentIndex = cboGrupo.SelectedIndex
-        cboGrupo.SelectedIndex = 0
-        cboGrupo.SelectedIndex = currentIndex
+        recargarGrupo()
     End Sub
 
     Private Sub timerbtnrefrescar_Tick(sender As Object, e As EventArgs) Handles timerbtnrefrescar.Tick
@@ -194,8 +192,11 @@
     Public Sub recargarGrupo()
         Dim grupo As String
         grupo = cboGrupo.Text
+        cargarDatos()
         cboGrupo.SelectedIndex = 0
-        cboGrupo.SelectedIndex = cboGrupo.FindStringExact(grupo)
+        If Not (cboGrupo.FindStringExact(grupo) = -1) Then
+            cboGrupo.SelectedIndex = cboGrupo.FindStringExact(grupo)
+        End If
     End Sub
 
     Private Sub btnVistaDias_Click(sender As Object, e As EventArgs) Handles btnVistaDias.Click
@@ -217,9 +218,16 @@
 
     Private Sub btnFullscreen_Click(sender As Object, e As EventArgs) Handles btnFullscreen.Click
         sender.BackgroundImage = My.Resources.fullscreen_normal()
-        Dim frmHorariosExternos As New frmHorariosExternos()
-        frmHorariosExternos.Label1.Text = "Horarios del grupo " & cboGrupo.Text
+        frmHorariosExternos.cboGrupo.Items.Clear()
+        For i = 1 To cboGrupo.Items.Count - 1
+            frmHorariosExternos.cboGrupo.Items.Add(cboGrupo.Items(i))
+        Next
+        frmHorariosExternos.cboGrupo.SelectedIndex = cboGrupo.SelectedIndex - 1
+        copiarGrilla()
+        frmHorariosExternos.ShowDialog(Me)
+    End Sub
 
+    Public Sub copiarGrilla()
         Dim targetRows = New List(Of DataGridViewRow)
         For Each sourceRow As DataGridViewRow In Grilla.dgvMaterias.Rows
             If (Not sourceRow.IsNewRow) Then
@@ -236,7 +244,6 @@
             frmHorariosExternos.Grilla.dgvMaterias.Columns.Add(CType(column.Clone(), DataGridViewColumn))
         Next
         frmHorariosExternos.Grilla.dgvMaterias.Rows.AddRange(targetRows.ToArray())
-        frmHorariosExternos.ShowDialog(Me)
     End Sub
 
     Private Sub tblMaterias_Resize(sender As Object, e As EventArgs) Handles tblMaterias.Resize

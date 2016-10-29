@@ -49,7 +49,6 @@ Partial Class frmDia
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlDias.AutoScroll = True
-        Me.pnlDias.AutoSize = True
         Me.pnlDias.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.pnlDias.ColumnCount = 2
         Me.pnlDias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
@@ -58,8 +57,8 @@ Partial Class frmDia
         Me.pnlDias.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlDias.Name = "pnlDias"
         Me.pnlDias.RowCount = 1
-        Me.pnlDias.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pnlDias.Size = New System.Drawing.Size(0, 0)
+        Me.pnlDias.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 173.0!))
+        Me.pnlDias.Size = New System.Drawing.Size(250, 173)
         Me.pnlDias.TabIndex = 29
         '
         'lblDia

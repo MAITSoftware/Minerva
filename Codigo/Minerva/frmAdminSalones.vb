@@ -6,6 +6,16 @@
     Friend grupoTurno1 As Object = {"-1", "-1"}
     Friend grupoTurno2 As Object = {"-1", "-1"}
     Friend grupoTurno3 As Object = {"-1", "-1"}
+    Friend frmMain As frmMain
+
+    Public Sub New(ByVal frmMain As frmMain)
+
+        ' Llamada necesaria para el diseñador.
+        InitializeComponent()
+
+        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+        Me.frmMain = frmMain
+    End Sub
 
     Private Sub frmAdminSalones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al cargar la ventana cargarSalones y Grupos, y habilitar los controles.
@@ -186,6 +196,7 @@
     Public Sub guardarSalones()
         Dim DB As New BaseDeDatos()
         DB.guardarSalones_frmAdminSalones(Me)
+        frmMain.recargarGrupo()
     End Sub
 
     Public Sub cargarGrupos()
@@ -212,5 +223,6 @@
         End If
         Dim DB As New BaseDeDatos()
         DB.eliminarSalon_frmAdminSalones(sender, Me)
+        frmMain.recargarGrupo()
     End Sub
 End Class

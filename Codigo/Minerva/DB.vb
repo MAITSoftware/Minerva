@@ -286,7 +286,7 @@ Public Class BaseDeDatos
             subcmd.Parameters.AddWithValue("@IdGrupo", idgrupo)
             subcmd.Parameters.AddWithValue("@Grado", grado)
             Dim subreader As MySqlDataReader = subcmd.ExecuteReader()
-            Dim profesor = "Sin asignar"
+            Dim profesor = "Sin profesor"
             While subreader.Read()
                 profesor = subreader("Profesor")
             End While
@@ -362,7 +362,9 @@ Public Class BaseDeDatos
                 reader.Close()
             End Using
         Next
-        frm.Lunes.pnlDias.AutoScroll = True
+        Dim Label As New Label()
+        Label.Anchor = AnchorStyles.Left
+        Label.Visible = False
 
         Dim horarios(0) As Object
         If frm.lblValorTipoTurno.Tag.Equals("3") Then
@@ -1038,6 +1040,8 @@ Public Class BaseDeDatos
 
     Public Sub eliminarGrupo_frmAdminGrupos(ByVal sender As System.Object, ByVal frm As frmAdminGrupos)
         Dim conexion As New Conexion()
+        Dim subConexion As New Conexion()
+        Dim subSubConexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -1047,9 +1051,20 @@ Public Class BaseDeDatos
                 .Parameters.AddWithValue("@IdTurno", sender.Tag(2))
                 .Parameters.AddWithValue("@Grado", sender.Tag(1))
             End With
+            ' Backup de horarios D: !
+            ' Hay una forma más fácil de hacer esto, comprobando que no haya datos en X tablas
+            ' pero me gusta más lo complicado :)
+            Dim backCmd As New MySqlCommand()
+            backCmd.CommandType = CommandType.Text
+            backCmd.Connection = subConexion.Conn
+            backCmd.CommandText = "SELECT * FROM Genera WHERE `IdGrupo`=@IdGrupo and `Grado`=@Grado;"
+            backCmd.Parameters.AddWithValue("@IdGrupo", sender.Tag(0))
+            backCmd.Parameters.AddWithValue("@Grado", sender.Tag(1))
+            Dim backReader As MySqlDataReader = backCmd.ExecuteReader()
+
             Try
                 Dim subCmd As New MySqlCommand()
-                subCmd.Connection = conexion.Conn
+                subCmd.Connection = subSubConexion.Conn
                 subCmd.CommandType = CommandType.Text
                 subCmd.CommandText = "DELETE FROM Genera WHERE `IdGrupo`=@IdGrupo and `Grado`=@Grado;"
                 subCmd.Parameters.AddWithValue("@IdGrupo", sender.Tag(0))
@@ -1063,11 +1078,37 @@ Public Class BaseDeDatos
                 frm.totalGrupos -= 1
                 MessageBox.Show("Grupo '" + sender.Tag(4) + "' eliminado.", "Grupo eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Catch ex As Exception
+                ' Devuelvo los horarios a la tabla D;
+                Dim insConexion As New Conexion()
+                Try
+                    While backReader.Read()
+                        Dim insCmd As New MySqlCommand()
+                        insCmd.Connection = insConexion.Conn
+                        insCmd.CommandType = CommandType.Text
+                        insCmd.CommandText = "INSERT INTO `Genera` VALUES (@HoraInicio, @HoraFin, @Dia, @Grado, @IdAsignatura, @IdGrupo, @IdOrientacion, @CiPersona);"
+                        insCmd.Parameters.AddWithValue("@HoraInicio", backReader("HoraInicio"))
+                        insCmd.Parameters.AddWithValue("@HoraFin", backReader("HoraFin"))
+                        insCmd.Parameters.AddWithValue("@Dia", backReader("Dia"))
+                        insCmd.Parameters.AddWithValue("@Grado", backReader("Grado"))
+                        insCmd.Parameters.AddWithValue("@IdAsignatura", backReader("IdAsignatura"))
+                        insCmd.Parameters.AddWithValue("@IdGrupo", backReader("IdGrupo"))
+                        insCmd.Parameters.AddWithValue("@IdOrientacion", backReader("IdOrientacion"))
+                        insCmd.Parameters.AddWithValue("@CiPersona", backReader("CiPersona"))
+                        insCmd.ExecuteNonQuery()
+                    End While
+                    backReader.Close()
+                Catch exx As Exception
+                    ' No se borro el horario, yay :D
+                    insConexion.Close()
+                End Try
+
                 MessageBox.Show("No se pudo eliminar el grupo, el mismo tiene materias docentes (ver admin. de docentes) asignados.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Console.WriteLine(ex.ToString())
+
             End Try
         End Using
-
+        subConexion.Close()
+        subSubConexion.Close()
         conexion.Close() 'Cierra la conexión
     End Sub
 
