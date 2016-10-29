@@ -21,6 +21,7 @@
         Call New ToolTip().SetToolTip(btnVistaDias, "Ver como días (individuales)")
         Call New ToolTip().SetToolTip(btnVistaSemana, "Ver como semana (lista)")
         Call New ToolTip().SetToolTip(btnFullscreen, "Ver grilla en pantalla completa")
+        Call New ToolTip().SetToolTip(btnGuardarPdf, "Guardar horarios (grilla) a archivo PDF")
         timerbtnrefrescar.Enabled = True
     End Sub
 
@@ -34,6 +35,7 @@
         btnRefrescarHorarios.Enabled = False
         btnRecargar.Enabled = False
         btnFullscreen.Visible = False
+        btnGuardarPdf.Visible = False
 
         ' Actualiza la información e horarios del grupo tras la selección de grupos
         If cboGrupo.Text.Equals("Elija un grupo") Then
@@ -61,6 +63,7 @@
             Grilla.BringToFront()
             tblDias.Visible = False
             btnFullscreen.Visible = True
+            btnGuardarPdf.Visible = True
         Else
             Grilla.Visible = False
             tblDias.Visible = True
@@ -248,5 +251,22 @@
 
     Private Sub tblMaterias_Resize(sender As Object, e As EventArgs) Handles tblMaterias.Resize
         tblMaterias.Invalidate()
+    End Sub
+    Private Sub btnGuardarPdf_Enter(sender As Object, e As EventArgs) Handles btnGuardarPdf.MouseEnter
+        If Not sender.Enabled Then
+            Return
+        End If
+        sender.BackgroundImage = My.Resources.guardar_como_pdf_hover()
+    End Sub
+
+    Private Sub btnGuardarPdf_Leave(sender As Object, e As EventArgs) Handles btnGuardarPdf.MouseLeave
+        If Not sender.Enabled Then
+            Return
+        End If
+        sender.BackgroundImage = My.Resources.guardar_como_pdf_normal()
+    End Sub
+    Private Sub btnGuardarPdf_Click(sender As Object, e As EventArgs) Handles btnGuardarPdf.Click
+        copiarGrilla()
+        frmHorariosExternos.btnExportPDF_Click(sender, e)
     End Sub
 End Class

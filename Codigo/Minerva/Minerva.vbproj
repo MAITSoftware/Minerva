@@ -73,8 +73,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -82,7 +80,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -288,6 +285,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Minerva.ico" />
+    <None Include="Resources\guardar_como_pdf_seleccionado.png" />
+    <None Include="Resources\guardar_como_pdf_normal.png" />
+    <None Include="Resources\guardar_como_pdf_hover.png" />
     <None Include="Resources\fullscreen_normal.png" />
     <None Include="Resources\fullscreen_hover.png" />
     <None Include="Resources\semana_seleccionado.png" />

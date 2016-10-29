@@ -173,6 +173,36 @@ Namespace My.Resources
         '''<summary>
         '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property guardar_como_pdf_hover() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("guardar_como_pdf_hover", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property guardar_como_pdf_normal() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("guardar_como_pdf_normal", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property guardar_como_pdf_seleccionado() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("guardar_como_pdf_seleccionado", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property logoMAITS() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("logoMAITS", resourceCulture)

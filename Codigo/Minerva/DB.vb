@@ -404,7 +404,7 @@ Public Class BaseDeDatos
                 While reader.Read()
                     huboResultado = True
                     If reader("IdAsignatura").Equals("-1") Then
-                        row_dia(current_dia) = "" & vbCrLf & ""
+                        row_dia(current_dia) = "Sin definir" & vbCrLf & ""
                         Continue While
                     End If
                     row_dia(current_dia) = reader("Materia") & vbCrLf & reader("NombreProfesor")
