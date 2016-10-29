@@ -285,6 +285,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Minerva.ico" />
+    <None Include="Resources\unfullscreen_normal.png" />
+    <None Include="Resources\unfullscreen_hover.png" />
     <None Include="Resources\guardar_como_pdf_seleccionado.png" />
     <None Include="Resources\guardar_como_pdf_normal.png" />
     <None Include="Resources\guardar_como_pdf_hover.png" />

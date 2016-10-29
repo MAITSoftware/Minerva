@@ -25,9 +25,10 @@ Partial Class frmHorariosExternos
         Me.lblHorario = New System.Windows.Forms.Label()
         Me.cboGrupo = New System.Windows.Forms.ComboBox()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
-        Me.btnGuardarPdf = New System.Windows.Forms.PictureBox()
-        Me.btnAceptar = New System.Windows.Forms.Button()
         Me.Grilla = New Minerva.frmVistaGrilla()
+        Me.btnAceptar = New System.Windows.Forms.PictureBox()
+        Me.btnGuardarPdf = New System.Windows.Forms.PictureBox()
+        CType(Me.btnAceptar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnGuardarPdf, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -48,12 +49,12 @@ Partial Class frmHorariosExternos
         'cboGrupo
         '
         Me.cboGrupo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboGrupo.Font = New System.Drawing.Font("Corbel", 36.0!, System.Drawing.FontStyle.Bold)
+        Me.cboGrupo.Font = New System.Drawing.Font("Corbel", 34.0!, System.Drawing.FontStyle.Bold)
         Me.cboGrupo.FormattingEnabled = True
         Me.cboGrupo.Items.AddRange(New Object() {"3 BG", "2 BG"})
-        Me.cboGrupo.Location = New System.Drawing.Point(400, 0)
+        Me.cboGrupo.Location = New System.Drawing.Point(400, 8)
         Me.cboGrupo.Name = "cboGrupo"
-        Me.cboGrupo.Size = New System.Drawing.Size(213, 67)
+        Me.cboGrupo.Size = New System.Drawing.Size(213, 63)
         Me.cboGrupo.TabIndex = 4
         '
         'SaveFileDialog1
@@ -62,29 +63,6 @@ Partial Class frmHorariosExternos
         Me.SaveFileDialog1.Filter = "Archivos PDF|*.pdf"
         Me.SaveFileDialog1.InitialDirectory = "Desktop"
         Me.SaveFileDialog1.RestoreDirectory = True
-        '
-        'btnGuardarPdf
-        '
-        Me.btnGuardarPdf.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnGuardarPdf.BackgroundImage = Global.Minerva.My.Resources.Resources.guardar_como_pdf_normal
-        Me.btnGuardarPdf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.btnGuardarPdf.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnGuardarPdf.Location = New System.Drawing.Point(1087, 10)
-        Me.btnGuardarPdf.Name = "btnGuardarPdf"
-        Me.btnGuardarPdf.Size = New System.Drawing.Size(61, 59)
-        Me.btnGuardarPdf.TabIndex = 6
-        Me.btnGuardarPdf.TabStop = False
-        '
-        'btnAceptar
-        '
-        Me.btnAceptar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnAceptar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
-        Me.btnAceptar.Location = New System.Drawing.Point(1154, 14)
-        Me.btnAceptar.Name = "btnAceptar"
-        Me.btnAceptar.Size = New System.Drawing.Size(114, 50)
-        Me.btnAceptar.TabIndex = 1
-        Me.btnAceptar.Text = "Volver a Minerva"
-        Me.btnAceptar.UseVisualStyleBackColor = True
         '
         'Grilla
         '
@@ -96,13 +74,37 @@ Partial Class frmHorariosExternos
         Me.Grilla.TabIndex = 2
         Me.Grilla.TabStop = False
         '
+        'btnAceptar
+        '
+        Me.btnAceptar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnAceptar.BackgroundImage = Global.Minerva.My.Resources.Resources.unfullscreen_normal
+        Me.btnAceptar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnAceptar.Location = New System.Drawing.Point(1180, 9)
+        Me.btnAceptar.Name = "btnAceptar"
+        Me.btnAceptar.Size = New System.Drawing.Size(60, 60)
+        Me.btnAceptar.TabIndex = 135
+        Me.btnAceptar.TabStop = False
+        '
+        'btnGuardarPdf
+        '
+        Me.btnGuardarPdf.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnGuardarPdf.BackgroundImage = Global.Minerva.My.Resources.Resources.guardar_como_pdf_normal
+        Me.btnGuardarPdf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btnGuardarPdf.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnGuardarPdf.Location = New System.Drawing.Point(1087, 9)
+        Me.btnGuardarPdf.Name = "btnGuardarPdf"
+        Me.btnGuardarPdf.Size = New System.Drawing.Size(60, 60)
+        Me.btnGuardarPdf.TabIndex = 6
+        Me.btnGuardarPdf.TabStop = False
+        '
         'frmHorariosExternos
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1280, 720)
-        Me.Controls.Add(Me.btnGuardarPdf)
         Me.Controls.Add(Me.btnAceptar)
+        Me.Controls.Add(Me.btnGuardarPdf)
         Me.Controls.Add(Me.cboGrupo)
         Me.Controls.Add(Me.Grilla)
         Me.Controls.Add(Me.lblHorario)
@@ -114,6 +116,7 @@ Partial Class frmHorariosExternos
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "frmHorariosExternos"
+        CType(Me.btnAceptar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnGuardarPdf, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -124,5 +127,5 @@ Partial Class frmHorariosExternos
     Friend WithEvents cboGrupo As System.Windows.Forms.ComboBox
     Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
     Friend WithEvents btnGuardarPdf As System.Windows.Forms.PictureBox
-    Friend WithEvents btnAceptar As System.Windows.Forms.Button
+    Friend WithEvents btnAceptar As System.Windows.Forms.PictureBox
 End Class

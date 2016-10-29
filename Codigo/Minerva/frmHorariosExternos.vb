@@ -26,6 +26,7 @@ Public Class frmHorariosExternos
         Me.Location = New Point(0, 0)
         Me.Size = SystemInformation.PrimaryMonitorSize
         Call New ToolTip().SetToolTip(btnGuardarPdf, "Guardar horarios (grilla) a archivo PDF")
+        Call New ToolTip().SetToolTip(btnAceptar, "Salir de pantalla completa y volver a Minerva")
     End Sub
 
     Private Sub cboGrupo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboGrupo.SelectedIndexChanged
@@ -104,5 +105,18 @@ Public Class frmHorariosExternos
             Return
         End If
         sender.BackgroundImage = My.Resources.guardar_como_pdf_normal()
+    End Sub
+    Private Sub btnAceptar_Enter(sender As Object, e As EventArgs) Handles btnAceptar.MouseEnter
+        If Not sender.Enabled Then
+            Return
+        End If
+        sender.BackgroundImage = My.Resources.unfullscreen_hover()
+    End Sub
+
+    Private Sub btnAceptar_Leave(sender As Object, e As EventArgs) Handles btnAceptar.MouseLeave
+        If Not sender.Enabled Then
+            Return
+        End If
+        sender.BackgroundImage = My.Resources.unfullscreen_normal()
     End Sub
 End Class
