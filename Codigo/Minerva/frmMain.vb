@@ -57,9 +57,13 @@
         Grilla.dgvMaterias.Rows.Clear()
         If vista.Equals("Semana") Then
             Grilla.Visible = True
+            Grilla.BringToFront()
+            tblDias.Visible = False
             btnFullscreen.Visible = True
         Else
             Grilla.Visible = False
+            tblDias.Visible = True
+            tblDias.BringToFront()
         End If
 
         timerbtnrefrescar.Enabled = True
@@ -233,5 +237,9 @@
         Next
         frmHorariosExternos.Grilla.dgvMaterias.Rows.AddRange(targetRows.ToArray())
         frmHorariosExternos.ShowDialog(Me)
+    End Sub
+
+    Private Sub tblMaterias_Resize(sender As Object, e As EventArgs) Handles tblMaterias.Resize
+        tblMaterias.Invalidate()
     End Sub
 End Class

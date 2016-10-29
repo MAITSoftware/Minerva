@@ -302,20 +302,18 @@ Public Class BaseDeDatos
             lblMateria.Text = reader("NombreAsignatura").ToString()
             lblProfesor.Text = "         " & profesor
 
+
             frm.tblMaterias.RowStyles.Add(New RowStyle(SizeType.AutoSize, 0))
             frm.tblMaterias.RowStyles.Add(New RowStyle(SizeType.AutoSize, 0))
-
-            lblMateria.AutoSize = True
-            lblProfesor.AutoSize = True
-
             frm.tblMaterias.Controls.Add(lblMateria, 0, x)
             frm.tblMaterias.Controls.Add(lblProfesor, 0, x + 1)
 
+            lblMateria.AutoSize = True
+            lblProfesor.AutoSize = True
             subreader.Dispose()
             x += 2
         End While
 
-        frm.tblMaterias.RowStyles.Add(New RowStyle(SizeType.Absolute, 0))
         reader.Dispose()
         conexion.Close()
         subconexion.Close()
@@ -364,6 +362,7 @@ Public Class BaseDeDatos
                 reader.Close()
             End Using
         Next
+        frm.Lunes.pnlDias.AutoScroll = True
 
         Dim horarios(0) As Object
         If frm.lblValorTipoTurno.Tag.Equals("3") Then

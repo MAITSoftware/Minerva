@@ -11,7 +11,7 @@
 
     Private Sub me_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
         ' Dibuja un borde
-        e.Graphics.DrawRectangle(New Pen(Color.White, 2), New Rectangle(New Point(1, 27), New Size(New Point(pnlDias.Width + 2, pnlDias.Height + 2))))
+        e.Graphics.DrawRectangle(New Pen(Color.White, 2), New Rectangle(New Point(1, 34), New Size(New Point(pnlDias.Width + 2, pnlDias.Height + 2))))
     End Sub
 
     Public Sub agregarHora(ByVal horario As String, ByVal materia As String)
@@ -20,8 +20,6 @@
         Dim labelMateria As New Label
 
         lblNoHayHoras.Visible = False
-
-        pnlDias.AutoScroll = True
 
         labelHorario.AutoSize = True
         labelHorario.Padding = New Padding(0, 4, 0, 0)

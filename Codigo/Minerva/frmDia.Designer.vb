@@ -29,28 +29,37 @@ Partial Class frmDia
         '
         'lblNoHayHoras
         '
+        Me.lblNoHayHoras.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblNoHayHoras.BackColor = System.Drawing.Color.Transparent
         Me.lblNoHayHoras.Font = New System.Drawing.Font("Corbel", 20.0!, System.Drawing.FontStyle.Bold)
         Me.lblNoHayHoras.ForeColor = System.Drawing.Color.White
-        Me.lblNoHayHoras.Location = New System.Drawing.Point(1, 28)
+        Me.lblNoHayHoras.Location = New System.Drawing.Point(3, 35)
         Me.lblNoHayHoras.Margin = New System.Windows.Forms.Padding(0)
         Me.lblNoHayHoras.Name = "lblNoHayHoras"
-        Me.lblNoHayHoras.Size = New System.Drawing.Size(255, 178)
+        Me.lblNoHayHoras.Size = New System.Drawing.Size(250, 176)
         Me.lblNoHayHoras.TabIndex = 28
         Me.lblNoHayHoras.Text = "No hay" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "horarios" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "asignados"
         Me.lblNoHayHoras.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'pnlDias
         '
+        Me.pnlDias.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlDias.AutoScroll = True
+        Me.pnlDias.AutoSize = True
+        Me.pnlDias.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.pnlDias.ColumnCount = 2
         Me.pnlDias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.pnlDias.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.pnlDias.Location = New System.Drawing.Point(3, 28)
+        Me.pnlDias.Location = New System.Drawing.Point(2, 35)
         Me.pnlDias.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlDias.Name = "pnlDias"
         Me.pnlDias.RowCount = 1
         Me.pnlDias.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pnlDias.Size = New System.Drawing.Size(252, 178)
+        Me.pnlDias.Size = New System.Drawing.Size(0, 0)
         Me.pnlDias.TabIndex = 29
         '
         'lblDia
@@ -58,7 +67,7 @@ Partial Class frmDia
         Me.lblDia.AutoSize = True
         Me.lblDia.Font = New System.Drawing.Font("Corbel", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDia.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblDia.Location = New System.Drawing.Point(-3, -6)
+        Me.lblDia.Location = New System.Drawing.Point(-5, 0)
         Me.lblDia.Name = "lblDia"
         Me.lblDia.Size = New System.Drawing.Size(90, 36)
         Me.lblDia.TabIndex = 27
