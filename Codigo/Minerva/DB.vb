@@ -293,22 +293,24 @@ Public Class BaseDeDatos
 
             Dim lblMateria As New Label
             Dim lblProfesor As New Label
-            lblMateria.AutoSize = True
-            lblProfesor.AutoSize = True
 
             lblMateria.Font = New Font("Microsoft Sans Serif", 12, FontStyle.Bold)
             lblProfesor.Font = New Font("Microsoft Sans Serif", 12)
             lblProfesor.Padding = New Padding(0, 0, 0, 5)
-
             lblMateria.ForeColor = Color.White
 
+            lblMateria.Text = reader("NombreAsignatura").ToString()
+            lblProfesor.Text = "         " & profesor
+
             frm.tblMaterias.RowStyles.Add(New RowStyle(SizeType.AutoSize, 0))
+            frm.tblMaterias.RowStyles.Add(New RowStyle(SizeType.AutoSize, 0))
+
+            lblMateria.AutoSize = True
+            lblProfesor.AutoSize = True
+
             frm.tblMaterias.Controls.Add(lblMateria, 0, x)
-            frm.tblMaterias.RowStyles.Add(New RowStyle(SizeType.AutoSize, 0))
             frm.tblMaterias.Controls.Add(lblProfesor, 0, x + 1)
 
-            lblMateria.Text = reader("NombreAsignatura")
-            lblProfesor.Text = "         " & profesor
             subreader.Dispose()
             x += 2
         End While
@@ -417,6 +419,7 @@ Public Class BaseDeDatos
 
         conexion.Close()
         frm.Cursor = Cursors.Default
+
     End Sub
 
     Public Sub cargarSalones_frmAdminSalones(ByVal frm As frmAdminSalones)

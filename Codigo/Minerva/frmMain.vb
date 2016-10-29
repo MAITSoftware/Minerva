@@ -84,6 +84,7 @@
             timerDatosUsuario.Start()
             timerDatosUsuario.Enabled = True
         End If
+        Me.WindowState = FormWindowState.Maximized
     End Sub
 
 
