@@ -8,7 +8,7 @@ Public Class Conexion
     Public Sub New()
         ' Al crear la clase, generar la conexión, y abrirla
         Try
-            Conn = New MySqlConnection("server=localhost;uid=minerva;password=minerva;database=Minerva")
+            Conn = New MySqlConnection("server=localhost;uid=minerva;password=minerva;database=Minerva2")
             Conn.Open()
         Catch ex As Exception
             ' En caso de error mostrar un mensaje y salir
@@ -102,7 +102,7 @@ Public Class BaseDeDatos
             Using cmd As New MySqlCommand()
                 With cmd
                     .Connection = conexion.Conn
-                    .CommandText = "INSERT INTO `Usuario` VALUES (@CiPersona, NULL, NULL, @TipoUsuario, @ContraseñaUsuario, @AprobacionUsuario);"
+                    .CommandText = "INSERT INTO `Usuario` VALUES (@CiPersona, @TipoUsuario, @ContraseñaUsuario, @AprobacionUsuario);"
                     .CommandType = CommandType.Text
                     .Parameters.AddWithValue("@CiPersona", frm.txtUsuario.Text)
                     .Parameters.AddWithValue("@ContraseñaUsuario", frm.txtContraseña.Text)
@@ -149,7 +149,7 @@ Public Class BaseDeDatos
             With cmd
                 .Connection = conexion.Conn
                 .CommandType = CommandType.Text
-                .CommandText = "UPDATE `Usuario` SET NombrePersona=@NombrePersona, ApellidoPersona=@ApellidoPersona WHERE CiPersona=@CiPersona;"
+                .CommandText = "UPDATE `Persona` SET NombrePersona=@NombrePersona, ApellidoPersona=@ApellidoPersona WHERE CiPersona=@CiPersona;"
 
                 .Parameters.AddWithValue("@CiPersona", frm._frmMain.nombreUsuario)
                 .Parameters.AddWithValue("@NombrePersona", frm.txtNombre.Text)
@@ -157,19 +157,6 @@ Public Class BaseDeDatos
             End With
             cmd.ExecuteNonQuery()
             conexion.Close()
-        End Using
-
-        Using subCmd As New MySqlCommand()
-            With subCmd
-                .Connection = subConexion.Conn
-                .CommandText = "UPDATE `Persona` SET NombrePersona=@NombrePersona, ApellidoPersona=@ApellidoPersona WHERE CiPersona=@CiPersona;"
-                .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@CiPersona", frm._frmMain.nombreUsuario)
-                .Parameters.AddWithValue("@NombrePersona", frm.txtNombre.Text)
-                .Parameters.AddWithValue("@ApellidoPersona", frm.txtApellido.Text)
-            End With
-            subCmd.ExecuteNonQuery()
-            subConexion.Close()
         End Using
 
         MessageBox.Show("Información de usuario actualizada correctamente", "Usuario actualizado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
@@ -182,7 +169,7 @@ Public Class BaseDeDatos
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT NombrePersona, ApellidoPersona from `Usuario` where CiPersona=@CiPersona"
+                .CommandText = "SELECT NombrePersona, ApellidoPersona from `Persona` where CiPersona=@CiPersona"
                 .Parameters.AddWithValue("@CiPersona", frm.nombreUsuario)
                 .CommandType = CommandType.Text
             End With
@@ -797,25 +784,27 @@ Public Class BaseDeDatos
                 .CommandType = CommandType.Text
 
                 If frm.btnAgregar.Text.Equals("Agregar usuario") Then
-                    .CommandText = "INSERT INTO `Usuario` VALUES (@CiPersona, @Nombre, @Apellido, @TipoUsuario, @ContraseñaUsuario, @AprobacionUsuario);"
+                    .CommandText = "INSERT INTO `Usuario` VALUES (@CiPersona @TipoUsuario, @ContraseñaUsuario, @AprobacionUsuario);"
                 Else
-                    .CommandText = "UPDATE `Usuario` SET NombrePersona=@Nombre, ApellidoPersona=@Apellido, TipoUsuario=@TipoUsuario, ContraseñaUsuario=@ContraseñaUsuario, AprobacionUsuario=@AprobacionUsuario WHERE CiPersona=@CiPersona;"
+                    .CommandText = "UPDATE `Usuario` SETipoUsuario=@TipoUsuario, ContraseñaUsuario=@ContraseñaUsuario, AprobacionUsuario=@AprobacionUsuario WHERE CiPersona=@CiPersona;"
                 End If
 
                 .Parameters.AddWithValue("@CiPersona", frm.txtID.Text)
-                .Parameters.AddWithValue("@Nombre", frm.txtNombre.Text)
-                .Parameters.AddWithValue("@Apellido", frm.txtApellido.Text)
                 .Parameters.AddWithValue("@ContraseñaUsuario", frm.txtContraseña.Text)
                 .Parameters.AddWithValue("@AprobacionUsuario", frm.chkHabilitado.Checked)
                 .Parameters.AddWithValue("@TipoUsuario", frm.tipoSeleccionado)
             End With
 
             Try
-                If frm.btnAgregar.Text.Equals("Agregar usuario") Then
+                
                     Using subCmd As New MySqlCommand()
                         With subCmd
                             .Connection = conexion.Conn
+                            If frm.btnAgregar.Text.Equals("Agregar usuario") Then
                             .CommandText = "INSERT INTO `Persona` VALUES (@CiPersona, @Nombre, @Apellido);"
+Else
+.CommandText = "UPDATE `Persona` SET NombrePersona=@Nombre, ApellidoPersona=@Apellido where CiPersona=@CiPersona;"
+                End If
                             .CommandType = CommandType.Text
                             .Parameters.AddWithValue("@CiPersona", frm.txtID.Text)
                             .Parameters.AddWithValue("@Nombre", frm.txtNombre.Text)
@@ -823,7 +812,6 @@ Public Class BaseDeDatos
                         End With
                         subCmd.ExecuteNonQuery()
                     End Using
-                End If
 
                 cmd.ExecuteNonQuery()
                 If frm.btnAgregar.Text.Equals("Agregar usuario") Then
@@ -1225,9 +1213,9 @@ Public Class BaseDeDatos
                 .CommandType = CommandType.Text
 
                 If frm.btnAgregarDocente.Text.StartsWith("Agregar docente") Then
-                    .CommandText = "INSERT INTO `Profesor` VALUES (@CiPersona, @NombreProfesor, @ApellidoProfesor, @GradoProfesor);"
+                    .CommandText = "INSERT INTO `Profesor` VALUES (@CiPersona, @GradoProfesor);"
                 Else
-                    .CommandText = "UPDATE `Profesor` SET NombrePersona=@NombreProfesor, ApellidoPersona=@ApellidoProfesor, GradoProfesor=@GradoProfesor WHERE CiPersona=@CiPersona;"
+                    .CommandText = "UPDATE `Profesor` SET GradoProfesor=@GradoProfesor WHERE CiPersona=@CiPersona;"
                 End If
 
                 .Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
@@ -1383,7 +1371,7 @@ Public Class BaseDeDatos
                     Using subSubCmd As New MySqlCommand()
                         With subSubCmd
                             .Connection = conexion.Conn
-                            .CommandText = "INSERT INTO `Profesor` VALUES (@CiPersona, @NombrePersona, @ApellidoPersona, @GradoProfesor)"
+                            .CommandText = "INSERT INTO `Profesor` VALUES (@CiPersona, @GradoProfesor)"
                             .CommandType = CommandType.Text
                             .Parameters.AddWithValue("@CiPersona", ci)
                             .Parameters.AddWithValue("@NombrePersona", nombre)
