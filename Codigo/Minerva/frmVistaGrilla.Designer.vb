@@ -24,6 +24,7 @@ Partial Class frmVistaGrilla
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvMaterias = New System.Windows.Forms.DataGridView()
         Me.Hora = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Lunes = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -41,15 +42,18 @@ Partial Class frmVistaGrilla
         Me.dgvMaterias.AllowUserToDeleteRows = False
         Me.dgvMaterias.AllowUserToResizeColumns = False
         Me.dgvMaterias.AllowUserToResizeRows = False
+        Me.dgvMaterias.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvMaterias.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvMaterias.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        Me.dgvMaterias.BackgroundColor = System.Drawing.Color.White
+        Me.dgvMaterias.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.dgvMaterias.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvMaterias.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
@@ -57,28 +61,32 @@ Partial Class frmVistaGrilla
         Me.dgvMaterias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvMaterias.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Hora, Me.Lunes, Me.Martes, Me.Miércoles, Me.Jueves, Me.Viernes, Me.Sábado})
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle2.Padding = New System.Windows.Forms.Padding(5)
         DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvMaterias.DefaultCellStyle = DataGridViewCellStyle2
-        Me.dgvMaterias.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvMaterias.GridColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.dgvMaterias.EnableHeadersVisualStyles = False
+        Me.dgvMaterias.GridColor = System.Drawing.Color.White
         Me.dgvMaterias.Location = New System.Drawing.Point(0, 0)
         Me.dgvMaterias.MultiSelect = False
         Me.dgvMaterias.Name = "dgvMaterias"
         Me.dgvMaterias.ReadOnly = True
         Me.dgvMaterias.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         Me.dgvMaterias.RowHeadersVisible = False
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        Me.dgvMaterias.RowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvMaterias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvMaterias.ShowCellErrors = False
         Me.dgvMaterias.ShowCellToolTips = False
         Me.dgvMaterias.ShowEditingIcon = False
         Me.dgvMaterias.ShowRowErrors = False
-        Me.dgvMaterias.Size = New System.Drawing.Size(817, 377)
+        Me.dgvMaterias.Size = New System.Drawing.Size(614, 377)
         Me.dgvMaterias.TabIndex = 0
         Me.dgvMaterias.TabStop = False
         '
@@ -89,7 +97,7 @@ Partial Class frmVistaGrilla
         Me.Hora.Name = "Hora"
         Me.Hora.ReadOnly = True
         Me.Hora.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Hora.Width = 140
+        Me.Hora.Width = 154
         '
         'Lunes
         '
@@ -99,7 +107,7 @@ Partial Class frmVistaGrilla
         Me.Lunes.ReadOnly = True
         Me.Lunes.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.Lunes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Lunes.Width = 69
+        Me.Lunes.Width = 74
         '
         'Martes
         '
@@ -109,7 +117,7 @@ Partial Class frmVistaGrilla
         Me.Martes.ReadOnly = True
         Me.Martes.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.Martes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Martes.Width = 74
+        Me.Martes.Width = 80
         '
         'Miércoles
         '
@@ -119,7 +127,7 @@ Partial Class frmVistaGrilla
         Me.Miércoles.ReadOnly = True
         Me.Miércoles.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.Miércoles.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Miércoles.Width = 92
+        Me.Miércoles.Width = 101
         '
         'Jueves
         '
@@ -129,7 +137,7 @@ Partial Class frmVistaGrilla
         Me.Jueves.ReadOnly = True
         Me.Jueves.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.Jueves.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Jueves.Width = 75
+        Me.Jueves.Width = 81
         '
         'Viernes
         '
@@ -138,7 +146,7 @@ Partial Class frmVistaGrilla
         Me.Viernes.Name = "Viernes"
         Me.Viernes.ReadOnly = True
         Me.Viernes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Viernes.Width = 79
+        Me.Viernes.Width = 86
         '
         'Sábado
         '
@@ -147,7 +155,7 @@ Partial Class frmVistaGrilla
         Me.Sábado.Name = "Sábado"
         Me.Sábado.ReadOnly = True
         Me.Sábado.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Sábado.Width = 81
+        Me.Sábado.Width = 87
         '
         'frmVistaGrilla
         '
@@ -156,7 +164,7 @@ Partial Class frmVistaGrilla
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.Controls.Add(Me.dgvMaterias)
         Me.Name = "frmVistaGrilla"
-        Me.Size = New System.Drawing.Size(817, 377)
+        Me.Size = New System.Drawing.Size(614, 377)
         CType(Me.dgvMaterias, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

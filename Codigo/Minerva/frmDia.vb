@@ -25,14 +25,14 @@
         labelHorario.Padding = New Padding(0, 4, 0, 0)
         labelHorario.ForeColor = SystemColors.Control
         labelHorario.TextAlign = ContentAlignment.MiddleLeft
-        labelHorario.Font = New Font("Courier New", 14, FontStyle.Bold)
+        labelHorario.Font = New Font("Microsoft Sans Serif", 12, FontStyle.Bold)
         labelHorario.Text = horario
 
         labelMateria.AutoSize = True
         labelMateria.Padding = New Padding(0, 3, 0, 0)
         labelMateria.TextAlign = ContentAlignment.MiddleLeft
         labelMateria.ForeColor = SystemColors.AppWorkspace
-        labelMateria.Font = New Font("Courier New", 14)
+        labelMateria.Font = New Font("Microsoft Sans Serif", 12)
         labelMateria.Text = materia
 
         pnlDias.RowStyles.Add(New RowStyle(SizeType.AutoSize))

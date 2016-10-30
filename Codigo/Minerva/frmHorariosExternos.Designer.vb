@@ -25,9 +25,9 @@ Partial Class frmHorariosExternos
         Me.lblHorario = New System.Windows.Forms.Label()
         Me.cboGrupo = New System.Windows.Forms.ComboBox()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
-        Me.Grilla = New Minerva.frmVistaGrilla()
         Me.btnAceptar = New System.Windows.Forms.PictureBox()
         Me.btnGuardarPdf = New System.Windows.Forms.PictureBox()
+        Me.Grilla = New Minerva.frmVistaGrilla()
         CType(Me.btnAceptar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnGuardarPdf, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -64,16 +64,6 @@ Partial Class frmHorariosExternos
         Me.SaveFileDialog1.InitialDirectory = "Desktop"
         Me.SaveFileDialog1.RestoreDirectory = True
         '
-        'Grilla
-        '
-        Me.Grilla.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
-        Me.Grilla.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grilla.Location = New System.Drawing.Point(0, 79)
-        Me.Grilla.Name = "Grilla"
-        Me.Grilla.Size = New System.Drawing.Size(1280, 641)
-        Me.Grilla.TabIndex = 2
-        Me.Grilla.TabStop = False
-        '
         'btnAceptar
         '
         Me.btnAceptar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -97,6 +87,19 @@ Partial Class frmHorariosExternos
         Me.btnGuardarPdf.Size = New System.Drawing.Size(60, 60)
         Me.btnGuardarPdf.TabIndex = 6
         Me.btnGuardarPdf.TabStop = False
+        '
+        'Grilla
+        '
+        Me.Grilla.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Grilla.AutoScroll = True
+        Me.Grilla.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Grilla.Location = New System.Drawing.Point(38, 111)
+        Me.Grilla.Name = "Grilla"
+        Me.Grilla.Size = New System.Drawing.Size(1240, 609)
+        Me.Grilla.TabIndex = 2
+        Me.Grilla.TabStop = False
         '
         'frmHorariosExternos
         '

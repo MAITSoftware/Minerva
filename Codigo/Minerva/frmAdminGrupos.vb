@@ -125,6 +125,11 @@
             Return
         End If
 
+        If String.IsNullOrWhiteSpace(cmbGrado.Text) Then
+            MessageBox.Show("Debe seleccionar un grado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            Return
+        End If
+
         actualizarDB()
     End Sub
 
