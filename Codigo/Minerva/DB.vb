@@ -1,4 +1,4 @@
-﻿Imports MySql.Data.MySqlClient ' Importa el módulo de MySQL
+Imports MySql.Data.MySqlClient ' Importa el módulo de MySQL
 Imports System.Data
 
 Public Class Conexion
@@ -2413,6 +2413,7 @@ Else
                                 ventanaEspere.BringToFront()
                                 hora_n += 1
                                 huboError = True
+                                reader_check.Close()
                                 Continue For
                             End While
                             reader_check.Close()
