@@ -63,17 +63,20 @@ create table `Turno` (
  
  
 create table `Grupo` (
+  `NroGrupo` INT NOT NULL AUTO_INCREMENT,
   `IdGrupo` VARCHAR(4) NOT NULL,
   `Discapacitado` BOOLEAN NOT NULL,
   `IdSalon` INT(2) NOT NULL,
   `IdTurno` INT(2) NOT NULL,
   `Grado` INT(2) NOT NULL, 
   `IdOrientacion` VARCHAR(4) NOT NULL,
+  `CiPersona` VARCHAR (8) NOT NULL,
   FOREIGN KEY (`Grado`) REFERENCES Trayecto(`Grado`),
   FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
   FOREIGN KEY (`IdSalon`) REFERENCES Salon(`IdSalon`),
   FOREIGN KEY (`IdTurno`) REFERENCES Turno(`IdTurno`),
-  PRIMARY KEY (`IdGrupo`)
+  FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`),
+  PRIMARY KEY (`NroGrupo`)
 );
  
   
@@ -105,7 +108,6 @@ create table `Asignacion` (
 );
 
 
-
 create table `Tiene_Ta` (
   `IdAsignatura` VARCHAR(5) NOT NULL,
   `Grado` INT(2) NOT NULL,
@@ -119,21 +121,19 @@ create table `Tiene_Ta` (
 
 create table `Tiene_Ag` (
   `IdAsignatura` VARCHAR(5) NOT NULL,
-  `IdGrupo` VARCHAR(4) NOT NULL,
-  `IdOrientacion` VARCHAR(4) NOT NULL,
-  `CiPersona` VARCHAR(8) NOT NULL,
+  `NroGrupo` INT NOT NULL,
   `FechaToma` DATE NOT NULL,
   `GradoAreaProfesor` INT(2) NOT NULL,
+  `CiPersona` VARCHAR(8) NOT NULL,
   FOREIGN KEY (`IdAsignatura`) REFERENCES Asignatura(`IdAsignatura`),
-  FOREIGN KEY (`IdGrupo`) REFERENCES Grupo(`IdGrupo`),
-  FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
+  FOREIGN KEY (`NroGrupo`) REFERENCES Grupo(`NroGrupo`),
   FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`),
-  PRIMARY KEY (`IdAsignatura`, `IdGrupo`)
+  PRIMARY KEY (`IdAsignatura`, `NroGrupo`)
 ); 
 
 create table `Genera` (
   `IdAsignatura` VARCHAR(5) NOT NULL,
-  `IdGrupo` VARCHAR(4) NOT NULL,
+  `NroGrupo` INT NOT NULL,
   `HoraInicio` TIME NOT NULL,
   `HoraFin` TIME NOT NULL,
   `Dia` VARCHAR(10) NOT NULL,
@@ -143,24 +143,27 @@ create table `Genera` (
   FOREIGN KEY (`HoraInicio`) REFERENCES Asignacion(`HoraInicio`),
   FOREIGN KEY (`Dia`) REFERENCES Asignacion(`Dia`),
   FOREIGN KEY (`IdAsignatura`) REFERENCES Asignatura(`IdAsignatura`),
-  FOREIGN KEY (`IdGrupo`) REFERENCES Grupo(`IdGrupo`),
+  FOREIGN KEY (`NroGrupo`) REFERENCES Grupo(`NroGrupo`),
   FOREIGN KEY (`IdTurno`) REFERENCES Turno(`IdTurno`),
   FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`),
-  PRIMARY KEY (`HoraInicio`, `HoraFin`, `Dia`, `IdAsignatura`, `IdTurno`, `IdGrupo`)
+  PRIMARY KEY (`HoraInicio`, `HoraFin`, `Dia`, `IdAsignatura`, `IdTurno`, `NroGrupo`)
 );
 
-create view AsignaturasTomadas AS select IdAsignatura, Tiene_Ag.IdGrupo, Grado from Tiene_Ag, Grupo where Grupo.IdGrupo=Tiene_Ag.IdGrupo;
-create view Calendario AS select Asignatura.IdAsignatura as IdAsignatura, HoraInicio, DATE_FORMAT(HoraInicio, '%H:%i') as HoraOrden, CONCAT(DATE_FORMAT(HoraInicio, '%H:%i'), " - ", DATE_FORMAT(HoraFin, '%H:%i')) as Hora, Dia, CONCAT(Grupo.Grado, " ", Genera.IdGrupo) as Grupo, CONCAT(NombrePersona, ' ', ApellidoPersona) as NombreProfesor, Persona.CiPersona, NombreAsignatura as Materia from Genera, Asignatura, Persona, Grupo where Grupo.IdGrupo=Genera.IdGrupo and Genera.IdAsignatura=Asignatura.IdAsignatura and Genera.CiPersona=Persona.CiPersona;
-create view AsignaturasOrientaciones as select Tiene_Ta.IdOrientacion, Grupo.Grado, Asignatura.IdAsignatura as IdAsignatura, CargaHoraria, NombreAsignatura from Tiene_Ta, Asignatura, Grupo where Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura;
-create view Grupos AS select IdGrupo, CONCAT(Grado, IdGrupo) as Grupo from Grupo;
-create view DatosGrupos as select Grupo.IdSalon as Salon, Orientacion.IdOrientacion, Orientacion.NombreOrientacion as Orientacion, Curso.NombreCurso as Curso, Grupo.Grado as Grado, Grupo.IdGrupo as IdGrupo, Turno.NombreTurno from Curso, Orientacion, Grupo, Turno where Grupo.IdTurno=Turno.IdTurno and Orientacion.IdOrientacion=Grupo.IdOrientacion and orientacion.idcurso=curso.idcurso;
+create view AsignaturasTomadas AS select IdAsignatura, Tiene_Ag.NroGrupo, Grado from Tiene_Ag, Grupo where Grupo.NroGrupo=Tiene_Ag.NroGrupo;
+create view Calendario AS select Asignatura.IdAsignatura as IdAsignatura, HoraInicio, DATE_FORMAT(HoraInicio, '%H:%i') as HoraOrden, CONCAT(DATE_FORMAT(HoraInicio, '%H:%i'), " - ", DATE_FORMAT(HoraFin, '%H:%i')) as Hora, Dia, CONCAT(Grupo.Grado, " ", Grupo.IdGrupo) as Grupo, CONCAT(NombrePersona, ' ', ApellidoPersona) as NombreProfesor, Persona.CiPersona, NombreAsignatura as Materia from Genera, Asignatura, Persona, Grupo where Grupo.NroGrupo=Genera.NroGrupo and Genera.IdAsignatura=Asignatura.IdAsignatura and Genera.CiPersona=Persona.CiPersona;
+create view AsignaturasOrientaciones as select tiene_ta.IdOrientacion, tiene_ta.Grado, tiene_ta.IdAsignatura, tiene_ta.CargaHoraria, Asignatura.NombreAsignatura from tiene_ta, asignatura where Asignatura.IdAsignatura=Tiene_ta.IdAsignatura;
+create view Grupos AS select NroGrupo, CONCAT(Grado, ' ', IdGrupo) as Grupo from Grupo;
+create view DatosGrupos as select Grupo.IdSalon as Salon, Orientacion.IdOrientacion, Orientacion.NombreOrientacion as Orientacion, Curso.NombreCurso as Curso, Grupo.Grado as Grado, Grupo.IdGrupo as IdGrupo, Grupo.NroGrupo as NroGrupo, Turno.NombreTurno, Grupo.CiPersona from Curso, Orientacion, Grupo, Turno where Grupo.IdTurno=Turno.IdTurno and Orientacion.IdOrientacion=Grupo.IdOrientacion and orientacion.idcurso=curso.idcurso;
+create view Adscriptos as select Usuario.CiPersona, CONCAT(NombrePersona, ' ', ApellidoPersona) as Adscripto from Persona, Usuario where Usuario.CiPersona=Persona.CiPersona and Usuario.TipoUsuario="Adscripto";
 
 -- Datos necesarios
 INSERT INTO `Minerva2`.`Persona` (`CiPersona`, `NombrePersona`, `ApellidoPersona`) VALUES
-(-1, "Sin", "profesor");
+(-1, "Sin", "definir");
 
 INSERT INTO `Minerva2`.`Profesor` (`CiPersona`, `GradoProfesor`) VALUES
 (-1, 7);
+
+INSERT INTO `Minerva2`.`Usuario` VALUES ("-1", "Adscripto", "-1", False);
 
 INSERT INTO `Minerva2`.`Curso` (`IdCurso`, `NombreCurso`) VALUES 
 ('001', 'CBT'), 
