@@ -71,7 +71,7 @@ Public Class BaseDeDatos
 
     Public Sub Registro_frmRegistro(ByVal frm As frmRegistro)
         ' Se encarga de efectuar la conexión a la DB y registrar al usuario en la misma
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         Dim cantidadAdministradores As Integer
 
         Using cmd As New MySqlCommand()
@@ -147,7 +147,7 @@ Public Class BaseDeDatos
     End Sub
 
     Public Sub setDatos_frmDatosUsuario(ByVal frm As frmDatosUsuario)
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
         Dim subConexion As New Conexion()
 
         Using cmd As New MySqlCommand()
@@ -851,8 +851,8 @@ Public Class BaseDeDatos
 
             Try
                 Using subCmd As New MySqlCommand()
-                        With subCmd
-                            .Connection = conexion.Conn
+                    With subCmd
+                        .Connection = conexion.Conn
                         If frm.btnAgregar.Text.Equals("Agregar usuario") Then
                             .CommandText = "INSERT INTO `Persona` VALUES (@CiPersona, @Nombre, @Apellido);"
                         Else
@@ -863,8 +863,8 @@ Public Class BaseDeDatos
                         .Parameters.AddWithValue("@Nombre", frm.txtNombre.Text)
                         .Parameters.AddWithValue("@Apellido", frm.txtApellido.Text)
                     End With
-                        subCmd.ExecuteNonQuery()
-                    End Using
+                    subCmd.ExecuteNonQuery()
+                End Using
 
                 cmd.ExecuteNonQuery()
                 If frm.btnAgregar.Text.Equals("Agregar usuario") Then
