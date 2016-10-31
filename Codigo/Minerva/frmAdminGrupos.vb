@@ -6,11 +6,14 @@
     Friend prevOrientacionSelect As String
     Friend frmMain As frmMain
     Dim previsualizando As Boolean = False
+    Dim tipoUsuario As String
 
-    Public Sub New(ByVal frmMain As frmMain)
+    Public Sub New(ByVal frmMain As frmMain, ByVal tipoUsuario As String)
         InitializeComponent()
         Me.frmMain = frmMain
+        Me.tipoUsuario = tipoUsuario
     End Sub
+
     Private Sub frmAdminGrupos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al cargar la ventana, cargarGrupos y rellenar los combos con los datos.
         cargarGrupos()
@@ -18,16 +21,21 @@
         controlesHabilitados(True)
         rellenarCombos()
 
+        cmbAdscripto.SelectedIndex = 0
+
         cmbOrientacion.Enabled = False
         cmbGrado.Enabled = False
         cmbCurso.Focus()
+        Call New ToolTip().SetToolTip(lblSalon, "Salón del grupo. Se administra en la pestaña Salones.")
+        Call New ToolTip().SetToolTip(lblSalonReal, "Salón del grupo. Se administra en la pestaña Salones.")
     End Sub
 
-    Public Sub agregarGrupo(ByVal IDGrupo As String, ByVal Trayecto As String, ByVal IDTurno As String, ByVal idTexto As String, ByVal nombreTurno As String)
+    Public Sub agregarGrupo(ByVal NroGrupo As String, idTexto As String, ByVal nombreTurno As String)
         ' Basicamente copio la plantilla a un nuevo panel
         Dim pnlTemporal As New Panel
         Dim btnGrupo As New Button
         Dim btnEliminar As New Button
+        Dim btnEditar As New Button()
 
         pnlTemporal.Size = pnlGrupoPlantilla.Size
         btnGrupo.Size = btnGrupoPlantilla.Size
@@ -42,8 +50,19 @@
         btnGrupo.Font = btnGrupoPlantilla.Font
         btnGrupo.TabStop = False
 
-        btnGrupo.Tag = {IDGrupo, Trayecto, IDTurno, nombreTurno}
+        btnGrupo.Tag = {NroGrupo}
         AddHandler btnGrupo.Click, AddressOf verGrupo
+
+        btnEditar.Size = btnEditarPlantilla.Size
+        btnEditar.FlatStyle = btnEditarPlantilla.FlatStyle
+        btnEditar.ForeColor = btnEditarPlantilla.ForeColor
+        btnEditar.Text = btnEditarPlantilla.Text
+        btnEditar.BackColor = btnEditarPlantilla.BackColor
+        btnEditar.Location = btnEditarPlantilla.Location
+        btnEditar.Cursor = btnEditarPlantilla.Cursor
+        btnEditar.TabStop = False
+        btnEditar.Tag = {NroGrupo}
+        AddHandler btnEditar.Click, AddressOf editarGrupo
 
         btnEliminar.Size = btnEliminarPlantilla.Size
         btnEliminar.FlatStyle = btnEliminarPlantilla.FlatStyle
@@ -54,9 +73,14 @@
         btnEliminar.Cursor = btnEliminarPlantilla.Cursor
         btnEliminar.TabStop = False
 
-        btnEliminar.Tag = {IDGrupo, Trayecto, IDTurno, nombreTurno}
+        If Me.tipoUsuario.Equals("Adscripto") Then
+            btnEliminar.Visible = False
+        End If
+
+        btnEliminar.Tag = {NroGrupo, idTexto, nombreTurno}
         AddHandler btnEliminar.Click, AddressOf eliminarGrupo
 
+        pnlTemporal.Controls.Add(btnEditar)
         pnlTemporal.Controls.Add(btnEliminar)
         pnlTemporal.Controls.Add(btnGrupo)
 
@@ -96,6 +120,8 @@
         cmbGrado.Enabled = False
         previsualizando = False
         chkDiscapacitado.TabStop = True
+        cmbAdscripto.Enabled = True
+        rellenarCombos()
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
@@ -135,19 +161,32 @@
 
     Private Sub verGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
         ' Llama a previsualizarGrupo cuando un botón es clickeado.
-        previsualizarGrupo(sender.Tag(0), sender.Tag(1).ToString(), sender.Tag(2))
+        previsualizarGrupo(sender.Tag(0))
 
         chkDiscapacitado.TabStop = False
     End Sub
 
-    Private Sub previsualizarGrupo(ByVal id As String, ByVal grado As String, ByVal turno As String)
+    Private Sub editarGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        Dim nroGrupo As String = sender.Tag(0)
+        previsualizarGrupo(sender.Tag(0))
+        btnNuevoGrupo.Text = "Nuevo grupo / cancelar"
+        btnNuevoGrupo.Visible = True
+        btnAgregar.Text = "Guardar cambios"
+        btnAgregar.Visible = True
+        lblNuevoGrupo.Text = "Editar grupo"
+        cmbAdscripto.Enabled = True
+        previsualizando = False
+    End Sub
+
+    Private Sub previsualizarGrupo(ByVal nroGrupo As String)
         ' Prepara la interfaz para previsualizarUnGrupo
         btnNuevoGrupo.Visible = True
         btnAgregar.Visible = False
+        btnNuevoGrupo.Text = "Nuevo grupo"
         lblNuevoGrupo.Text = "Previsualizar grupo"
 
         controlesHabilitados(False)
-        cargarDatos({id, grado, turno})
+        cargarDatos(nroGrupo)
     End Sub
 
     Private Sub cmbCurso_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCurso.SelectedIndexChanged
@@ -185,14 +224,17 @@
 
     Public Sub rellenarCombos()
         ' Llena los combos con los datos de la DB.
+        cmbCurso.Items.Clear()
+        cmbAdscripto.Items.Clear()
         Dim DB As New BaseDeDatos()
         DB.rellenarCombos_frmAdminGrupos(Me)
+        DB.cargarAdscriptos_frmAdminGrupos(Me)
     End Sub
 
-    Public Sub cargarDatos(ByVal grupo As Object)
+    Public Sub cargarDatos(ByVal nroGrupo As String)
         ' carga los datos del grupo y los coloca en la interfaz
         Dim DB As New BaseDeDatos()
-        DB.cargarDatos_frmAdminGrupos(grupo, Me)
+        DB.cargarDatos_frmAdminGrupos(nroGrupo, Me)
         previsualizando = True
     End Sub
 
@@ -214,15 +256,14 @@
     Private Sub eliminarGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
         ' Le pregunta al usuario si quiere eliminar el grupo, de ser correcto, lo elimina
         Dim grupo As String
-        grupo = sender.Tag(1) + " " + sender.Tag(0) + " (" + sender.Tag(3) + ")"
-        sender.Tag = {sender.Tag(0), sender.Tag(1), sender.Tag(2), sender.Tag(3), grupo}
+        grupo = sender.Tag(1)
         Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar el grupo '" + grupo + "'?", "Eliminar grupo", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.No Then
             Return
         End If
 
         Dim DB As New BaseDeDatos()
-        DB.eliminarGrupo_frmAdminGrupos(sender, Me)
+        DB.eliminarGrupo_frmAdminGrupos(sender.Tag(0), sender.Tag(1), Me)
         Me.frmMain.recargarGrupo()
     End Sub
 

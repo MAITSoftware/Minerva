@@ -17,6 +17,7 @@
         Me.frmMain = frmMain
     End Sub
 
+
     Private Sub frmAdminSalones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al cargar la ventana cargarSalones y Grupos, y habilitar los controles.
         cargarSalones()

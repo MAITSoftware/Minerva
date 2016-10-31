@@ -57,6 +57,7 @@ Partial Class frmAdministrar
         Me.btnSalones.Text = "Salones"
         Me.btnSalones.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.btnSalones.UseVisualStyleBackColor = False
+        Me.btnSalones.Visible = False
         '
         'btnGrupos
         '
@@ -79,6 +80,7 @@ Partial Class frmAdministrar
         Me.btnGrupos.Text = "Grupos"
         Me.btnGrupos.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.btnGrupos.UseVisualStyleBackColor = False
+        Me.btnGrupos.Visible = False
         '
         'pnlPestañas
         '
@@ -122,6 +124,7 @@ Partial Class frmAdministrar
         Me.btnHorarios.Text = "Horarios"
         Me.btnHorarios.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.btnHorarios.UseVisualStyleBackColor = False
+        Me.btnHorarios.Visible = False
         '
         'btnDocentes
         '
@@ -144,6 +147,7 @@ Partial Class frmAdministrar
         Me.btnDocentes.Text = "Docentes"
         Me.btnDocentes.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.btnDocentes.UseVisualStyleBackColor = False
+        Me.btnDocentes.Visible = False
         '
         'btnUsuarios
         '

@@ -136,6 +136,7 @@ Partial Class frmLogin
         Me.txtUsuario.Location = New System.Drawing.Point(52, 231)
         Me.txtUsuario.MaxLength = 8
         Me.txtUsuario.Name = "txtUsuario"
+        Me.txtUsuario.ShortcutsEnabled = False
         Me.txtUsuario.Size = New System.Drawing.Size(267, 32)
         Me.txtUsuario.TabIndex = 0
         '
@@ -145,6 +146,7 @@ Partial Class frmLogin
         Me.txtContraseña.Location = New System.Drawing.Point(52, 302)
         Me.txtContraseña.MaxLength = 25
         Me.txtContraseña.Name = "txtContraseña"
+        Me.txtContraseña.ShortcutsEnabled = False
         Me.txtContraseña.Size = New System.Drawing.Size(267, 32)
         Me.txtContraseña.TabIndex = 1
         Me.txtContraseña.UseSystemPasswordChar = True

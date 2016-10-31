@@ -39,10 +39,15 @@ Partial Class frmRegistro
         Me.imgMinerva = New System.Windows.Forms.PictureBox()
         Me.lblNombrePrograma = New System.Windows.Forms.Label()
         Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
+        Me.radAdscripto = New System.Windows.Forms.RadioButton()
+        Me.radFuncionario = New System.Windows.Forms.RadioButton()
+        Me.radAdministrador = New System.Windows.Forms.RadioButton()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.pnlError.SuspendLayout()
         CType(Me.imgWarning, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgMinerva, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblUsuario
@@ -151,6 +156,7 @@ Partial Class frmRegistro
         Me.txtContraseña.Location = New System.Drawing.Point(52, 302)
         Me.txtContraseña.MaxLength = 25
         Me.txtContraseña.Name = "txtContraseña"
+        Me.txtContraseña.ShortcutsEnabled = False
         Me.txtContraseña.Size = New System.Drawing.Size(267, 32)
         Me.txtContraseña.TabIndex = 1
         Me.txtContraseña.UseSystemPasswordChar = True
@@ -172,6 +178,7 @@ Partial Class frmRegistro
         Me.txtUsuario.Location = New System.Drawing.Point(52, 231)
         Me.txtUsuario.MaxLength = 8
         Me.txtUsuario.Name = "txtUsuario"
+        Me.txtUsuario.ShortcutsEnabled = False
         Me.txtUsuario.Size = New System.Drawing.Size(267, 32)
         Me.txtUsuario.TabIndex = 0
         '
@@ -207,11 +214,60 @@ Partial Class frmRegistro
         Me.imgLogoMAITs.TabIndex = 127
         Me.imgLogoMAITs.TabStop = False
         '
+        'radAdscripto
+        '
+        Me.radAdscripto.AutoSize = True
+        Me.radAdscripto.Font = New System.Drawing.Font("Corbel", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.radAdscripto.ForeColor = System.Drawing.Color.PaleGreen
+        Me.radAdscripto.Location = New System.Drawing.Point(0, 0)
+        Me.radAdscripto.Name = "radAdscripto"
+        Me.radAdscripto.Size = New System.Drawing.Size(84, 21)
+        Me.radAdscripto.TabIndex = 128
+        Me.radAdscripto.Text = "Adscripto"
+        Me.radAdscripto.UseVisualStyleBackColor = True
+        '
+        'radFuncionario
+        '
+        Me.radFuncionario.AutoSize = True
+        Me.radFuncionario.Checked = True
+        Me.radFuncionario.Font = New System.Drawing.Font("Corbel", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.radFuncionario.ForeColor = System.Drawing.Color.PaleGreen
+        Me.radFuncionario.Location = New System.Drawing.Point(87, 0)
+        Me.radFuncionario.Name = "radFuncionario"
+        Me.radFuncionario.Size = New System.Drawing.Size(97, 21)
+        Me.radFuncionario.TabIndex = 129
+        Me.radFuncionario.TabStop = True
+        Me.radFuncionario.Text = "Funcionario"
+        Me.radFuncionario.UseVisualStyleBackColor = True
+        '
+        'radAdministrador
+        '
+        Me.radAdministrador.AutoSize = True
+        Me.radAdministrador.Font = New System.Drawing.Font("Corbel", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.radAdministrador.ForeColor = System.Drawing.Color.PaleGreen
+        Me.radAdministrador.Location = New System.Drawing.Point(190, 0)
+        Me.radAdministrador.Name = "radAdministrador"
+        Me.radAdministrador.Size = New System.Drawing.Size(113, 21)
+        Me.radAdministrador.TabIndex = 130
+        Me.radAdministrador.Text = "Administrador"
+        Me.radAdministrador.UseVisualStyleBackColor = True
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.radAdministrador)
+        Me.Panel1.Controls.Add(Me.radFuncionario)
+        Me.Panel1.Controls.Add(Me.radAdscripto)
+        Me.Panel1.Location = New System.Drawing.Point(32, 175)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(306, 23)
+        Me.Panel1.TabIndex = 131
+        '
         'frmRegistro
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(371, 514)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.lblUsuario)
         Me.Controls.Add(Me.pnlError)
@@ -235,6 +291,8 @@ Partial Class frmRegistro
         CType(Me.imgWarning, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgMinerva, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -254,4 +312,8 @@ Partial Class frmRegistro
     Friend WithEvents imgMinerva As System.Windows.Forms.PictureBox
     Friend WithEvents lblNombrePrograma As System.Windows.Forms.Label
     Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
+    Friend WithEvents radAdscripto As System.Windows.Forms.RadioButton
+    Friend WithEvents radFuncionario As System.Windows.Forms.RadioButton
+    Friend WithEvents radAdministrador As System.Windows.Forms.RadioButton
+    Friend WithEvents Panel1 As System.Windows.Forms.Panel
 End Class

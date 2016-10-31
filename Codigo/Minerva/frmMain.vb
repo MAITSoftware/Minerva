@@ -6,12 +6,13 @@
     Friend Administrador As Boolean = False
     Friend vista As String = "Día"
     Dim frmHorariosExternos As New frmHorariosExternos(Me)
+    Dim tipoUsuario As String
 
-    Public Sub New(Optional ByVal invitado As Boolean = False, Optional ByVal usuario As String = Nothing, Optional ByVal admin As Boolean = False)
+    Public Sub New(Optional ByVal invitado As Boolean = False, Optional ByVal usuario As String = Nothing, Optional ByVal tipoUsuario As String = "Funcionario")
         'inicia el programa, en caso de que sea invitado lo detecta
         InitializeComponent()
         Me.cuentaInvitado = invitado
-        Me.Administrador = admin
+        Me.tipoUsuario = tipoUsuario
         Me.nombreUsuario = usuario
         cboGrupo.SelectedIndex = 0
         cargarDatos()
@@ -27,7 +28,7 @@
 
     Private Sub btnAdministrar_showMenu(sender As Object, e As EventArgs) Handles btnAdministrar.Click
         ' Abre la ventana de administracion al clickear
-        Dim administracion As New frmAdministrar(Administrador, Me)
+        Dim administracion As New frmAdministrar(Me.tipoUsuario, Me)
         administracion.ShowDialog(Me)
     End Sub
 
@@ -72,6 +73,7 @@
 
         timerbtnrefrescar.Enabled = True
         Dim DB As New BaseDeDatos()
+
         DB.cargarDatosGrupo_frmMain(Me)
         DB.cargarMateriasGrupo_frmMain(Me)
         imgLogo.Focus()
@@ -114,7 +116,7 @@
         cargarNombre()
     End Sub
 
-    Private Sub cargarNombre()
+    Public Sub cargarNombre()
         Dim DB As New BaseDeDatos()
         DB.cargarNombre_frmMain(Me)
     End Sub

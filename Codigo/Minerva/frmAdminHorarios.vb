@@ -3,7 +3,7 @@
     Dim prevHover As Control = New Control()
     Dim prevSelect As String = Nothing
 
-    Friend _IdOrientacion As String = Nothing
+    Friend _IdTurno As String = Nothing
     Friend horarioPrimera As String = "13:00"
     Friend finPrimera As String = "13:45"
     Friend horarioSegunda As String = "13:50"
@@ -19,7 +19,6 @@
     Friend horarioExtra As String = "18:00"
     Friend finExtra As String = "18:45"
     Friend frmMain As frmMain
-
     Dim tablas As Object = Nothing
 
     Public Sub New(ByVal frmMain As frmMain)
@@ -163,8 +162,10 @@
         End If
 
         Dim DB As New BaseDeDatos()
+
         DB.cargarHorarios_frmAdminHorarios(Me)
         DB.cargarMaterias_frmAdminHorarios(Me)
+
     End Sub
 
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click

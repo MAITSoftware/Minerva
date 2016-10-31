@@ -28,7 +28,7 @@ Partial Class frmMain
         Me.pnlInfoCurso = New System.Windows.Forms.Panel()
         Me.pnlDatosGrupo = New System.Windows.Forms.Panel()
         Me.lblValorTipoGrado = New System.Windows.Forms.Label()
-        Me.lblTipo = New System.Windows.Forms.Label()
+        Me.lblCurso = New System.Windows.Forms.Label()
         Me.lblGrado = New System.Windows.Forms.Label()
         Me.lblValorTipoSalon = New System.Windows.Forms.Label()
         Me.lblTurno = New System.Windows.Forms.Label()
@@ -62,15 +62,17 @@ Partial Class frmMain
         Me.btnRefrescarHorarios = New System.Windows.Forms.PictureBox()
         Me.pnlHorarios = New System.Windows.Forms.Panel()
         Me.tblDias = New System.Windows.Forms.TableLayoutPanel()
+        Me.pnlBotonesHorarios = New System.Windows.Forms.Panel()
+        Me.btnGuardarPdf = New System.Windows.Forms.PictureBox()
         Me.Lunes = New Minerva.frmDia()
         Me.Martes = New Minerva.frmDia()
         Me.Miércoles = New Minerva.frmDia()
         Me.Sábado = New Minerva.frmDia()
         Me.Jueves = New Minerva.frmDia()
         Me.Viernes = New Minerva.frmDia()
-        Me.pnlBotonesHorarios = New System.Windows.Forms.Panel()
-        Me.btnGuardarPdf = New System.Windows.Forms.PictureBox()
         Me.Grilla = New Minerva.frmVistaGrilla()
+        Me.lblValorTipoAdscripto = New System.Windows.Forms.Label()
+        Me.lblAdscripto = New System.Windows.Forms.Label()
         lblHorariosSemana = New System.Windows.Forms.Label()
         Me.pnlInfoCurso.SuspendLayout()
         Me.pnlDatosGrupo.SuspendLayout()
@@ -120,8 +122,10 @@ Partial Class frmMain
         'pnlDatosGrupo
         '
         Me.pnlDatosGrupo.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.pnlDatosGrupo.Controls.Add(Me.lblValorTipoAdscripto)
+        Me.pnlDatosGrupo.Controls.Add(Me.lblAdscripto)
         Me.pnlDatosGrupo.Controls.Add(Me.lblValorTipoGrado)
-        Me.pnlDatosGrupo.Controls.Add(Me.lblTipo)
+        Me.pnlDatosGrupo.Controls.Add(Me.lblCurso)
         Me.pnlDatosGrupo.Controls.Add(Me.lblGrado)
         Me.pnlDatosGrupo.Controls.Add(Me.lblValorTipoSalon)
         Me.pnlDatosGrupo.Controls.Add(Me.lblTurno)
@@ -129,9 +133,9 @@ Partial Class frmMain
         Me.pnlDatosGrupo.Controls.Add(Me.lblSalon)
         Me.pnlDatosGrupo.Controls.Add(Me.lblValorTipoCurso)
         Me.pnlDatosGrupo.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlDatosGrupo.Location = New System.Drawing.Point(0, 550)
+        Me.pnlDatosGrupo.Location = New System.Drawing.Point(0, 524)
         Me.pnlDatosGrupo.Name = "pnlDatosGrupo"
-        Me.pnlDatosGrupo.Size = New System.Drawing.Size(300, 131)
+        Me.pnlDatosGrupo.Size = New System.Drawing.Size(300, 157)
         Me.pnlDatosGrupo.TabIndex = 13
         '
         'lblValorTipoGrado
@@ -145,16 +149,16 @@ Partial Class frmMain
         Me.lblValorTipoGrado.TabIndex = 7
         Me.lblValorTipoGrado.Text = "No disponible"
         '
-        'lblTipo
+        'lblCurso
         '
-        Me.lblTipo.AutoSize = True
-        Me.lblTipo.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTipo.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblTipo.Location = New System.Drawing.Point(24, 10)
-        Me.lblTipo.Name = "lblTipo"
-        Me.lblTipo.Size = New System.Drawing.Size(62, 23)
-        Me.lblTipo.TabIndex = 5
-        Me.lblTipo.Text = "Curso:"
+        Me.lblCurso.AutoSize = True
+        Me.lblCurso.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCurso.ForeColor = System.Drawing.Color.PaleGreen
+        Me.lblCurso.Location = New System.Drawing.Point(24, 10)
+        Me.lblCurso.Name = "lblCurso"
+        Me.lblCurso.Size = New System.Drawing.Size(62, 23)
+        Me.lblCurso.TabIndex = 5
+        Me.lblCurso.Text = "Curso:"
         '
         'lblGrado
         '
@@ -194,7 +198,7 @@ Partial Class frmMain
         Me.lblValorTipoTurno.AutoSize = True
         Me.lblValorTipoTurno.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblValorTipoTurno.ForeColor = System.Drawing.SystemColors.AppWorkspace
-        Me.lblValorTipoTurno.Location = New System.Drawing.Point(92, 69)
+        Me.lblValorTipoTurno.Location = New System.Drawing.Point(92, 70)
         Me.lblValorTipoTurno.Name = "lblValorTipoTurno"
         Me.lblValorTipoTurno.Size = New System.Drawing.Size(104, 20)
         Me.lblValorTipoTurno.TabIndex = 6
@@ -243,7 +247,7 @@ Partial Class frmMain
         Me.pnlMaterias.Controls.Add(Me.tblMaterias)
         Me.pnlMaterias.Location = New System.Drawing.Point(2, 178)
         Me.pnlMaterias.Name = "pnlMaterias"
-        Me.pnlMaterias.Size = New System.Drawing.Size(297, 370)
+        Me.pnlMaterias.Size = New System.Drawing.Size(297, 340)
         Me.pnlMaterias.TabIndex = 4
         '
         'tblMaterias
@@ -554,6 +558,33 @@ Partial Class frmMain
         Me.tblDias.Size = New System.Drawing.Size(924, 438)
         Me.tblDias.TabIndex = 136
         '
+        'pnlBotonesHorarios
+        '
+        Me.pnlBotonesHorarios.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlBotonesHorarios.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.pnlBotonesHorarios.Controls.Add(Me.btnGuardarPdf)
+        Me.pnlBotonesHorarios.Controls.Add(Me.btnRefrescarHorarios)
+        Me.pnlBotonesHorarios.Controls.Add(Me.btnVistaDias)
+        Me.pnlBotonesHorarios.Controls.Add(Me.btnVistaSemana)
+        Me.pnlBotonesHorarios.Controls.Add(Me.btnFullscreen)
+        Me.pnlBotonesHorarios.Location = New System.Drawing.Point(693, 0)
+        Me.pnlBotonesHorarios.Name = "pnlBotonesHorarios"
+        Me.pnlBotonesHorarios.Size = New System.Drawing.Size(265, 59)
+        Me.pnlBotonesHorarios.TabIndex = 135
+        '
+        'btnGuardarPdf
+        '
+        Me.btnGuardarPdf.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnGuardarPdf.BackgroundImage = Global.Minerva.My.Resources.Resources.guardar_como_pdf_normal
+        Me.btnGuardarPdf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btnGuardarPdf.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnGuardarPdf.Location = New System.Drawing.Point(40, 8)
+        Me.btnGuardarPdf.Name = "btnGuardarPdf"
+        Me.btnGuardarPdf.Size = New System.Drawing.Size(53, 45)
+        Me.btnGuardarPdf.TabIndex = 135
+        Me.btnGuardarPdf.TabStop = False
+        Me.btnGuardarPdf.Visible = False
+        '
         'Lunes
         '
         Me.Lunes.AutoScroll = True
@@ -627,33 +658,6 @@ Partial Class frmMain
         Me.Viernes.TabIndex = 7
         Me.Viernes.TabStop = False
         '
-        'pnlBotonesHorarios
-        '
-        Me.pnlBotonesHorarios.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.pnlBotonesHorarios.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
-        Me.pnlBotonesHorarios.Controls.Add(Me.btnGuardarPdf)
-        Me.pnlBotonesHorarios.Controls.Add(Me.btnRefrescarHorarios)
-        Me.pnlBotonesHorarios.Controls.Add(Me.btnVistaDias)
-        Me.pnlBotonesHorarios.Controls.Add(Me.btnVistaSemana)
-        Me.pnlBotonesHorarios.Controls.Add(Me.btnFullscreen)
-        Me.pnlBotonesHorarios.Location = New System.Drawing.Point(693, 0)
-        Me.pnlBotonesHorarios.Name = "pnlBotonesHorarios"
-        Me.pnlBotonesHorarios.Size = New System.Drawing.Size(265, 59)
-        Me.pnlBotonesHorarios.TabIndex = 135
-        '
-        'btnGuardarPdf
-        '
-        Me.btnGuardarPdf.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnGuardarPdf.BackgroundImage = Global.Minerva.My.Resources.Resources.guardar_como_pdf_normal
-        Me.btnGuardarPdf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.btnGuardarPdf.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnGuardarPdf.Location = New System.Drawing.Point(40, 8)
-        Me.btnGuardarPdf.Name = "btnGuardarPdf"
-        Me.btnGuardarPdf.Size = New System.Drawing.Size(53, 45)
-        Me.btnGuardarPdf.TabIndex = 135
-        Me.btnGuardarPdf.TabStop = False
-        Me.btnGuardarPdf.Visible = False
-        '
         'Grilla
         '
         Me.Grilla.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -666,6 +670,28 @@ Partial Class frmMain
         Me.Grilla.TabIndex = 133
         Me.Grilla.TabStop = False
         Me.Grilla.Visible = False
+        '
+        'lblValorTipoAdscripto
+        '
+        Me.lblValorTipoAdscripto.AutoSize = True
+        Me.lblValorTipoAdscripto.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValorTipoAdscripto.ForeColor = System.Drawing.SystemColors.AppWorkspace
+        Me.lblValorTipoAdscripto.Location = New System.Drawing.Point(151, 127)
+        Me.lblValorTipoAdscripto.Name = "lblValorTipoAdscripto"
+        Me.lblValorTipoAdscripto.Size = New System.Drawing.Size(79, 20)
+        Me.lblValorTipoAdscripto.TabIndex = 13
+        Me.lblValorTipoAdscripto.Text = "Sin definir"
+        '
+        'lblAdscripto
+        '
+        Me.lblAdscripto.AutoSize = True
+        Me.lblAdscripto.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblAdscripto.ForeColor = System.Drawing.Color.PaleGreen
+        Me.lblAdscripto.Location = New System.Drawing.Point(24, 125)
+        Me.lblAdscripto.Name = "lblAdscripto"
+        Me.lblAdscripto.Size = New System.Drawing.Size(121, 23)
+        Me.lblAdscripto.TabIndex = 12
+        Me.lblAdscripto.Text = "Adscripto (a):"
         '
         'frmMain
         '
@@ -709,7 +735,7 @@ Partial Class frmMain
     Friend WithEvents lblProfesores As System.Windows.Forms.Label
     Friend WithEvents lblInfoCurso As System.Windows.Forms.Label
     Friend WithEvents lblTurno As System.Windows.Forms.Label
-    Friend WithEvents lblTipo As System.Windows.Forms.Label
+    Friend WithEvents lblCurso As System.Windows.Forms.Label
     Friend WithEvents lblValorTipoSalon As System.Windows.Forms.Label
     Friend WithEvents lblValorTipoTurno As System.Windows.Forms.Label
     Friend WithEvents lblSalon As System.Windows.Forms.Label
@@ -751,5 +777,7 @@ Partial Class frmMain
     Friend WithEvents pnlBotonesHorarios As System.Windows.Forms.Panel
     Friend WithEvents tblDias As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents btnGuardarPdf As System.Windows.Forms.PictureBox
+    Friend WithEvents lblValorTipoAdscripto As System.Windows.Forms.Label
+    Friend WithEvents lblAdscripto As System.Windows.Forms.Label
 
 End Class

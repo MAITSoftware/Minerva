@@ -28,7 +28,8 @@ Public Class BaseDeDatos
     Public Sub Login_frmLogin(ByVal frm As frmLogin)
         ' Se encarga de comprobar los datos ingresados del usuario, con los de la DB
         Dim accesoDenegado As Boolean = True
-        Dim conexion as New Conexion()
+        Dim conexion As New Conexion()
+        Dim tipoUsuario As String
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -48,11 +49,7 @@ Public Class BaseDeDatos
                     frm.Cursor = Cursors.Default
                     Return
                 End If
-                If reader("TipoUsuario").Equals("Administrador") Then
-                    frm.administrador = True
-                Else
-                    frm.administrador = False
-                End If
+                tipoUsuario = reader("TipoUsuario")
                 accesoDenegado = False
             End While
             reader.Close()
@@ -64,8 +61,9 @@ Public Class BaseDeDatos
             frm.lblDatosInc.Text = "Datos incorrectos!"
             frm.pnlError.Visible = True
         Else
-            Dim minerva As New frmMain(False, frm.cuentaUsuario, frm.administrador)
+            Dim minerva As New frmMain(False, frm.cuentaUsuario, tipoUsuario)
             minerva.Show()
+            minerva.BringToFront()
             frm.Hide()
         End If
     End Sub
@@ -111,7 +109,13 @@ Public Class BaseDeDatos
                         .Parameters.AddWithValue("@TipoUsuario", "Administrador") ' Admin
                     Else
                         .Parameters.AddWithValue("@AprobacionUsuario", False) ' No está habilitada
-                        .Parameters.AddWithValue("@TipoUsuario", "Funcionario") ' No es admin
+                        If frm.radFuncionario.Checked Then
+                            .Parameters.AddWithValue("@TipoUsuario", "Funcionario")
+                        ElseIf frm.radAdscripto.Checked Then
+                            .Parameters.AddWithValue("@TipoUsuario", "Adscripto")
+                        ElseIf frm.radAdministrador.Checked Then
+                            .Parameters.AddWithValue("@TipoUsuario", "Administrador")
+                        End If
                     End If
                 End With
 
@@ -119,7 +123,7 @@ Public Class BaseDeDatos
                     cmd.ExecuteNonQuery()
                     conexion.Close()
                     If cantidadAdministradores <= 0 Then
-                        MsgBox("Gracias por registrarse. " & vbCrLf & "Usted ha sido registrado como administrador." & vbCrLf & "Ya puede acceder al sistema utilizando sus datos.", MsgBoxStyle.Information, "Minerva · Confirmación de registro")
+                        MsgBox("Gracias por registrarse. " & vbCrLf & "Ya que es el primer usuario en registrarse, usted ha sido registrado como administrador." & vbCrLf & "Ya puede acceder al sistema utilizando sus datos.", MsgBoxStyle.Information, "Minerva · Confirmación de registro")
                     Else
                         MsgBox("Gracias por registrarse. " & vbCrLf & "El administrador deberá confirmar su registro", MsgBoxStyle.Information, "Minerva · Confirmación de registro")
                     End If
@@ -226,14 +230,30 @@ Public Class BaseDeDatos
         Dim conexion As New Conexion()
         Dim subconexion As New Conexion()
         frm.tblMaterias.Controls.Clear()
+        Dim nroGrupo As Integer
+        Dim reader As MySqlDataReader
+
+        Using primerCmd As New MySqlCommand()
+            With primerCmd
+                .Connection = conexion.Conn
+                .CommandType = CommandType.Text
+                .CommandText = "SELECT * from `Grupos` WHERE Grupos.Grupo=@Grupo;"
+                .Parameters.AddWithValue("@Grupo", frm.cboGrupo.Text)
+            End With
+            reader = primerCmd.ExecuteReader()
+            While reader.Read()
+                nroGrupo = reader("NroGrupo")
+            End While
+            reader.Close()
+        End Using
 
         Dim cmd As MySqlCommand
         cmd = New MySqlCommand()
         cmd.Connection = conexion.Conn
         cmd.CommandType = CommandType.Text
-        cmd.CommandText = "select Salon, IdOrientacion, Orientacion, Curso, Grado, IdGrupo, DatosGrupos.NombreTurno, IdTurno, Concat(Grado, ' ', IdGrupo) as Grupo from DatosGrupos, Turno where DatosGrupos.NombreTurno=Turno.NombreTurno;"
+        cmd.CommandText = "select Adscripto, Salon, IdOrientacion, Orientacion, Curso, Grado, IdGrupo, DatosGrupos.NombreTurno, IdTurno, Concat(Grado, ' ', IdGrupo) as Grupo from DatosGrupos, Turno, Adscriptos where Adscriptos.CiPersona=DatosGrupos.CiPersona and DatosGrupos.NombreTurno=Turno.NombreTurno;"
 
-        Dim reader As MySqlDataReader = cmd.ExecuteReader()
+        reader = cmd.ExecuteReader()
         Dim idOrientacion As String = ""
         Dim grado As String = ""
         Dim idgrupo As String = ""
@@ -248,6 +268,7 @@ Public Class BaseDeDatos
                 frm.lblValorTipoGrado.Text = reader("Grado")
                 frm.lblValorTipoTurno.Text = reader("NombreTurno")
                 frm.lblValorTipoTurno.Tag = reader("IdTurno").ToString()
+                frm.lblValorTipoAdscripto.Text = reader("Adscripto")
                 grado = reader("Grado")
                 idgrupo = reader("IdGrupo")
                 idOrientacion = reader("IdOrientacion").ToString()
@@ -267,10 +288,10 @@ Public Class BaseDeDatos
             Dim subcmd As New MySqlCommand()
             subcmd.Connection = subconexion.Conn
             subcmd.CommandType = CommandType.Text
-            subcmd.CommandText = "select Tiene_ag.IdAsignatura, tiene_ag.IdGrupo, tiene_ag.Grado, tiene_ag.IdOrientacion, CONCAT(NombrePersona, ' ', ApellidoPersona) as Profesor from Tiene_ag, Persona where IdOrientacion=@IdOrientacion and IdAsignatura=@IdAsignatura and IdGrupo=@IdGrupo and Grado=@Grado and Persona.CiPersona=Tiene_ag.CiPersona;"
+            subcmd.CommandText = "select Tiene_ag.IdAsignatura, CONCAT(NombrePersona, ' ', ApellidoPersona) as Profesor from Tiene_ag, Persona, Grupo where Grupo.IdOrientacion=@IdOrientacion and IdAsignatura=@IdAsignatura and Tiene_ag.NroGrupo=@NroGrupo and Grupo.Grado=@Grado and Persona.CiPersona=Tiene_ag.CiPersona;"
             subcmd.Parameters.AddWithValue("@IdOrientacion", idOrientacion)
             subcmd.Parameters.AddWithValue("@IdAsignatura", reader("IdAsignatura"))
-            subcmd.Parameters.AddWithValue("@IdGrupo", idgrupo)
+            subcmd.Parameters.AddWithValue("@NroGrupo", nroGrupo)
             subcmd.Parameters.AddWithValue("@Grado", grado)
             Dim subreader As MySqlDataReader = subcmd.ExecuteReader()
             Dim profesor = "Sin profesor"
@@ -703,6 +724,9 @@ Public Class BaseDeDatos
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
+                If reader("CiPersona").Equals("-1") Then
+                    Continue While
+                End If
                 frm.agregarUsuario(reader("CiPersona"), reader("TipoUsuario"))
             End While
             reader.Close()
@@ -712,6 +736,15 @@ Public Class BaseDeDatos
 
     Public Sub eliminarUsuario_frmAdminUsuarios(sender As Object, ByVal frm As frmAdminUsuarios)
         Dim conexion As New Conexion()
+        Dim ci, contraseña, tipousuario As String
+        Dim aprobado As Boolean
+        cargarDatos_frmAdminUsuarios(sender.Tag(0), frm)
+        ci = frm.txtID.Text
+        contraseña = frm.txtContraseña.Text
+        tipousuario = frm.tipoSeleccionado
+        aprobado = frm.chkHabilitado.Checked
+        frm.nuevoUsuario(Nothing, Nothing)
+
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
@@ -731,12 +764,30 @@ Public Class BaseDeDatos
                 .Parameters.AddWithValue("@CiPersona", sender.Tag(0))
             End With
 
-            cmd.ExecuteNonQuery()
-            conexion.Close() 'Cierra la conexión
-            frm.cargarUsuarios()
-            frm.nuevoUsuario(Nothing, Nothing)
-            MessageBox.Show("Usuario '" + sender.Tag(1) + "' eliminado.", "Usuario eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Try
+                cmd.ExecuteNonQuery()
+                MessageBox.Show("Usuario '" + sender.Tag(1) + "' eliminado.", "Usuario eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Catch ex As Exception
+                ' Restauro el usuario...
+                Using backCmd As New MySqlCommand()
+                    With backCmd
+                        .Connection = conexion.Conn
+                        .CommandText = "INSERT INTO Usuario VALUES (@CiPersona, @TipoUsuario, @ContraseñaUsuario, @AprobacionUsuario);"
+                        .CommandType = CommandType.Text
+                        .Parameters.AddWithValue("@CiPersona", ci)
+                        .Parameters.AddWithValue("@ContraseñaUsuario", contraseña)
+                        .Parameters.AddWithValue("@AprobacionUsuario", aprobado)
+                        .Parameters.AddWithValue("@TipoUsuario", tipousuario)
+                    End With
+                    backCmd.ExecuteNonQuery()
+                End Using
+                MessageBox.Show("El adscripto está asignado a un grupo, no se puede eliminar.", "Error al eliminar adscripto", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End Try
         End Using
+
+        frm.cargarUsuarios()
+        frm.nuevoUsuario(Nothing, Nothing)
+        conexion.Close() 'Cierra la conexión
     End Sub
 
     Public Sub cargarDatos_frmAdminUsuarios(ByVal ID As String, ByVal frm As frmAdminUsuarios)
@@ -745,7 +796,7 @@ Public Class BaseDeDatos
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Usuario` WHERE CiPersona=@CiPersona;"
+                .CommandText = "SELECT *, NombrePersona, ApellidoPersona FROM `Usuario`, `Persona` WHERE Usuario.CiPersona=@CiPersona and Persona.CiPersona=Usuario.CiPersona;"
                 .CommandType = CommandType.Text
                 .Parameters.AddWithValue("@CiPersona", ID)
             End With
@@ -765,8 +816,10 @@ Public Class BaseDeDatos
                 End Try
                 If reader("TipoUsuario").Equals("Funcionario") Then
                     frm.radFuncionario.Checked = True
-                Else
+                ElseIf reader("TipoUsuario").Equals("Administrador") Then
                     frm.radAdministrador.Checked = True
+                ElseIf reader("TipoUsuario").Equals("Adscripto") Then
+                    frm.radAdscripto.Checked = True
                 End If
             End While
             reader.Close()
@@ -784,9 +837,9 @@ Public Class BaseDeDatos
                 .CommandType = CommandType.Text
 
                 If frm.btnAgregar.Text.Equals("Agregar usuario") Then
-                    .CommandText = "INSERT INTO `Usuario` VALUES (@CiPersona @TipoUsuario, @ContraseñaUsuario, @AprobacionUsuario);"
+                    .CommandText = "INSERT INTO `Usuario` VALUES (@CiPersona, @TipoUsuario, @ContraseñaUsuario, @AprobacionUsuario);"
                 Else
-                    .CommandText = "UPDATE `Usuario` SETipoUsuario=@TipoUsuario, ContraseñaUsuario=@ContraseñaUsuario, AprobacionUsuario=@AprobacionUsuario WHERE CiPersona=@CiPersona;"
+                    .CommandText = "UPDATE `Usuario` SET TipoUsuario=@TipoUsuario, ContraseñaUsuario=@ContraseñaUsuario, AprobacionUsuario=@AprobacionUsuario WHERE CiPersona=@CiPersona;"
                 End If
 
                 .Parameters.AddWithValue("@CiPersona", frm.txtID.Text)
@@ -796,20 +849,19 @@ Public Class BaseDeDatos
             End With
 
             Try
-                
-                    Using subCmd As New MySqlCommand()
+                Using subCmd As New MySqlCommand()
                         With subCmd
                             .Connection = conexion.Conn
-                            If frm.btnAgregar.Text.Equals("Agregar usuario") Then
+                        If frm.btnAgregar.Text.Equals("Agregar usuario") Then
                             .CommandText = "INSERT INTO `Persona` VALUES (@CiPersona, @Nombre, @Apellido);"
-Else
-.CommandText = "UPDATE `Persona` SET NombrePersona=@Nombre, ApellidoPersona=@Apellido where CiPersona=@CiPersona;"
-                End If
-                            .CommandType = CommandType.Text
-                            .Parameters.AddWithValue("@CiPersona", frm.txtID.Text)
-                            .Parameters.AddWithValue("@Nombre", frm.txtNombre.Text)
-                            .Parameters.AddWithValue("@Apellido", frm.txtApellido.Text)
-                        End With
+                        Else
+                            .CommandText = "UPDATE `Persona` SET NombrePersona=@Nombre, ApellidoPersona=@Apellido where CiPersona=@CiPersona;"
+                        End If
+                        .CommandType = CommandType.Text
+                        .Parameters.AddWithValue("@CiPersona", frm.txtID.Text)
+                        .Parameters.AddWithValue("@Nombre", frm.txtNombre.Text)
+                        .Parameters.AddWithValue("@Apellido", frm.txtApellido.Text)
+                    End With
                         subCmd.ExecuteNonQuery()
                     End Using
 
@@ -849,7 +901,7 @@ Else
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                frm.agregarGrupo(reader("IdGrupo"), reader("Grado").ToString(), reader("IdTurno"), reader("Grado").ToString() & " " & reader("IdGrupo") & ControlChars.NewLine & " (" & reader("NombreTurno") & ")", reader("NombreTurno"))
+                frm.agregarGrupo(reader("NroGrupo"), reader("Grado").ToString() & " " & reader("IdGrupo") & ControlChars.NewLine & " (" & reader("NombreTurno") & ")", reader("NombreTurno"))
             End While
             reader.Close()
             conexion.Close()
@@ -937,17 +989,15 @@ Else
         conexion.Close()
     End Sub
 
-    Public Sub cargarDatos_frmAdminGrupos(ByVal grupo As Object, ByVal frm As frmAdminGrupos)
+    Public Sub cargarDatos_frmAdminGrupos(ByVal nroGrupo As String, ByVal frm As frmAdminGrupos)
         ' carga los datos del grupo y los coloca en la interfaz
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT *, Curso.NombreCurso, Orientacion.NombreOrientacion FROM `Grupo`, `Curso`, `Orientacion` WHERE Grupo.IdGrupo=@IdGrupo and Grupo.IdTurno=@IdTurno and Grupo.Grado=@Grado and Orientacion.IdOrientacion=Grupo.IdOrientacion;"
+                .CommandText = "SELECT *, Curso.NombreCurso, Orientacion.NombreOrientacion, CONCAT(Adscriptos.CiPersona, ' - ', Adscripto) as NombreAdscripto FROM `Grupo`, `Curso`, `Orientacion`, `Adscriptos` WHERE Grupo.CiPersona=Adscriptos.CiPersona and Grupo.NroGrupo=@NroGrupo and Orientacion.IdCurso=Curso.IdCurso and Grupo.IdOrientacion=Orientacion.IdOrientacion;"
                 .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@IdGrupo", grupo(0))
-                .Parameters.AddWithValue("@Grado", grupo(1))
-                .Parameters.AddWithValue("@IdTurno", grupo(2))
+                .Parameters.AddWithValue("@NroGrupo", nroGrupo)
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
@@ -965,6 +1015,11 @@ Else
                 frm.cmbGrado.Items.Add(reader("Grado"))
                 frm.cmbGrado.SelectedIndex = 0
 
+                frm.cmbAdscripto.SelectedIndex = frm.cmbAdscripto.FindStringExact(reader("NombreAdscripto"))
+                If reader("NombreAdscripto").Equals("-1 - Sin definir") Then
+                    frm.cmbAdscripto.SelectedIndex = 0
+                End If
+
                 Dim salon As String = reader("IdSalon")
                 If salon.Equals("-1") Then
                     salon = "Sin asignar"
@@ -972,9 +1027,33 @@ Else
                 frm.lblSalonReal.Text = salon
                 frm.cmbOrientacion.Enabled = False
                 frm.cmbGrado.Enabled = False
+                frm.cmbAdscripto.Enabled = False
             End While
             reader.Close()
         End Using
+        conexion.Close()
+    End Sub
+
+    Public Sub cargarAdscriptos_frmAdminGrupos(ByVal frm As frmAdminGrupos)
+        Dim conexion As New Conexion()
+        frm.cmbAdscripto.Items.Clear()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandType = CommandType.Text
+                .CommandText = "select * from Adscriptos;"
+            End With
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                If reader("CiPersona").Equals("-1") Then
+                    frm.cmbAdscripto.Items.Add("Sin definir")
+                    Continue While
+                End If
+                frm.cmbAdscripto.Items.Add(reader("CiPersona") & " - " & reader("Adscripto"))
+            End While
+            reader.Close()
+        End Using
+        frm.cmbAdscripto.SelectedIndex = 0
         conexion.Close()
     End Sub
 
@@ -986,58 +1065,73 @@ Else
             With cmd
                 .Connection = conexion.Conn
                 .CommandType = CommandType.Text
-                .CommandText = "INSERT INTO `Grupo` VALUES (@IdGrupo, @Discapacitado, @Grado, @IDOrientacion, -1, @IdTurno);"
+                If frm.btnAgregar.Text.Equals("Agregar grupo") Then
+                    .CommandText = "INSERT INTO `Grupo` VALUES (Null, @IdGrupo, @Discapacitado, -1, @IdTurno, @Grado, @IDOrientacion, @CiAdscripto);"
+                    .Parameters.AddWithValue("@IdOrientacion", frm.cmbOrientacion.Text.Substring(0, frm.cmbOrientacion.Text.IndexOf(" (")).Trim())
+                Else
+                    .CommandText = "UPDATE `Grupo` SET CiPersona=@CiAdscripto, Discapacitado=@Discapacitado where Grado=@Grado and IdGrupo=@IdGrupo"
+                End If
 
-                .Parameters.AddWithValue("@IDGrupo", frm.txtIDGrupo.Text)
-                .Parameters.AddWithValue("@Discapacitado", frm.chkDiscapacitado.Checked)
+                Dim ciAdscripto As String
+                If Not frm.cmbAdscripto.Text.Equals("Sin definir") Then
+                    ciAdscripto = frm.cmbAdscripto.Text.Substring(0, frm.cmbAdscripto.Text.IndexOf(" - ")).Trim()
+                Else
+                    ciAdscripto = "-1"
+                End If
+
                 .Parameters.AddWithValue("@Grado", frm.cmbGrado.Text)
-                .Parameters.AddWithValue("@IdOrientacion", frm.cmbOrientacion.Text.Substring(0, frm.cmbOrientacion.Text.IndexOf(" (")).Trim())
                 .Parameters.AddWithValue("@IdTurno", frm.cmbTurno.SelectedIndex + 1)
+                .Parameters.AddWithValue("@CiAdscripto", ciAdscripto)
+                .Parameters.AddWithValue("@IdGrupo", frm.txtIDGrupo.Text)
+                .Parameters.AddWithValue("@Discapacitado", frm.chkDiscapacitado.Checked)
             End With
 
             Try
-                Dim subCmd As New MySqlCommand()
-                subCmd.Connection = conexion.Conn
-                subCmd.CommandType = CommandType.Text
-                subCmd.CommandText = "SELECT IdGrupo from Grupos where IdGrupo=@IdGrupo"
-                subCmd.Parameters.AddWithValue("@IdGrupo", frm.txtIDGrupo.Text)
+                If frm.btnAgregar.Text.Equals("Agregar grupo") Then
+                    Dim subCmd As New MySqlCommand()
+                    subCmd.Connection = conexion.Conn
+                    subCmd.CommandType = CommandType.Text
+                    subCmd.CommandText = "SELECT * from Grupos where Grupo=@Grupo;"
+                    subCmd.Parameters.AddWithValue("@Grupo", frm.cmbGrado.Text & " " & frm.txtIDGrupo.Text)
 
-                Dim reader As MySqlDataReader = subCmd.ExecuteReader()
-                While reader.Read()
-                    Throw New System.Exception("Duplicate")
-                End While
+                    Dim reader As MySqlDataReader = subCmd.ExecuteReader()
+                    While reader.Read()
+                        Throw New System.Exception("Duplicate")
+                    End While
 
-                reader.Close()
-
+                    reader.Close()
+                End If
                 cmd.ExecuteNonQuery()
                 frm.cargarGrupos()
-                MessageBox.Show("Grupo agregado correctamente", "Grupo agregado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                If frm.btnAgregar.Text.Equals("Agregar grupo") Then
+                    MessageBox.Show("Grupo agregado correctamente", "Grupo agregado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                Else
+                    MessageBox.Show("Datos del grupos actualizados correctamente", "Grupo actualizado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                End If
                 frm.btnNuevoGrupo_Click(Nothing, Nothing)
-                cargarDatos_frmMain(frm.frmMain)
+                frm.btnNuevoGrupo.Text = "Agregar grupo"
+                frm.frmMain.recargarGrupo()
             Catch ex As Exception
                 If ex.ToString().Contains("Duplicate") Then
-                    MessageBox.Show("Ya existe un grupo con ese ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("Ya existe un grupo con ese grado e id.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Else
                     MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 End If
-                Console.WriteLine(ex.ToString())
             End Try
         End Using
         conexion.Close()
     End Sub
 
-    Public Sub eliminarGrupo_frmAdminGrupos(ByVal sender As System.Object, ByVal frm As frmAdminGrupos)
+    Public Sub eliminarGrupo_frmAdminGrupos(ByVal nroGrupo As String, ByVal nombreGrupo As String, ByVal frm As frmAdminGrupos)
         Dim conexion As New Conexion()
         Dim subConexion As New Conexion()
         Dim subSubConexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "DELETE FROM `Grupo` WHERE IdGrupo=@IdGrupo and IdTurno=@IdTurno and Grado=@Grado;"
+                .CommandText = "DELETE FROM `Grupo` WHERE NroGrupo=@NroGrupo"
                 .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@IdGrupo", sender.Tag(0))
-                .Parameters.AddWithValue("@IdTurno", sender.Tag(2))
-                .Parameters.AddWithValue("@Grado", sender.Tag(1))
+                .Parameters.AddWithValue("@NroGrupo", nroGrupo)
             End With
             ' Backup de horarios D: !
             ' Hay una forma más fácil de hacer esto, comprobando que no haya datos en X tablas
@@ -1045,18 +1139,16 @@ Else
             Dim backCmd As New MySqlCommand()
             backCmd.CommandType = CommandType.Text
             backCmd.Connection = subConexion.Conn
-            backCmd.CommandText = "SELECT * FROM Genera WHERE `IdGrupo`=@IdGrupo and `Grado`=@Grado;"
-            backCmd.Parameters.AddWithValue("@IdGrupo", sender.Tag(0))
-            backCmd.Parameters.AddWithValue("@Grado", sender.Tag(1))
+            backCmd.CommandText = "SELECT * FROM Genera WHERE `NroGrupo`=@NroGrupo;"
+            backCmd.Parameters.AddWithValue("@NroGrupo", nroGrupo)
             Dim backReader As MySqlDataReader = backCmd.ExecuteReader()
 
             Try
                 Dim subCmd As New MySqlCommand()
                 subCmd.Connection = subSubConexion.Conn
                 subCmd.CommandType = CommandType.Text
-                subCmd.CommandText = "DELETE FROM Genera WHERE `IdGrupo`=@IdGrupo and `Grado`=@Grado;"
-                subCmd.Parameters.AddWithValue("@IdGrupo", sender.Tag(0))
-                subCmd.Parameters.AddWithValue("@Grado", sender.Tag(1))
+                subCmd.CommandText = "DELETE FROM Genera WHERE `NroGrupo`=@NroGrupo;"
+                subCmd.Parameters.AddWithValue("@NroGrupo", nroGrupo)
                 subCmd.ExecuteNonQuery()
 
                 cmd.ExecuteNonQuery()
@@ -1064,7 +1156,7 @@ Else
                 frm.btnNuevoGrupo_Click(Nothing, Nothing)
 
                 frm.totalGrupos -= 1
-                MessageBox.Show("Grupo '" + sender.Tag(4) + "' eliminado.", "Grupo eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("Grupo '" + nombreGrupo + "' eliminado.", "Grupo eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Catch ex As Exception
                 ' Devuelvo los horarios a la tabla D;
                 Dim insConexion As New Conexion()
@@ -1073,13 +1165,13 @@ Else
                         Dim insCmd As New MySqlCommand()
                         insCmd.Connection = insConexion.Conn
                         insCmd.CommandType = CommandType.Text
-                        insCmd.CommandText = "INSERT INTO `Genera` VALUES (@HoraInicio, @HoraFin, @Dia, @Grado, @IdAsignatura, @IdGrupo, @IdOrientacion, @CiPersona);"
+                        insCmd.CommandText = "INSERT INTO `Genera` VALUES (@HoraInicio, @HoraFin, @Dia, @Grado, @IdAsignatura, @NroGrupo, @IdOrientacion, @CiPersona);"
                         insCmd.Parameters.AddWithValue("@HoraInicio", backReader("HoraInicio"))
                         insCmd.Parameters.AddWithValue("@HoraFin", backReader("HoraFin"))
                         insCmd.Parameters.AddWithValue("@Dia", backReader("Dia"))
                         insCmd.Parameters.AddWithValue("@Grado", backReader("Grado"))
                         insCmd.Parameters.AddWithValue("@IdAsignatura", backReader("IdAsignatura"))
-                        insCmd.Parameters.AddWithValue("@IdGrupo", backReader("IdGrupo"))
+                        insCmd.Parameters.AddWithValue("@NroGrupo", backReader("NroGrupo"))
                         insCmd.Parameters.AddWithValue("@IdOrientacion", backReader("IdOrientacion"))
                         insCmd.Parameters.AddWithValue("@CiPersona", backReader("CiPersona"))
                         insCmd.ExecuteNonQuery()
@@ -1187,7 +1279,7 @@ Else
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Profesor`;"
+                .CommandText = "SELECT Profesor.CiPersona, Persona.NombrePersona, Persona.ApellidoPersona FROM `Profesor`, `Persona` where Profesor.CiPersona=Persona.CiPersona;"
                 .CommandType = CommandType.Text
             End With
 
@@ -1268,7 +1360,7 @@ Else
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Profesor` where CiPersona=@CiPersona;"
+                .CommandText = "SELECT Profesor.CiPersona, Profesor.GradoProfesor, Persona.NombrePersona, Persona.ApellidoPersona FROM `Profesor`, `Persona` where Profesor.CiPersona=@CiPersona and Profesor.CiPersona=Persona.CiPersona;"
                 .CommandType = CommandType.Text
                 .Parameters.AddWithValue("@CiPersona", ciDocente)
             End With
@@ -1287,24 +1379,38 @@ Else
 
     Public Sub eliminarAsignatura_frmAdminDocentes(sender As Object, ByVal frm As frmAdminDocentes)
         Dim conexion As New Conexion()
+        Dim nroGrupo As Integer
+
+        Using primerCmd As New MySqlCommand()
+            With primerCmd
+                .Connection = conexion.Conn
+                .CommandType = CommandType.Text
+                .CommandText = "SELECT * from `Grupos` WHERE Grupos.Grupo=@Grupo;"
+                .Parameters.AddWithValue("@Grupo", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text)
+            End With
+            Dim reader As MySqlDataReader = primerCmd.ExecuteReader()
+            While reader.Read()
+                nroGrupo = reader("NroGrupo")
+            End While
+            reader.Close()
+        End Using
+
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "DELETE FROM `Tiene_Ag` WHERE IdGrupo=@IdGrupo and IdAsignatura=@IdAsignatura and Grado=@Grado and CiPersona=@CiPersona;"
+                .CommandText = "DELETE FROM `Tiene_Ag` WHERE NroGrupo=@NroGrupo and IdAsignatura=@IdAsignatura and CiPersona=@CiPersona;"
                 .CommandType = CommandType.Text
                 .Parameters.AddWithValue("@IdAsignatura", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(0).Text)
-                .Parameters.AddWithValue("@IdGrupo", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Substring(frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.IndexOf(" "), frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Length - 1).Trim())
-                .Parameters.AddWithValue("@Grado", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Substring(0, frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.IndexOf(" ")).Trim())
+                .Parameters.AddWithValue("@NroGrupo", nroGrupo)
                 .Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
             End With
             Try
                 Dim subCmd As New MySqlCommand()
                 subCmd.Connection = conexion.Conn
                 subCmd.CommandType = CommandType.Text
-                subCmd.CommandText = "UPDATE `Genera` SET `CiPersona`='-1' WHERE `IdAsignatura`=@IdAsignatura and `IdGrupo`=@IdGrupo and`CiPersona`=@CiPersona and `Grado`=@Grado;"
+                subCmd.CommandText = "UPDATE `Genera` SET `CiPersona`='-1' WHERE `IdAsignatura`=@IdAsignatura and `NroGrupo`=@NroGrupo and`CiPersona`=@CiPersona;"
                 subCmd.Parameters.AddWithValue("@IdAsignatura", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(0).Text)
-                subCmd.Parameters.AddWithValue("@IdGrupo", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Substring(frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.IndexOf(" "), frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Length - 1).Trim())
-                subCmd.Parameters.AddWithValue("@Grado", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.Substring(0, frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text.IndexOf(" ")).Trim())
+                subCmd.Parameters.AddWithValue("@NroGrupo", nroGrupo)
                 subCmd.Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
                 subCmd.ExecuteNonQuery()
 
@@ -1326,7 +1432,7 @@ Else
         Dim ci, nombre, apellido, grado As String
         Dim backupDatos As New MySqlCommand()
         backupDatos.Connection = conexion.Conn
-        backupDatos.CommandText = "SELECT * from `Profesor` WHERE CiPersona=@CiPersona;"
+        backupDatos.CommandText = "SELECT Profesor.CiPersona, Profesor.GradoProfesor, Persona.NombrePersona, Persona.ApellidoPersona FROM `Profesor`, `Persona` where Profesor.CiPersona=@CiPersona and Profesor.CiPersona=Persona.CiPersona;"
         backupDatos.CommandType = CommandType.Text
         backupDatos.Parameters.AddWithValue("@CiPersona", sender.Tag(0))
         Dim readerBackup As MySqlDataReader = backupDatos.ExecuteReader()
@@ -1350,7 +1456,6 @@ Else
             End With
             Try
                 cmd.ExecuteNonQuery()
-                conexion.Close() 'Cierra la conexión
                 Using subCmd As New MySqlCommand()
                     With subCmd
                         .Connection = conexion.Conn
@@ -1363,7 +1468,7 @@ Else
                 frm.cargarDocentes()
                 frm.btnNuevoDocente_Click(Nothing, Nothing)
                 frm.totalDocentes -= 1
-                MessageBox.Show("Docente'" + sender.Tag(1) + "' eliminado.", "Docente eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("Docente '" + sender.Tag(1) + "' eliminado.", "Docente eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Catch ex As Exception
                 MessageBox.Show("El docente no se puede eliminar, ya que tiene materias asignadas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 ' No encontre una forma de arreglarlo. :/ así que tengo que crear el docente nuevamente.
@@ -1395,7 +1500,7 @@ Else
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Tiene_Ag` WHERE CiPersona=@CiPersona;"
+                .CommandText = "SELECT IdAsignatura, IdGrupo, FechaToma, Grado FROM `Tiene_Ag`, `Grupo` WHERE CiPersona=@CiPersona and Grupo.NroGrupo=Tiene_Ag.NroGrupo;"
                 .CommandType = CommandType.Text
                 .Parameters.AddWithValue("@CiPersona", CI)
             End With
@@ -1416,15 +1521,29 @@ Else
         ' Se encarga de manejar la DB (parte asignaturas del docente), agrega o edita asignaturas.
         Dim conexion As New Conexion()
         Dim yaEsta As Boolean = False
+        Dim nroGrupo As Integer
+
+        Using primerCmd As New MySqlCommand()
+            With primerCmd
+                .Connection = conexion.Conn
+                .CommandType = CommandType.Text
+                .CommandText = "SELECT * from `Grupos` WHERE Grupos.Grupo=@Grupo;"
+                .Parameters.AddWithValue("@Grupo", frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" - ")))
+            End With
+            Dim reader As MySqlDataReader = primerCmd.ExecuteReader()
+            While reader.Read()
+                nroGrupo = reader("NroGrupo")
+            End While
+            reader.Close()
+        End Using
 
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
                 .CommandType = CommandType.Text
-                .CommandText = "SELECT * from `AsignaturasTomadas` WHERE IdAsignatura=@IdAsignatura and IdGrupo=@IdGrupo and Grado=@Grado;"
+                .CommandText = "SELECT * from `AsignaturasTomadas`, `Grupos` WHERE IdAsignatura=@IdAsignatura and Grupos.Grupo=@Grupo;"
                 .Parameters.AddWithValue("@IdAsignatura", frm.cmbAsignatura.Text.Substring(0, frm.cmbAsignatura.Text.IndexOf(" - ")).Trim())
-                .Parameters.AddWithValue("@IdGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.IndexOf(" - ")).Trim())
-                .Parameters.AddWithValue("@Grado", frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim())
+                .Parameters.AddWithValue("@Grupo", frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" - ")))
             End With
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
@@ -1442,30 +1561,13 @@ Else
             With cmd
                 .Connection = conexion.Conn
                 .CommandType = CommandType.Text
-                .CommandText = "INSERT INTO `Tiene_Ag` VALUES (@IdAsignatura, @IdGrupo, @Grado, @IdOrientacion, @CiPersona, @FechaToma, @GradoAreaProfesor);"
+                .CommandText = "INSERT INTO `Tiene_Ag` VALUES (@IdAsignatura, @NroGrupo, @FechaToma, @GradoAreaProfesor, @CiPersona);"
                 .Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
                 .Parameters.AddWithValue("@IdAsignatura", frm.cmbAsignatura.Text.Substring(0, frm.cmbAsignatura.Text.IndexOf(" - ")).Trim())
-                .Parameters.AddWithValue("@IdGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.IndexOf(" - ")).Trim())
-                .Parameters.AddWithValue("@Grado", frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim())
+                .Parameters.AddWithValue("@NroGrupo", nroGrupo)
                 Dim d As DateTime = Now
                 .Parameters.AddWithValue("@FechaToma", d.ToString("yyyy-MM-dd"))
                 .Parameters.AddWithValue("@GradoAreaProfesor", frm.numGradoArea.Value)
-
-                Dim orientacionGrupo As String
-
-                Using subCmd As New MySqlCommand()
-                    subCmd.Connection = conexion.Conn
-                    subCmd.CommandType = CommandType.Text
-                    subCmd.CommandText = "SELECT IdOrientacion from Grupo where IdGrupo=@IdGrupo and Grado=@Grado;"
-                    subCmd.Parameters.AddWithValue("@IdGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.IndexOf(" - ")).Trim())
-                    subCmd.Parameters.AddWithValue("@Grado", frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim())
-                    Dim reader As MySqlDataReader = subCmd.ExecuteReader()
-                    reader.Read()
-                    orientacionGrupo = reader("IdOrientacion").ToString()
-                    reader.Close()
-                End Using
-
-                .Parameters.AddWithValue("@IdOrientacion", orientacionGrupo)
             End With
 
             Try
@@ -1474,11 +1576,10 @@ Else
                 Dim subCmd As New MySqlCommand()
                 subCmd.Connection = conexion.Conn
                 subCmd.CommandType = CommandType.Text
-                subCmd.CommandText = "UPDATE `Genera` SET `CiPersona`=@CiPersona WHERE `IdAsignatura`=@IdAsignatura and `IdGrupo`=@IdGrupo and `Grado`=@Grado;"
+                subCmd.CommandText = "UPDATE `Genera` SET `CiPersona`=@CiPersona WHERE `IdAsignatura`=@IdAsignatura and `NroGrupo`=@NroGrupo;"
                 subCmd.Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
                 subCmd.Parameters.AddWithValue("@IdAsignatura", frm.cmbAsignatura.Text.Substring(0, frm.cmbAsignatura.Text.IndexOf(" - ")).Trim())
-                subCmd.Parameters.AddWithValue("@IdGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.IndexOf(" - ")).Trim())
-                subCmd.Parameters.AddWithValue("@Grado", frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim())
+                subCmd.Parameters.AddWithValue("@NroGrupo", nroGrupo)
                 subCmd.ExecuteNonQuery()
 
                 frm.cargarMaterias(frm.txtCI.Text)
@@ -1570,6 +1671,22 @@ Else
         Dim conexion As New Conexion()
         Dim subConexion As New Conexion()
 
+        Dim nroGrupo As Integer
+
+        Using primerCmd As New MySqlCommand()
+            With primerCmd
+                .Connection = conexion.Conn
+                .CommandType = CommandType.Text
+                .CommandText = "SELECT * from `Grupos` WHERE Grupos.Grupo=@Grupo;"
+                .Parameters.AddWithValue("@Grupo", frm.cmbGrupo.Text)
+            End With
+            Dim reader As MySqlDataReader = primerCmd.ExecuteReader()
+            While reader.Read()
+                nroGrupo = reader("NroGrupo")
+            End While
+            reader.Close()
+        End Using
+
         frm.btnSinAsignar.Parent = frm
         frm.pnlMaterias.Controls.Clear()
         frm.pnlMaterias.Controls.Add(frm.btnSinAsignar)
@@ -1589,7 +1706,7 @@ Else
             Using cmd As New MySqlCommand()
                 With cmd
                     .Connection = conexion.Conn
-                    .CommandText = "select DISTINCT NombreAsignatura, Grupo.IdGrupo, Grupo.IdOrientacion, AsignaturasOrientaciones.IdAsignatura, CargaHoraria, AsignaturasOrientaciones.Grado from AsignaturasOrientaciones, Grupo where Grupo.IdOrientacion=AsignaturasOrientaciones.IdOrientacion and Grupo.IdGrupo=@IdGrupo and Grupo.Grado=@Grado and AsignaturasOrientaciones.Grado=Grupo.Grado;"
+                    .CommandText = "select DISTINCT AsignaturasOrientaciones.IdAsignatura, NombreAsignatura, CargaHoraria from AsignaturasOrientaciones, Grupo where Grupo.IdOrientacion=AsignaturasOrientaciones.IdOrientacion and Grupo.IdGrupo=@IdGrupo and Grupo.Grado=@Grado and AsignaturasOrientaciones.Grado=Grupo.Grado;"
                     .CommandType = CommandType.Text
                     .Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim()))
                     .Parameters.AddWithValue("@IdGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).Trim())
@@ -1598,7 +1715,6 @@ Else
                 Dim reader As MySqlDataReader = cmd.ExecuteReader()
                 While reader.Read()
                     For carga As Integer = 1 To Integer.Parse(reader("CargaHoraria"))
-                        frm._IdOrientacion = reader("IdOrientacion")
                         Dim materia As Button
                         materia = New Button()
                         materia.TabStop = False
@@ -1609,9 +1725,8 @@ Else
                         Dim nombreProfesor As String = "Sin profesor"
                         Dim ciProfesor As String = "-1"
                         subCmd.Connection = subConexion.Conn
-                        subCmd.CommandText = "select Tiene_ag.CiPersona, Concat(NombrePersona, ' ', ApellidoPersona) as 'Profesor' from Tiene_ag, Persona where IdAsignatura=@IdAsignatura and IdGrupo=@IdGrupo and Grado=@Grado and Tiene_ag.CiPersona=Persona.CiPersona;"
-                        subCmd.Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim()))
-                        subCmd.Parameters.AddWithValue("@IdGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).Trim())
+                        subCmd.CommandText = "select Tiene_ag.CiPersona, Concat(NombrePersona, ' ', ApellidoPersona) as 'Profesor' from Tiene_ag, Persona where IdAsignatura=@IdAsignatura and NroGrupo=@NroGrupo and Tiene_ag.CiPersona=Persona.CiPersona;"
+                        subCmd.Parameters.AddWithValue("@NroGrupo", nroGrupo)
                         subCmd.Parameters.AddWithValue("@IdAsignatura", reader("IdAsignatura"))
                         Dim subReader As MySqlDataReader = subCmd.ExecuteReader()
                         While subReader.Read()
@@ -1941,9 +2056,8 @@ Else
         Dim cmd As New MySqlCommand()
         cmd.Connection = conexion.Conn
         cmd.CommandType = CommandType.Text
-        cmd.CommandText = "select IdTurno from Grupo where Grado=@Grado and IdGrupo=@IdGrupo;"
-        cmd.Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim()))
-        cmd.Parameters.AddWithValue("@IdGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).Trim())
+        cmd.CommandText = "select IdTurno from Grupo, Grupos where Grupos.Grupo=@Grupo and Grupo.nroGrupo=Grupos.nroGrupo;"
+        cmd.Parameters.AddWithValue("@Grupo", frm.cmbGrupo.Text)
         Dim reader As MySqlDataReader = cmd.ExecuteReader()
         reader.Read()
         Dim IdTurno As String = reader("IdTurno").ToString()
@@ -1954,6 +2068,7 @@ Else
         cmd.CommandType = CommandType.Text
         cmd.CommandText = "select DISTINCT HoraInicio, HoraFin from Asignacion where IdTurno=@IdTurno;"
         cmd.Parameters.AddWithValue("@IdTurno", IdTurno)
+        frm._IdTurno = IdTurno
 
         Dim posActual As Integer = 1
         reader = cmd.ExecuteReader()
@@ -2000,6 +2115,22 @@ Else
         Dim conexion_check As New Conexion()
         Dim dias As Object
         Dim ventanaEspere As New frmEspere()
+        Dim nroGrupo As Integer
+
+        Using primerCmd As New MySqlCommand()
+            With primerCmd
+                .Connection = conexion.Conn
+                .CommandType = CommandType.Text
+                .CommandText = "SELECT * from `Grupos` WHERE Grupos.Grupo=@Grupo;"
+                .Parameters.AddWithValue("@Grupo", frm.cmbGrupo.Text)
+            End With
+            Dim reader As MySqlDataReader = primerCmd.ExecuteReader()
+            While reader.Read()
+                nroGrupo = reader("NroGrupo")
+            End While
+            reader.Close()
+        End Using
+
         ventanaEspere.Show()
         frm.ParentForm.Controls(0).Enabled = False
 
@@ -2027,19 +2158,9 @@ Else
             For hora_n As Integer = 0 To 13
                 Using cmd2 As New MySqlCommand()
                     cmd2.Connection = conexion2.Conn
-                    cmd2.CommandText = "INSERT INTO `Genera` VALUES (@HoraInicio, @HoraFin, @Dia, @Grado, @IdAsignatura, @IdGrupo, @IdOrientacion, @CiPersona)"
                     cmd2.CommandType = CommandType.Text
-                    Dim idGrupo As String = frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).ToString()
-                    cmd2.Parameters.AddWithValue("@HoraInicio", horarios(hora_n))
-                    cmd2.Parameters.AddWithValue("@HoraFin", horarios(hora_n + 1))
-                    cmd2.Parameters.AddWithValue("@Dia", dia)
-                    cmd2.Parameters.AddWithValue("@IdGrupo", idGrupo.Substring(1, idGrupo.Length - 1))
-                    cmd2.Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim()))
-                    cmd2.Parameters.AddWithValue("@IdOrientacion", frm._IdOrientacion)
 
                     Dim btn As Button = New Button()
-
-
                     If dia.Equals("Lunes") Then
                         If horarios(hora_n).Equals(frm.horarioPrimera) Then
                             Try
@@ -2389,7 +2510,14 @@ Else
                         End If
                     End If
 
+                    cmd2.CommandText = "INSERT INTO `Genera` VALUES (@IdAsignatura, @NroGrupo, @HoraInicio, @HoraFin, @Dia, @IdTurno, @CiPersona)"
                     cmd2.Parameters.AddWithValue("@IdAsignatura", btn.Tag(0))
+                    Dim idGrupo As String = frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).ToString()
+                    cmd2.Parameters.AddWithValue("@NroGrupo", nroGrupo)
+                    cmd2.Parameters.AddWithValue("@HoraInicio", horarios(hora_n))
+                    cmd2.Parameters.AddWithValue("@HoraFin", horarios(hora_n + 1))
+                    cmd2.Parameters.AddWithValue("@Dia", dia)
+                    cmd2.Parameters.AddWithValue("@IdTurno", frm._IdTurno)
                     cmd2.Parameters.AddWithValue("@CiPersona", btn.Tag(1))
 
                     Try
@@ -2427,15 +2555,14 @@ Else
                         Using cmd As New MySqlCommand()
                             With cmd
                                 .Connection = conexion.Conn
-                                .CommandText = "DELETE FROM `Genera` WHERE HoraInicio=@HoraInicio and HoraFin=@HoraFin and Dia=@Dia and IdGrupo=@IdGrupo and IdOrientacion=@IdOrientacion and Grado=@Grado;"
+                                .CommandText = "DELETE FROM `Genera` WHERE HoraInicio=@HoraInicio and HoraFin=@HoraFin and Dia=@Dia and NroGrupo=@NroGrupo and IdTurno=@IdTurno;"
                                 .CommandType = CommandType.Text
                                 idGrupo = frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).ToString()
                                 .Parameters.AddWithValue("@HoraInicio", horarios(hora_n))
                                 .Parameters.AddWithValue("@HoraFin", horarios(hora_n + 1))
                                 .Parameters.AddWithValue("@Dia", dia)
-                                .Parameters.AddWithValue("@IdGrupo", idGrupo.Substring(1, idGrupo.Length - 1))
-                                .Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim()))
-                                .Parameters.AddWithValue("@IdOrientacion", frm._IdOrientacion)
+                                .Parameters.AddWithValue("@NroGrupo", nroGrupo)
+                                .Parameters.AddWithValue("@IdTurno", frm._IdTurno)
                             End With
                             Try
                                 cmd.ExecuteNonQuery()

@@ -3,21 +3,37 @@
 
     Dim btnActual As Button = New Button()
     Dim pnlTrabajo As New UserControl
-    Dim administrador As Boolean = False
+    Dim tipoUsuario As String
     Dim frmMain As frmMain
 
-    Public Sub New(ByVal administrador As Boolean, ByVal frmMain As frmMain)
+    Public Sub New(ByVal tipoUsuario As String, ByVal frmMain As frmMain)
         InitializeComponent()
-        Me.administrador = administrador
+        Me.tipoUsuario = tipoUsuario
         Me.frmMain = frmMain
     End Sub
 
     Private Sub frmAdministrar_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If tipoUsuario.Equals("Administrador") Then
+            btnSalones.Visible = True
+            btnGrupos.Visible = True
+            btnDocentes.Visible = True
+            btnHorarios.Visible = True
+            btnUsuarios.Visible = True
+        ElseIf tipoUsuario.Equals("Funcionario") Then
+            btnSalones.Visible = True
+            btnGrupos.Visible = True
+            btnDocentes.Visible = True
+            btnHorarios.Visible = True
+            btnUsuarios.Visible = True
+        ElseIf tipoUsuario.Equals("Adscripto") Then
+            btnSalones.Visible = True
+            btnGrupos.Visible = True
+            btnDocentes.Visible = False
+            btnHorarios.Visible = False
+            btnUsuarios.Visible = False
+        End If
         ' Clickear el btnSalones por defecto al iniciar
         btnSalones.PerformClick()
-        If administrador Then
-            btnUsuarios.Visible = True
-        End If
     End Sub
 
     Private Sub botones_Click(sender As Object, e As EventArgs) Handles btnSalones.Click, btnGrupos.Click, btnDocentes.Click, btnHorarios.Click, btnUsuarios.Click
@@ -118,7 +134,7 @@
 
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño()
-        pnlTrabajo = New frmAdminGrupos(frmMain)
+        pnlTrabajo = New frmAdminGrupos(frmMain, Me.tipoUsuario)
         Me.Size = New Point(1024, 575)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)
@@ -180,5 +196,10 @@
         pnlTrabajo.BringToFront()
         sender.BringToFront()
         Centrar()
+    End Sub
+
+    Private Sub frmAdministrar_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        Me.Hide()
+        frmMain.cargarNombre()
     End Sub
 End Class

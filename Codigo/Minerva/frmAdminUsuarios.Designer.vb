@@ -48,6 +48,7 @@ Partial Class frmAdminUsuarios
         Me.txtNombre = New System.Windows.Forms.TextBox()
         Me.lblApellido = New System.Windows.Forms.Label()
         Me.txtApellido = New System.Windows.Forms.TextBox()
+        Me.radAdscripto = New System.Windows.Forms.RadioButton()
         lblTitulo = New System.Windows.Forms.Label()
         lblUsuarios = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
@@ -271,13 +272,14 @@ Partial Class frmAdminUsuarios
         '
         'grpTipoCuenta
         '
+        Me.grpTipoCuenta.Controls.Add(Me.radAdscripto)
         Me.grpTipoCuenta.Controls.Add(Me.radFuncionario)
         Me.grpTipoCuenta.Controls.Add(Me.radAdministrador)
         Me.grpTipoCuenta.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.grpTipoCuenta.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
         Me.grpTipoCuenta.Location = New System.Drawing.Point(25, 313)
         Me.grpTipoCuenta.Name = "grpTipoCuenta"
-        Me.grpTipoCuenta.Size = New System.Drawing.Size(273, 120)
+        Me.grpTipoCuenta.Size = New System.Drawing.Size(273, 161)
         Me.grpTipoCuenta.TabIndex = 4
         Me.grpTipoCuenta.TabStop = False
         Me.grpTipoCuenta.Text = "Tipo de cuenta"
@@ -355,6 +357,18 @@ Partial Class frmAdminUsuarios
         Me.txtApellido.Size = New System.Drawing.Size(214, 34)
         Me.txtApellido.TabIndex = 3
         '
+        'radAdscripto
+        '
+        Me.radAdscripto.AutoSize = True
+        Me.radAdscripto.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.radAdscripto.ForeColor = System.Drawing.Color.PaleGreen
+        Me.radAdscripto.Location = New System.Drawing.Point(32, 112)
+        Me.radAdscripto.Name = "radAdscripto"
+        Me.radAdscripto.Size = New System.Drawing.Size(119, 31)
+        Me.radAdscripto.TabIndex = 2
+        Me.radAdscripto.Text = "Adscripto"
+        Me.radAdscripto.UseVisualStyleBackColor = True
+        '
         'frmAdminUsuarios
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -412,5 +426,6 @@ Partial Class frmAdminUsuarios
     Friend WithEvents txtNombre As System.Windows.Forms.TextBox
     Friend WithEvents lblApellido As System.Windows.Forms.Label
     Friend WithEvents txtApellido As System.Windows.Forms.TextBox
+    Friend WithEvents radAdscripto As System.Windows.Forms.RadioButton
 
 End Class

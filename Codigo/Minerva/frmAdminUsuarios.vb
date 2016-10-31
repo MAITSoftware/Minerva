@@ -11,7 +11,6 @@
         ' Llamada necesaria para el diseñador.
         InitializeComponent()
         Me.miUsuario = usuario
-
     End Sub
     Private Sub frmAdminUsuarios_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al iniciar el programa, cargar los usuarios, y reiniciar la interfaz
@@ -99,7 +98,7 @@
         actualizarDB()
     End Sub
 
-    Private Sub rad_CheckedChanged(sender As Object, e As EventArgs) Handles radFuncionario.CheckedChanged, radAdministrador.CheckedChanged
+    Private Sub rad_CheckedChanged(sender As Object, e As EventArgs) Handles radFuncionario.CheckedChanged, radAdministrador.CheckedChanged, radAdscripto.CheckedChanged
         If sender.Checked Then
             tipoSeleccionado = sender.Text
         End If
@@ -126,8 +125,10 @@
     Private Sub limpiarControles()
         ' Limpia los valores de los controles
         chkHabilitado.Checked = False
+        chkHabilitado.Enabled = True
         radAdministrador.Checked = False
         radFuncionario.Checked = True
+        radAdscripto.Checked = False
         txtID.Text = ""
         txtContraseña.Text = ""
         txtNombre.Text = ""
@@ -135,6 +136,7 @@
         tipoSeleccionado = "Funcionario"
         radAdministrador.Enabled = True
         radFuncionario.Enabled = True
+        radAdscripto.Enabled = True
     End Sub
 
     Private Sub editarUsuario(sender As Object, e As EventArgs)
@@ -143,20 +145,30 @@
         btnNuevoUsuario.Visible = False
         btnAgregar.Text = "Confirmar cambios"
         btnAgregar.Visible = True
+        btnNuevoUsuario.Visible = True
         btnCancelar.Visible = True
         txtContraseña.Enabled = True
         cargarDatos(sender.Tag)
         txtID.Enabled = False
         previsualizando = False
+        txtNombre.Enabled = True
+        txtApellido.Enabled = True
 
         If Not sender.Tag.Equals(miUsuario) Then
             radAdministrador.Enabled = True
             radFuncionario.Enabled = True
+            radAdscripto.Enabled = True
             chkHabilitado.Enabled = True
         Else
             radAdministrador.Enabled = False
             radFuncionario.Enabled = False
+            radAdscripto.Enabled = False
             chkHabilitado.Enabled = False
+        End If
+        If tipoSeleccionado.Equals("Adscripto") Then
+            radAdministrador.Enabled = False
+            radFuncionario.Enabled = False
+            radAdscripto.Checked = True
         End If
     End Sub
 
@@ -178,6 +190,7 @@
         txtContraseña.Enabled = False
         radAdministrador.Enabled = False
         radFuncionario.Enabled = False
+        radAdscripto.Enabled = False
         txtNombre.Enabled = False
         txtApellido.Enabled = False
     End Sub
