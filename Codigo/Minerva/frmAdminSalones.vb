@@ -7,14 +7,17 @@
     Friend grupoTurno2 As Object = {"-1", "-1"}
     Friend grupoTurno3 As Object = {"-1", "-1"}
     Friend frmMain As frmMain
+    Dim tipoUsuario As String
+    Dim editando As Boolean = False
 
-    Public Sub New(ByVal frmMain As frmMain)
+    Public Sub New(ByVal frmMain As frmMain, ByVal tipousuario As String)
 
         ' Llamada necesaria para el diseñador.
         InitializeComponent()
 
         ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
         Me.frmMain = frmMain
+        Me.tipoUsuario = tipousuario
     End Sub
 
 
@@ -69,6 +72,9 @@
         btnEliminar.TabStop = False
 
         btnEliminar.Tag = idSalon
+        If Me.tipoUsuario.Equals("Adscripto") Then
+            btnEliminar.Visible = False
+        End If
         AddHandler btnEliminar.Click, AddressOf eliminarSalon
 
         pnlTemporal.Controls.Add(btnEditar)
@@ -95,6 +101,7 @@
         controlesHabilitados(True)
         cargarDatos(sender.Tag)
         txtIDSalon.Enabled = False
+        editando = True
     End Sub
 
     Private Sub verSalon(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -158,6 +165,7 @@
         btnCancelarEdicion.Visible = False
         salonPreview.Enabled = True
         salonPreview = New Button()
+        editando = False
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
@@ -176,6 +184,11 @@
     ' Persistencia
     Private Sub checkDatos()
         ' Comprueba que esten todos los datos, y luego llama a acutalizarDB()
+        If Me.tipoUsuario.Equals("Adscripto") And Not editando Then
+            MessageBox.Show("Oops!" & vbCrLf & "Solo los administradores y funcionarios pueden hacer eso...", "Acceso denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
         If String.IsNullOrWhiteSpace(txtIDSalon.Text) Then
             MessageBox.Show("Debe ingresar un ID de salón.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return

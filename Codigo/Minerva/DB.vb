@@ -58,6 +58,7 @@ Public Class BaseDeDatos
 
         frm.Cursor = Cursors.Default
         If accesoDenegado Then
+            My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Exclamation)
             frm.lblDatosInc.Text = "Datos incorrectos!"
             frm.pnlError.Visible = True
         Else
@@ -132,14 +133,14 @@ Public Class BaseDeDatos
                     frmIngresarRegistro.BringToFront()
                     frm.Dispose()
                 Catch ex As Exception
+                    My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Exclamation)
                     frm.pnlError.Visible = True
-                    Console.WriteLine(ex.ToString())
                     conexion.Close()
                 End Try
             End Using
 
         Catch ex As Exception
-            Console.WriteLine(ex.ToString())
+            My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Exclamation)
             frm.pnlError.Visible = True
             conexion.Close()
         End Try

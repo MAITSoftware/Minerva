@@ -5,6 +5,7 @@
     Friend prevSelect As String
     Friend prevOrientacionSelect As String
     Friend frmMain As frmMain
+    Dim editando As Boolean = False
     Dim previsualizando As Boolean = False
     Dim tipoUsuario As String
 
@@ -118,6 +119,7 @@
         btnAgregar.Text = "Agregar grupo"
         cmbOrientacion.Enabled = False
         cmbGrado.Enabled = False
+        editando = False
         previsualizando = False
         chkDiscapacitado.TabStop = True
         cmbAdscripto.Enabled = True
@@ -131,6 +133,11 @@
 
     Private Sub checkDatos()
         ' Comprueba los datos y en caso de que no falte ninguno, llama a actualizarDB()
+        If Me.tipoUsuario.Equals("Adscripto") And Not editando Then
+            MessageBox.Show("Oops!" & vbCrLf & "Solo los administradores y funcionarios pueden hacer eso...", "Acceso denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
         If String.IsNullOrWhiteSpace(txtIDGrupo.Text) Then
             MessageBox.Show("Debe ingresar un ID de grupo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
@@ -176,6 +183,7 @@
         lblNuevoGrupo.Text = "Editar grupo"
         cmbAdscripto.Enabled = True
         previsualizando = False
+        editando = True
     End Sub
 
     Private Sub previsualizarGrupo(ByVal nroGrupo As String)

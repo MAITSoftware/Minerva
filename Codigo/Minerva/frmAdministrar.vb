@@ -117,7 +117,7 @@
 
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño()
-        pnlTrabajo = New frmAdminSalones(Me.frmMain)
+        pnlTrabajo = New frmAdminSalones(Me.frmMain, Me.tipoUsuario)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)
         pnlTrabajo.BringToFront()
@@ -201,5 +201,6 @@
     Private Sub frmAdministrar_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         Me.Hide()
         frmMain.cargarNombre()
+        frmMain.recargarGrupo()
     End Sub
 End Class
