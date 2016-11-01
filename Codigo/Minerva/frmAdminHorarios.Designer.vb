@@ -105,10 +105,13 @@ Partial Class frmAdminHorarios
         Me.btnGuardado = New System.Windows.Forms.Button()
         Me.lblTapaMaterias = New System.Windows.Forms.Label()
         Me.btnLimpiar = New System.Windows.Forms.Button()
-        Me.btnDeshacer = New System.Windows.Forms.PictureBox()
-        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         Me.pnlOcultarExtra = New System.Windows.Forms.Panel()
         Me.pnlBordeOculto = New System.Windows.Forms.Panel()
+        Me.dialogoEspere = New System.Windows.Forms.Panel()
+        Me.pnlFondo = New System.Windows.Forms.Panel()
+        Me.lblEspere = New System.Windows.Forms.Label()
+        Me.btnDeshacer = New System.Windows.Forms.PictureBox()
+        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         lblTitulo = New System.Windows.Forms.Label()
         pnlBorde11 = New System.Windows.Forms.Panel()
         Me.tableLunes.SuspendLayout()
@@ -118,6 +121,8 @@ Partial Class frmAdminHorarios
         Me.tableViernes.SuspendLayout()
         Me.tableSabado.SuspendLayout()
         Me.pnlMaterias.SuspendLayout()
+        Me.dialogoEspere.SuspendLayout()
+        Me.pnlFondo.SuspendLayout()
         CType(Me.btnDeshacer, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -162,7 +167,7 @@ Partial Class frmAdminHorarios
         Me.tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
         Me.tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
         Me.tableLunes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
-        Me.tableLunes.Size = New System.Drawing.Size(144, 420)
+        Me.tableLunes.Size = New System.Drawing.Size(146, 420)
         Me.tableLunes.TabIndex = 146
         '
         'tableLunes7
@@ -181,72 +186,78 @@ Partial Class frmAdminHorarios
         '
         Me.tableLunes6.ColumnCount = 1
         Me.tableLunes6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableLunes6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tableLunes6.Location = New System.Drawing.Point(0, 300)
         Me.tableLunes6.Margin = New System.Windows.Forms.Padding(0)
         Me.tableLunes6.Name = "tableLunes6"
         Me.tableLunes6.RowCount = 1
         Me.tableLunes6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableLunes6.Size = New System.Drawing.Size(144, 60)
+        Me.tableLunes6.Size = New System.Drawing.Size(146, 60)
         Me.tableLunes6.TabIndex = 5
         '
         'tableLunes5
         '
         Me.tableLunes5.ColumnCount = 1
         Me.tableLunes5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableLunes5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tableLunes5.Location = New System.Drawing.Point(0, 240)
         Me.tableLunes5.Margin = New System.Windows.Forms.Padding(0)
         Me.tableLunes5.Name = "tableLunes5"
         Me.tableLunes5.RowCount = 1
         Me.tableLunes5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableLunes5.Size = New System.Drawing.Size(144, 60)
+        Me.tableLunes5.Size = New System.Drawing.Size(146, 60)
         Me.tableLunes5.TabIndex = 4
         '
         'tableLunes4
         '
         Me.tableLunes4.ColumnCount = 1
         Me.tableLunes4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableLunes4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tableLunes4.Location = New System.Drawing.Point(0, 180)
         Me.tableLunes4.Margin = New System.Windows.Forms.Padding(0)
         Me.tableLunes4.Name = "tableLunes4"
         Me.tableLunes4.RowCount = 1
         Me.tableLunes4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableLunes4.Size = New System.Drawing.Size(144, 60)
+        Me.tableLunes4.Size = New System.Drawing.Size(146, 60)
         Me.tableLunes4.TabIndex = 3
         '
         'tableLunes3
         '
         Me.tableLunes3.ColumnCount = 1
         Me.tableLunes3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableLunes3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tableLunes3.Location = New System.Drawing.Point(0, 120)
         Me.tableLunes3.Margin = New System.Windows.Forms.Padding(0)
         Me.tableLunes3.Name = "tableLunes3"
         Me.tableLunes3.RowCount = 1
         Me.tableLunes3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableLunes3.Size = New System.Drawing.Size(144, 60)
+        Me.tableLunes3.Size = New System.Drawing.Size(146, 60)
         Me.tableLunes3.TabIndex = 2
         '
         'tableLunes2
         '
         Me.tableLunes2.ColumnCount = 1
         Me.tableLunes2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableLunes2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tableLunes2.Location = New System.Drawing.Point(0, 60)
         Me.tableLunes2.Margin = New System.Windows.Forms.Padding(0)
         Me.tableLunes2.Name = "tableLunes2"
         Me.tableLunes2.RowCount = 1
         Me.tableLunes2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableLunes2.Size = New System.Drawing.Size(144, 60)
+        Me.tableLunes2.Size = New System.Drawing.Size(146, 60)
         Me.tableLunes2.TabIndex = 1
         '
         'tableLunes1
         '
         Me.tableLunes1.ColumnCount = 1
         Me.tableLunes1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableLunes1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tableLunes1.Location = New System.Drawing.Point(0, 0)
         Me.tableLunes1.Margin = New System.Windows.Forms.Padding(0)
         Me.tableLunes1.Name = "tableLunes1"
         Me.tableLunes1.RowCount = 1
         Me.tableLunes1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableLunes1.Size = New System.Drawing.Size(144, 60)
+        Me.tableLunes1.Size = New System.Drawing.Size(146, 60)
         Me.tableLunes1.TabIndex = 0
         '
         'lblGrupo
@@ -502,7 +513,7 @@ Partial Class frmAdminHorarios
         Me.tableMartes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tableMartes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tableMartes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tableMartes.Size = New System.Drawing.Size(144, 420)
+        Me.tableMartes.Size = New System.Drawing.Size(146, 420)
         Me.tableMartes.TabIndex = 173
         '
         'tableMartes7
@@ -557,12 +568,13 @@ Partial Class frmAdminHorarios
         '
         Me.tableMartes3.ColumnCount = 1
         Me.tableMartes3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableMartes3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tableMartes3.Location = New System.Drawing.Point(0, 120)
         Me.tableMartes3.Margin = New System.Windows.Forms.Padding(0)
         Me.tableMartes3.Name = "tableMartes3"
         Me.tableMartes3.RowCount = 1
         Me.tableMartes3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tableMartes3.Size = New System.Drawing.Size(144, 60)
+        Me.tableMartes3.Size = New System.Drawing.Size(146, 60)
         Me.tableMartes3.TabIndex = 2
         '
         'tableMartes2
@@ -610,7 +622,7 @@ Partial Class frmAdminHorarios
         Me.tableMiercoles.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
         Me.tableMiercoles.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
         Me.tableMiercoles.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
-        Me.tableMiercoles.Size = New System.Drawing.Size(144, 420)
+        Me.tableMiercoles.Size = New System.Drawing.Size(146, 420)
         Me.tableMiercoles.TabIndex = 175
         '
         'tableMiercoles7
@@ -1115,7 +1127,7 @@ Partial Class frmAdminHorarios
         Me.btnGuardado.Size = New System.Drawing.Size(135, 29)
         Me.btnGuardado.TabIndex = 2
         Me.btnGuardado.TabStop = False
-        Me.btnGuardado.Text = "Guardar cambios"
+        Me.btnGuardado.Text = "Guardar horarios"
         Me.btnGuardado.UseVisualStyleBackColor = True
         '
         'lblTapaMaterias
@@ -1136,6 +1148,52 @@ Partial Class frmAdminHorarios
         Me.btnLimpiar.TabStop = False
         Me.btnLimpiar.Text = "Limpiar todo"
         Me.btnLimpiar.UseVisualStyleBackColor = True
+        '
+        'pnlOcultarExtra
+        '
+        Me.pnlOcultarExtra.Location = New System.Drawing.Point(199, 450)
+        Me.pnlOcultarExtra.Name = "pnlOcultarExtra"
+        Me.pnlOcultarExtra.Size = New System.Drawing.Size(981, 60)
+        Me.pnlOcultarExtra.TabIndex = 192
+        Me.pnlOcultarExtra.Visible = False
+        '
+        'pnlBordeOculto
+        '
+        Me.pnlBordeOculto.BackColor = System.Drawing.Color.White
+        Me.pnlBordeOculto.Location = New System.Drawing.Point(271, 449)
+        Me.pnlBordeOculto.Name = "pnlBordeOculto"
+        Me.pnlBordeOculto.Size = New System.Drawing.Size(877, 1)
+        Me.pnlBordeOculto.TabIndex = 193
+        Me.pnlBordeOculto.Visible = False
+        '
+        'dialogoEspere
+        '
+        Me.dialogoEspere.BackColor = System.Drawing.Color.PaleGreen
+        Me.dialogoEspere.Controls.Add(Me.pnlFondo)
+        Me.dialogoEspere.Location = New System.Drawing.Point(390, 154)
+        Me.dialogoEspere.Name = "dialogoEspere"
+        Me.dialogoEspere.Size = New System.Drawing.Size(400, 210)
+        Me.dialogoEspere.TabIndex = 194
+        '
+        'pnlFondo
+        '
+        Me.pnlFondo.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.pnlFondo.Controls.Add(Me.lblEspere)
+        Me.pnlFondo.Location = New System.Drawing.Point(3, 3)
+        Me.pnlFondo.Name = "pnlFondo"
+        Me.pnlFondo.Size = New System.Drawing.Size(394, 204)
+        Me.pnlFondo.TabIndex = 0
+        '
+        'lblEspere
+        '
+        Me.lblEspere.AutoSize = True
+        Me.lblEspere.Font = New System.Drawing.Font("Corbel", 30.0!)
+        Me.lblEspere.ForeColor = System.Drawing.Color.White
+        Me.lblEspere.Location = New System.Drawing.Point(55, 81)
+        Me.lblEspere.Name = "lblEspere"
+        Me.lblEspere.Size = New System.Drawing.Size(290, 49)
+        Me.lblEspere.TabIndex = 0
+        Me.lblEspere.Text = "Espere por favor"
         '
         'btnDeshacer
         '
@@ -1159,23 +1217,6 @@ Partial Class frmAdminHorarios
         Me.imgLogoMAITs.Size = New System.Drawing.Size(92, 44)
         Me.imgLogoMAITs.TabIndex = 125
         Me.imgLogoMAITs.TabStop = False
-        '
-        'pnlOcultarExtra
-        '
-        Me.pnlOcultarExtra.Location = New System.Drawing.Point(199, 450)
-        Me.pnlOcultarExtra.Name = "pnlOcultarExtra"
-        Me.pnlOcultarExtra.Size = New System.Drawing.Size(981, 60)
-        Me.pnlOcultarExtra.TabIndex = 192
-        Me.pnlOcultarExtra.Visible = False
-        '
-        'pnlBordeOculto
-        '
-        Me.pnlBordeOculto.BackColor = System.Drawing.Color.White
-        Me.pnlBordeOculto.Location = New System.Drawing.Point(271, 449)
-        Me.pnlBordeOculto.Name = "pnlBordeOculto"
-        Me.pnlBordeOculto.Size = New System.Drawing.Size(877, 1)
-        Me.pnlBordeOculto.TabIndex = 193
-        Me.pnlBordeOculto.Visible = False
         '
         'frmAdminHorarios
         '
@@ -1226,6 +1267,7 @@ Partial Class frmAdminHorarios
         Me.Controls.Add(Me.tableJueves)
         Me.Controls.Add(Me.tableViernes)
         Me.Controls.Add(Me.tableSabado)
+        Me.Controls.Add(Me.dialogoEspere)
         Me.Name = "frmAdminHorarios"
         Me.Size = New System.Drawing.Size(1180, 518)
         Me.tableLunes.ResumeLayout(False)
@@ -1235,6 +1277,9 @@ Partial Class frmAdminHorarios
         Me.tableViernes.ResumeLayout(False)
         Me.tableSabado.ResumeLayout(False)
         Me.pnlMaterias.ResumeLayout(False)
+        Me.dialogoEspere.ResumeLayout(False)
+        Me.pnlFondo.ResumeLayout(False)
+        Me.pnlFondo.PerformLayout()
         CType(Me.btnDeshacer, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -1326,5 +1371,8 @@ Partial Class frmAdminHorarios
     Friend WithEvents btnDeshacer As System.Windows.Forms.PictureBox
     Friend WithEvents pnlOcultarExtra As System.Windows.Forms.Panel
     Friend WithEvents pnlBordeOculto As System.Windows.Forms.Panel
+    Friend WithEvents dialogoEspere As System.Windows.Forms.Panel
+    Friend WithEvents pnlFondo As System.Windows.Forms.Panel
+    Friend WithEvents lblEspere As System.Windows.Forms.Label
 
 End Class

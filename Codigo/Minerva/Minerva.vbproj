@@ -146,12 +146,6 @@
     <Compile Include="frmDia.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="frmEspere.Designer.vb">
-      <DependentUpon>frmEspere.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmEspere.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmHorariosExternos.Designer.vb">
       <DependentUpon>frmHorariosExternos.vb</DependentUpon>
     </Compile>
@@ -229,9 +223,6 @@
     <EmbeddedResource Include="frmDia.resx">
       <DependentUpon>frmDia.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmEspere.resx">
-      <DependentUpon>frmEspere.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmHorariosExternos.resx">
       <DependentUpon>frmHorariosExternos.vb</DependentUpon>
     </EmbeddedResource>
@@ -285,6 +276,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Minerva.ico" />
+    <None Include="Resources\Espere.png" />
     <None Include="Resources\unfullscreen_normal.png" />
     <None Include="Resources\unfullscreen_hover.png" />
     <None Include="Resources\guardar_como_pdf_seleccionado.png" />

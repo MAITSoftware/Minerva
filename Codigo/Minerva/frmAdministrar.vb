@@ -12,6 +12,14 @@
         Me.frmMain = frmMain
     End Sub
 
+    Public Sub habilitarBotones(ByVal habilitar As Boolean)
+        btnSalones.Enabled = habilitar
+        btnGrupos.Enabled = habilitar
+        btnDocentes.Enabled = habilitar
+        btnHorarios.Enabled = habilitar
+        btnUsuarios.Enabled = habilitar
+    End Sub
+
     Private Sub frmAdministrar_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If tipoUsuario.Equals("Administrador") Then
             btnSalones.Visible = True
@@ -171,7 +179,7 @@
 
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño(False)
-        pnlTrabajo = New frmAdminHorarios(Me.frmMain)
+        pnlTrabajo = New frmAdminHorarios(Me.frmMain, Me)
         Me.Size = New Point(1200, 600)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)

@@ -1,3 +1,2 @@
-﻿Errores conocidos
-- Si hay horarios asignados (que no tienen profesor), y se les asigna un profesor, 
-y dichos horarios se interponen con otros del mismo profesor, el programa no lo notifica.
+Errores conocidos
+- ?

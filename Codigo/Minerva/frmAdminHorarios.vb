@@ -19,10 +19,12 @@
     Friend horarioExtra As String = "18:00"
     Friend finExtra As String = "18:45"
     Friend frmMain As frmMain
+    Friend frmAdministrar As frmAdministrar
     Dim tablas As Object = Nothing
 
-    Public Sub New(ByVal frmMain As frmMain)
+    Public Sub New(ByVal frmMain As frmMain, ByVal frmAdministrar As frmAdministrar)
         Me.frmMain = frmMain
+        Me.frmAdministrar = frmAdministrar
         ' Llamada necesaria para el diseñador.
         InitializeComponent()
 
@@ -134,8 +136,10 @@
     End Sub
 
     Private Sub btnGuardado_Click(sender As Object, e As EventArgs) Handles btnGuardado.Click
+        dialogoEspere.BringToFront()
         Dim DB As New BaseDeDatos()
         DB.guardarHorarios_frmAdminHorarios(Me)
+        dialogoEspere.SendToBack()
     End Sub
 
     Private Sub cargarGrupo()
@@ -161,11 +165,13 @@
             Return
         End If
 
+        dialogoEspere.BringToFront()
+
         Dim DB As New BaseDeDatos()
 
         DB.cargarHorarios_frmAdminHorarios(Me)
         DB.cargarMaterias_frmAdminHorarios(Me)
-
+        dialogoEspere.SendToBack()
     End Sub
 
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click

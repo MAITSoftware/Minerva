@@ -8,7 +8,7 @@ Public Class Conexion
     Public Sub New()
         ' Al crear la clase, generar la conexión, y abrirla
         Try
-            Conn = New MySqlConnection("server=localhost;uid=minerva;password=minerva;database=Minerva2")
+            Conn = New MySqlConnection("server=localhost;uid=minerva;password=minerva;database=Minerva")
             Conn.Open()
         Catch ex As Exception
             ' En caso de error mostrar un mensaje y salir
@@ -124,7 +124,7 @@ Public Class BaseDeDatos
                     cmd.ExecuteNonQuery()
                     conexion.Close()
                     If cantidadAdministradores <= 0 Then
-                        MsgBox("Gracias por registrarse. " & vbCrLf & "Ya que es el primer usuario en registrarse, usted ha sido registrado como administrador." & vbCrLf & "Ya puede acceder al sistema utilizando sus datos.", MsgBoxStyle.Information, "Minerva · Confirmación de registro")
+                        MsgBox("Gracias por registrarse. " & vbCrLf & "Usted ha sido registrado automáticamente como administrador." & vbCrLf & "Ya puede acceder al sistema utilizando sus datos.", MsgBoxStyle.Information, "Minerva · Confirmación de registro")
                     Else
                         MsgBox("Gracias por registrarse. " & vbCrLf & "El administrador deberá confirmar su registro", MsgBoxStyle.Information, "Minerva · Confirmación de registro")
                     End If
@@ -973,6 +973,7 @@ Public Class BaseDeDatos
             reader.Close()
         End Using
 
+        frm.cmbTurno.Items.Clear()
         ' Segundo los turnos
         Using cmd As New MySqlCommand()
             With cmd
@@ -1191,27 +1192,6 @@ Public Class BaseDeDatos
         subConexion.Close()
         subSubConexion.Close()
         conexion.Close() 'Cierra la conexión
-    End Sub
-
-    Public Sub cargarTurnos_frmAdminGrupos(ByVal frm As frmAdminGrupos)
-        ' carga las orientaciones a los combobox
-        Dim conexion As New Conexion()
-        frm.cmbTurno.Items.Clear()
-
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Turno`;"
-                .CommandType = CommandType.Text
-            End With
-
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            While reader.Read()
-                frm.cmbTurno.Items.Add(reader("NombreTurno").ToString())
-            End While
-            reader.Close()
-        End Using
-        conexion.Close()
     End Sub
 
     Public Sub cargarAreas_frmAdminDocentes(ByVal frm As frmAdminDocentes)
@@ -1501,7 +1481,7 @@ Public Class BaseDeDatos
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT IdAsignatura, IdGrupo, FechaToma, Grado FROM `Tiene_Ag`, `Grupo` WHERE CiPersona=@CiPersona and Grupo.NroGrupo=Tiene_Ag.NroGrupo;"
+                .CommandText = "SELECT IdAsignatura, IdGrupo, FechaToma, Grado FROM `Tiene_Ag`, `Grupo` WHERE Tiene_Ag.CiPersona=@CiPersona and Grupo.NroGrupo=Tiene_Ag.NroGrupo;"
                 .CommandType = CommandType.Text
                 .Parameters.AddWithValue("@CiPersona", CI)
             End With
@@ -1521,6 +1501,7 @@ Public Class BaseDeDatos
     Public Sub actualizarDBMaterias_frmAdminDocentes(ByVal frm As frmAdminDocentes)
         ' Se encarga de manejar la DB (parte asignaturas del docente), agrega o edita asignaturas.
         Dim conexion As New Conexion()
+        Dim subconexion As New Conexion()
         Dim yaEsta As Boolean = False
         Dim nroGrupo As Integer
 
@@ -1575,6 +1556,23 @@ Public Class BaseDeDatos
                 cmd.ExecuteNonQuery()
 
                 Dim subCmd As New MySqlCommand()
+                subCmd.Connection = subconexion.Conn
+                subCmd.CommandType = CommandType.Text
+                subCmd.CommandText = "select IdAsignatura, Grupo from Genera, Grupos, (select HoraInicio, Dia from Genera where IdAsignatura=@IdAsignatura and Genera.NroGrupo=@NroGrupo) AsignaturaEnCalendario where Genera.CiPersona=@CiPersona and Genera.HoraInicio=AsignaturaEnCalendario.HoraInicio and Genera.Dia=AsignaturaEnCalendario.Dia and Grupos.NroGrupo=@NroGrupo;"
+                subCmd.Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
+                subCmd.Parameters.AddWithValue("@IdAsignatura", frm.cmbAsignatura.Text.Substring(0, frm.cmbAsignatura.Text.IndexOf(" - ")).Trim())
+                subCmd.Parameters.AddWithValue("@NroGrupo", nroGrupo)
+                Dim reader As MySqlDataReader = subCmd.ExecuteReader()
+                Dim mensajeMostrado As Boolean = False
+                While reader.Read()
+                    If Not mensajeMostrado Then
+                        MessageBox.Show("El docente ya tiene un grupo asignado (" & reader("Grupo") & ") en el horario de ésta asignatura." & vbCrLf & "Se recomienda acomodar los horarios en la vista de Horarios.", "Conflictos detectados", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        mensajeMostrado = True
+                    End If
+                End While
+                reader.Close()
+
+                subCmd = New MySqlCommand()
                 subCmd.Connection = conexion.Conn
                 subCmd.CommandType = CommandType.Text
                 subCmd.CommandText = "UPDATE `Genera` SET `CiPersona`=@CiPersona WHERE `IdAsignatura`=@IdAsignatura and `NroGrupo`=@NroGrupo;"
@@ -1597,6 +1595,7 @@ Public Class BaseDeDatos
             End Try
         End Using
         conexion.Close()
+        subconexion.Close()
     End Sub
 
     Public Sub cargarAsignaturas_frmAdminDocentes(ByVal frm As frmAdminDocentes)
@@ -2115,9 +2114,8 @@ Public Class BaseDeDatos
         Dim conexion2 As New Conexion()
         Dim conexion_check As New Conexion()
         Dim dias As Object
-        Dim ventanaEspere As New frmEspere()
-        Dim nroGrupo As Integer
 
+        Dim nroGrupo As Integer
         Using primerCmd As New MySqlCommand()
             With primerCmd
                 .Connection = conexion.Conn
@@ -2132,8 +2130,7 @@ Public Class BaseDeDatos
             reader.Close()
         End Using
 
-        ventanaEspere.Show()
-        frm.ParentForm.Controls(0).Enabled = False
+        frm.frmAdministrar.habilitarBotones(False)
 
         frm.Cursor = Cursors.WaitCursor
         frm.pnlMaterias.Enabled = False
@@ -2536,11 +2533,8 @@ Public Class BaseDeDatos
                                 If reader_check("IdAsignatura").ToString().Equals(btn.Tag(0)) And reader_check("Grupo").ToString().Equals(frm.cmbGrupo.Text) Then
                                     Continue While
                                 End If
-                                ventanaEspere.Hide()
-                                Dim result As Integer = MessageBox.Show("El profesor '" & reader_check("NombreProfesor") & "' ya tiene una materia el día: " & dia & " a la hora " & horarios(hora_n), "Error!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-                                ventanaEspere.Show()
-                                ventanaEspere.BringToFront()
                                 hora_n += 1
+                                MessageBox.Show("El profesor '" & reader_check("NombreProfesor") & "' ya enseña una materia al grupo " & reader_check("Grupo") & " el día: " & dia & " a la hora " & horarios(hora_n), "Error!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
                                 huboError = True
                                 reader_check.Close()
                                 Continue For
@@ -2598,10 +2592,14 @@ Public Class BaseDeDatos
         frm.tableSabado.Enabled = True
 
 
-        frm.ParentForm.Controls(0).Enabled = True
-        ventanaEspere.Hide()
+        frm.dialogoEspere.SendToBack()
+        frm.frmAdministrar.habilitarBotones(True)
         cargarMaterias_frmAdminHorarios(frm)
+        If Not huboError Then
+            MessageBox.Show("Asignación de horarios guardada", "Todo salió bien", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
 
         frm.frmMain.recargarGrupo()
     End Sub
+
 End Class

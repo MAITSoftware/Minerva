@@ -1,7 +1,9 @@
 drop database if exists `Minerva`;
 create database `Minerva`;
 use `Minerva`;
- 
+
+DROP USER IF EXISTS 'minerva'@'localhost';
+CREATE USER 'minerva'@'localhost' IDENTIFIED BY 'minerva';
  
 create table `Persona` (
   `CiPersona` VARCHAR(8) NOT NULL,
@@ -12,8 +14,6 @@ create table `Persona` (
  
 create table `Usuario` (
   `CiPersona` VARCHAR(8) NOT NULL,
-  `NombrePersona` VARCHAR(25),
-  `ApellidoPersona` VARCHAR(25),
   `TipoUsuario` VARCHAR(13) NOT NULL,
   `ContraseñaUsuario` VARCHAR(25) NOT NULL,
   `AprobacionUsuario` BOOLEAN NOT NULL,
@@ -23,13 +23,11 @@ create table `Usuario` (
  
 create table `Profesor` (
   `CiPersona` VARCHAR(8) NOT NULL,
-  `NombrePersona` VARCHAR(25) NOT NULL,
-  `ApellidoPersona` VARCHAR(25) NOT NULL,
   `GradoProfesor` INT(3) NOT NULL,
   FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`),
   PRIMARY KEY (`CiPersona`)
 );
- 
+
 create table `Curso` (
   `IdCurso` VARCHAR(4) NOT NULL,
   `NombreCurso` VARCHAR(30) NOT NULL,
@@ -46,12 +44,13 @@ create table `Orientacion` (
  
 create table `Trayecto` (
   `Grado` INT(2) NOT NULL,
-  `IdOrientacion` VARCHAR(4) NOT NULL,
   `Modulo` INT(2) NOT NULL,
+  `IdOrientacion` VARCHAR(4) NOT NULL,
   FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
   PRIMARY KEY (`Grado`, `IdOrientacion`)
 );
  
+  
 create table `Salon` (
   `IdSalon` INT(2) NOT NULL,
   `ComentariosSalon` TEXT,
@@ -65,20 +64,25 @@ create table `Turno` (
   PRIMARY KEY (`IdTurno`)
 );
  
+ 
 create table `Grupo` (
+  `NroGrupo` INT NOT NULL AUTO_INCREMENT,
   `IdGrupo` VARCHAR(4) NOT NULL,
   `Discapacitado` BOOLEAN NOT NULL,
-  `Grado` INT(2) NOT NULL,
-  `IdOrientacion` VARCHAR(4) NOT NULL,
   `IdSalon` INT(2) NOT NULL,
   `IdTurno` INT(2) NOT NULL,
+  `Grado` INT(2) NOT NULL, 
+  `IdOrientacion` VARCHAR(4) NOT NULL,
+  `CiPersona` VARCHAR (8) NOT NULL,
   FOREIGN KEY (`Grado`) REFERENCES Trayecto(`Grado`),
   FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
   FOREIGN KEY (`IdSalon`) REFERENCES Salon(`IdSalon`),
   FOREIGN KEY (`IdTurno`) REFERENCES Turno(`IdTurno`),
-  PRIMARY KEY (`IdGrupo`, `Grado`, `IdOrientacion`)
+  FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`),
+  PRIMARY KEY (`NroGrupo`)
 );
  
+  
 create table `Area` (
   `IdArea` VARCHAR(4) NOT NULL,
   `NombreArea` VARCHAR(50) NOT NULL,
@@ -90,8 +94,9 @@ create table `Asignatura` (
   `NombreAsignatura` VARCHAR(50) NOT NULL,
   `IdArea` VARCHAR(4) NOT NULL,
   FOREIGN KEY (`IdArea`) REFERENCES Area(`IdArea`),
-  PRIMARY KEY (`IdAsignatura`, `IdArea`)
+  PRIMARY KEY (`IdAsignatura`)
 );
+
  
 create table `Asignacion` (
   `HoraInicio` TIME NOT NULL,
@@ -104,43 +109,7 @@ create table `Asignacion` (
   FOREIGN KEY (`IdTurno`) REFERENCES Turno(`IdTurno`),
   PRIMARY KEY (`HoraInicio`, `HoraFin`, `Dia`, `IdTurno`)
 );
- 
-create table `Genera` (
-  `HoraInicio` TIME NOT NULL,
-  `HoraFin` TIME NOT NULL,
-  `Dia` VARCHAR(10) NOT NULL,
-  `Grado` INT(2) NOT NULL,
-  `IdAsignatura` VARCHAR(5) NOT NULL,
-  `IdGrupo` VARCHAR(4) NOT NULL,
-  `IdOrientacion` VARCHAR(4) NOT NULL,
-  `CiPersona` VARCHAR(8) NOT NULL,
-  FOREIGN KEY (`HoraFin`) REFERENCES Asignacion(`HoraFin`),
-  FOREIGN KEY (`HoraInicio`) REFERENCES Asignacion(`HoraInicio`),
-  FOREIGN KEY (`Dia`) REFERENCES Asignacion(`Dia`),
-  FOREIGN KEY (`Grado`) REFERENCES Trayecto(`Grado`),
-  FOREIGN KEY (`IdAsignatura`) REFERENCES Asignatura(`IdAsignatura`),
-  FOREIGN KEY (`IdGrupo`) REFERENCES Grupo(`IdGrupo`),
-  FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
-  FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`),
-  PRIMARY KEY (`HoraInicio`, `HoraFin`, `Dia`, `IdAsignatura`, `Grado`, `IdGrupo`, `IdOrientacion`)
-);
 
- 
-create table `Tiene_Ag` (
-  `IdAsignatura` VARCHAR(5) NOT NULL,
-  `IdGrupo` VARCHAR(4) NOT NULL,
-  `Grado` INT(2) NOT NULL,
-  `IdOrientacion` VARCHAR(4) NOT NULL,
-  `CiPersona` VARCHAR(8) NOT NULL,
-  `FechaToma` DATE NOT NULL,
-  `GradoAreaProfesor` INT(2) NOT NULL,
-  FOREIGN KEY (`IdAsignatura`) REFERENCES Asignatura(`IdAsignatura`),
-  FOREIGN KEY (`IdGrupo`) REFERENCES Grupo(`IdGrupo`),
-  FOREIGN KEY (`Grado`) REFERENCES Trayecto(`Grado`),
-  FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
-  FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`),
-  PRIMARY KEY (`IdAsignatura`, `IdGrupo`, `Grado`, `IdOrientacion`, `CiPersona`)
-);
 
 create table `Tiene_Ta` (
   `IdAsignatura` VARCHAR(5) NOT NULL,
@@ -151,23 +120,53 @@ create table `Tiene_Ta` (
   FOREIGN KEY (`Grado`) REFERENCES Trayecto(`Grado`),
   FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
   PRIMARY KEY (`IdAsignatura`, `Grado`, `IdOrientacion`)
+); 
+
+create table `Tiene_Ag` (
+  `IdAsignatura` VARCHAR(5) NOT NULL,
+  `NroGrupo` INT NOT NULL,
+  `FechaToma` DATE NOT NULL,
+  `GradoAreaProfesor` INT(2) NOT NULL,
+  `CiPersona` VARCHAR(8) NOT NULL,
+  FOREIGN KEY (`IdAsignatura`) REFERENCES Asignatura(`IdAsignatura`),
+  FOREIGN KEY (`NroGrupo`) REFERENCES Grupo(`NroGrupo`),
+  FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`),
+  PRIMARY KEY (`IdAsignatura`, `NroGrupo`)
+); 
+
+create table `Genera` (
+  `IdAsignatura` VARCHAR(5) NOT NULL,
+  `NroGrupo` INT NOT NULL,
+  `HoraInicio` TIME NOT NULL,
+  `HoraFin` TIME NOT NULL,
+  `Dia` VARCHAR(10) NOT NULL,
+  `IdTurno` INT(2) NOT NULL,
+  `CiPersona` VARCHAR(8) NOT NULL,
+  FOREIGN KEY (`HoraFin`) REFERENCES Asignacion(`HoraFin`),
+  FOREIGN KEY (`HoraInicio`) REFERENCES Asignacion(`HoraInicio`),
+  FOREIGN KEY (`Dia`) REFERENCES Asignacion(`Dia`),
+  FOREIGN KEY (`IdAsignatura`) REFERENCES Asignatura(`IdAsignatura`),
+  FOREIGN KEY (`NroGrupo`) REFERENCES Grupo(`NroGrupo`),
+  FOREIGN KEY (`IdTurno`) REFERENCES Turno(`IdTurno`),
+  FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`),
+  PRIMARY KEY (`HoraInicio`, `HoraFin`, `Dia`, `IdAsignatura`, `IdTurno`, `NroGrupo`)
 );
 
--- Views para que la profe sea feliz
-create view AsignaturasTomadas AS select IdAsignatura, IdGrupo, Grado from Tiene_Ag;
-create view Calendario AS select Asignatura.IdAsignatura as IdAsignatura, HoraInicio, DATE_FORMAT(HoraInicio, '%H:%i') as HoraOrden, CONCAT(DATE_FORMAT(HoraInicio, '%H:%i'), " - ", DATE_FORMAT(HoraFin, '%H:%i')) as Hora, Dia, CONCAT(Grado, " ", IdGrupo) as Grupo, CONCAT(NombrePersona, ' ', ApellidoPersona) as NombreProfesor, Persona.CiPersona, NombreAsignatura as Materia from Genera, Asignatura, Persona where Genera.IdAsignatura=Asignatura.IdAsignatura and Genera.CiPersona=Persona.CiPersona;
-create view AsignaturasOrientaciones as select IdOrientacion, Grado, Asignatura.IdAsignatura as IdAsignatura, CargaHoraria, NombreAsignatura from Tiene_Ta, Asignatura where Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura;
-create view Grupos AS select IdGrupo, CONCAT(Grado, IdGrupo) as Grupo from Grupo;
-create view ProfesorEnsenia as select HoraOrden, Dia, Calendario.CiPersona, CONCAT(NombrePersona, ' ', ApellidoPersona) as NombreProfesor from Calendario, Persona where Calendario.CiPersona=Persona.ciPersona;
-create view DatosGrupos as select Grupo.IdSalon as Salon, Orientacion.IdOrientacion, Orientacion.NombreOrientacion as Orientacion, Curso.NombreCurso as Curso, Grupo.Grado as Grado, Grupo.IdGrupo as IdGrupo, Turno.NombreTurno from Curso, Orientacion, Grupo, Turno where Grupo.IdTurno=Turno.IdTurno and Orientacion.IdOrientacion=Grupo.IdOrientacion and orientacion.idcurso=curso.idcurso;
-create view AsignaturasGrupo as select DISTINCT NombreAsignatura, CONCAT(NombrePersona, ' ' , ApellidoPersona) as NombreProfesor, Grupo.Grado, Grupo.IdGrupo from Tiene_Ta, Asignatura, Genera, Persona, Grupo where Genera.Grado="1" and Genera.IdGrupo="BG" and Genera.IdOrientacion=Grupo.IdOrientacion;
+create view AsignaturasTomadas AS select IdAsignatura, Tiene_Ag.NroGrupo, Grado from Tiene_Ag, Grupo where Grupo.NroGrupo=Tiene_Ag.NroGrupo;
+create view Calendario AS select Asignatura.IdAsignatura as IdAsignatura, HoraInicio, DATE_FORMAT(HoraInicio, '%H:%i') as HoraOrden, CONCAT(DATE_FORMAT(HoraInicio, '%H:%i'), " - ", DATE_FORMAT(HoraFin, '%H:%i')) as Hora, Dia, CONCAT(Grupo.Grado, " ", Grupo.IdGrupo) as Grupo, CONCAT(NombrePersona, ' ', ApellidoPersona) as NombreProfesor, Persona.CiPersona, NombreAsignatura as Materia from Genera, Asignatura, Persona, Grupo where Grupo.NroGrupo=Genera.NroGrupo and Genera.IdAsignatura=Asignatura.IdAsignatura and Genera.CiPersona=Persona.CiPersona;
+create view AsignaturasOrientaciones as select tiene_ta.IdOrientacion, tiene_ta.Grado, tiene_ta.IdAsignatura, tiene_ta.CargaHoraria, Asignatura.NombreAsignatura from tiene_ta, asignatura where Asignatura.IdAsignatura=Tiene_ta.IdAsignatura;
+create view Grupos AS select NroGrupo, CONCAT(Grado, ' ', IdGrupo) as Grupo from Grupo;
+create view DatosGrupos as select Grupo.IdSalon as Salon, Orientacion.IdOrientacion, Orientacion.NombreOrientacion as Orientacion, Curso.NombreCurso as Curso, Grupo.Grado as Grado, Grupo.IdGrupo as IdGrupo, Grupo.NroGrupo as NroGrupo, Turno.NombreTurno, Grupo.CiPersona from Curso, Orientacion, Grupo, Turno where Grupo.IdTurno=Turno.IdTurno and Orientacion.IdOrientacion=Grupo.IdOrientacion and orientacion.idcurso=curso.idcurso;
+create view Adscriptos as select Usuario.CiPersona, CONCAT(NombrePersona, ' ', ApellidoPersona) as Adscripto from Persona, Usuario where Usuario.CiPersona=Persona.CiPersona and Usuario.TipoUsuario="Adscripto";
 
 -- Datos necesarios
 INSERT INTO `Minerva`.`Persona` (`CiPersona`, `NombrePersona`, `ApellidoPersona`) VALUES
-(-1, "Sin", "profesor");
+(-1, "Sin", "definir");
 
-INSERT INTO `Minerva`.`Profesor` (`CiPersona`, `NombrePersona`, `ApellidoPersona`, `GradoProfesor`) VALUES
-(-1, "Sin", "profesor", 7);
+INSERT INTO `Minerva`.`Profesor` (`CiPersona`, `GradoProfesor`) VALUES
+(-1, 7);
+
+INSERT INTO `Minerva`.`Usuario` VALUES ("-1", "Adscripto", "-1", False);
 
 INSERT INTO `Minerva`.`Curso` (`IdCurso`, `NombreCurso`) VALUES 
 ('001', 'CBT'), 
@@ -193,7 +192,8 @@ INSERT INTO `Minerva`.`Orientacion` (`IdOrientacion`, `NombreOrientacion`, `IdCu
 ('480', 'Informática', '049'),                                                                
 ('929', 'Turismo', '049');
 
-INSERT INTO `Minerva`.`Area` (`IdArea`, `NombreArea`) VALUES                                                              
+INSERT INTO `Minerva`.`Area` (`IdArea`, `NombreArea`) VALUES
+('-1', 'Sin definir'),
 ('014', 'Análisis y producción de textos'),                                                                
 ('015', 'Administración y gestion de obras'),                                                                
 ('027', 'Biología (1er. ciclo)'),                                                                
@@ -435,87 +435,7 @@ INSERT INTO `Minerva`.`Asignacion` (`HoraInicio`, `HoraFin`, `Dia`, `IdTurno`) V
 ('23:00:00', '23:40:00', 'Viernes', 3);
 
 INSERT INTO `minerva`.`Asignatura` (`IdAsignatura`, `NombreAsignatura`, `IdArea`) VALUES
-('-1', 'Sin asignar', '015'),
-('-1', 'Sin asignar', '027'),
-('-1', 'Sin asignar', '028'),
-('-1', 'Sin asignar', '055'),
-('-1', 'Sin asignar', '059'),
-('-1', 'Sin asignar', '0591'),
-('-1', 'Sin asignar', '0592'),
-('-1', 'Sin asignar', '060'),
-('-1', 'Sin asignar', '064'),
-('-1', 'Sin asignar', '107'),
-('-1', 'Sin asignar', '108'),
-('-1', 'Sin asignar', '141'),
-('-1', 'Sin asignar', '146'),
-('-1', 'Sin asignar', '147'),
-('-1', 'Sin asignar', '148'),
-('-1', 'Sin asignar', '176'),
-('-1', 'Sin asignar', '185'),
-('-1', 'Sin asignar', '188'),
-('-1', 'Sin asignar', '196'),
-('-1', 'Sin asignar', '221'),
-('-1', 'Sin asignar', '231'),
-('-1', 'Sin asignar', '239'),
-('-1', 'Sin asignar', '240'),
-('-1', 'Sin asignar', '243'),
-('-1', 'Sin asignar', '244'),
-('-1', 'Sin asignar', '262'),
-('-1', 'Sin asignar', '269'),
-('-1', 'Sin asignar', '270'),
-('-1', 'Sin asignar', '272'),
-('-1', 'Sin asignar', '276'),
-('-1', 'Sin asignar', '282'),
-('-1', 'Sin asignar', '312'),
-('-1', 'Sin asignar', '320'),
-('-1', 'Sin asignar', '330'),
-('-1', 'Sin asignar', '332'),
-('-1', 'Sin asignar', '341'),
-('-1', 'Sin asignar', '343'),
-('-1', 'Sin asignar', '349'),
-('-1', 'Sin asignar', '364'),
-('-1', 'Sin asignar', '373'),
-('-1', 'Sin asignar', '381'),
-('-1', 'Sin asignar', '383'),
-('-1', 'Sin asignar', '387'),
-('-1', 'Sin asignar', '388'),
-('-1', 'Sin asignar', '400'),
-('-1', 'Sin asignar', '415'),
-('-1', 'Sin asignar', '438'),
-('-1', 'Sin asignar', '451'),
-('-1', 'Sin asignar', '459'),
-('-1', 'Sin asignar', '475'),
-('-1', 'Sin asignar', '492'),
-('-1', 'Sin asignar', '518'),
-('-1', 'Sin asignar', '533'),
-('-1', 'Sin asignar', '535'),
-('-1', 'Sin asignar', '538'),
-('-1', 'Sin asignar', '550'),
-('-1', 'Sin asignar', '568'),
-('-1', 'Sin asignar', '592'),
-('-1', 'Sin asignar', '602'),
-('-1', 'Sin asignar', '6161'),
-('-1', 'Sin asignar', '617'),
-('-1', 'Sin asignar', '624'),
-('-1', 'Sin asignar', '648'),
-('-1', 'Sin asignar', '655'),
-('-1', 'Sin asignar', '663'),
-('-1', 'Sin asignar', '710'),
-('-1', 'Sin asignar', '711'),
-('-1', 'Sin asignar', '786'),
-('-1', 'Sin asignar', '801'),
-('-1', 'Sin asignar', '802'),
-('-1', 'Sin asignar', '808'),
-('-1', 'Sin asignar', '829'),
-('-1', 'Sin asignar', '854'),
-('-1', 'Sin asignar', '855'),
-('-1', 'Sin asignar', '857'),
-('-1', 'Sin asignar', '915'),
-('-1', 'Sin asignar', '925'),
-('-1', 'Sin asignar', '935'),
-('-1', 'Sin asignar', '936'),
-('-1', 'Sin asignar', '964'),
-('-1', 'Sin asignar', 'TOC'),
+('-1', 'Sin asignar', '-1'),
 ('0487', 'Biología', '027'),
 ('0593', 'Ciencias Físicas', '059'),
 ('0942', 'Dibujo', '221'),
@@ -1012,3 +932,5 @@ INSERT INTO `Minerva`.`Tiene_Ta` (`IdAsignatura`, `Grado`, `CargaHoraria`, `IdOr
 ('2632', '3', '4', '929'),
 ('3174', '3', '3', '929'),
 ('4711', '3', '3', '929');
+
+GRANT ALL PRIVILEGES ON minerva.* TO 'minerva'@'%' WITH GRANT OPTION;

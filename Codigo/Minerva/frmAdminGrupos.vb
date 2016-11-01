@@ -251,11 +251,6 @@
         DB.actualizarDB_frmAdminGrupos(Me)
     End Sub
 
-    Public Sub cargarTurnos()
-        Dim DB As New BaseDeDatos()
-        DB.cargarTurnos_frmAdminGrupos(Me)
-    End Sub
-
     Public Sub cargarGrados()
         Dim DB As New BaseDeDatos()
         DB.cargarGrados_frmAdminGrupos(Me)
