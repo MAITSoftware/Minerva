@@ -104,6 +104,7 @@
         txtIDSalon.Enabled = False
         cmbPlanta.Enabled = False
         editando = True
+        pnlAsignado.Visible = False
     End Sub
 
     Private Sub verSalon(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -132,6 +133,7 @@
         salonPreview.Enabled = False
 
         lblNuevoSalon.Text = "Previsualizar salón"
+        pnlAsignado.Visible = True
 
         controlesHabilitados(False)
         cargarDatos(salon)
@@ -161,6 +163,7 @@
         salonPreview.Enabled = True
         salonPreview = New Button()
         editando = False
+        pnlAsignado.Visible = False
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click

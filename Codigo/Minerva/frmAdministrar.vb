@@ -34,7 +34,7 @@
             btnGrupos.Visible = True
             btnDocentes.Visible = True
             btnHorarios.Visible = True
-            btnUsuarios.Visible = True
+            btnUsuarios.Visible = False
         ElseIf tipoUsuario.Equals("Adscripto") Then
             btnSalones.Visible = True
             btnGrupos.Visible = True

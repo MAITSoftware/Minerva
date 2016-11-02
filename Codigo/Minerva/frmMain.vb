@@ -94,8 +94,10 @@
             timerDatosUsuario.Enabled = True
         End If
         Me.WindowState = FormWindowState.Maximized
-        Dim DB As New BaseDeDatos()
-        DB.contarAprobacion_frmMain(Me)
+        If Me.tipoUsuario.Equals("Administrador") Then
+            Dim DB As New BaseDeDatos()
+            DB.contarAprobacion_frmMain(Me)
+        End If
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
@@ -303,4 +305,7 @@
         pnlAyudaalertaAprobacion.Visible = False
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As MouseEventArgs) Handles Button1.MouseUp
+        ContextMenuStrip1.Show(sender, New Point(e.X, e.Y))
+    End Sub
 End Class

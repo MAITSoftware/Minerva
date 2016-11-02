@@ -403,6 +403,7 @@ Partial Class frmAdminDocentes
         Me.numGradoArea.Enabled = False
         Me.numGradoArea.Font = New System.Drawing.Font("Corbel", 12.0!)
         Me.numGradoArea.Location = New System.Drawing.Point(483, 415)
+        Me.numGradoArea.Maximum = New Decimal(New Integer() {7, 0, 0, 0})
         Me.numGradoArea.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numGradoArea.Name = "numGradoArea"
         Me.numGradoArea.Size = New System.Drawing.Size(106, 27)
