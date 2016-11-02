@@ -195,9 +195,6 @@
         docentePreview = New Button()
         btnAgregarAsignatura_Click(Nothing, Nothing)
         habilitarAsignaturas(False)
-
-        Call New ToolTip().SetToolTip(btnAgregarAsignatura, "Limpia los campos de texto")
-        Call New ToolTip().SetToolTip(btnEliminarAsignatura, "Elimina la asignatura seleccionada")
     End Sub
 
     Private Sub DatosDelDocenteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatosDelDocenteToolStripMenuItem.Click
@@ -364,21 +361,25 @@
     Private Sub btnAgregarAsignatura_Leave(sender As Object, e As EventArgs) Handles btnAgregarAsignatura.MouseLeave
         ' al dejar el botón btnAgregarAsignatura cambiar la imagen
         btnAgregarAsignatura.BackgroundImage = My.Resources.agregar_normal()
+        pnlAyudabtnAgregarAsignatura.Visible = False
     End Sub
 
     Private Sub btnAgregarAsignatura_Enter(sender As Object, e As EventArgs) Handles btnAgregarAsignatura.MouseEnter
         ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
         btnAgregarAsignatura.BackgroundImage = My.Resources.agregar_hover()
+        pnlAyudabtnAgregarAsignatura.Visible = True
     End Sub
 
     Private Sub btnEliminarAsignatura_Leave(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.MouseLeave
         ' al dejar el botón btnEliminarAsignatura cambiar la imagen
         btnEliminarAsignatura.BackgroundImage = My.Resources.borrar_normal()
+        pnlAyudabtnEliminarAsignatura.Visible = False
     End Sub
 
     Private Sub btnEliminarAsignatura_Enter(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.MouseEnter
         ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
         btnEliminarAsignatura.BackgroundImage = My.Resources.borrar_hover()
+        pnlAyudabtnEliminarAsignatura.Visible = True
     End Sub
 
     Private Sub lstAsignaturas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstAsignaturas.SelectedIndexChanged
@@ -392,10 +393,11 @@
         End If
     End Sub
 
-    Private Sub txtCI_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtCI.KeyPress
+    Private Sub txtCI_TextChanged(t As Object, e As KeyEventArgs) Handles txtCI.KeyDown
         ' Al escribir un caracter que no sea número lo ignora.
-        If Not Char.IsNumber(e.KeyChar) AndAlso Not e.KeyChar = ChrW(Keys.Return) AndAlso Not e.KeyChar = ChrW(Keys.Tab) Then
-            e.KeyChar = ""
+        If e.KeyCode.Equals(Keys.Delete) Or e.KeyCode.Equals(Keys.Back) Or e.KeyCode.Equals(Keys.Left) Or e.KeyCode.Equals(Keys.Right) Or e.KeyCode.Equals(Keys.Tab) Then
+            e.Handled = False
+            Return
         End If
     End Sub
 End Class

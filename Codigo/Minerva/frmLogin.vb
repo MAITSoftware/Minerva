@@ -68,9 +68,17 @@
     End Sub
 
     Private Sub EnterClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtUsuario.KeyDown, txtContraseña.KeyDown
-        If Not Char.IsDigit(Chr(e.KeyValue)) And sender Is txtUsuario Then
-            e.SuppressKeyPress = True
+        If e.KeyCode.Equals(Keys.Delete) Or e.KeyCode.Equals(Keys.Back) Or e.KeyCode.Equals(Keys.Left) Or e.KeyCode.Equals(Keys.Right) Or e.KeyCode.Equals(Keys.Tab) Then
+            e.Handled = False
+            Return
         End If
+
+        If sender Is txtUsuario Then
+            If Not Char.IsDigit(Chr(e.KeyValue)) Then
+                e.SuppressKeyPress = True
+            End If
+        End If
+
         If e.KeyCode.Equals(Keys.Enter) Then
             btnEntrar.PerformClick()
             e.SuppressKeyPress = True

@@ -24,7 +24,6 @@
     Private Sub frmAdminSalones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al cargar la ventana cargarSalones y Grupos, y habilitar los controles.
         cargarSalones()
-        cargarGrupos()
 
         controlesHabilitados(True)
         txtIDSalon.Focus()
@@ -74,6 +73,8 @@
         btnEliminar.Tag = idSalon
         If Me.tipoUsuario.Equals("Adscripto") Then
             btnEliminar.Visible = False
+            btnEditar.Visible = False
+            btnSalon.Width = btnSalon.Width + btnEliminar.Width
         End If
         AddHandler btnEliminar.Click, AddressOf eliminarSalon
 
@@ -101,6 +102,7 @@
         controlesHabilitados(True)
         cargarDatos(sender.Tag)
         txtIDSalon.Enabled = False
+        cmbPlanta.Enabled = False
         editando = True
     End Sub
 
@@ -141,16 +143,9 @@
         txtIDSalon.Text = ""
         cmbPlanta.Enabled = habilitado
         cmbPlanta.SelectedIndex = -1
-        cmbTurno1.Enabled = habilitado
-        cmbTurno1.SelectedIndex = 0
-        cmbTurno3.Enabled = habilitado
-        cmbTurno3.SelectedIndex = 0
-        cmbTurno33.Enabled = habilitado
-        cmbTurno33.SelectedIndex = 0
-        cmbTurno2.Enabled = habilitado
-        cmbTurno2.SelectedIndex = 0
-        cmbTurno5.Enabled = habilitado
-        cmbTurno5.SelectedIndex = 0
+        lblSalonMatutino.Text = "Sin asignar"
+        lblSalonNocturno.Text = "Sin asignar"
+        lblSalonVespertino.Text = "Sin asignar"
         txtComentarios.Enabled = habilitado
         txtComentarios.Text = ""
     End Sub
@@ -173,10 +168,11 @@
         checkDatos()
     End Sub
 
-    Private Sub txtIDSalon_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtIDSalon.KeyPress, txtIDSalon.TextChanged
+    Private Sub txtIDSalon_TextChanged(t As Object, e As KeyEventArgs) Handles txtIDSalon.KeyDown
         ' Al escribir un caracter que no sea número lo ignora.
-        If Not Char.IsNumber(e.KeyChar) AndAlso Not e.KeyChar = ChrW(Keys.Return) AndAlso Not e.KeyChar = ChrW(Keys.Tab) Then
-            e.KeyChar = ""
+        If e.KeyCode.Equals(Keys.Delete) Or e.KeyCode.Equals(Keys.Back) Or e.KeyCode.Equals(Keys.Left) Or e.KeyCode.Equals(Keys.Right) Or e.KeyCode.Equals(Keys.Tab) Then
+            e.Handled = False
+            Return
         End If
     End Sub
 
@@ -206,17 +202,6 @@
         DB.cargarSalones_frmAdminSalones(Me)
     End Sub
 
-    Public Sub guardarSalones()
-        Dim DB As New BaseDeDatos()
-        DB.guardarSalones_frmAdminSalones(Me)
-        frmMain.recargarGrupo()
-    End Sub
-
-    Public Sub cargarGrupos()
-        Dim DB As New BaseDeDatos()
-        DB.cargarGrupos_frmAdminSalones(Me)
-    End Sub
-
     Public Sub actualizarDB()
         Dim DB As New BaseDeDatos()
         DB.actualizarDB_frmAdminSalones(Me)
@@ -238,4 +223,5 @@
         DB.eliminarSalon_frmAdminSalones(sender, Me)
         frmMain.recargarGrupo()
     End Sub
+
 End Class

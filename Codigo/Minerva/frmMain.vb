@@ -16,19 +16,16 @@
         Me.nombreUsuario = usuario
         cboGrupo.SelectedIndex = 0
         cargarDatos()
-
-        Call New ToolTip().SetToolTip(btnRecargar, "Recarga la lista de grupos")
-        Call New ToolTip().SetToolTip(btnRefrescarHorarios, "Actualiza la lista de horarios")
-        Call New ToolTip().SetToolTip(btnVistaDias, "Ver como días (individuales)")
-        Call New ToolTip().SetToolTip(btnVistaSemana, "Ver como semana (lista)")
-        Call New ToolTip().SetToolTip(btnFullscreen, "Ver grilla en pantalla completa")
-        Call New ToolTip().SetToolTip(btnGuardarPdf, "Guardar horarios (grilla) a archivo PDF")
         timerbtnrefrescar.Enabled = True
     End Sub
 
-    Private Sub btnAdministrar_showMenu(sender As Object, e As EventArgs) Handles btnAdministrar.Click
+    Private Sub btnAdministrar_showMenu(sender As Object, e As EventArgs) Handles btnAdministrar.Click, alertaAprobacion.Click
         ' Abre la ventana de administracion al clickear
-        Dim administracion As New frmAdministrar(Me.tipoUsuario, Me)
+        Dim abrirusuario As Boolean = False
+        If sender Is alertaAprobacion Then
+            abrirusuario = True
+        End If
+        Dim administracion As New frmAdministrar(Me.tipoUsuario, Me, abrirUsuario)
         administracion.ShowDialog(Me)
     End Sub
 
@@ -76,7 +73,7 @@
 
         DB.cargarDatosGrupo_frmMain(Me)
         DB.cargarMateriasGrupo_frmMain(Me)
-        imgLogo.Focus()
+        imgLogoMAITs.Focus()
     End Sub
 
     Private Sub Minerva_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
@@ -86,17 +83,20 @@
 
     Private Sub Minerva_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al iniciar programa inicia oculta el boton de administracion en caso de que sea invitado
+
         If Not cuentaInvitado Then
             btnAdministrar.Visible = True
-            imgLogo.Location = New Point(12, 15)
-            imgLogo.Size = New Size(176, 78)
+            imgLogoInvitado.Visible = False
+            imgLogoUsuario.Visible = True
+            alertaAprobacion.Visible = True
             lblUsuario.Text = "Bienvenido usuario."
             timerDatosUsuario.Start()
             timerDatosUsuario.Enabled = True
         End If
         Me.WindowState = FormWindowState.Maximized
+        Dim DB As New BaseDeDatos()
+        DB.contarAprobacion_frmMain(Me)
     End Sub
-
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         ' Al clickear salir, nos desloguea y muestra la ventana de inicio
@@ -120,7 +120,6 @@
         Dim DB As New BaseDeDatos()
         DB.cargarNombre_frmMain(Me)
     End Sub
-
 
     Private Sub btnRefrescarHorarios_Click(sender As Object, e As EventArgs) Handles btnRefrescarHorarios.Click
         recargarGrupo()
@@ -149,6 +148,7 @@
         btnVistaSemana.Enabled = True
         btnVistaSemana.BackgroundImage = My.Resources.semana_normal()
         recargarGrupo()
+        pnlAyudabtnVistaDias.Visible = False
     End Sub
     Private Sub btnVistaSemana_Click(sender As Object, e As EventArgs) Handles btnVistaSemana.Click
         vista = "Semana"
@@ -157,6 +157,7 @@
         btnVistaDias.Enabled = True
         btnVistaDias.BackgroundImage = My.Resources.dia_normal()
         recargarGrupo()
+        pnlAyudabtnVistaSemana.Visible = False
     End Sub
 
     Private Sub btnFullscreen_Click(sender As Object, e As EventArgs) Handles btnFullscreen.Click
@@ -196,6 +197,7 @@
         If Not sender.Enabled Then
             Return
         End If
+        pnlAyudabtnGuardarPdf.Visible = True
         sender.BackgroundImage = My.Resources.guardar_como_pdf_hover()
     End Sub
 
@@ -203,6 +205,7 @@
         If Not sender.Enabled Then
             Return
         End If
+        pnlAyudabtnGuardarPdf.Visible = False
         sender.BackgroundImage = My.Resources.guardar_como_pdf_normal()
     End Sub
 
@@ -212,15 +215,26 @@
     End Sub
 
     ' Presentación
-
-    Private Sub btnRecargar_Leave(sender As Object, e As EventArgs) Handles btnRecargar.MouseLeave, btnRefrescarHorarios.MouseLeave
-        ' al dejar el botón btnEliminarAsignatura cambiar la imagen
+    Private Sub btnRecargarAyuda_leave(sender As Object, e As EventArgs) Handles btnRefrescarHorarios.MouseLeave
+        pnlAyudabtnRefrescarHorarios.Visible = False
         sender.BackgroundImage = My.Resources.refrescar_normal()
     End Sub
 
-    Private Sub btnRecargar_Enter(sender As Object, e As EventArgs) Handles btnRecargar.MouseEnter, btnRefrescarHorarios.MouseEnter
-        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+    Private Sub btnRecargarAyuda_enter(sender As Object, e As EventArgs) Handles btnRefrescarHorarios.MouseEnter
+        pnlAyudabtnRefrescarHorarios.Visible = True
         sender.BackgroundImage = My.Resources.refrescar_hover()
+    End Sub
+
+    Private Sub btnRecargar_Leave(sender As Object, e As EventArgs) Handles btnRecargar.MouseLeave
+        sender.BackgroundImage = My.Resources.refrescar_normal()
+        ' al dejar el botón btnEliminarAsignatura cambiar la imagen
+        pnlAyudabtnRecargar.Visible = False
+    End Sub
+
+    Private Sub btnRecargar_Enter(sender As Object, e As EventArgs) Handles btnRecargar.MouseEnter
+        sender.BackgroundImage = My.Resources.refrescar_hover()
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        pnlAyudabtnRecargar.Visible = True
     End Sub
 
     Private Sub btnRecargar_Click(sender As Object, e As EventArgs) Handles btnRecargar.Click
@@ -233,6 +247,7 @@
             Return
         End If
         sender.BackgroundImage = My.Resources.dia_hover()
+        pnlAyudabtnVistaDias.Visible = True
     End Sub
 
     Private Sub btnVistaDias_Leave(sender As Object, e As EventArgs) Handles btnVistaDias.MouseLeave
@@ -241,6 +256,7 @@
             Return
         End If
         sender.BackgroundImage = My.Resources.dia_normal()
+        pnlAyudabtnVistaDias.Visible = False
     End Sub
 
     Private Sub btnVistaSemana_Enter(sender As Object, e As EventArgs) Handles btnVistaSemana.MouseEnter
@@ -249,6 +265,7 @@
             Return
         End If
         sender.BackgroundImage = My.Resources.semana_hover()
+        pnlAyudabtnVistaSemana.Visible = True
     End Sub
 
     Private Sub btnVistaSemana_Leave(sender As Object, e As EventArgs) Handles btnVistaSemana.MouseLeave
@@ -257,6 +274,7 @@
             Return
         End If
         sender.BackgroundImage = My.Resources.semana_normal()
+        pnlAyudabtnVistaSemana.Visible = False
     End Sub
 
     Private Sub btnFullscreen_Enter(sender As Object, e As EventArgs) Handles btnFullscreen.MouseEnter
@@ -265,6 +283,7 @@
             Return
         End If
         sender.BackgroundImage = My.Resources.fullscreen_hover()
+        pnlAyudabtnFullscreen.Visible = True
     End Sub
 
     Private Sub btnFullscreen_Leave(sender As Object, e As EventArgs) Handles btnFullscreen.MouseLeave
@@ -273,6 +292,15 @@
             Return
         End If
         sender.BackgroundImage = My.Resources.fullscreen_normal()
+        pnlAyudabtnFullscreen.Visible = False
+    End Sub
+
+    Private Sub alertaAprobacion_MouseEnter(sender As Object, e As EventArgs) Handles alertaAprobacion.MouseEnter
+        pnlAyudaalertaAprobacion.Visible = True
+    End Sub
+
+    Private Sub alertaAprobacion_MouseLeave(sender As Object, e As EventArgs) Handles alertaAprobacion.MouseLeave
+        pnlAyudaalertaAprobacion.Visible = False
     End Sub
 
 End Class

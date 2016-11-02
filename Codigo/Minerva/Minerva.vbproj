@@ -276,6 +276,25 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Minerva.ico" />
+    <None Include="Resources\usuario_no_aprobado.png" />
+    <None Include="Resources\usuario_aprobado.png" />
+    <None Include="Resources\dialogo-abajo1.png" />
+    <None Include="Resources\dialogo-izquierda.png" />
+    <None Include="Resources\dialogo-derecha.png" />
+    <None Include="Resources\dialogo-arriba.png" />
+    <None Include="Resources\dialogo-abajo.png" />
+    <None Include="Resources\test.png" />
+    <None Include="Resources\notificacion-max.png" />
+    <None Include="Resources\notificacion-10.png" />
+    <None Include="Resources\notificacion-9.png" />
+    <None Include="Resources\notificacion-8.png" />
+    <None Include="Resources\notificacion-7.png" />
+    <None Include="Resources\notificacion-6.png" />
+    <None Include="Resources\notificacion-5.png" />
+    <None Include="Resources\notificacion-4.png" />
+    <None Include="Resources\notificacion-3.png" />
+    <None Include="Resources\notificacion-2.png" />
+    <None Include="Resources\notificacion-1.png" />
     <None Include="Resources\unfullscreen_normal.png" />
     <None Include="Resources\unfullscreen_hover.png" />
     <None Include="Resources\guardar_como_pdf_seleccionado.png" />

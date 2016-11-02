@@ -52,12 +52,26 @@
     Private Sub frmLogin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' al cargar ventana, iniciar animacion
         timerAnimacion.Start()
+        Dim DB As New BaseDeDatos
+        Dim cantidadAdministradores As Integer = DB.ContarAdministradores_frmRegistro()
+        If cantidadAdministradores <= 0 Then
+            radAdministrador.Checked = True
+            radFuncionario.Enabled = False
+            radAdscripto.Enabled = False
+        End If
     End Sub
 
 
     Private Sub EnterClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtUsuario.KeyDown, txtContraseña.KeyDown
-        If Not Char.IsDigit(Chr(e.KeyValue)) And sender Is txtUsuario Then
-            e.SuppressKeyPress = True
+        If e.KeyCode.Equals(Keys.Delete) Or e.KeyCode.Equals(Keys.Back) Or e.KeyCode.Equals(Keys.Left) Or e.KeyCode.Equals(Keys.Right) Or e.KeyCode.Equals(Keys.Tab) Then
+            e.Handled = False
+            Return
+        End If
+
+        If sender Is txtUsuario Then
+            If Not Char.IsDigit(Chr(e.KeyValue)) Then
+                e.SuppressKeyPress = True
+            End If
         End If
         If e.KeyCode.Equals(Keys.Enter) Then
             btnEntrar.PerformClick()

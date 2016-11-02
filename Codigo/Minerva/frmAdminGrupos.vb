@@ -5,12 +5,16 @@
     Friend prevSelect As String
     Friend prevOrientacionSelect As String
     Friend frmMain As frmMain
+    Dim tipoUsuario As String
     Dim editando As Boolean = False
     Dim previsualizando As Boolean = False
+    Dim ciusuario As String
 
-    Public Sub New(ByVal frmMain As frmMain)
+    Public Sub New(ByVal frmMain As frmMain, ByVal tipousuario As String, ByVal ciUsuario As String)
         InitializeComponent()
         Me.frmMain = frmMain
+        Me.tipoUsuario = tipousuario
+        Me.ciusuario = ciUsuario
     End Sub
 
     Private Sub frmAdminGrupos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -25,11 +29,9 @@
         cmbOrientacion.Enabled = False
         cmbGrado.Enabled = False
         cmbCurso.Focus()
-        Call New ToolTip().SetToolTip(lblSalon, "Salón del grupo. Se administra en la pestaña Salones.")
-        Call New ToolTip().SetToolTip(lblSalonReal, "Salón del grupo. Se administra en la pestaña Salones.")
     End Sub
 
-    Public Sub agregarGrupo(ByVal NroGrupo As String, idTexto As String, ByVal nombreTurno As String)
+    Public Sub agregarGrupo(ByVal NroGrupo As String, idTexto As String, ByVal nombreTurno As String, ByVal ciAdscripto As String)
         ' Basicamente copio la plantilla a un nuevo panel
         Dim pnlTemporal As New Panel
         Dim btnGrupo As New Button
@@ -75,14 +77,21 @@
         btnEliminar.Tag = {NroGrupo, idTexto, nombreTurno}
         AddHandler btnEliminar.Click, AddressOf eliminarGrupo
 
+        If Me.tipoUsuario.Equals("Adscripto") Then
+            btnEliminar.Visible = False
+            btnEditar.Text = "Editar" & vbCrLf & "salón"
+            btnEditar.Height = btnGrupo.Height
+        End If
+
         pnlTemporal.Controls.Add(btnEditar)
         pnlTemporal.Controls.Add(btnEliminar)
         pnlTemporal.Controls.Add(btnGrupo)
+        If ciAdscripto.Equals(Me.ciusuario) AndAlso Me.tipoUsuario.Equals("Adscripto") Or Me.tipoUsuario.Equals("Funcionario") Or Me.tipoUsuario.Equals("Administrador") Then
+            pnlGrupos.Controls.Add(pnlTemporal)
 
-        pnlGrupos.Controls.Add(pnlTemporal)
-
-        totalGrupos += 1
-        lblCantidadGrupos.Text = "(" + totalGrupos.ToString() + ")"
+            totalGrupos += 1
+            lblCantidadGrupos.Text = "(" + totalGrupos.ToString() + ")"
+        End If
     End Sub
 
     Private Sub controlesHabilitados(ByVal habilitado As Boolean)
@@ -102,6 +111,8 @@
         cmbGrado.SelectedIndex = -1
         chkDiscapacitado.Enabled = True
         chkDiscapacitado.Checked = False
+
+        cmbSalon.Enabled = habilitado
     End Sub
 
     Public Sub btnNuevoGrupo_Click(sender As Object, e As EventArgs) Handles btnNuevoGrupo.Click
@@ -127,6 +138,11 @@
 
     Private Sub checkDatos()
         ' Comprueba los datos y en caso de que no falte ninguno, llama a actualizarDB()
+        If Me.tipoUsuario.Equals("Adscripto") And Not editando Then
+            MessageBox.Show("Oops!" & vbCrLf & "Solo los administradores y funcionarios pueden hacer eso...", "Acceso denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
         If String.IsNullOrWhiteSpace(txtIDGrupo.Text) Then
             MessageBox.Show("Debe ingresar un ID de grupo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
@@ -173,6 +189,10 @@
         cmbAdscripto.Enabled = True
         previsualizando = False
         editando = True
+        cmbSalon.Enabled = True
+        If Me.tipoUsuario.Equals("Adscripto") Then
+            cmbAdscripto.Enabled = False
+        End If
     End Sub
 
     Private Sub previsualizarGrupo(ByVal nroGrupo As String)
@@ -226,6 +246,7 @@
         Dim DB As New BaseDeDatos()
         DB.rellenarCombos_frmAdminGrupos(Me)
         DB.cargarAdscriptos_frmAdminGrupos(Me)
+        DB.cargarSalones_frmAdminGrupos(Me)
     End Sub
 
     Public Sub cargarDatos(ByVal nroGrupo As String)
@@ -260,7 +281,7 @@
     End Sub
 
     Private Sub chkDiscapacitado_CheckedChanged(sender As Object, e As EventArgs) Handles chkDiscapacitado.Click
-        If previsualizando Then
+        If previsualizando Or Me.tipoUsuario.Equals("Adscripto") Then
             chkDiscapacitado.Checked = Not chkDiscapacitado.Checked
         End If
     End Sub
@@ -278,4 +299,5 @@
         End If
         prevOrientacionSelect = cmbOrientacion.Text
     End Sub
+
 End Class

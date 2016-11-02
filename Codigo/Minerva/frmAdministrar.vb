@@ -5,11 +5,13 @@
     Dim pnlTrabajo As New UserControl
     Dim tipoUsuario As String
     Dim frmMain As frmMain
+    Dim abrirUsuarios As Boolean
 
-    Public Sub New(ByVal tipoUsuario As String, ByVal frmMain As frmMain)
+    Public Sub New(ByVal tipoUsuario As String, ByVal frmMain As frmMain, Optional ByVal abrirUsuarios As Boolean = False)
         InitializeComponent()
         Me.tipoUsuario = tipoUsuario
         Me.frmMain = frmMain
+        Me.abrirUsuarios = abrirUsuarios
     End Sub
 
     Public Sub habilitarBotones(ByVal habilitar As Boolean)
@@ -35,13 +37,16 @@
             btnUsuarios.Visible = True
         ElseIf tipoUsuario.Equals("Adscripto") Then
             btnSalones.Visible = True
-            btnGrupos.Visible = False
+            btnGrupos.Visible = True
             btnDocentes.Visible = False
             btnHorarios.Visible = False
             btnUsuarios.Visible = False
         End If
         ' Clickear el btnSalones por defecto al iniciar
         btnSalones.PerformClick()
+        If Me.abrirUsuarios Then
+            btnUsuarios.PerformClick()
+        End If
     End Sub
 
     Private Sub botones_Click(sender As Object, e As EventArgs) Handles btnSalones.Click, btnGrupos.Click, btnDocentes.Click, btnHorarios.Click, btnUsuarios.Click
@@ -123,6 +128,7 @@
             End If
         End If
 
+        Me.Text = "Minerva · Administración de salones"
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño()
         pnlTrabajo = New frmAdminSalones(Me.frmMain, Me.tipoUsuario)
@@ -140,9 +146,10 @@
             End If
         End If
 
+        Me.Text = "Minerva · Administración de grupos"
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño()
-        pnlTrabajo = New frmAdminGrupos(frmMain)
+        pnlTrabajo = New frmAdminGrupos(Me.frmMain, Me.tipoUsuario, Me.frmMain.nombreUsuario)
         Me.Size = New Point(1024, 575)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)
@@ -158,6 +165,7 @@
             End If
         End If
 
+        Me.Text = "Minerva · Administración de docentes"
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño()
         pnlTrabajo = New frmAdminDocentes(Me.frmMain)
@@ -177,6 +185,7 @@
             End If
         End If
 
+        Me.Text = "Minerva · Administración de horarios"
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño(False)
         pnlTrabajo = New frmAdminHorarios(Me.frmMain, Me)
@@ -195,9 +204,10 @@
             End If
         End If
 
+        Me.Text = "Minerva · Administración de usuarios"
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño()
-        pnlTrabajo = New frmAdminUsuarios(Me.frmMain.nombreUsuario)
+        pnlTrabajo = New frmAdminUsuarios(Me.frmMain.nombreUsuario, Me.frmMain)
         Me.Size = New Point(1024, 575)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)

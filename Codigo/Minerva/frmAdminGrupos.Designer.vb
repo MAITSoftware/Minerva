@@ -35,6 +35,7 @@ Partial Class frmAdminGrupos
         Me.btnAgregar = New System.Windows.Forms.Button()
         Me.pnlFondo = New System.Windows.Forms.Panel()
         Me.pnlGrupoPlantilla = New System.Windows.Forms.Panel()
+        Me.btnEditarPlantilla = New System.Windows.Forms.Button()
         Me.btnEliminarPlantilla = New System.Windows.Forms.Button()
         Me.btnGrupoPlantilla = New System.Windows.Forms.Button()
         Me.lblCantidadGrupos = New System.Windows.Forms.Label()
@@ -42,14 +43,13 @@ Partial Class frmAdminGrupos
         Me.cmbCurso = New System.Windows.Forms.ComboBox()
         Me.cmbOrientacion = New System.Windows.Forms.ComboBox()
         Me.chkDiscapacitado = New System.Windows.Forms.CheckBox()
-        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         Me.lblSalon = New System.Windows.Forms.Label()
-        Me.lblSalonReal = New System.Windows.Forms.Label()
         Me.cmbGrado = New System.Windows.Forms.ComboBox()
-        Me.btnEditarPlantilla = New System.Windows.Forms.Button()
         Me.lblIDGrupo = New System.Windows.Forms.Label()
         Me.lblAdscripto = New System.Windows.Forms.Label()
         Me.cmbAdscripto = New System.Windows.Forms.ComboBox()
+        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
+        Me.cmbSalon = New System.Windows.Forms.ComboBox()
         lblTitulo = New System.Windows.Forms.Label()
         lblGrupos = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
@@ -202,6 +202,21 @@ Partial Class frmAdminGrupos
         Me.pnlGrupoPlantilla.TabIndex = 0
         Me.pnlGrupoPlantilla.Visible = False
         '
+        'btnEditarPlantilla
+        '
+        Me.btnEditarPlantilla.BackColor = System.Drawing.Color.SteelBlue
+        Me.btnEditarPlantilla.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnEditarPlantilla.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.btnEditarPlantilla.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnEditarPlantilla.Font = New System.Drawing.Font("Corbel", 10.0!)
+        Me.btnEditarPlantilla.ForeColor = System.Drawing.Color.White
+        Me.btnEditarPlantilla.Location = New System.Drawing.Point(210, 3)
+        Me.btnEditarPlantilla.Name = "btnEditarPlantilla"
+        Me.btnEditarPlantilla.Size = New System.Drawing.Size(89, 23)
+        Me.btnEditarPlantilla.TabIndex = 3
+        Me.btnEditarPlantilla.Text = "Editar"
+        Me.btnEditarPlantilla.UseVisualStyleBackColor = False
+        '
         'btnEliminarPlantilla
         '
         Me.btnEliminarPlantilla.BackColor = System.Drawing.Color.Firebrick
@@ -289,16 +304,6 @@ Partial Class frmAdminGrupos
         Me.chkDiscapacitado.Text = "Alumno discapacitado"
         Me.chkDiscapacitado.UseVisualStyleBackColor = True
         '
-        'imgLogoMAITs
-        '
-        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
-        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.imgLogoMAITs.Location = New System.Drawing.Point(512, 12)
-        Me.imgLogoMAITs.Name = "imgLogoMAITs"
-        Me.imgLogoMAITs.Size = New System.Drawing.Size(121, 62)
-        Me.imgLogoMAITs.TabIndex = 123
-        Me.imgLogoMAITs.TabStop = False
-        '
         'lblSalon
         '
         Me.lblSalon.AutoSize = True
@@ -309,17 +314,6 @@ Partial Class frmAdminGrupos
         Me.lblSalon.Size = New System.Drawing.Size(71, 29)
         Me.lblSalon.TabIndex = 124
         Me.lblSalon.Text = "Salón"
-        '
-        'lblSalonReal
-        '
-        Me.lblSalonReal.AutoSize = True
-        Me.lblSalonReal.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblSalonReal.ForeColor = System.Drawing.Color.White
-        Me.lblSalonReal.Location = New System.Drawing.Point(20, 407)
-        Me.lblSalonReal.Name = "lblSalonReal"
-        Me.lblSalonReal.Size = New System.Drawing.Size(125, 29)
-        Me.lblSalonReal.TabIndex = 125
-        Me.lblSalonReal.Text = "Sin asignar"
         '
         'cmbGrado
         '
@@ -332,21 +326,6 @@ Partial Class frmAdminGrupos
         Me.cmbGrado.Name = "cmbGrado"
         Me.cmbGrado.Size = New System.Drawing.Size(140, 34)
         Me.cmbGrado.TabIndex = 2
-        '
-        'btnEditarPlantilla
-        '
-        Me.btnEditarPlantilla.BackColor = System.Drawing.Color.SteelBlue
-        Me.btnEditarPlantilla.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnEditarPlantilla.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.btnEditarPlantilla.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnEditarPlantilla.Font = New System.Drawing.Font("Corbel", 10.0!)
-        Me.btnEditarPlantilla.ForeColor = System.Drawing.Color.White
-        Me.btnEditarPlantilla.Location = New System.Drawing.Point(210, 3)
-        Me.btnEditarPlantilla.Name = "btnEditarPlantilla"
-        Me.btnEditarPlantilla.Size = New System.Drawing.Size(89, 23)
-        Me.btnEditarPlantilla.TabIndex = 3
-        Me.btnEditarPlantilla.Text = "Editar"
-        Me.btnEditarPlantilla.UseVisualStyleBackColor = False
         '
         'lblIDGrupo
         '
@@ -380,15 +359,36 @@ Partial Class frmAdminGrupos
         Me.cmbAdscripto.Size = New System.Drawing.Size(239, 34)
         Me.cmbAdscripto.TabIndex = 127
         '
+        'imgLogoMAITs
+        '
+        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
+        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoMAITs.Location = New System.Drawing.Point(512, 12)
+        Me.imgLogoMAITs.Name = "imgLogoMAITs"
+        Me.imgLogoMAITs.Size = New System.Drawing.Size(121, 62)
+        Me.imgLogoMAITs.TabIndex = 123
+        Me.imgLogoMAITs.TabStop = False
+        '
+        'cmbSalon
+        '
+        Me.cmbSalon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbSalon.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.cmbSalon.FormattingEnabled = True
+        Me.cmbSalon.Items.AddRange(New Object() {"Sin asignar"})
+        Me.cmbSalon.Location = New System.Drawing.Point(25, 410)
+        Me.cmbSalon.Name = "cmbSalon"
+        Me.cmbSalon.Size = New System.Drawing.Size(121, 34)
+        Me.cmbSalon.TabIndex = 128
+        '
         'frmAdminGrupos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.cmbSalon)
         Me.Controls.Add(Me.cmbAdscripto)
         Me.Controls.Add(Me.lblAdscripto)
         Me.Controls.Add(Me.cmbGrado)
-        Me.Controls.Add(Me.lblSalonReal)
         Me.Controls.Add(Me.lblSalon)
         Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.chkDiscapacitado)
@@ -436,11 +436,11 @@ Partial Class frmAdminGrupos
     Friend WithEvents chkDiscapacitado As System.Windows.Forms.CheckBox
     Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
     Friend WithEvents lblSalon As System.Windows.Forms.Label
-    Friend WithEvents lblSalonReal As System.Windows.Forms.Label
     Friend WithEvents cmbGrado As System.Windows.Forms.ComboBox
     Friend WithEvents btnEditarPlantilla As System.Windows.Forms.Button
     Friend WithEvents lblIDGrupo As System.Windows.Forms.Label
     Friend WithEvents lblAdscripto As System.Windows.Forms.Label
     Friend WithEvents cmbAdscripto As System.Windows.Forms.ComboBox
+    Friend WithEvents cmbSalon As System.Windows.Forms.ComboBox
 
 End Class

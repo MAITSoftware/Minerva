@@ -28,7 +28,6 @@ Partial Class frmAdminUsuarios
         Me.lblNuevoUsuario = New System.Windows.Forms.Label()
         Me.pnlFondo = New System.Windows.Forms.Panel()
         Me.pnlUsuarioPlantilla = New System.Windows.Forms.Panel()
-        Me.btnUsuarioPlantilla = New System.Windows.Forms.Button()
         Me.btnEliminarPlantilla = New System.Windows.Forms.Button()
         Me.btnEditarPlantilla = New System.Windows.Forms.Button()
         Me.lblCantidadUsuarios = New System.Windows.Forms.Label()
@@ -44,11 +43,12 @@ Partial Class frmAdminUsuarios
         Me.radAdscripto = New System.Windows.Forms.RadioButton()
         Me.btnAgregar = New System.Windows.Forms.Button()
         Me.btnCancelar = New System.Windows.Forms.Button()
-        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         Me.lblNombre = New System.Windows.Forms.Label()
         Me.txtNombre = New System.Windows.Forms.TextBox()
         Me.lblApellido = New System.Windows.Forms.Label()
         Me.txtApellido = New System.Windows.Forms.TextBox()
+        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
+        Me.btnUsuarioPlantilla = New System.Windows.Forms.Button()
         lblTitulo = New System.Windows.Forms.Label()
         lblUsuarios = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
@@ -126,21 +126,6 @@ Partial Class frmAdminUsuarios
         Me.pnlUsuarioPlantilla.Size = New System.Drawing.Size(305, 56)
         Me.pnlUsuarioPlantilla.TabIndex = 0
         Me.pnlUsuarioPlantilla.Visible = False
-        '
-        'btnUsuarioPlantilla
-        '
-        Me.btnUsuarioPlantilla.BackColor = System.Drawing.SystemColors.GrayText
-        Me.btnUsuarioPlantilla.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnUsuarioPlantilla.FlatAppearance.BorderColor = System.Drawing.Color.Tomato
-        Me.btnUsuarioPlantilla.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnUsuarioPlantilla.Font = New System.Drawing.Font("Corbel", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUsuarioPlantilla.ForeColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnUsuarioPlantilla.Location = New System.Drawing.Point(0, 3)
-        Me.btnUsuarioPlantilla.Name = "btnUsuarioPlantilla"
-        Me.btnUsuarioPlantilla.Size = New System.Drawing.Size(207, 48)
-        Me.btnUsuarioPlantilla.TabIndex = 0
-        Me.btnUsuarioPlantilla.Text = "Template usuario"
-        Me.btnUsuarioPlantilla.UseVisualStyleBackColor = False
         '
         'btnEliminarPlantilla
         '
@@ -320,16 +305,6 @@ Partial Class frmAdminUsuarios
         Me.btnCancelar.UseVisualStyleBackColor = True
         Me.btnCancelar.Visible = False
         '
-        'imgLogoMAITs
-        '
-        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
-        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.imgLogoMAITs.Location = New System.Drawing.Point(512, 12)
-        Me.imgLogoMAITs.Name = "imgLogoMAITs"
-        Me.imgLogoMAITs.Size = New System.Drawing.Size(121, 62)
-        Me.imgLogoMAITs.TabIndex = 125
-        Me.imgLogoMAITs.TabStop = False
-        '
         'lblNombre
         '
         Me.lblNombre.AutoSize = True
@@ -369,6 +344,32 @@ Partial Class frmAdminUsuarios
         Me.txtApellido.Name = "txtApellido"
         Me.txtApellido.Size = New System.Drawing.Size(214, 34)
         Me.txtApellido.TabIndex = 3
+        '
+        'imgLogoMAITs
+        '
+        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
+        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoMAITs.Location = New System.Drawing.Point(512, 12)
+        Me.imgLogoMAITs.Name = "imgLogoMAITs"
+        Me.imgLogoMAITs.Size = New System.Drawing.Size(121, 62)
+        Me.imgLogoMAITs.TabIndex = 125
+        Me.imgLogoMAITs.TabStop = False
+        '
+        'btnUsuarioPlantilla
+        '
+        Me.btnUsuarioPlantilla.BackColor = System.Drawing.SystemColors.GrayText
+        Me.btnUsuarioPlantilla.BackgroundImage = Global.Minerva.My.Resources.Resources.usuario_aprobado
+        Me.btnUsuarioPlantilla.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnUsuarioPlantilla.FlatAppearance.BorderColor = System.Drawing.Color.Tomato
+        Me.btnUsuarioPlantilla.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnUsuarioPlantilla.Font = New System.Drawing.Font("Corbel", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnUsuarioPlantilla.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.btnUsuarioPlantilla.Location = New System.Drawing.Point(0, 3)
+        Me.btnUsuarioPlantilla.Name = "btnUsuarioPlantilla"
+        Me.btnUsuarioPlantilla.Size = New System.Drawing.Size(207, 48)
+        Me.btnUsuarioPlantilla.TabIndex = 0
+        Me.btnUsuarioPlantilla.Text = "Template usuario"
+        Me.btnUsuarioPlantilla.UseVisualStyleBackColor = False
         '
         'frmAdminUsuarios
         '

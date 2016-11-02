@@ -43,17 +43,13 @@ Partial Class frmMain
         Me.lblProfesores = New System.Windows.Forms.Label()
         Me.lblNomGrupo = New System.Windows.Forms.Label()
         Me.lblSeleccioneGrupo2 = New System.Windows.Forms.Label()
-        Me.pnlFiltro = New System.Windows.Forms.Panel()
-        Me.alertaUsuarios = New System.Windows.Forms.PictureBox()
-        Me.imgLogo = New System.Windows.Forms.PictureBox()
+        Me.pnlHeader = New System.Windows.Forms.Panel()
         Me.lblUsuario = New System.Windows.Forms.Label()
-        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         Me.pnlSeparador = New System.Windows.Forms.Panel()
         Me.pnlBordeSeparador = New System.Windows.Forms.Panel()
         Me.btnSalir = New System.Windows.Forms.Button()
         Me.btnAdministrar = New System.Windows.Forms.Button()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.btnRecargar = New System.Windows.Forms.PictureBox()
+        Me.pnlFiltro = New System.Windows.Forms.Panel()
         Me.lblGrupo = New System.Windows.Forms.Label()
         Me.cboGrupo = New System.Windows.Forms.ComboBox()
         Me.lblSeleccioneGrupo = New System.Windows.Forms.Label()
@@ -61,37 +57,64 @@ Partial Class frmMain
         Me.timerbtnrefrescar = New System.Windows.Forms.Timer(Me.components)
         Me.pnlHorarios = New System.Windows.Forms.Panel()
         Me.tblDias = New System.Windows.Forms.TableLayoutPanel()
+        Me.pnlBotonesHorarios = New System.Windows.Forms.Panel()
+        Me.pnlAyudabtnVistaSemana = New System.Windows.Forms.Panel()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.pnlAyudabtnVistaDias = New System.Windows.Forms.Panel()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.pnlAyudabtnRefrescarHorarios = New System.Windows.Forms.Panel()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.pnlAyudabtnFullscreen = New System.Windows.Forms.Panel()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.pnlAyudabtnGuardarPdf = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.pnlAyudabtnRecargar = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.pnlAyudaalertaAprobacion = New System.Windows.Forms.Panel()
+        Me.lblCantidadUsuariosAprobacion = New System.Windows.Forms.Label()
+        Me.btnGuardarPdf = New System.Windows.Forms.PictureBox()
+        Me.btnRefrescarHorarios = New System.Windows.Forms.PictureBox()
+        Me.btnVistaDias = New System.Windows.Forms.PictureBox()
+        Me.btnVistaSemana = New System.Windows.Forms.PictureBox()
+        Me.btnFullscreen = New System.Windows.Forms.PictureBox()
+        Me.alertaAprobacion = New System.Windows.Forms.PictureBox()
+        Me.imgLogoUsuario = New System.Windows.Forms.PictureBox()
+        Me.imgLogoInvitado = New System.Windows.Forms.PictureBox()
+        Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
+        Me.btnRecargar = New System.Windows.Forms.PictureBox()
         Me.Lunes = New Minerva.frmDia()
         Me.Martes = New Minerva.frmDia()
         Me.Miércoles = New Minerva.frmDia()
         Me.Sábado = New Minerva.frmDia()
         Me.Jueves = New Minerva.frmDia()
         Me.Viernes = New Minerva.frmDia()
-        Me.pnlBotonesHorarios = New System.Windows.Forms.Panel()
-        Me.btnGuardarPdf = New System.Windows.Forms.PictureBox()
-        Me.btnRefrescarHorarios = New System.Windows.Forms.PictureBox()
-        Me.btnVistaDias = New System.Windows.Forms.PictureBox()
-        Me.btnVistaSemana = New System.Windows.Forms.PictureBox()
-        Me.btnFullscreen = New System.Windows.Forms.PictureBox()
         Me.Grilla = New Minerva.frmVistaGrilla()
         lblHorariosSemana = New System.Windows.Forms.Label()
         Me.pnlInfoCurso.SuspendLayout()
         Me.pnlDatosGrupo.SuspendLayout()
         Me.pnlMaterias.SuspendLayout()
+        Me.pnlHeader.SuspendLayout()
         Me.pnlFiltro.SuspendLayout()
-        CType(Me.alertaUsuarios, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
-        CType(Me.btnRecargar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlHorarios.SuspendLayout()
         Me.tblDias.SuspendLayout()
         Me.pnlBotonesHorarios.SuspendLayout()
+        Me.pnlAyudabtnVistaSemana.SuspendLayout()
+        Me.pnlAyudabtnVistaDias.SuspendLayout()
+        Me.pnlAyudabtnRefrescarHorarios.SuspendLayout()
+        Me.pnlAyudabtnFullscreen.SuspendLayout()
+        Me.pnlAyudabtnGuardarPdf.SuspendLayout()
+        Me.pnlAyudabtnRecargar.SuspendLayout()
+        Me.pnlAyudaalertaAprobacion.SuspendLayout()
         CType(Me.btnGuardarPdf, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnRefrescarHorarios, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnVistaDias, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnVistaSemana, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnFullscreen, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.alertaAprobacion, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.imgLogoUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.imgLogoInvitado, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnRecargar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblHorariosSemana
@@ -325,49 +348,29 @@ Partial Class frmMain
         Me.lblSeleccioneGrupo2.Text = "No disponible" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.lblSeleccioneGrupo2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'pnlFiltro
+        'pnlHeader
         '
-        Me.pnlFiltro.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
-        Me.pnlFiltro.Controls.Add(Me.alertaUsuarios)
-        Me.pnlFiltro.Controls.Add(Me.imgLogo)
-        Me.pnlFiltro.Controls.Add(Me.lblUsuario)
-        Me.pnlFiltro.Controls.Add(Me.imgLogoMAITs)
-        Me.pnlFiltro.Controls.Add(Me.pnlSeparador)
-        Me.pnlFiltro.Controls.Add(Me.pnlBordeSeparador)
-        Me.pnlFiltro.Controls.Add(Me.btnSalir)
-        Me.pnlFiltro.Controls.Add(Me.btnAdministrar)
-        Me.pnlFiltro.Controls.Add(Me.Panel1)
-        Me.pnlFiltro.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlFiltro.Location = New System.Drawing.Point(0, 0)
-        Me.pnlFiltro.Name = "pnlFiltro"
-        Me.pnlFiltro.Size = New System.Drawing.Size(964, 175)
-        Me.pnlFiltro.TabIndex = 0
-        '
-        'alertaUsuarios
-        '
-        Me.alertaUsuarios.BackgroundImage = Global.Minerva.My.Resources.Resources.notificacion_10
-        Me.alertaUsuarios.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.alertaUsuarios.Location = New System.Drawing.Point(143, 43)
-        Me.alertaUsuarios.Name = "alertaUsuarios"
-        Me.alertaUsuarios.Size = New System.Drawing.Size(50, 50)
-        Me.alertaUsuarios.TabIndex = 130
-        Me.alertaUsuarios.TabStop = False
-        '
-        'imgLogo
-        '
-        Me.imgLogo.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
-        Me.imgLogo.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMinerva
-        Me.imgLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.imgLogo.Location = New System.Drawing.Point(45, 3)
-        Me.imgLogo.Name = "imgLogo"
-        Me.imgLogo.Size = New System.Drawing.Size(103, 133)
-        Me.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.imgLogo.TabIndex = 2
-        Me.imgLogo.TabStop = False
+        Me.pnlHeader.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.pnlHeader.Controls.Add(Me.alertaAprobacion)
+        Me.pnlHeader.Controls.Add(Me.imgLogoUsuario)
+        Me.pnlHeader.Controls.Add(Me.imgLogoInvitado)
+        Me.pnlHeader.Controls.Add(Me.lblUsuario)
+        Me.pnlHeader.Controls.Add(Me.imgLogoMAITs)
+        Me.pnlHeader.Controls.Add(Me.pnlSeparador)
+        Me.pnlHeader.Controls.Add(Me.pnlBordeSeparador)
+        Me.pnlHeader.Controls.Add(Me.btnSalir)
+        Me.pnlHeader.Controls.Add(Me.btnAdministrar)
+        Me.pnlHeader.Controls.Add(Me.pnlFiltro)
+        Me.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top
+        Me.pnlHeader.Location = New System.Drawing.Point(0, 0)
+        Me.pnlHeader.Name = "pnlHeader"
+        Me.pnlHeader.Size = New System.Drawing.Size(964, 185)
+        Me.pnlHeader.TabIndex = 0
         '
         'lblUsuario
         '
         Me.lblUsuario.AutoSize = True
+        Me.lblUsuario.BackColor = System.Drawing.Color.Transparent
         Me.lblUsuario.Font = New System.Drawing.Font("Corbel", 15.0!)
         Me.lblUsuario.ForeColor = System.Drawing.Color.White
         Me.lblUsuario.Location = New System.Drawing.Point(199, 138)
@@ -376,25 +379,12 @@ Partial Class frmMain
         Me.lblUsuario.TabIndex = 0
         Me.lblUsuario.Text = "Bienvenido invitado."
         '
-        'imgLogoMAITs
-        '
-        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
-        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.imgLogoMAITs.Dock = System.Windows.Forms.DockStyle.Right
-        Me.imgLogoMAITs.Location = New System.Drawing.Point(813, 0)
-        Me.imgLogoMAITs.Margin = New System.Windows.Forms.Padding(10)
-        Me.imgLogoMAITs.Name = "imgLogoMAITs"
-        Me.imgLogoMAITs.Padding = New System.Windows.Forms.Padding(10)
-        Me.imgLogoMAITs.Size = New System.Drawing.Size(145, 175)
-        Me.imgLogoMAITs.TabIndex = 127
-        Me.imgLogoMAITs.TabStop = False
-        '
         'pnlSeparador
         '
         Me.pnlSeparador.Dock = System.Windows.Forms.DockStyle.Right
         Me.pnlSeparador.Location = New System.Drawing.Point(958, 0)
         Me.pnlSeparador.Name = "pnlSeparador"
-        Me.pnlSeparador.Size = New System.Drawing.Size(4, 175)
+        Me.pnlSeparador.Size = New System.Drawing.Size(4, 185)
         Me.pnlSeparador.TabIndex = 131
         '
         'pnlBordeSeparador
@@ -404,7 +394,7 @@ Partial Class frmMain
         Me.pnlBordeSeparador.Location = New System.Drawing.Point(962, 0)
         Me.pnlBordeSeparador.Name = "pnlBordeSeparador"
         Me.pnlBordeSeparador.Padding = New System.Windows.Forms.Padding(10)
-        Me.pnlBordeSeparador.Size = New System.Drawing.Size(2, 175)
+        Me.pnlBordeSeparador.Size = New System.Drawing.Size(2, 185)
         Me.pnlBordeSeparador.TabIndex = 130
         '
         'btnSalir
@@ -432,38 +422,27 @@ Partial Class frmMain
         Me.btnAdministrar.UseVisualStyleBackColor = False
         Me.btnAdministrar.Visible = False
         '
-        'Panel1
+        'pnlFiltro
         '
-        Me.Panel1.AutoSize = True
-        Me.Panel1.Controls.Add(Me.btnRecargar)
-        Me.Panel1.Controls.Add(Me.lblGrupo)
-        Me.Panel1.Controls.Add(Me.cboGrupo)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(964, 175)
-        Me.Panel1.TabIndex = 132
-        '
-        'btnRecargar
-        '
-        Me.btnRecargar.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.btnRecargar.BackgroundImage = Global.Minerva.My.Resources.Resources.refrescar_normal
-        Me.btnRecargar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnRecargar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnRecargar.Location = New System.Drawing.Point(616, 39)
-        Me.btnRecargar.Name = "btnRecargar"
-        Me.btnRecargar.Size = New System.Drawing.Size(25, 25)
-        Me.btnRecargar.TabIndex = 129
-        Me.btnRecargar.TabStop = False
+        Me.pnlFiltro.AutoSize = True
+        Me.pnlFiltro.Controls.Add(Me.btnRecargar)
+        Me.pnlFiltro.Controls.Add(Me.lblGrupo)
+        Me.pnlFiltro.Controls.Add(Me.cboGrupo)
+        Me.pnlFiltro.Cursor = System.Windows.Forms.Cursors.Default
+        Me.pnlFiltro.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlFiltro.Location = New System.Drawing.Point(0, 0)
+        Me.pnlFiltro.Name = "pnlFiltro"
+        Me.pnlFiltro.Size = New System.Drawing.Size(964, 185)
+        Me.pnlFiltro.TabIndex = 132
         '
         'lblGrupo
         '
         Me.lblGrupo.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblGrupo.Font = New System.Drawing.Font("Candara", 23.75!, System.Drawing.FontStyle.Bold)
         Me.lblGrupo.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblGrupo.Location = New System.Drawing.Point(324, 32)
+        Me.lblGrupo.Location = New System.Drawing.Point(324, 37)
         Me.lblGrupo.Name = "lblGrupo"
-        Me.lblGrupo.Size = New System.Drawing.Size(317, 39)
+        Me.lblGrupo.Size = New System.Drawing.Size(462, 39)
         Me.lblGrupo.TabIndex = 3
         Me.lblGrupo.Text = "Grupo"
         Me.lblGrupo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -476,21 +455,19 @@ Partial Class frmMain
         Me.cboGrupo.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboGrupo.FormattingEnabled = True
         Me.cboGrupo.Items.AddRange(New Object() {"Elija un grupo"})
-        Me.cboGrupo.Location = New System.Drawing.Point(324, 73)
+        Me.cboGrupo.Location = New System.Drawing.Point(324, 78)
         Me.cboGrupo.Name = "cboGrupo"
-        Me.cboGrupo.Size = New System.Drawing.Size(317, 28)
+        Me.cboGrupo.Size = New System.Drawing.Size(462, 28)
         Me.cboGrupo.TabIndex = 2
         '
         'lblSeleccioneGrupo
         '
-        Me.lblSeleccioneGrupo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblSeleccioneGrupo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblSeleccioneGrupo.Font = New System.Drawing.Font("Corbel", 36.0!, System.Drawing.FontStyle.Bold)
         Me.lblSeleccioneGrupo.ForeColor = System.Drawing.Color.White
         Me.lblSeleccioneGrupo.Location = New System.Drawing.Point(0, 0)
         Me.lblSeleccioneGrupo.Name = "lblSeleccioneGrupo"
-        Me.lblSeleccioneGrupo.Size = New System.Drawing.Size(964, 504)
+        Me.lblSeleccioneGrupo.Size = New System.Drawing.Size(964, 494)
         Me.lblSeleccioneGrupo.TabIndex = 10
         Me.lblSeleccioneGrupo.Text = "Para visualizar los horarios," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "debe escoger un grupo"
         Me.lblSeleccioneGrupo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -514,9 +491,9 @@ Partial Class frmMain
         Me.pnlHorarios.Controls.Add(lblHorariosSemana)
         Me.pnlHorarios.Controls.Add(Me.lblSeleccioneGrupo)
         Me.pnlHorarios.Controls.Add(Me.Grilla)
-        Me.pnlHorarios.Location = New System.Drawing.Point(0, 177)
+        Me.pnlHorarios.Location = New System.Drawing.Point(0, 185)
         Me.pnlHorarios.Name = "pnlHorarios"
-        Me.pnlHorarios.Size = New System.Drawing.Size(964, 504)
+        Me.pnlHorarios.Size = New System.Drawing.Size(964, 494)
         Me.pnlHorarios.TabIndex = 135
         '
         'tblDias
@@ -537,88 +514,15 @@ Partial Class frmMain
         Me.tblDias.Controls.Add(Me.Sábado, 4, 2)
         Me.tblDias.Controls.Add(Me.Jueves, 0, 2)
         Me.tblDias.Controls.Add(Me.Viernes, 2, 2)
-        Me.tblDias.Location = New System.Drawing.Point(34, 63)
+        Me.tblDias.Location = New System.Drawing.Point(34, 66)
         Me.tblDias.Name = "tblDias"
         Me.tblDias.RowCount = 4
         Me.tblDias.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.875!))
         Me.tblDias.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.125!))
         Me.tblDias.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.875!))
         Me.tblDias.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.125!))
-        Me.tblDias.Size = New System.Drawing.Size(924, 438)
+        Me.tblDias.Size = New System.Drawing.Size(924, 428)
         Me.tblDias.TabIndex = 136
-        '
-        'Lunes
-        '
-        Me.Lunes.AutoScroll = True
-        Me.Lunes.AutoSize = True
-        Me.Lunes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Lunes.BackColor = System.Drawing.Color.Transparent
-        Me.Lunes.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Lunes.Location = New System.Drawing.Point(3, 3)
-        Me.Lunes.Name = "Lunes"
-        Me.Lunes.Size = New System.Drawing.Size(282, 199)
-        Me.Lunes.TabIndex = 5
-        Me.Lunes.TabStop = False
-        '
-        'Martes
-        '
-        Me.Martes.AutoSize = True
-        Me.Martes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Martes.BackColor = System.Drawing.Color.Transparent
-        Me.Martes.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Martes.Location = New System.Drawing.Point(319, 3)
-        Me.Martes.Name = "Martes"
-        Me.Martes.Size = New System.Drawing.Size(282, 199)
-        Me.Martes.TabIndex = 4
-        Me.Martes.TabStop = False
-        '
-        'Miércoles
-        '
-        Me.Miércoles.AutoSize = True
-        Me.Miércoles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Miércoles.BackColor = System.Drawing.Color.Transparent
-        Me.Miércoles.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Miércoles.Location = New System.Drawing.Point(635, 3)
-        Me.Miércoles.Name = "Miércoles"
-        Me.Miércoles.Size = New System.Drawing.Size(286, 199)
-        Me.Miércoles.TabIndex = 3
-        Me.Miércoles.TabStop = False
-        '
-        'Sábado
-        '
-        Me.Sábado.AutoSize = True
-        Me.Sábado.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Sábado.BackColor = System.Drawing.Color.Transparent
-        Me.Sábado.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Sábado.Location = New System.Drawing.Point(635, 221)
-        Me.Sábado.Name = "Sábado"
-        Me.Sábado.Size = New System.Drawing.Size(286, 199)
-        Me.Sábado.TabIndex = 8
-        Me.Sábado.TabStop = False
-        '
-        'Jueves
-        '
-        Me.Jueves.AutoSize = True
-        Me.Jueves.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Jueves.BackColor = System.Drawing.Color.Transparent
-        Me.Jueves.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Jueves.Location = New System.Drawing.Point(3, 221)
-        Me.Jueves.Name = "Jueves"
-        Me.Jueves.Size = New System.Drawing.Size(282, 199)
-        Me.Jueves.TabIndex = 6
-        Me.Jueves.TabStop = False
-        '
-        'Viernes
-        '
-        Me.Viernes.AutoSize = True
-        Me.Viernes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Viernes.BackColor = System.Drawing.Color.Transparent
-        Me.Viernes.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Viernes.Location = New System.Drawing.Point(319, 221)
-        Me.Viernes.Name = "Viernes"
-        Me.Viernes.Size = New System.Drawing.Size(282, 199)
-        Me.Viernes.TabIndex = 7
-        Me.Viernes.TabStop = False
         '
         'pnlBotonesHorarios
         '
@@ -633,6 +537,180 @@ Partial Class frmMain
         Me.pnlBotonesHorarios.Name = "pnlBotonesHorarios"
         Me.pnlBotonesHorarios.Size = New System.Drawing.Size(265, 59)
         Me.pnlBotonesHorarios.TabIndex = 135
+        '
+        'pnlAyudabtnVistaSemana
+        '
+        Me.pnlAyudabtnVistaSemana.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlAyudabtnVistaSemana.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.pnlAyudabtnVistaSemana.BackgroundImage = CType(resources.GetObject("pnlAyudabtnVistaSemana.BackgroundImage"), System.Drawing.Image)
+        Me.pnlAyudabtnVistaSemana.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.pnlAyudabtnVistaSemana.Controls.Add(Me.Label6)
+        Me.pnlAyudabtnVistaSemana.Location = New System.Drawing.Point(780, 102)
+        Me.pnlAyudabtnVistaSemana.Name = "pnlAyudabtnVistaSemana"
+        Me.pnlAyudabtnVistaSemana.Size = New System.Drawing.Size(218, 79)
+        Me.pnlAyudabtnVistaSemana.TabIndex = 140
+        Me.pnlAyudabtnVistaSemana.Visible = False
+        '
+        'Label6
+        '
+        Me.Label6.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.Label6.ForeColor = System.Drawing.Color.White
+        Me.Label6.Location = New System.Drawing.Point(33, 2)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(163, 54)
+        Me.Label6.TabIndex = 0
+        Me.Label6.Text = "Ver como semana (lista)"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'pnlAyudabtnVistaDias
+        '
+        Me.pnlAyudabtnVistaDias.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlAyudabtnVistaDias.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.pnlAyudabtnVistaDias.BackgroundImage = CType(resources.GetObject("pnlAyudabtnVistaDias.BackgroundImage"), System.Drawing.Image)
+        Me.pnlAyudabtnVistaDias.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.pnlAyudabtnVistaDias.Controls.Add(Me.Label5)
+        Me.pnlAyudabtnVistaDias.Location = New System.Drawing.Point(730, 102)
+        Me.pnlAyudabtnVistaDias.Name = "pnlAyudabtnVistaDias"
+        Me.pnlAyudabtnVistaDias.Size = New System.Drawing.Size(218, 79)
+        Me.pnlAyudabtnVistaDias.TabIndex = 139
+        Me.pnlAyudabtnVistaDias.Visible = False
+        '
+        'Label5
+        '
+        Me.Label5.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.Label5.ForeColor = System.Drawing.Color.White
+        Me.Label5.Location = New System.Drawing.Point(33, 2)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(163, 54)
+        Me.Label5.TabIndex = 0
+        Me.Label5.Text = "Ver como días (individuales)"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'pnlAyudabtnRefrescarHorarios
+        '
+        Me.pnlAyudabtnRefrescarHorarios.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlAyudabtnRefrescarHorarios.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.pnlAyudabtnRefrescarHorarios.BackgroundImage = CType(resources.GetObject("pnlAyudabtnRefrescarHorarios.BackgroundImage"), System.Drawing.Image)
+        Me.pnlAyudabtnRefrescarHorarios.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.pnlAyudabtnRefrescarHorarios.Controls.Add(Me.Label4)
+        Me.pnlAyudabtnRefrescarHorarios.Location = New System.Drawing.Point(690, 102)
+        Me.pnlAyudabtnRefrescarHorarios.Name = "pnlAyudabtnRefrescarHorarios"
+        Me.pnlAyudabtnRefrescarHorarios.Size = New System.Drawing.Size(218, 79)
+        Me.pnlAyudabtnRefrescarHorarios.TabIndex = 138
+        Me.pnlAyudabtnRefrescarHorarios.Visible = False
+        '
+        'Label4
+        '
+        Me.Label4.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.Label4.ForeColor = System.Drawing.Color.White
+        Me.Label4.Location = New System.Drawing.Point(33, 2)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(163, 54)
+        Me.Label4.TabIndex = 0
+        Me.Label4.Text = "Actualiza la lista de horarios"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'pnlAyudabtnFullscreen
+        '
+        Me.pnlAyudabtnFullscreen.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlAyudabtnFullscreen.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.pnlAyudabtnFullscreen.BackgroundImage = CType(resources.GetObject("pnlAyudabtnFullscreen.BackgroundImage"), System.Drawing.Image)
+        Me.pnlAyudabtnFullscreen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.pnlAyudabtnFullscreen.Controls.Add(Me.Label3)
+        Me.pnlAyudabtnFullscreen.Location = New System.Drawing.Point(655, 102)
+        Me.pnlAyudabtnFullscreen.Name = "pnlAyudabtnFullscreen"
+        Me.pnlAyudabtnFullscreen.Size = New System.Drawing.Size(218, 79)
+        Me.pnlAyudabtnFullscreen.TabIndex = 137
+        Me.pnlAyudabtnFullscreen.Visible = False
+        '
+        'Label3
+        '
+        Me.Label3.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.Label3.ForeColor = System.Drawing.Color.White
+        Me.Label3.Location = New System.Drawing.Point(33, 2)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(163, 54)
+        Me.Label3.TabIndex = 0
+        Me.Label3.Text = "Ver grilla en pantalla completa"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'pnlAyudabtnGuardarPdf
+        '
+        Me.pnlAyudabtnGuardarPdf.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlAyudabtnGuardarPdf.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.pnlAyudabtnGuardarPdf.BackgroundImage = CType(resources.GetObject("pnlAyudabtnGuardarPdf.BackgroundImage"), System.Drawing.Image)
+        Me.pnlAyudabtnGuardarPdf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.pnlAyudabtnGuardarPdf.Controls.Add(Me.Label2)
+        Me.pnlAyudabtnGuardarPdf.Location = New System.Drawing.Point(604, 102)
+        Me.pnlAyudabtnGuardarPdf.Name = "pnlAyudabtnGuardarPdf"
+        Me.pnlAyudabtnGuardarPdf.Size = New System.Drawing.Size(218, 79)
+        Me.pnlAyudabtnGuardarPdf.TabIndex = 136
+        Me.pnlAyudabtnGuardarPdf.Visible = False
+        '
+        'Label2
+        '
+        Me.Label2.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.Label2.ForeColor = System.Drawing.Color.White
+        Me.Label2.Location = New System.Drawing.Point(33, 2)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(163, 54)
+        Me.Label2.TabIndex = 0
+        Me.Label2.Text = "Guardar horarios (grilla) a archivo PDF"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'pnlAyudabtnRecargar
+        '
+        Me.pnlAyudabtnRecargar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlAyudabtnRecargar.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.pnlAyudabtnRecargar.BackgroundImage = Global.Minerva.My.Resources.Resources.dialogo_izquierda
+        Me.pnlAyudabtnRecargar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.pnlAyudabtnRecargar.Controls.Add(Me.Label1)
+        Me.pnlAyudabtnRecargar.Location = New System.Drawing.Point(788, 25)
+        Me.pnlAyudabtnRecargar.Name = "pnlAyudabtnRecargar"
+        Me.pnlAyudabtnRecargar.Size = New System.Drawing.Size(246, 71)
+        Me.pnlAyudabtnRecargar.TabIndex = 131
+        Me.pnlAyudabtnRecargar.Visible = False
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.Location = New System.Drawing.Point(42, 7)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(194, 53)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "Recarga la lista de grupos"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'pnlAyudaalertaAprobacion
+        '
+        Me.pnlAyudaalertaAprobacion.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.pnlAyudaalertaAprobacion.BackgroundImage = Global.Minerva.My.Resources.Resources.dialogo_izquierda
+        Me.pnlAyudaalertaAprobacion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.pnlAyudaalertaAprobacion.Controls.Add(Me.lblCantidadUsuariosAprobacion)
+        Me.pnlAyudaalertaAprobacion.Location = New System.Drawing.Point(195, 39)
+        Me.pnlAyudaalertaAprobacion.Name = "pnlAyudaalertaAprobacion"
+        Me.pnlAyudaalertaAprobacion.Size = New System.Drawing.Size(291, 100)
+        Me.pnlAyudaalertaAprobacion.TabIndex = 130
+        Me.pnlAyudaalertaAprobacion.Visible = False
+        '
+        'lblCantidadUsuariosAprobacion
+        '
+        Me.lblCantidadUsuariosAprobacion.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.lblCantidadUsuariosAprobacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.lblCantidadUsuariosAprobacion.ForeColor = System.Drawing.Color.White
+        Me.lblCantidadUsuariosAprobacion.Location = New System.Drawing.Point(47, 5)
+        Me.lblCantidadUsuariosAprobacion.Name = "lblCantidadUsuariosAprobacion"
+        Me.lblCantidadUsuariosAprobacion.Size = New System.Drawing.Size(233, 90)
+        Me.lblCantidadUsuariosAprobacion.TabIndex = 0
+        Me.lblCantidadUsuariosAprobacion.Text = "0 usuario están esperando la aprobación de un administrador para poder ingresar."
+        Me.lblCantidadUsuariosAprobacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'btnGuardarPdf
         '
@@ -693,15 +771,150 @@ Partial Class frmMain
         Me.btnFullscreen.TabStop = False
         Me.btnFullscreen.Visible = False
         '
+        'alertaAprobacion
+        '
+        Me.alertaAprobacion.BackgroundImage = CType(resources.GetObject("alertaAprobacion.BackgroundImage"), System.Drawing.Image)
+        Me.alertaAprobacion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.alertaAprobacion.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.alertaAprobacion.Location = New System.Drawing.Point(143, 53)
+        Me.alertaAprobacion.Name = "alertaAprobacion"
+        Me.alertaAprobacion.Size = New System.Drawing.Size(50, 50)
+        Me.alertaAprobacion.TabIndex = 130
+        Me.alertaAprobacion.TabStop = False
+        Me.alertaAprobacion.Visible = False
+        '
+        'imgLogoUsuario
+        '
+        Me.imgLogoUsuario.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.imgLogoUsuario.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMinerva
+        Me.imgLogoUsuario.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoUsuario.Location = New System.Drawing.Point(66, 14)
+        Me.imgLogoUsuario.Name = "imgLogoUsuario"
+        Me.imgLogoUsuario.Size = New System.Drawing.Size(75, 89)
+        Me.imgLogoUsuario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.imgLogoUsuario.TabIndex = 130
+        Me.imgLogoUsuario.TabStop = False
+        Me.imgLogoUsuario.Visible = False
+        '
+        'imgLogoInvitado
+        '
+        Me.imgLogoInvitado.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.imgLogoInvitado.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMinerva
+        Me.imgLogoInvitado.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoInvitado.Location = New System.Drawing.Point(54, 3)
+        Me.imgLogoInvitado.Name = "imgLogoInvitado"
+        Me.imgLogoInvitado.Size = New System.Drawing.Size(103, 125)
+        Me.imgLogoInvitado.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.imgLogoInvitado.TabIndex = 2
+        Me.imgLogoInvitado.TabStop = False
+        '
+        'imgLogoMAITs
+        '
+        Me.imgLogoMAITs.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMAITS
+        Me.imgLogoMAITs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoMAITs.Dock = System.Windows.Forms.DockStyle.Right
+        Me.imgLogoMAITs.Location = New System.Drawing.Point(813, 0)
+        Me.imgLogoMAITs.Margin = New System.Windows.Forms.Padding(10)
+        Me.imgLogoMAITs.Name = "imgLogoMAITs"
+        Me.imgLogoMAITs.Padding = New System.Windows.Forms.Padding(10)
+        Me.imgLogoMAITs.Size = New System.Drawing.Size(145, 185)
+        Me.imgLogoMAITs.TabIndex = 127
+        Me.imgLogoMAITs.TabStop = False
+        '
+        'btnRecargar
+        '
+        Me.btnRecargar.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.btnRecargar.BackgroundImage = Global.Minerva.My.Resources.Resources.refrescar_normal
+        Me.btnRecargar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnRecargar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnRecargar.Location = New System.Drawing.Point(761, 44)
+        Me.btnRecargar.Name = "btnRecargar"
+        Me.btnRecargar.Size = New System.Drawing.Size(25, 25)
+        Me.btnRecargar.TabIndex = 129
+        Me.btnRecargar.TabStop = False
+        '
+        'Lunes
+        '
+        Me.Lunes.AutoScroll = True
+        Me.Lunes.AutoSize = True
+        Me.Lunes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Lunes.BackColor = System.Drawing.Color.Transparent
+        Me.Lunes.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Lunes.Location = New System.Drawing.Point(3, 3)
+        Me.Lunes.Name = "Lunes"
+        Me.Lunes.Size = New System.Drawing.Size(282, 194)
+        Me.Lunes.TabIndex = 5
+        Me.Lunes.TabStop = False
+        '
+        'Martes
+        '
+        Me.Martes.AutoSize = True
+        Me.Martes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Martes.BackColor = System.Drawing.Color.Transparent
+        Me.Martes.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Martes.Location = New System.Drawing.Point(319, 3)
+        Me.Martes.Name = "Martes"
+        Me.Martes.Size = New System.Drawing.Size(282, 194)
+        Me.Martes.TabIndex = 4
+        Me.Martes.TabStop = False
+        '
+        'Miércoles
+        '
+        Me.Miércoles.AutoSize = True
+        Me.Miércoles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Miércoles.BackColor = System.Drawing.Color.Transparent
+        Me.Miércoles.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Miércoles.Location = New System.Drawing.Point(635, 3)
+        Me.Miércoles.Name = "Miércoles"
+        Me.Miércoles.Size = New System.Drawing.Size(286, 194)
+        Me.Miércoles.TabIndex = 3
+        Me.Miércoles.TabStop = False
+        '
+        'Sábado
+        '
+        Me.Sábado.AutoSize = True
+        Me.Sábado.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Sábado.BackColor = System.Drawing.Color.Transparent
+        Me.Sábado.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Sábado.Location = New System.Drawing.Point(635, 216)
+        Me.Sábado.Name = "Sábado"
+        Me.Sábado.Size = New System.Drawing.Size(286, 194)
+        Me.Sábado.TabIndex = 8
+        Me.Sábado.TabStop = False
+        '
+        'Jueves
+        '
+        Me.Jueves.AutoSize = True
+        Me.Jueves.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Jueves.BackColor = System.Drawing.Color.Transparent
+        Me.Jueves.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Jueves.Location = New System.Drawing.Point(3, 216)
+        Me.Jueves.Name = "Jueves"
+        Me.Jueves.Size = New System.Drawing.Size(282, 194)
+        Me.Jueves.TabIndex = 6
+        Me.Jueves.TabStop = False
+        '
+        'Viernes
+        '
+        Me.Viernes.AutoSize = True
+        Me.Viernes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Viernes.BackColor = System.Drawing.Color.Transparent
+        Me.Viernes.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Viernes.Location = New System.Drawing.Point(319, 216)
+        Me.Viernes.Name = "Viernes"
+        Me.Viernes.Size = New System.Drawing.Size(282, 194)
+        Me.Viernes.TabIndex = 7
+        Me.Viernes.TabStop = False
+        '
         'Grilla
         '
         Me.Grilla.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Grilla.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
-        Me.Grilla.Location = New System.Drawing.Point(37, 60)
+        Me.Grilla.Location = New System.Drawing.Point(37, 65)
         Me.Grilla.Name = "Grilla"
-        Me.Grilla.Size = New System.Drawing.Size(923, 432)
+        Me.Grilla.Size = New System.Drawing.Size(923, 422)
         Me.Grilla.TabIndex = 133
         Me.Grilla.TabStop = False
         Me.Grilla.Visible = False
@@ -709,10 +922,17 @@ Partial Class frmMain
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1264, 681)
+        Me.Controls.Add(Me.pnlAyudabtnVistaSemana)
+        Me.Controls.Add(Me.pnlAyudabtnVistaDias)
+        Me.Controls.Add(Me.pnlAyudabtnRefrescarHorarios)
+        Me.Controls.Add(Me.pnlAyudabtnFullscreen)
+        Me.Controls.Add(Me.pnlAyudabtnGuardarPdf)
+        Me.Controls.Add(Me.pnlAyudabtnRecargar)
+        Me.Controls.Add(Me.pnlAyudaalertaAprobacion)
         Me.Controls.Add(Me.pnlHorarios)
-        Me.Controls.Add(Me.pnlFiltro)
+        Me.Controls.Add(Me.pnlHeader)
         Me.Controls.Add(Me.pnlInfoCurso)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -725,23 +945,31 @@ Partial Class frmMain
         Me.pnlDatosGrupo.PerformLayout()
         Me.pnlMaterias.ResumeLayout(False)
         Me.pnlMaterias.PerformLayout()
+        Me.pnlHeader.ResumeLayout(False)
+        Me.pnlHeader.PerformLayout()
         Me.pnlFiltro.ResumeLayout(False)
-        Me.pnlFiltro.PerformLayout()
-        CType(Me.alertaUsuarios, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        CType(Me.btnRecargar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlHorarios.ResumeLayout(False)
         Me.pnlHorarios.PerformLayout()
         Me.tblDias.ResumeLayout(False)
         Me.tblDias.PerformLayout()
         Me.pnlBotonesHorarios.ResumeLayout(False)
+        Me.pnlAyudabtnVistaSemana.ResumeLayout(False)
+        Me.pnlAyudabtnVistaDias.ResumeLayout(False)
+        Me.pnlAyudabtnRefrescarHorarios.ResumeLayout(False)
+        Me.pnlAyudabtnFullscreen.ResumeLayout(False)
+        Me.pnlAyudabtnGuardarPdf.ResumeLayout(False)
+        Me.pnlAyudabtnRecargar.ResumeLayout(False)
+        Me.pnlAyudaalertaAprobacion.ResumeLayout(False)
         CType(Me.btnGuardarPdf, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnRefrescarHorarios, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnVistaDias, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnVistaSemana, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnFullscreen, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.alertaAprobacion, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.imgLogoUsuario, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.imgLogoInvitado, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnRecargar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -753,11 +981,11 @@ Partial Class frmMain
     Friend WithEvents lblValorTipoSalon As System.Windows.Forms.Label
     Friend WithEvents lblValorTipoTurno As System.Windows.Forms.Label
     Friend WithEvents lblSalon As System.Windows.Forms.Label
-    Friend WithEvents pnlFiltro As System.Windows.Forms.Panel
+    Friend WithEvents pnlHeader As System.Windows.Forms.Panel
     Friend WithEvents lblValorTipoCurso As System.Windows.Forms.Label
     Friend WithEvents lblGrado As System.Windows.Forms.Label
     Friend WithEvents lblNomGrupo As System.Windows.Forms.Label
-    Friend WithEvents imgLogo As System.Windows.Forms.PictureBox
+    Friend WithEvents imgLogoInvitado As System.Windows.Forms.PictureBox
     Friend WithEvents cboGrupo As System.Windows.Forms.ComboBox
     Friend WithEvents lblGrupo As System.Windows.Forms.Label
     Friend WithEvents pnlMaterias As System.Windows.Forms.Panel
@@ -785,7 +1013,7 @@ Partial Class frmMain
     Friend WithEvents btnFullscreen As System.Windows.Forms.PictureBox
     Friend WithEvents pnlBordeSeparador As System.Windows.Forms.Panel
     Friend WithEvents pnlSeparador As System.Windows.Forms.Panel
-    Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents pnlFiltro As System.Windows.Forms.Panel
     Friend WithEvents pnlHorarios As System.Windows.Forms.Panel
     Friend WithEvents pnlDatosGrupo As System.Windows.Forms.Panel
     Friend WithEvents pnlBotonesHorarios As System.Windows.Forms.Panel
@@ -793,6 +1021,21 @@ Partial Class frmMain
     Friend WithEvents btnGuardarPdf As System.Windows.Forms.PictureBox
     Friend WithEvents lblValorTipoAdscripto As System.Windows.Forms.Label
     Friend WithEvents lblAdscripto As System.Windows.Forms.Label
-    Friend WithEvents alertaUsuarios As System.Windows.Forms.PictureBox
+    Friend WithEvents alertaAprobacion As System.Windows.Forms.PictureBox
+    Friend WithEvents imgLogoUsuario As System.Windows.Forms.PictureBox
+    Friend WithEvents pnlAyudaalertaAprobacion As System.Windows.Forms.Panel
+    Friend WithEvents lblCantidadUsuariosAprobacion As System.Windows.Forms.Label
+    Friend WithEvents pnlAyudabtnRecargar As System.Windows.Forms.Panel
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents pnlAyudabtnGuardarPdf As System.Windows.Forms.Panel
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents pnlAyudabtnFullscreen As System.Windows.Forms.Panel
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents pnlAyudabtnRefrescarHorarios As System.Windows.Forms.Panel
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents pnlAyudabtnVistaDias As System.Windows.Forms.Panel
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents pnlAyudabtnVistaSemana As System.Windows.Forms.Panel
+    Friend WithEvents Label6 As System.Windows.Forms.Label
 
 End Class

@@ -32,11 +32,8 @@ Partial Class frmAdminSalones
         Me.lblPlanta = New System.Windows.Forms.Label()
         Me.lblSalonesAsignados = New System.Windows.Forms.Label()
         Me.lblTurno1 = New System.Windows.Forms.Label()
-        Me.lblTurno3 = New System.Windows.Forms.Label()
         Me.lblTurno2 = New System.Windows.Forms.Label()
-        Me.cmbTurno2 = New System.Windows.Forms.ComboBox()
         Me.lblTurno4 = New System.Windows.Forms.Label()
-        Me.lblTurno5 = New System.Windows.Forms.Label()
         Me.txtComentarios = New System.Windows.Forms.TextBox()
         Me.lblComentarios = New System.Windows.Forms.Label()
         Me.btnCancelarEdicion = New System.Windows.Forms.Button()
@@ -47,12 +44,11 @@ Partial Class frmAdminSalones
         Me.btnEliminarPlantilla = New System.Windows.Forms.Button()
         Me.btnEditarPlantilla = New System.Windows.Forms.Button()
         Me.pnlSalones = New System.Windows.Forms.FlowLayoutPanel()
-        Me.cmbTurno1 = New System.Windows.Forms.ComboBox()
-        Me.cmbTurno3 = New System.Windows.Forms.ComboBox()
-        Me.cmbTurno5 = New System.Windows.Forms.ComboBox()
-        Me.cmbTurno33 = New System.Windows.Forms.ComboBox()
         Me.btnNuevoSalon = New System.Windows.Forms.Button()
         Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
+        Me.lblSalonMatutino = New System.Windows.Forms.Label()
+        Me.lblSalonVespertino = New System.Windows.Forms.Label()
+        Me.lblSalonNocturno = New System.Windows.Forms.Label()
         lblSalones = New System.Windows.Forms.Label()
         lblTitulo = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
@@ -167,68 +163,33 @@ Partial Class frmAdminSalones
         Me.lblTurno1.AutoSize = True
         Me.lblTurno1.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblTurno1.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblTurno1.Location = New System.Drawing.Point(314, 129)
+        Me.lblTurno1.Location = New System.Drawing.Point(314, 140)
         Me.lblTurno1.Name = "lblTurno1"
         Me.lblTurno1.Size = New System.Drawing.Size(132, 29)
         Me.lblTurno1.TabIndex = 17
         Me.lblTurno1.Text = "T. matutino"
-        '
-        'lblTurno3
-        '
-        Me.lblTurno3.AutoSize = True
-        Me.lblTurno3.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblTurno3.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblTurno3.Location = New System.Drawing.Point(314, 275)
-        Me.lblTurno3.Name = "lblTurno3"
-        Me.lblTurno3.Size = New System.Drawing.Size(89, 29)
-        Me.lblTurno3.TabIndex = 19
-        Me.lblTurno3.Text = "Turno 3"
-        Me.lblTurno3.Visible = False
         '
         'lblTurno2
         '
         Me.lblTurno2.AutoSize = True
         Me.lblTurno2.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblTurno2.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblTurno2.Location = New System.Drawing.Point(314, 202)
+        Me.lblTurno2.Location = New System.Drawing.Point(314, 223)
         Me.lblTurno2.Name = "lblTurno2"
         Me.lblTurno2.Size = New System.Drawing.Size(130, 29)
         Me.lblTurno2.TabIndex = 21
         Me.lblTurno2.Text = "T. nocturno"
-        '
-        'cmbTurno2
-        '
-        Me.cmbTurno2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbTurno2.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.cmbTurno2.FormattingEnabled = True
-        Me.cmbTurno2.Items.AddRange(New Object() {"Sin asignar"})
-        Me.cmbTurno2.Location = New System.Drawing.Point(461, 161)
-        Me.cmbTurno2.Name = "cmbTurno2"
-        Me.cmbTurno2.Size = New System.Drawing.Size(121, 34)
-        Me.cmbTurno2.TabIndex = 4
         '
         'lblTurno4
         '
         Me.lblTurno4.AutoSize = True
         Me.lblTurno4.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblTurno4.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblTurno4.Location = New System.Drawing.Point(456, 129)
+        Me.lblTurno4.Location = New System.Drawing.Point(456, 140)
         Me.lblTurno4.Name = "lblTurno4"
         Me.lblTurno4.Size = New System.Drawing.Size(145, 29)
         Me.lblTurno4.TabIndex = 23
         Me.lblTurno4.Text = "T. vespertino"
-        '
-        'lblTurno5
-        '
-        Me.lblTurno5.AutoSize = True
-        Me.lblTurno5.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblTurno5.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblTurno5.Location = New System.Drawing.Point(456, 202)
-        Me.lblTurno5.Name = "lblTurno5"
-        Me.lblTurno5.Size = New System.Drawing.Size(89, 29)
-        Me.lblTurno5.TabIndex = 25
-        Me.lblTurno5.Text = "Turno 5"
-        Me.lblTurno5.Visible = False
         '
         'txtComentarios
         '
@@ -351,52 +312,6 @@ Partial Class frmAdminSalones
         Me.pnlSalones.Size = New System.Drawing.Size(337, 413)
         Me.pnlSalones.TabIndex = 33
         '
-        'cmbTurno1
-        '
-        Me.cmbTurno1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbTurno1.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.cmbTurno1.FormattingEnabled = True
-        Me.cmbTurno1.Items.AddRange(New Object() {"Sin asignar"})
-        Me.cmbTurno1.Location = New System.Drawing.Point(319, 161)
-        Me.cmbTurno1.Name = "cmbTurno1"
-        Me.cmbTurno1.Size = New System.Drawing.Size(121, 34)
-        Me.cmbTurno1.TabIndex = 3
-        '
-        'cmbTurno3
-        '
-        Me.cmbTurno3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbTurno3.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.cmbTurno3.FormattingEnabled = True
-        Me.cmbTurno3.Items.AddRange(New Object() {"Sin asignar"})
-        Me.cmbTurno3.Location = New System.Drawing.Point(319, 240)
-        Me.cmbTurno3.Name = "cmbTurno3"
-        Me.cmbTurno3.Size = New System.Drawing.Size(121, 34)
-        Me.cmbTurno3.TabIndex = 5
-        '
-        'cmbTurno5
-        '
-        Me.cmbTurno5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbTurno5.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.cmbTurno5.FormattingEnabled = True
-        Me.cmbTurno5.Items.AddRange(New Object() {"Sin asignar"})
-        Me.cmbTurno5.Location = New System.Drawing.Point(461, 239)
-        Me.cmbTurno5.Name = "cmbTurno5"
-        Me.cmbTurno5.Size = New System.Drawing.Size(121, 34)
-        Me.cmbTurno5.TabIndex = 38
-        Me.cmbTurno5.Visible = False
-        '
-        'cmbTurno33
-        '
-        Me.cmbTurno33.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbTurno33.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.cmbTurno33.FormattingEnabled = True
-        Me.cmbTurno33.Items.AddRange(New Object() {"Sin asignar"})
-        Me.cmbTurno33.Location = New System.Drawing.Point(319, 309)
-        Me.cmbTurno33.Name = "cmbTurno33"
-        Me.cmbTurno33.Size = New System.Drawing.Size(121, 34)
-        Me.cmbTurno33.TabIndex = 40
-        Me.cmbTurno33.Visible = False
-        '
         'btnNuevoSalon
         '
         Me.btnNuevoSalon.AutoSize = True
@@ -419,26 +334,55 @@ Partial Class frmAdminSalones
         Me.imgLogoMAITs.TabIndex = 124
         Me.imgLogoMAITs.TabStop = False
         '
+        'lblSalonMatutino
+        '
+        Me.lblSalonMatutino.AutoSize = True
+        Me.lblSalonMatutino.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblSalonMatutino.ForeColor = System.Drawing.Color.White
+        Me.lblSalonMatutino.Location = New System.Drawing.Point(314, 169)
+        Me.lblSalonMatutino.Name = "lblSalonMatutino"
+        Me.lblSalonMatutino.Size = New System.Drawing.Size(125, 29)
+        Me.lblSalonMatutino.TabIndex = 126
+        Me.lblSalonMatutino.Text = "Sin asignar"
+        '
+        'lblSalonVespertino
+        '
+        Me.lblSalonVespertino.AutoSize = True
+        Me.lblSalonVespertino.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblSalonVespertino.ForeColor = System.Drawing.Color.White
+        Me.lblSalonVespertino.Location = New System.Drawing.Point(456, 169)
+        Me.lblSalonVespertino.Name = "lblSalonVespertino"
+        Me.lblSalonVespertino.Size = New System.Drawing.Size(125, 29)
+        Me.lblSalonVespertino.TabIndex = 127
+        Me.lblSalonVespertino.Text = "Sin asignar"
+        '
+        'lblSalonNocturno
+        '
+        Me.lblSalonNocturno.AutoSize = True
+        Me.lblSalonNocturno.Font = New System.Drawing.Font("Corbel", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblSalonNocturno.ForeColor = System.Drawing.Color.White
+        Me.lblSalonNocturno.Location = New System.Drawing.Point(314, 252)
+        Me.lblSalonNocturno.Name = "lblSalonNocturno"
+        Me.lblSalonNocturno.Size = New System.Drawing.Size(125, 29)
+        Me.lblSalonNocturno.TabIndex = 128
+        Me.lblSalonNocturno.Text = "Sin asignar"
+        '
         'frmAdminSalones
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.lblSalonNocturno)
+        Me.Controls.Add(Me.lblSalonVespertino)
+        Me.Controls.Add(Me.lblSalonMatutino)
         Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.lblSalonesAsignados)
         Me.Controls.Add(Me.btnNuevoSalon)
-        Me.Controls.Add(Me.cmbTurno33)
-        Me.Controls.Add(Me.cmbTurno3)
-        Me.Controls.Add(Me.cmbTurno5)
-        Me.Controls.Add(Me.cmbTurno1)
         Me.Controls.Add(Me.btnCancelarEdicion)
         Me.Controls.Add(Me.lblNuevoSalon)
         Me.Controls.Add(Me.lblComentarios)
         Me.Controls.Add(Me.txtComentarios)
-        Me.Controls.Add(Me.lblTurno5)
-        Me.Controls.Add(Me.cmbTurno2)
         Me.Controls.Add(Me.lblTurno4)
         Me.Controls.Add(Me.lblTurno2)
-        Me.Controls.Add(Me.lblTurno3)
         Me.Controls.Add(Me.lblTurno1)
         Me.Controls.Add(Me.lblPlanta)
         Me.Controls.Add(Me.cmbPlanta)
@@ -464,20 +408,13 @@ Partial Class frmAdminSalones
     Friend WithEvents lblPlanta As System.Windows.Forms.Label
     Friend WithEvents lblSalonesAsignados As System.Windows.Forms.Label
     Friend WithEvents lblTurno1 As System.Windows.Forms.Label
-    Friend WithEvents lblTurno3 As System.Windows.Forms.Label
     Friend WithEvents lblTurno2 As System.Windows.Forms.Label
-    Friend WithEvents cmbTurno2 As System.Windows.Forms.ComboBox
     Friend WithEvents lblTurno4 As System.Windows.Forms.Label
-    Friend WithEvents lblTurno5 As System.Windows.Forms.Label
     Friend WithEvents txtComentarios As System.Windows.Forms.TextBox
     Friend WithEvents lblComentarios As System.Windows.Forms.Label
     Friend WithEvents btnCancelarEdicion As System.Windows.Forms.Button
     Friend WithEvents pnlFondo As System.Windows.Forms.Panel
     Friend WithEvents pnlSalones As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents cmbTurno1 As System.Windows.Forms.ComboBox
-    Friend WithEvents cmbTurno3 As System.Windows.Forms.ComboBox
-    Friend WithEvents cmbTurno5 As System.Windows.Forms.ComboBox
-    Friend WithEvents cmbTurno33 As System.Windows.Forms.ComboBox
     Friend WithEvents pnlSalonPlantilla As System.Windows.Forms.Panel
     Friend WithEvents btnEliminarPlantilla As System.Windows.Forms.Button
     Friend WithEvents btnEditarPlantilla As System.Windows.Forms.Button
@@ -486,5 +423,8 @@ Partial Class frmAdminSalones
     Friend WithEvents btnSalonPlantilla As System.Windows.Forms.Button
     Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
     Friend WithEvents lblCantidadSalones As System.Windows.Forms.Label
+    Friend WithEvents lblSalonMatutino As System.Windows.Forms.Label
+    Friend WithEvents lblSalonVespertino As System.Windows.Forms.Label
+    Friend WithEvents lblSalonNocturno As System.Windows.Forms.Label
 
 End Class

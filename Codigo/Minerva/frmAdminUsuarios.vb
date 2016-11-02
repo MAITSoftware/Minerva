@@ -5,12 +5,13 @@
     Friend tipoSeleccionado As String = "Funcionario"
     Friend previsualizando As Boolean = False
     Dim miUsuario As String = "asd"
+    Dim frmMain As frmMain
 
-    Public Sub New(ByVal usuario As String)
-
+    Public Sub New(ByVal usuario As String, ByVal frmMain As frmMain)
         ' Llamada necesaria para el diseñador.
         InitializeComponent()
         Me.miUsuario = usuario
+        Me.frmMain = frmMain
     End Sub
     Private Sub frmAdminUsuarios_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al iniciar el programa, cargar los usuarios, y reiniciar la interfaz
@@ -19,7 +20,7 @@
         txtID.Focus()
     End Sub
 
-    Public Sub agregarUsuario(ByVal IDUsuario As String, ByVal Tipo As String)
+    Public Sub agregarUsuario(ByVal IDUsuario As String, ByVal Tipo As String, ByVal usuarioAprobado As Boolean)
         ' Basicamente copio la plantilla a un nuevo panel
         Dim pnlTemporal As New Panel
         Dim btnUsuario As New Button
@@ -37,6 +38,12 @@
         btnUsuario.Cursor = btnUsuarioPlantilla.Cursor
         btnUsuario.Font = btnUsuarioPlantilla.Font
         btnUsuario.TabStop = False
+
+
+        btnUsuario.BackgroundImage = My.Resources.usuario_no_aprobado()
+        If usuarioAprobado Then
+            btnUsuario.BackgroundImage = My.Resources.usuario_aprobado()
+        End If
 
         btnUsuario.Tag = IDUsuario
         AddHandler btnUsuario.Click, AddressOf verUsuario_Click
@@ -154,20 +161,21 @@
         txtNombre.Enabled = True
         txtApellido.Enabled = True
 
+        radAdscripto.Enabled = False
         If Not sender.Tag.Equals(miUsuario) Then
             radAdministrador.Enabled = True
             radFuncionario.Enabled = True
-            radAdscripto.Enabled = True
             chkHabilitado.Enabled = True
         Else
             radAdministrador.Enabled = False
             radFuncionario.Enabled = False
-            radAdscripto.Enabled = False
             chkHabilitado.Enabled = False
         End If
+
         If tipoSeleccionado.Equals("Adscripto") Then
             radAdministrador.Enabled = False
             radFuncionario.Enabled = False
+            radAdscripto.Enabled = True
             radAdscripto.Checked = True
         End If
     End Sub
@@ -201,10 +209,11 @@
         End If
     End Sub
 
-    Private Sub txtID_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtID.KeyPress, txtID.TextChanged
+    Private Sub txtID_TextChanged(t As Object, e As KeyEventArgs) Handles txtID.KeyDown
         ' Al escribir un caracter que no sea número lo ignora.
-        If Not Char.IsNumber(e.KeyChar) AndAlso Not e.KeyChar = ChrW(Keys.Return) AndAlso Not e.KeyChar = ChrW(Keys.Tab) Then
-            e.KeyChar = ""
+        If e.KeyCode.Equals(Keys.Delete) Or e.KeyCode.Equals(Keys.Back) Or e.KeyCode.Equals(Keys.Left) Or e.KeyCode.Equals(Keys.Right) Or e.KeyCode.Equals(Keys.Tab) Then
+            e.Handled = False
+            Return
         End If
     End Sub
 
@@ -225,6 +234,7 @@
 
         Dim DB As New BaseDeDatos()
         DB.eliminarUsuario_frmAdminUsuarios(sender, Me)
+        DB.contarAprobacion_frmMain(Me.frmMain)
     End Sub
 
     Public Sub cargarDatos(ByVal ID As String)
@@ -236,5 +246,6 @@
     Public Sub actualizarDB()
         Dim DB As New BaseDeDatos()
         DB.actualizarDB_frmAdminUsuarios(Me)
+        DB.contarAprobacion_frmMain(Me.frmMain)
     End Sub
 End Class

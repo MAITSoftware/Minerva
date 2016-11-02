@@ -112,6 +112,8 @@ Partial Class frmAdminHorarios
         Me.lblEspere = New System.Windows.Forms.Label()
         Me.btnDeshacer = New System.Windows.Forms.PictureBox()
         Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
+        Me.pnlAyudaBtnDeshacer = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
         lblTitulo = New System.Windows.Forms.Label()
         pnlBorde11 = New System.Windows.Forms.Panel()
         Me.tableLunes.SuspendLayout()
@@ -125,6 +127,7 @@ Partial Class frmAdminHorarios
         Me.pnlFondo.SuspendLayout()
         CType(Me.btnDeshacer, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlAyudaBtnDeshacer.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblTitulo
@@ -1218,14 +1221,40 @@ Partial Class frmAdminHorarios
         Me.imgLogoMAITs.TabIndex = 125
         Me.imgLogoMAITs.TabStop = False
         '
+        'pnlAyudaBtnDeshacer
+        '
+        Me.pnlAyudaBtnDeshacer.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlAyudaBtnDeshacer.BackColor = System.Drawing.Color.Transparent
+        Me.pnlAyudaBtnDeshacer.BackgroundImage = Global.Minerva.My.Resources.Resources.dialogo_izquierda
+        Me.pnlAyudaBtnDeshacer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.pnlAyudaBtnDeshacer.Controls.Add(Me.Label1)
+        Me.pnlAyudaBtnDeshacer.Location = New System.Drawing.Point(178, 80)
+        Me.pnlAyudaBtnDeshacer.Name = "pnlAyudaBtnDeshacer"
+        Me.pnlAyudaBtnDeshacer.Size = New System.Drawing.Size(270, 88)
+        Me.pnlAyudaBtnDeshacer.TabIndex = 195
+        Me.pnlAyudaBtnDeshacer.Visible = False
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.Location = New System.Drawing.Point(47, 10)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(210, 66)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "Vuelve a cargar los horarios desde la base de datos"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'frmAdminHorarios
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.lblTapaMaterias)
+        Me.Controls.Add(Me.pnlAyudaBtnDeshacer)
         Me.Controls.Add(lblTitulo)
         Me.Controls.Add(Me.lblSeleccioneGrupo)
-        Me.Controls.Add(Me.lblTapaMaterias)
         Me.Controls.Add(Me.pnlBordeOculto)
         Me.Controls.Add(Me.pnlOcultarExtra)
         Me.Controls.Add(Me.btnDeshacer)
@@ -1282,6 +1311,7 @@ Partial Class frmAdminHorarios
         Me.pnlFondo.PerformLayout()
         CType(Me.btnDeshacer, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlAyudaBtnDeshacer.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1374,5 +1404,7 @@ Partial Class frmAdminHorarios
     Friend WithEvents dialogoEspere As System.Windows.Forms.Panel
     Friend WithEvents pnlFondo As System.Windows.Forms.Panel
     Friend WithEvents lblEspere As System.Windows.Forms.Label
+    Friend WithEvents pnlAyudaBtnDeshacer As System.Windows.Forms.Panel
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 
 End Class

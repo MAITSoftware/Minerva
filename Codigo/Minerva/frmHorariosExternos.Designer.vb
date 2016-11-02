@@ -28,8 +28,14 @@ Partial Class frmHorariosExternos
         Me.btnAceptar = New System.Windows.Forms.PictureBox()
         Me.btnGuardarPdf = New System.Windows.Forms.PictureBox()
         Me.Grilla = New Minerva.frmVistaGrilla()
+        Me.pnlAyudabtnGuardarPdf = New System.Windows.Forms.Panel()
+        Me.lblCantidadUsuariosAprobacion = New System.Windows.Forms.Label()
+        Me.pnlAyudabtnAceptar = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
         CType(Me.btnAceptar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnGuardarPdf, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlAyudabtnGuardarPdf.SuspendLayout()
+        Me.pnlAyudabtnAceptar.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblHorario
@@ -70,7 +76,7 @@ Partial Class frmHorariosExternos
         Me.btnAceptar.BackgroundImage = Global.Minerva.My.Resources.Resources.unfullscreen_normal
         Me.btnAceptar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnAceptar.Location = New System.Drawing.Point(1180, 9)
+        Me.btnAceptar.Location = New System.Drawing.Point(1166, 9)
         Me.btnAceptar.Name = "btnAceptar"
         Me.btnAceptar.Size = New System.Drawing.Size(60, 60)
         Me.btnAceptar.TabIndex = 135
@@ -101,11 +107,63 @@ Partial Class frmHorariosExternos
         Me.Grilla.TabIndex = 2
         Me.Grilla.TabStop = False
         '
+        'pnlAyudabtnGuardarPdf
+        '
+        Me.pnlAyudabtnGuardarPdf.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlAyudabtnGuardarPdf.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.pnlAyudabtnGuardarPdf.BackgroundImage = Global.Minerva.My.Resources.Resources.dialogo_arriba
+        Me.pnlAyudabtnGuardarPdf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.pnlAyudabtnGuardarPdf.Controls.Add(Me.lblCantidadUsuariosAprobacion)
+        Me.pnlAyudabtnGuardarPdf.Location = New System.Drawing.Point(915, 75)
+        Me.pnlAyudabtnGuardarPdf.Name = "pnlAyudabtnGuardarPdf"
+        Me.pnlAyudabtnGuardarPdf.Size = New System.Drawing.Size(291, 100)
+        Me.pnlAyudabtnGuardarPdf.TabIndex = 136
+        Me.pnlAyudabtnGuardarPdf.Visible = False
+        '
+        'lblCantidadUsuariosAprobacion
+        '
+        Me.lblCantidadUsuariosAprobacion.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.lblCantidadUsuariosAprobacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.lblCantidadUsuariosAprobacion.ForeColor = System.Drawing.Color.White
+        Me.lblCantidadUsuariosAprobacion.Location = New System.Drawing.Point(8, 28)
+        Me.lblCantidadUsuariosAprobacion.Name = "lblCantidadUsuariosAprobacion"
+        Me.lblCantidadUsuariosAprobacion.Size = New System.Drawing.Size(278, 67)
+        Me.lblCantidadUsuariosAprobacion.TabIndex = 0
+        Me.lblCantidadUsuariosAprobacion.Text = "Guardar horarios (grilla) a archivo PDF"
+        Me.lblCantidadUsuariosAprobacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'pnlAyudabtnAceptar
+        '
+        Me.pnlAyudabtnAceptar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlAyudabtnAceptar.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.pnlAyudabtnAceptar.BackgroundImage = Global.Minerva.My.Resources.Resources.dialogo_arriba
+        Me.pnlAyudabtnAceptar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.pnlAyudabtnAceptar.Controls.Add(Me.Label1)
+        Me.pnlAyudabtnAceptar.Location = New System.Drawing.Point(990, 75)
+        Me.pnlAyudabtnAceptar.Name = "pnlAyudabtnAceptar"
+        Me.pnlAyudabtnAceptar.Size = New System.Drawing.Size(291, 100)
+        Me.pnlAyudabtnAceptar.TabIndex = 137
+        Me.pnlAyudabtnAceptar.Visible = False
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.Location = New System.Drawing.Point(8, 28)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(278, 67)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "Salir de pantalla completa y volver a Minerva"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'frmHorariosExternos
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1280, 720)
+        Me.Controls.Add(Me.pnlAyudabtnAceptar)
+        Me.Controls.Add(Me.pnlAyudabtnGuardarPdf)
         Me.Controls.Add(Me.btnAceptar)
         Me.Controls.Add(Me.btnGuardarPdf)
         Me.Controls.Add(Me.cboGrupo)
@@ -121,6 +179,8 @@ Partial Class frmHorariosExternos
         Me.Text = "frmHorariosExternos"
         CType(Me.btnAceptar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnGuardarPdf, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlAyudabtnGuardarPdf.ResumeLayout(False)
+        Me.pnlAyudabtnAceptar.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -131,4 +191,8 @@ Partial Class frmHorariosExternos
     Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
     Friend WithEvents btnGuardarPdf As System.Windows.Forms.PictureBox
     Friend WithEvents btnAceptar As System.Windows.Forms.PictureBox
+    Friend WithEvents pnlAyudabtnGuardarPdf As System.Windows.Forms.Panel
+    Friend WithEvents lblCantidadUsuariosAprobacion As System.Windows.Forms.Label
+    Friend WithEvents pnlAyudabtnAceptar As System.Windows.Forms.Panel
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 End Class

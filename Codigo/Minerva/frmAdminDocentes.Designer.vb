@@ -64,6 +64,10 @@ Partial Class frmAdminDocentes
         Me.btnAgregarAsignatura = New System.Windows.Forms.PictureBox()
         Me.numGrado = New System.Windows.Forms.NumericUpDown()
         Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
+        Me.pnlAyudabtnEliminarAsignatura = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.pnlAyudabtnAgregarAsignatura = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
         lblDocentes = New System.Windows.Forms.Label()
         lblTitulo = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
@@ -74,6 +78,8 @@ Partial Class frmAdminDocentes
         CType(Me.btnAgregarAsignatura, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numGrado, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlAyudabtnEliminarAsignatura.SuspendLayout()
+        Me.pnlAyudabtnAgregarAsignatura.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblDocentes
@@ -496,7 +502,7 @@ Partial Class frmAdminDocentes
         Me.btnAgregarAsignatura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.btnAgregarAsignatura.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnAgregarAsignatura.Enabled = False
-        Me.btnAgregarAsignatura.Location = New System.Drawing.Point(608, 387)
+        Me.btnAgregarAsignatura.Location = New System.Drawing.Point(608, 376)
         Me.btnAgregarAsignatura.Name = "btnAgregarAsignatura"
         Me.btnAgregarAsignatura.Size = New System.Drawing.Size(25, 25)
         Me.btnAgregarAsignatura.TabIndex = 119
@@ -524,10 +530,62 @@ Partial Class frmAdminDocentes
         Me.imgLogoMAITs.TabIndex = 122
         Me.imgLogoMAITs.TabStop = False
         '
+        'pnlAyudabtnEliminarAsignatura
+        '
+        Me.pnlAyudabtnEliminarAsignatura.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlAyudabtnEliminarAsignatura.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.pnlAyudabtnEliminarAsignatura.BackgroundImage = Global.Minerva.My.Resources.Resources.dialogo_izquierda
+        Me.pnlAyudabtnEliminarAsignatura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.pnlAyudabtnEliminarAsignatura.Controls.Add(Me.Label1)
+        Me.pnlAyudabtnEliminarAsignatura.Location = New System.Drawing.Point(290, 360)
+        Me.pnlAyudabtnEliminarAsignatura.Name = "pnlAyudabtnEliminarAsignatura"
+        Me.pnlAyudabtnEliminarAsignatura.Size = New System.Drawing.Size(246, 71)
+        Me.pnlAyudabtnEliminarAsignatura.TabIndex = 132
+        Me.pnlAyudabtnEliminarAsignatura.Visible = False
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.Location = New System.Drawing.Point(42, 7)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(194, 53)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "Elimina la asignatura seleccionada"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'pnlAyudabtnAgregarAsignatura
+        '
+        Me.pnlAyudabtnAgregarAsignatura.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlAyudabtnAgregarAsignatura.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.pnlAyudabtnAgregarAsignatura.BackgroundImage = Global.Minerva.My.Resources.Resources.dialogo_derecha
+        Me.pnlAyudabtnAgregarAsignatura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.pnlAyudabtnAgregarAsignatura.Controls.Add(Me.Label2)
+        Me.pnlAyudabtnAgregarAsignatura.Location = New System.Drawing.Point(357, 363)
+        Me.pnlAyudabtnAgregarAsignatura.Name = "pnlAyudabtnAgregarAsignatura"
+        Me.pnlAyudabtnAgregarAsignatura.Size = New System.Drawing.Size(246, 71)
+        Me.pnlAyudabtnAgregarAsignatura.TabIndex = 133
+        Me.pnlAyudabtnAgregarAsignatura.Visible = False
+        '
+        'Label2
+        '
+        Me.Label2.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.Label2.ForeColor = System.Drawing.Color.White
+        Me.Label2.Location = New System.Drawing.Point(16, 9)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(194, 53)
+        Me.Label2.TabIndex = 0
+        Me.Label2.Text = "Limpia las selecciones de las listas"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'frmAdminDocentes
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.pnlAyudabtnAgregarAsignatura)
+        Me.Controls.Add(Me.pnlAyudabtnEliminarAsignatura)
         Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.numGrado)
         Me.Controls.Add(Me.lblAsignaturas)
@@ -567,6 +625,8 @@ Partial Class frmAdminDocentes
         CType(Me.btnAgregarAsignatura, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numGrado, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlAyudabtnEliminarAsignatura.ResumeLayout(False)
+        Me.pnlAyudabtnAgregarAsignatura.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -610,5 +670,9 @@ Partial Class frmAdminDocentes
     Friend WithEvents numGrado As System.Windows.Forms.NumericUpDown
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
     Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
+    Friend WithEvents pnlAyudabtnEliminarAsignatura As System.Windows.Forms.Panel
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents pnlAyudabtnAgregarAsignatura As System.Windows.Forms.Panel
+    Friend WithEvents Label2 As System.Windows.Forms.Label
 
 End Class

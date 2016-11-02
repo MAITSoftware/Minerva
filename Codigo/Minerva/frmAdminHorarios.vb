@@ -29,7 +29,6 @@
         InitializeComponent()
 
         ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
-        Call New ToolTip().SetToolTip(btnDeshacer, "Recargar horarios desde base de datos")
     End Sub
 
     Public Sub Materia_MouseDown(sender As Object, e As MouseEventArgs)
@@ -122,7 +121,6 @@
         Dim DB As New BaseDeDatos()
         DB.cargarGrupos_frmAdminHorarios(Me)
         cmbGrupo.Focus()
-        Call New ToolTip().SetToolTip(btnDeshacer, "Carga los horarios desde la base de datos (elimina las modificaciones)")
     End Sub
 
     Private Sub cmbGrupo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbGrupo.SelectedIndexChanged
@@ -207,11 +205,13 @@
     Private Sub btnDeshacer_Leave(sender As Object, e As EventArgs) Handles btnDeshacer.MouseLeave
         ' al dejar el botón btnDeshacer cambiar la imagen
         btnDeshacer.BackgroundImage = My.Resources.cancelar_normal()
+        pnlAyudaBtnDeshacer.Visible = False
     End Sub
 
     Private Sub btnDeshacer_Enter(sender As Object, e As EventArgs) Handles btnDeshacer.MouseEnter
         ' al entrar a el botón btnDeshacer cambiar la imagen
         btnDeshacer.BackgroundImage = My.Resources.cancelar_hover()
+        pnlAyudaBtnDeshacer.Visible = True
     End Sub
 
 End Class
