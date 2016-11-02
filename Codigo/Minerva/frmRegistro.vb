@@ -43,14 +43,6 @@
         txtUsuario.Focus()
     End Sub
 
-    Private Sub txtUsuario_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtUsuario.KeyPress
-        ' al escribir espacio en txtUsuario, suena una alerta
-        If e.KeyChar = " " Then
-            My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)
-            e.Handled = True
-        End If
-    End Sub
-
     Private Sub lblIngreseContraseña_Click(sender As Object, e As EventArgs) Handles lblIngreseContraseña.Click
         ' Al clickear el lblIngrseContraseña (placeholder) dar focus a txtContraseña
         txtContraseña.Text = ""
@@ -62,17 +54,14 @@
         timerAnimacion.Start()
     End Sub
 
-    Private Sub txtUsuario_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtUsuario.KeyPress
-       ' Al escribir un caracter que no sea número lo ignora.
-        If Not Char.IsNumber(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
-            e.KeyChar = ""
-            My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)
-        End If
-    End Sub
 
     Private Sub EnterClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtUsuario.KeyDown, txtContraseña.KeyDown
+        If Not Char.IsDigit(Chr(e.KeyValue)) And sender Is txtUsuario Then
+            e.SuppressKeyPress = True
+        End If
         If e.KeyCode.Equals(Keys.Enter) Then
             btnEntrar.PerformClick()
+            e.SuppressKeyPress = True
         End If
     End Sub
 
@@ -81,5 +70,4 @@
         Dim DB As New BaseDeDatos()
         DB.Registro_frmRegistro(Me)
     End Sub
-
 End Class

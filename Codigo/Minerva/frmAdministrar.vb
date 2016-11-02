@@ -35,7 +35,7 @@
             btnUsuarios.Visible = True
         ElseIf tipoUsuario.Equals("Adscripto") Then
             btnSalones.Visible = True
-            btnGrupos.Visible = True
+            btnGrupos.Visible = False
             btnDocentes.Visible = False
             btnHorarios.Visible = False
             btnUsuarios.Visible = False
@@ -142,7 +142,7 @@
 
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño()
-        pnlTrabajo = New frmAdminGrupos(frmMain, Me.tipoUsuario)
+        pnlTrabajo = New frmAdminGrupos(frmMain)
         Me.Size = New Point(1024, 575)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)

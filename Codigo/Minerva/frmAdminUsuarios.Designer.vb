@@ -41,6 +41,7 @@ Partial Class frmAdminUsuarios
         Me.radFuncionario = New System.Windows.Forms.RadioButton()
         Me.radAdministrador = New System.Windows.Forms.RadioButton()
         Me.grpTipoCuenta = New System.Windows.Forms.GroupBox()
+        Me.radAdscripto = New System.Windows.Forms.RadioButton()
         Me.btnAgregar = New System.Windows.Forms.Button()
         Me.btnCancelar = New System.Windows.Forms.Button()
         Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
@@ -48,7 +49,6 @@ Partial Class frmAdminUsuarios
         Me.txtNombre = New System.Windows.Forms.TextBox()
         Me.lblApellido = New System.Windows.Forms.Label()
         Me.txtApellido = New System.Windows.Forms.TextBox()
-        Me.radAdscripto = New System.Windows.Forms.RadioButton()
         lblTitulo = New System.Windows.Forms.Label()
         lblUsuarios = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
@@ -209,6 +209,7 @@ Partial Class frmAdminUsuarios
         Me.txtID.Location = New System.Drawing.Point(25, 166)
         Me.txtID.MaxLength = 8
         Me.txtID.Name = "txtID"
+        Me.txtID.ShortcutsEnabled = False
         Me.txtID.Size = New System.Drawing.Size(214, 34)
         Me.txtID.TabIndex = 0
         '
@@ -284,6 +285,18 @@ Partial Class frmAdminUsuarios
         Me.grpTipoCuenta.TabStop = False
         Me.grpTipoCuenta.Text = "Tipo de cuenta"
         '
+        'radAdscripto
+        '
+        Me.radAdscripto.AutoSize = True
+        Me.radAdscripto.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.radAdscripto.ForeColor = System.Drawing.Color.PaleGreen
+        Me.radAdscripto.Location = New System.Drawing.Point(32, 112)
+        Me.radAdscripto.Name = "radAdscripto"
+        Me.radAdscripto.Size = New System.Drawing.Size(119, 31)
+        Me.radAdscripto.TabIndex = 2
+        Me.radAdscripto.Text = "Adscripto"
+        Me.radAdscripto.UseVisualStyleBackColor = True
+        '
         'btnAgregar
         '
         Me.btnAgregar.AutoSize = True
@@ -356,18 +369,6 @@ Partial Class frmAdminUsuarios
         Me.txtApellido.Name = "txtApellido"
         Me.txtApellido.Size = New System.Drawing.Size(214, 34)
         Me.txtApellido.TabIndex = 3
-        '
-        'radAdscripto
-        '
-        Me.radAdscripto.AutoSize = True
-        Me.radAdscripto.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.radAdscripto.ForeColor = System.Drawing.Color.PaleGreen
-        Me.radAdscripto.Location = New System.Drawing.Point(32, 112)
-        Me.radAdscripto.Name = "radAdscripto"
-        Me.radAdscripto.Size = New System.Drawing.Size(119, 31)
-        Me.radAdscripto.TabIndex = 2
-        Me.radAdscripto.Text = "Adscripto"
-        Me.radAdscripto.UseVisualStyleBackColor = True
         '
         'frmAdminUsuarios
         '

@@ -158,6 +158,7 @@ Partial Class frmAdminDocentes
         Me.txtCI.Location = New System.Drawing.Point(32, 142)
         Me.txtCI.MaxLength = 8
         Me.txtCI.Name = "txtCI"
+        Me.txtCI.ShortcutsEnabled = False
         Me.txtCI.Size = New System.Drawing.Size(111, 34)
         Me.txtCI.TabIndex = 0
         '

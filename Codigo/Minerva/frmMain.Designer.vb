@@ -27,6 +27,8 @@ Partial Class frmMain
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.pnlInfoCurso = New System.Windows.Forms.Panel()
         Me.pnlDatosGrupo = New System.Windows.Forms.Panel()
+        Me.lblValorTipoAdscripto = New System.Windows.Forms.Label()
+        Me.lblAdscripto = New System.Windows.Forms.Label()
         Me.lblValorTipoGrado = New System.Windows.Forms.Label()
         Me.lblCurso = New System.Windows.Forms.Label()
         Me.lblGrado = New System.Windows.Forms.Label()
@@ -42,6 +44,7 @@ Partial Class frmMain
         Me.lblNomGrupo = New System.Windows.Forms.Label()
         Me.lblSeleccioneGrupo2 = New System.Windows.Forms.Label()
         Me.pnlFiltro = New System.Windows.Forms.Panel()
+        Me.alertaUsuarios = New System.Windows.Forms.PictureBox()
         Me.imgLogo = New System.Windows.Forms.PictureBox()
         Me.lblUsuario = New System.Windows.Forms.Label()
         Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
@@ -56,40 +59,39 @@ Partial Class frmMain
         Me.lblSeleccioneGrupo = New System.Windows.Forms.Label()
         Me.timerDatosUsuario = New System.Windows.Forms.Timer(Me.components)
         Me.timerbtnrefrescar = New System.Windows.Forms.Timer(Me.components)
-        Me.btnFullscreen = New System.Windows.Forms.PictureBox()
-        Me.btnVistaSemana = New System.Windows.Forms.PictureBox()
-        Me.btnVistaDias = New System.Windows.Forms.PictureBox()
-        Me.btnRefrescarHorarios = New System.Windows.Forms.PictureBox()
         Me.pnlHorarios = New System.Windows.Forms.Panel()
         Me.tblDias = New System.Windows.Forms.TableLayoutPanel()
-        Me.pnlBotonesHorarios = New System.Windows.Forms.Panel()
-        Me.btnGuardarPdf = New System.Windows.Forms.PictureBox()
         Me.Lunes = New Minerva.frmDia()
         Me.Martes = New Minerva.frmDia()
         Me.Miércoles = New Minerva.frmDia()
         Me.Sábado = New Minerva.frmDia()
         Me.Jueves = New Minerva.frmDia()
         Me.Viernes = New Minerva.frmDia()
+        Me.pnlBotonesHorarios = New System.Windows.Forms.Panel()
+        Me.btnGuardarPdf = New System.Windows.Forms.PictureBox()
+        Me.btnRefrescarHorarios = New System.Windows.Forms.PictureBox()
+        Me.btnVistaDias = New System.Windows.Forms.PictureBox()
+        Me.btnVistaSemana = New System.Windows.Forms.PictureBox()
+        Me.btnFullscreen = New System.Windows.Forms.PictureBox()
         Me.Grilla = New Minerva.frmVistaGrilla()
-        Me.lblValorTipoAdscripto = New System.Windows.Forms.Label()
-        Me.lblAdscripto = New System.Windows.Forms.Label()
         lblHorariosSemana = New System.Windows.Forms.Label()
         Me.pnlInfoCurso.SuspendLayout()
         Me.pnlDatosGrupo.SuspendLayout()
         Me.pnlMaterias.SuspendLayout()
         Me.pnlFiltro.SuspendLayout()
+        CType(Me.alertaUsuarios, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         CType(Me.btnRecargar, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btnFullscreen, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btnVistaSemana, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btnVistaDias, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btnRefrescarHorarios, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlHorarios.SuspendLayout()
         Me.tblDias.SuspendLayout()
         Me.pnlBotonesHorarios.SuspendLayout()
         CType(Me.btnGuardarPdf, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnRefrescarHorarios, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnVistaDias, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnVistaSemana, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnFullscreen, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblHorariosSemana
@@ -137,6 +139,28 @@ Partial Class frmMain
         Me.pnlDatosGrupo.Name = "pnlDatosGrupo"
         Me.pnlDatosGrupo.Size = New System.Drawing.Size(300, 157)
         Me.pnlDatosGrupo.TabIndex = 13
+        '
+        'lblValorTipoAdscripto
+        '
+        Me.lblValorTipoAdscripto.AutoSize = True
+        Me.lblValorTipoAdscripto.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValorTipoAdscripto.ForeColor = System.Drawing.SystemColors.AppWorkspace
+        Me.lblValorTipoAdscripto.Location = New System.Drawing.Point(151, 127)
+        Me.lblValorTipoAdscripto.Name = "lblValorTipoAdscripto"
+        Me.lblValorTipoAdscripto.Size = New System.Drawing.Size(79, 20)
+        Me.lblValorTipoAdscripto.TabIndex = 13
+        Me.lblValorTipoAdscripto.Text = "Sin definir"
+        '
+        'lblAdscripto
+        '
+        Me.lblAdscripto.AutoSize = True
+        Me.lblAdscripto.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblAdscripto.ForeColor = System.Drawing.Color.PaleGreen
+        Me.lblAdscripto.Location = New System.Drawing.Point(24, 125)
+        Me.lblAdscripto.Name = "lblAdscripto"
+        Me.lblAdscripto.Size = New System.Drawing.Size(121, 23)
+        Me.lblAdscripto.TabIndex = 12
+        Me.lblAdscripto.Text = "Adscripto (a):"
         '
         'lblValorTipoGrado
         '
@@ -304,6 +328,7 @@ Partial Class frmMain
         'pnlFiltro
         '
         Me.pnlFiltro.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.pnlFiltro.Controls.Add(Me.alertaUsuarios)
         Me.pnlFiltro.Controls.Add(Me.imgLogo)
         Me.pnlFiltro.Controls.Add(Me.lblUsuario)
         Me.pnlFiltro.Controls.Add(Me.imgLogoMAITs)
@@ -317,6 +342,16 @@ Partial Class frmMain
         Me.pnlFiltro.Name = "pnlFiltro"
         Me.pnlFiltro.Size = New System.Drawing.Size(964, 175)
         Me.pnlFiltro.TabIndex = 0
+        '
+        'alertaUsuarios
+        '
+        Me.alertaUsuarios.BackgroundImage = Global.Minerva.My.Resources.Resources.notificacion_10
+        Me.alertaUsuarios.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.alertaUsuarios.Location = New System.Drawing.Point(143, 43)
+        Me.alertaUsuarios.Name = "alertaUsuarios"
+        Me.alertaUsuarios.Size = New System.Drawing.Size(50, 50)
+        Me.alertaUsuarios.TabIndex = 130
+        Me.alertaUsuarios.TabStop = False
         '
         'imgLogo
         '
@@ -468,52 +503,6 @@ Partial Class frmMain
         '
         Me.timerbtnrefrescar.Interval = 1000
         '
-        'btnFullscreen
-        '
-        Me.btnFullscreen.BackgroundImage = Global.Minerva.My.Resources.Resources.fullscreen_normal
-        Me.btnFullscreen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnFullscreen.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnFullscreen.Location = New System.Drawing.Point(99, 15)
-        Me.btnFullscreen.Name = "btnFullscreen"
-        Me.btnFullscreen.Size = New System.Drawing.Size(30, 30)
-        Me.btnFullscreen.TabIndex = 134
-        Me.btnFullscreen.TabStop = False
-        Me.btnFullscreen.Visible = False
-        '
-        'btnVistaSemana
-        '
-        Me.btnVistaSemana.BackgroundImage = Global.Minerva.My.Resources.Resources.semana_normal
-        Me.btnVistaSemana.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnVistaSemana.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnVistaSemana.Location = New System.Drawing.Point(217, 8)
-        Me.btnVistaSemana.Name = "btnVistaSemana"
-        Me.btnVistaSemana.Size = New System.Drawing.Size(45, 45)
-        Me.btnVistaSemana.TabIndex = 132
-        Me.btnVistaSemana.TabStop = False
-        '
-        'btnVistaDias
-        '
-        Me.btnVistaDias.BackgroundImage = Global.Minerva.My.Resources.Resources.dia_seleccionado
-        Me.btnVistaDias.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnVistaDias.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnVistaDias.Enabled = False
-        Me.btnVistaDias.Location = New System.Drawing.Point(166, 8)
-        Me.btnVistaDias.Name = "btnVistaDias"
-        Me.btnVistaDias.Size = New System.Drawing.Size(45, 45)
-        Me.btnVistaDias.TabIndex = 131
-        Me.btnVistaDias.TabStop = False
-        '
-        'btnRefrescarHorarios
-        '
-        Me.btnRefrescarHorarios.BackgroundImage = Global.Minerva.My.Resources.Resources.refrescar_normal
-        Me.btnRefrescarHorarios.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnRefrescarHorarios.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnRefrescarHorarios.Location = New System.Drawing.Point(135, 18)
-        Me.btnRefrescarHorarios.Name = "btnRefrescarHorarios"
-        Me.btnRefrescarHorarios.Size = New System.Drawing.Size(25, 25)
-        Me.btnRefrescarHorarios.TabIndex = 130
-        Me.btnRefrescarHorarios.TabStop = False
-        '
         'pnlHorarios
         '
         Me.pnlHorarios.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -557,33 +546,6 @@ Partial Class frmMain
         Me.tblDias.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.125!))
         Me.tblDias.Size = New System.Drawing.Size(924, 438)
         Me.tblDias.TabIndex = 136
-        '
-        'pnlBotonesHorarios
-        '
-        Me.pnlBotonesHorarios.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.pnlBotonesHorarios.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
-        Me.pnlBotonesHorarios.Controls.Add(Me.btnGuardarPdf)
-        Me.pnlBotonesHorarios.Controls.Add(Me.btnRefrescarHorarios)
-        Me.pnlBotonesHorarios.Controls.Add(Me.btnVistaDias)
-        Me.pnlBotonesHorarios.Controls.Add(Me.btnVistaSemana)
-        Me.pnlBotonesHorarios.Controls.Add(Me.btnFullscreen)
-        Me.pnlBotonesHorarios.Location = New System.Drawing.Point(693, 0)
-        Me.pnlBotonesHorarios.Name = "pnlBotonesHorarios"
-        Me.pnlBotonesHorarios.Size = New System.Drawing.Size(265, 59)
-        Me.pnlBotonesHorarios.TabIndex = 135
-        '
-        'btnGuardarPdf
-        '
-        Me.btnGuardarPdf.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnGuardarPdf.BackgroundImage = Global.Minerva.My.Resources.Resources.guardar_como_pdf_normal
-        Me.btnGuardarPdf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.btnGuardarPdf.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnGuardarPdf.Location = New System.Drawing.Point(40, 8)
-        Me.btnGuardarPdf.Name = "btnGuardarPdf"
-        Me.btnGuardarPdf.Size = New System.Drawing.Size(53, 45)
-        Me.btnGuardarPdf.TabIndex = 135
-        Me.btnGuardarPdf.TabStop = False
-        Me.btnGuardarPdf.Visible = False
         '
         'Lunes
         '
@@ -658,6 +620,79 @@ Partial Class frmMain
         Me.Viernes.TabIndex = 7
         Me.Viernes.TabStop = False
         '
+        'pnlBotonesHorarios
+        '
+        Me.pnlBotonesHorarios.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlBotonesHorarios.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.pnlBotonesHorarios.Controls.Add(Me.btnGuardarPdf)
+        Me.pnlBotonesHorarios.Controls.Add(Me.btnRefrescarHorarios)
+        Me.pnlBotonesHorarios.Controls.Add(Me.btnVistaDias)
+        Me.pnlBotonesHorarios.Controls.Add(Me.btnVistaSemana)
+        Me.pnlBotonesHorarios.Controls.Add(Me.btnFullscreen)
+        Me.pnlBotonesHorarios.Location = New System.Drawing.Point(693, 0)
+        Me.pnlBotonesHorarios.Name = "pnlBotonesHorarios"
+        Me.pnlBotonesHorarios.Size = New System.Drawing.Size(265, 59)
+        Me.pnlBotonesHorarios.TabIndex = 135
+        '
+        'btnGuardarPdf
+        '
+        Me.btnGuardarPdf.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnGuardarPdf.BackgroundImage = Global.Minerva.My.Resources.Resources.guardar_como_pdf_normal
+        Me.btnGuardarPdf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btnGuardarPdf.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnGuardarPdf.Location = New System.Drawing.Point(40, 8)
+        Me.btnGuardarPdf.Name = "btnGuardarPdf"
+        Me.btnGuardarPdf.Size = New System.Drawing.Size(53, 45)
+        Me.btnGuardarPdf.TabIndex = 135
+        Me.btnGuardarPdf.TabStop = False
+        Me.btnGuardarPdf.Visible = False
+        '
+        'btnRefrescarHorarios
+        '
+        Me.btnRefrescarHorarios.BackgroundImage = Global.Minerva.My.Resources.Resources.refrescar_normal
+        Me.btnRefrescarHorarios.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnRefrescarHorarios.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnRefrescarHorarios.Location = New System.Drawing.Point(135, 18)
+        Me.btnRefrescarHorarios.Name = "btnRefrescarHorarios"
+        Me.btnRefrescarHorarios.Size = New System.Drawing.Size(25, 25)
+        Me.btnRefrescarHorarios.TabIndex = 130
+        Me.btnRefrescarHorarios.TabStop = False
+        '
+        'btnVistaDias
+        '
+        Me.btnVistaDias.BackgroundImage = Global.Minerva.My.Resources.Resources.dia_seleccionado
+        Me.btnVistaDias.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnVistaDias.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnVistaDias.Enabled = False
+        Me.btnVistaDias.Location = New System.Drawing.Point(166, 8)
+        Me.btnVistaDias.Name = "btnVistaDias"
+        Me.btnVistaDias.Size = New System.Drawing.Size(45, 45)
+        Me.btnVistaDias.TabIndex = 131
+        Me.btnVistaDias.TabStop = False
+        '
+        'btnVistaSemana
+        '
+        Me.btnVistaSemana.BackgroundImage = Global.Minerva.My.Resources.Resources.semana_normal
+        Me.btnVistaSemana.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnVistaSemana.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnVistaSemana.Location = New System.Drawing.Point(217, 8)
+        Me.btnVistaSemana.Name = "btnVistaSemana"
+        Me.btnVistaSemana.Size = New System.Drawing.Size(45, 45)
+        Me.btnVistaSemana.TabIndex = 132
+        Me.btnVistaSemana.TabStop = False
+        '
+        'btnFullscreen
+        '
+        Me.btnFullscreen.BackgroundImage = Global.Minerva.My.Resources.Resources.fullscreen_normal
+        Me.btnFullscreen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnFullscreen.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnFullscreen.Location = New System.Drawing.Point(99, 15)
+        Me.btnFullscreen.Name = "btnFullscreen"
+        Me.btnFullscreen.Size = New System.Drawing.Size(30, 30)
+        Me.btnFullscreen.TabIndex = 134
+        Me.btnFullscreen.TabStop = False
+        Me.btnFullscreen.Visible = False
+        '
         'Grilla
         '
         Me.Grilla.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -670,28 +705,6 @@ Partial Class frmMain
         Me.Grilla.TabIndex = 133
         Me.Grilla.TabStop = False
         Me.Grilla.Visible = False
-        '
-        'lblValorTipoAdscripto
-        '
-        Me.lblValorTipoAdscripto.AutoSize = True
-        Me.lblValorTipoAdscripto.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValorTipoAdscripto.ForeColor = System.Drawing.SystemColors.AppWorkspace
-        Me.lblValorTipoAdscripto.Location = New System.Drawing.Point(151, 127)
-        Me.lblValorTipoAdscripto.Name = "lblValorTipoAdscripto"
-        Me.lblValorTipoAdscripto.Size = New System.Drawing.Size(79, 20)
-        Me.lblValorTipoAdscripto.TabIndex = 13
-        Me.lblValorTipoAdscripto.Text = "Sin definir"
-        '
-        'lblAdscripto
-        '
-        Me.lblAdscripto.AutoSize = True
-        Me.lblAdscripto.Font = New System.Drawing.Font("Candara", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAdscripto.ForeColor = System.Drawing.Color.PaleGreen
-        Me.lblAdscripto.Location = New System.Drawing.Point(24, 125)
-        Me.lblAdscripto.Name = "lblAdscripto"
-        Me.lblAdscripto.Size = New System.Drawing.Size(121, 23)
-        Me.lblAdscripto.TabIndex = 12
-        Me.lblAdscripto.Text = "Adscripto (a):"
         '
         'frmMain
         '
@@ -714,20 +727,21 @@ Partial Class frmMain
         Me.pnlMaterias.PerformLayout()
         Me.pnlFiltro.ResumeLayout(False)
         Me.pnlFiltro.PerformLayout()
+        CType(Me.alertaUsuarios, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgLogo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         CType(Me.btnRecargar, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btnFullscreen, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btnVistaSemana, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btnVistaDias, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btnRefrescarHorarios, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlHorarios.ResumeLayout(False)
         Me.pnlHorarios.PerformLayout()
         Me.tblDias.ResumeLayout(False)
         Me.tblDias.PerformLayout()
         Me.pnlBotonesHorarios.ResumeLayout(False)
         CType(Me.btnGuardarPdf, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnRefrescarHorarios, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnVistaDias, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnVistaSemana, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnFullscreen, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -779,5 +793,6 @@ Partial Class frmMain
     Friend WithEvents btnGuardarPdf As System.Windows.Forms.PictureBox
     Friend WithEvents lblValorTipoAdscripto As System.Windows.Forms.Label
     Friend WithEvents lblAdscripto As System.Windows.Forms.Label
+    Friend WithEvents alertaUsuarios As System.Windows.Forms.PictureBox
 
 End Class

@@ -201,11 +201,10 @@
         End If
     End Sub
 
-    Private Sub txtID_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtID.KeyPress
+    Private Sub txtID_TextChanged(t As Object, e As KeyPressEventArgs) Handles txtID.KeyPress, txtID.TextChanged
         ' Al escribir un caracter que no sea número lo ignora.
-        If Not Char.IsNumber(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+        If Not Char.IsNumber(e.KeyChar) AndAlso Not e.KeyChar = ChrW(Keys.Return) AndAlso Not e.KeyChar = ChrW(Keys.Tab) Then
             e.KeyChar = ""
-            My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)
         End If
     End Sub
 

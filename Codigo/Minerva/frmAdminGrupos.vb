@@ -7,12 +7,10 @@
     Friend frmMain As frmMain
     Dim editando As Boolean = False
     Dim previsualizando As Boolean = False
-    Dim tipoUsuario As String
 
-    Public Sub New(ByVal frmMain As frmMain, ByVal tipoUsuario As String)
+    Public Sub New(ByVal frmMain As frmMain)
         InitializeComponent()
         Me.frmMain = frmMain
-        Me.tipoUsuario = tipoUsuario
     End Sub
 
     Private Sub frmAdminGrupos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -74,10 +72,6 @@
         btnEliminar.Cursor = btnEliminarPlantilla.Cursor
         btnEliminar.TabStop = False
 
-        If Me.tipoUsuario.Equals("Adscripto") Then
-            btnEliminar.Visible = False
-        End If
-
         btnEliminar.Tag = {NroGrupo, idTexto, nombreTurno}
         AddHandler btnEliminar.Click, AddressOf eliminarGrupo
 
@@ -133,11 +127,6 @@
 
     Private Sub checkDatos()
         ' Comprueba los datos y en caso de que no falte ninguno, llama a actualizarDB()
-        If Me.tipoUsuario.Equals("Adscripto") And Not editando Then
-            MessageBox.Show("Oops!" & vbCrLf & "Solo los administradores y funcionarios pueden hacer eso...", "Acceso denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return
-        End If
-
         If String.IsNullOrWhiteSpace(txtIDGrupo.Text) Then
             MessageBox.Show("Debe ingresar un ID de grupo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return

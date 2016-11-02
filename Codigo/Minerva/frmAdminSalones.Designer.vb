@@ -112,6 +112,7 @@ Partial Class frmAdminSalones
         Me.txtIDSalon.Location = New System.Drawing.Point(26, 161)
         Me.txtIDSalon.MaxLength = 2
         Me.txtIDSalon.Name = "txtIDSalon"
+        Me.txtIDSalon.ShortcutsEnabled = False
         Me.txtIDSalon.Size = New System.Drawing.Size(114, 34)
         Me.txtIDSalon.TabIndex = 0
         Me.txtIDSalon.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
