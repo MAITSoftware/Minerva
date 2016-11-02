@@ -82,10 +82,16 @@
         pnlTemporal.Controls.Add(btnEliminar)
         pnlTemporal.Controls.Add(btnSalon)
 
+        AddHandler pnlTemporal.MouseEnter, AddressOf fixScroll
+        AddHandler pnlTemporal.MouseWheel, AddressOf fixScroll
         pnlSalones.Controls.Add(pnlTemporal)
 
         totalSalones += 1
         lblCantidadSalones.Text = "(" + totalSalones.ToString() + ")"
+    End Sub
+
+    Private Sub fixScroll(sender As Object, e As Object)
+        pnlSalones.Focus()
     End Sub
 
     Private Sub editarSalon(ByVal sender As System.Object, ByVal e As System.EventArgs)

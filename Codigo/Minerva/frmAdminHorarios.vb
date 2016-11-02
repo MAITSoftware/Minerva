@@ -72,6 +72,8 @@
                 x.BackColor = Color.White
                 x.TabStop = False
                 AddHandler x.MouseDown, AddressOf Materia_MouseDown
+                AddHandler x.MouseEnter, AddressOf fixScroll
+                AddHandler x.MouseWheel, AddressOf fixScroll
                 sender.Controls.Add(x)
             Else
                 If c.Text = "Sin asignar" Or c.Tag Is {"-1", "-1"} Then
@@ -81,6 +83,10 @@
                 sender.Controls.Add(c)
             End If
         End If
+    End Sub
+
+    Public Sub fixScroll(sender As Object, e As Object) Handles btnSinAsignar.MouseWheel, btnSinAsignar.MouseEnter
+        pnlMaterias.Focus()
     End Sub
 
     Private Sub pnl_DragOver(sender As Object, e As DragEventArgs)

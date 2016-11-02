@@ -63,19 +63,12 @@ Partial Class frmMain
         Me.timerbtnrefrescar = New System.Windows.Forms.Timer(Me.components)
         Me.pnlHorarios = New System.Windows.Forms.Panel()
         Me.tblDias = New System.Windows.Forms.TableLayoutPanel()
-        Me.Lunes = New Minerva.frmDia()
-        Me.Martes = New Minerva.frmDia()
-        Me.Miércoles = New Minerva.frmDia()
-        Me.Sábado = New Minerva.frmDia()
-        Me.Jueves = New Minerva.frmDia()
-        Me.Viernes = New Minerva.frmDia()
         Me.pnlBotonesHorarios = New System.Windows.Forms.Panel()
         Me.btnGuardarPdf = New System.Windows.Forms.PictureBox()
         Me.btnRefrescarHorarios = New System.Windows.Forms.PictureBox()
         Me.btnVistaDias = New System.Windows.Forms.PictureBox()
         Me.btnVistaSemana = New System.Windows.Forms.PictureBox()
         Me.btnFullscreen = New System.Windows.Forms.PictureBox()
-        Me.Grilla = New Minerva.frmVistaGrilla()
         Me.pnlAyudabtnVistaSemana = New System.Windows.Forms.Panel()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.pnlAyudabtnVistaDias = New System.Windows.Forms.Panel()
@@ -96,6 +89,13 @@ Partial Class frmMain
         Me.VespertinoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NocturnoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CursoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Lunes = New Minerva.frmDia()
+        Me.Martes = New Minerva.frmDia()
+        Me.Miércoles = New Minerva.frmDia()
+        Me.Sábado = New Minerva.frmDia()
+        Me.Jueves = New Minerva.frmDia()
+        Me.Viernes = New Minerva.frmDia()
+        Me.Grilla = New Minerva.frmVistaGrilla()
         lblHorariosSemana = New System.Windows.Forms.Label()
         Me.pnlInfoCurso.SuspendLayout()
         Me.pnlDatosGrupo.SuspendLayout()
@@ -610,79 +610,6 @@ Partial Class frmMain
         Me.tblDias.Size = New System.Drawing.Size(924, 428)
         Me.tblDias.TabIndex = 136
         '
-        'Lunes
-        '
-        Me.Lunes.AutoScroll = True
-        Me.Lunes.AutoSize = True
-        Me.Lunes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Lunes.BackColor = System.Drawing.Color.Transparent
-        Me.Lunes.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Lunes.Location = New System.Drawing.Point(3, 3)
-        Me.Lunes.Name = "Lunes"
-        Me.Lunes.Size = New System.Drawing.Size(282, 194)
-        Me.Lunes.TabIndex = 5
-        Me.Lunes.TabStop = False
-        '
-        'Martes
-        '
-        Me.Martes.AutoSize = True
-        Me.Martes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Martes.BackColor = System.Drawing.Color.Transparent
-        Me.Martes.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Martes.Location = New System.Drawing.Point(319, 3)
-        Me.Martes.Name = "Martes"
-        Me.Martes.Size = New System.Drawing.Size(282, 194)
-        Me.Martes.TabIndex = 4
-        Me.Martes.TabStop = False
-        '
-        'Miércoles
-        '
-        Me.Miércoles.AutoSize = True
-        Me.Miércoles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Miércoles.BackColor = System.Drawing.Color.Transparent
-        Me.Miércoles.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Miércoles.Location = New System.Drawing.Point(635, 3)
-        Me.Miércoles.Name = "Miércoles"
-        Me.Miércoles.Size = New System.Drawing.Size(286, 194)
-        Me.Miércoles.TabIndex = 3
-        Me.Miércoles.TabStop = False
-        '
-        'Sábado
-        '
-        Me.Sábado.AutoSize = True
-        Me.Sábado.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Sábado.BackColor = System.Drawing.Color.Transparent
-        Me.Sábado.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Sábado.Location = New System.Drawing.Point(635, 216)
-        Me.Sábado.Name = "Sábado"
-        Me.Sábado.Size = New System.Drawing.Size(286, 194)
-        Me.Sábado.TabIndex = 8
-        Me.Sábado.TabStop = False
-        '
-        'Jueves
-        '
-        Me.Jueves.AutoSize = True
-        Me.Jueves.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Jueves.BackColor = System.Drawing.Color.Transparent
-        Me.Jueves.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Jueves.Location = New System.Drawing.Point(3, 216)
-        Me.Jueves.Name = "Jueves"
-        Me.Jueves.Size = New System.Drawing.Size(282, 194)
-        Me.Jueves.TabIndex = 6
-        Me.Jueves.TabStop = False
-        '
-        'Viernes
-        '
-        Me.Viernes.AutoSize = True
-        Me.Viernes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Viernes.BackColor = System.Drawing.Color.Transparent
-        Me.Viernes.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Viernes.Location = New System.Drawing.Point(319, 216)
-        Me.Viernes.Name = "Viernes"
-        Me.Viernes.Size = New System.Drawing.Size(282, 194)
-        Me.Viernes.TabIndex = 7
-        Me.Viernes.TabStop = False
-        '
         'pnlBotonesHorarios
         '
         Me.pnlBotonesHorarios.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -755,19 +682,6 @@ Partial Class frmMain
         Me.btnFullscreen.TabIndex = 134
         Me.btnFullscreen.TabStop = False
         Me.btnFullscreen.Visible = False
-        '
-        'Grilla
-        '
-        Me.Grilla.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Grilla.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
-        Me.Grilla.Location = New System.Drawing.Point(37, 65)
-        Me.Grilla.Name = "Grilla"
-        Me.Grilla.Size = New System.Drawing.Size(923, 422)
-        Me.Grilla.TabIndex = 133
-        Me.Grilla.TabStop = False
-        Me.Grilla.Visible = False
         '
         'pnlAyudabtnVistaSemana
         '
@@ -982,11 +896,98 @@ Partial Class frmMain
         Me.CursoToolStripMenuItem.Size = New System.Drawing.Size(106, 22)
         Me.CursoToolStripMenuItem.Text = "Curso"
         '
+        'Lunes
+        '
+        Me.Lunes.AutoScroll = True
+        Me.Lunes.AutoSize = True
+        Me.Lunes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Lunes.BackColor = System.Drawing.Color.Transparent
+        Me.Lunes.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Lunes.Location = New System.Drawing.Point(3, 3)
+        Me.Lunes.Name = "Lunes"
+        Me.Lunes.Size = New System.Drawing.Size(282, 194)
+        Me.Lunes.TabIndex = 5
+        Me.Lunes.TabStop = False
+        '
+        'Martes
+        '
+        Me.Martes.AutoSize = True
+        Me.Martes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Martes.BackColor = System.Drawing.Color.Transparent
+        Me.Martes.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Martes.Location = New System.Drawing.Point(319, 3)
+        Me.Martes.Name = "Martes"
+        Me.Martes.Size = New System.Drawing.Size(282, 194)
+        Me.Martes.TabIndex = 4
+        Me.Martes.TabStop = False
+        '
+        'Miércoles
+        '
+        Me.Miércoles.AutoSize = True
+        Me.Miércoles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Miércoles.BackColor = System.Drawing.Color.Transparent
+        Me.Miércoles.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Miércoles.Location = New System.Drawing.Point(635, 3)
+        Me.Miércoles.Name = "Miércoles"
+        Me.Miércoles.Size = New System.Drawing.Size(286, 194)
+        Me.Miércoles.TabIndex = 3
+        Me.Miércoles.TabStop = False
+        '
+        'Sábado
+        '
+        Me.Sábado.AutoSize = True
+        Me.Sábado.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Sábado.BackColor = System.Drawing.Color.Transparent
+        Me.Sábado.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Sábado.Location = New System.Drawing.Point(635, 216)
+        Me.Sábado.Name = "Sábado"
+        Me.Sábado.Size = New System.Drawing.Size(286, 194)
+        Me.Sábado.TabIndex = 8
+        Me.Sábado.TabStop = False
+        '
+        'Jueves
+        '
+        Me.Jueves.AutoSize = True
+        Me.Jueves.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Jueves.BackColor = System.Drawing.Color.Transparent
+        Me.Jueves.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Jueves.Location = New System.Drawing.Point(3, 216)
+        Me.Jueves.Name = "Jueves"
+        Me.Jueves.Size = New System.Drawing.Size(282, 194)
+        Me.Jueves.TabIndex = 6
+        Me.Jueves.TabStop = False
+        '
+        'Viernes
+        '
+        Me.Viernes.AutoSize = True
+        Me.Viernes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Viernes.BackColor = System.Drawing.Color.Transparent
+        Me.Viernes.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Viernes.Location = New System.Drawing.Point(319, 216)
+        Me.Viernes.Name = "Viernes"
+        Me.Viernes.Size = New System.Drawing.Size(282, 194)
+        Me.Viernes.TabIndex = 7
+        Me.Viernes.TabStop = False
+        '
+        'Grilla
+        '
+        Me.Grilla.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Grilla.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Grilla.Location = New System.Drawing.Point(37, 65)
+        Me.Grilla.Name = "Grilla"
+        Me.Grilla.Size = New System.Drawing.Size(923, 422)
+        Me.Grilla.TabIndex = 133
+        Me.Grilla.TabStop = False
+        Me.Grilla.Visible = False
+        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1264, 681)
+        Me.Controls.Add(Me.pnlAyudaalertaAprobacion)
         Me.Controls.Add(Me.pnlAyudabtnVistaSemana)
         Me.Controls.Add(Me.pnlAyudabtnVistaDias)
         Me.Controls.Add(Me.pnlAyudabtnRefrescarHorarios)
@@ -996,7 +997,6 @@ Partial Class frmMain
         Me.Controls.Add(Me.pnlHorarios)
         Me.Controls.Add(Me.pnlHeader)
         Me.Controls.Add(Me.pnlInfoCurso)
-        Me.Controls.Add(Me.pnlAyudaalertaAprobacion)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmMain"

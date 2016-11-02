@@ -64,6 +64,8 @@
         btnEliminar.Tag = {ciDocente, txtDocente.Replace(ControlChars.NewLine, " ")}
         AddHandler btnEliminar.Click, AddressOf eliminarDocente
 
+        AddHandler pnlTemporal.MouseWheel, AddressOf fixScroll
+        AddHandler pnlTemporal.MouseEnter, AddressOf fixScroll
         pnlTemporal.Controls.Add(btnEditar)
         pnlTemporal.Controls.Add(btnEliminar)
         pnlTemporal.Controls.Add(btnDocente)
@@ -72,6 +74,10 @@
 
         totalDocentes += 1
         lblCantidadDocentes.Text = "(" + totalDocentes.ToString() + ")"
+    End Sub
+
+    Private Sub fixScroll(sender As Object, e As Object)
+        pnlDocentes.Focus()
     End Sub
 
     Public Sub mnuEditarDocente(ByVal sender As System.Object, ByVal e As MouseEventArgs) Handles btnEditarPlantilla.MouseUp

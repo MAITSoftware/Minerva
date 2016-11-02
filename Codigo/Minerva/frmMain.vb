@@ -6,7 +6,7 @@
     Friend Administrador As Boolean = False
     Friend vista As String = "Día"
     Dim frmHorariosExternos As New frmHorariosExternos(Me)
-    Dim tipoUsuario As String
+    Friend tipoUsuario As String
 
     Public Sub New(Optional ByVal invitado As Boolean = False, Optional ByVal usuario As String = Nothing, Optional ByVal tipoUsuario As String = "Funcionario")
         'inicia el programa, en caso de que sea invitado lo detecta
@@ -94,10 +94,8 @@
             timerDatosUsuario.Enabled = True
         End If
         Me.WindowState = FormWindowState.Maximized
-        If Me.tipoUsuario.Equals("Administrador") Then
-            Dim DB As New BaseDeDatos()
-            DB.contarAprobacion_frmMain(Me)
-        End If
+        Dim DB As New BaseDeDatos()
+        DB.contarAprobacion_frmMain(Me)
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
@@ -307,5 +305,9 @@
 
     Private Sub Button1_Click(sender As Object, e As MouseEventArgs) Handles Button1.MouseUp
         ContextMenuStrip1.Show(sender, New Point(e.X, e.Y))
+    End Sub
+
+    Private Sub pnlMaterias_MouseEnter(sender As Object, e As EventArgs) Handles tblMaterias.MouseWheel, tblMaterias.MouseEnter
+        pnlMaterias.Focus()
     End Sub
 End Class

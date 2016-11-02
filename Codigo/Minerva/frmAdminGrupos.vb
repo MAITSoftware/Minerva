@@ -82,7 +82,8 @@
             btnEditar.Text = "Editar" & vbCrLf & "salón"
             btnEditar.Height = btnGrupo.Height
         End If
-
+        AddHandler pnlTemporal.MouseWheel, AddressOf fixScroll
+        AddHandler pnlTemporal.MouseEnter, AddressOf fixScroll
         pnlTemporal.Controls.Add(btnEditar)
         pnlTemporal.Controls.Add(btnEliminar)
         pnlTemporal.Controls.Add(btnGrupo)
@@ -92,6 +93,10 @@
             totalGrupos += 1
             lblCantidadGrupos.Text = "(" + totalGrupos.ToString() + ")"
         End If
+    End Sub
+
+    Private Sub fixScroll(sender As Object, e As Object)
+        pnlGrupos.Focus()
     End Sub
 
     Private Sub controlesHabilitados(ByVal habilitado As Boolean)

@@ -173,6 +173,10 @@ Public Class BaseDeDatos
     End Sub
 
     Public Sub contarAprobacion_frmMain(ByVal frm As frmMain)
+        If Not frm.tipoUsuario.Equals("Administrador") Then
+            frm.alertaAprobacion.Visible = False
+            Return
+        End If
         Dim cantidadAprobar As Integer
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
@@ -1010,7 +1014,9 @@ Public Class BaseDeDatos
 
         Dim reader As MySqlDataReader = subCmd.ExecuteReader()
         While reader.Read()
-            If reader("IdGrupo").Equals(frm.txtIDGrupo.Text) And reader("Grado").Equals(frm.cmbGrado.Text) Then
+            Console.WriteLine(reader("IdGrupo"))
+            Console.WriteLine(reader("Grado"))
+            If reader("IdGrupo").Equals(frm.txtIDGrupo.Text) And reader("Grado").Equals(Integer.Parse(frm.cmbGrado.Text)) Then
                 Continue While
             End If
             reader.Close()
@@ -1696,6 +1702,8 @@ Public Class BaseDeDatos
                     For carga As Integer = 1 To Integer.Parse(reader("CargaHoraria"))
                         Dim materia As Button
                         materia = New Button()
+                        AddHandler materia.MouseEnter, AddressOf frm.fixScroll
+                        AddHandler materia.MouseWheel, AddressOf frm.fixScroll
                         materia.TabStop = False
                         materia.Cursor = Cursors.Hand
 
@@ -1765,6 +1773,8 @@ Public Class BaseDeDatos
                         botonesMaterias(Index).RemoveAt(botonesMaterias(Index).Count - 1)
 
                         Dim materia As New Button()
+                        AddHandler materia.MouseEnter, AddressOf frm.fixScroll
+                        AddHandler materia.MouseWheel, AddressOf frm.fixScroll
                         materia.TabStop = False
                         materia.Cursor = Cursors.Hand
                         materia.Text = reader("Materia") & vbCrLf & reader("NombreProfesor")
@@ -2138,12 +2148,13 @@ Public Class BaseDeDatos
                     cmd2.CommandType = CommandType.Text
 
                     Dim btn As Button = New Button()
+                    AddHandler btn.MouseEnter, AddressOf frm.fixScroll
+                    AddHandler btn.MouseWheel, AddressOf frm.fixScroll
                     If dia.Equals("Lunes") Then
                         If horarios(hora_n).Equals(frm.horarioPrimera) Then
                             Try
                                 btn = frm.tableLunes1.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2151,7 +2162,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableLunes2.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2159,7 +2169,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableLunes3.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2167,7 +2176,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableLunes4.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2175,7 +2183,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableLunes5.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2183,7 +2190,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableLunes6.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2191,7 +2197,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableLunes7.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2201,7 +2206,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableMartes1.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2209,7 +2213,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableMartes2.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2217,7 +2220,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableMartes3.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2225,7 +2227,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableMartes4.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2233,7 +2234,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableMartes5.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2241,7 +2241,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableMartes6.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2249,7 +2248,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableMartes7.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2259,7 +2257,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableMiercoles1.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2267,7 +2264,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableMiercoles2.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2275,7 +2271,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableMiercoles3.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2283,7 +2278,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableMiercoles4.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2291,7 +2285,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableMiercoles5.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2299,7 +2292,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableMiercoles6.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2307,7 +2299,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableMiercoles7.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2317,7 +2308,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableJueves1.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2325,7 +2315,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableJueves2.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2333,7 +2322,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableJueves3.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2341,7 +2329,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableJueves4.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2349,7 +2336,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableJueves5.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2357,7 +2343,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableJueves6.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2365,7 +2350,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableJueves7.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2375,7 +2359,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableViernes1.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2383,7 +2366,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableViernes2.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2391,7 +2373,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableViernes3.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2399,7 +2380,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableViernes4.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2407,7 +2387,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableViernes5.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2415,7 +2394,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableViernes6.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2423,7 +2401,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableViernes7.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2433,7 +2410,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableSabado1.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2441,7 +2417,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableSabado2.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2449,7 +2424,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableSabado3.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2457,7 +2431,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableSabado4.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2465,7 +2438,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableSabado5.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2473,7 +2445,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableSabado6.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If
@@ -2481,7 +2452,6 @@ Public Class BaseDeDatos
                             Try
                                 btn = frm.tableSabado7.Controls(0)
                             Catch ex As Exception
-                                btn = New Button()
                                 btn.Tag = {"-1", "-1"}
                             End Try
                         End If

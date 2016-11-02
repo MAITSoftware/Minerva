@@ -78,11 +78,17 @@
         End If
         pnlTemporal.Controls.Add(btnEditar)
 
+        AddHandler pnlTemporal.MouseEnter, AddressOf fixScroll
+        AddHandler pnlTemporal.MouseWheel, AddressOf fixScroll
         pnlUsuarios.Controls.Add(pnlTemporal)
         pnlUsuarios.Focus()
 
         totalUsuarios += 1
         lblCantidadUsuarios.Text = "(" + totalUsuarios.ToString() + ")"
+    End Sub
+
+    Private Sub fixScroll(sender As Object, e As Object)
+        pnlUsuarios.Focus()
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
