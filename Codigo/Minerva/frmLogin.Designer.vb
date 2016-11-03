@@ -172,7 +172,7 @@ Partial Class frmLogin
         Me.lblIngreseUsuario.Name = "lblIngreseUsuario"
         Me.lblIngreseUsuario.Size = New System.Drawing.Size(256, 30)
         Me.lblIngreseUsuario.TabIndex = 7
-        Me.lblIngreseUsuario.Text = "Ingrese su usuario"
+        Me.lblIngreseUsuario.Text = "Ingrese su CI"
         Me.lblIngreseUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblIngreseContraseña

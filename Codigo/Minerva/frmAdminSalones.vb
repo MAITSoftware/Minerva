@@ -3,9 +3,7 @@
 
     Friend totalSalones As Integer = 0
     Dim salonPreview As Object = New Button()
-    Friend grupoTurno1 As Object = {"-1", "-1"}
-    Friend grupoTurno2 As Object = {"-1", "-1"}
-    Friend grupoTurno3 As Object = {"-1", "-1"}
+    Friend primerSalon As String
     Friend frmMain As frmMain
     Dim tipoUsuario As String
     Dim editando As Boolean = False
@@ -23,10 +21,9 @@
 
     Private Sub frmAdminSalones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al cargar la ventana cargarSalones y Grupos, y habilitar los controles.
-        cargarSalones()
-
         controlesHabilitados(True)
         txtIDSalon.Focus()
+        cargarSalones()
     End Sub
 
     Public Sub agregarSalon(ByVal idSalon As String)
@@ -143,6 +140,9 @@
 
         controlesHabilitados(False)
         cargarDatos(salon)
+        If Me.tipoUsuario.Equals("Adscripto") Then
+            btnNuevoSalon.Visible = False
+        End If
     End Sub
 
     Private Sub controlesHabilitados(ByVal habilitado As Boolean)
@@ -183,6 +183,9 @@
             e.Handled = False
             Return
         End If
+        If Not Char.IsDigit(Chr(e.KeyValue)) Then
+            e.SuppressKeyPress = True
+        End If
     End Sub
 
     ' Persistencia
@@ -209,6 +212,11 @@
     Public Sub cargarSalones()
         Dim DB As New BaseDeDatos()
         DB.cargarSalones_frmAdminSalones(Me)
+        If Me.totalSalones = 0 And Me.tipoUsuario.Equals("Adscripto") Then
+            lblAunNoHaySalones.Visible = True
+        ElseIf Me.tipoUsuario.Equals("Adscripto") Then
+            previsualizarSalon(primerSalon)
+        End If
     End Sub
 
     Public Sub actualizarDB()

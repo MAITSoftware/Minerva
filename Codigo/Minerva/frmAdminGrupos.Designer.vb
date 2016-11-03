@@ -50,6 +50,7 @@ Partial Class frmAdminGrupos
         Me.cmbAdscripto = New System.Windows.Forms.ComboBox()
         Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         Me.cmbSalon = New System.Windows.Forms.ComboBox()
+        Me.lblNoGrupoAsignado = New System.Windows.Forms.Label()
         lblTitulo = New System.Windows.Forms.Label()
         lblGrupos = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
@@ -380,11 +381,25 @@ Partial Class frmAdminGrupos
         Me.cmbSalon.Size = New System.Drawing.Size(121, 34)
         Me.cmbSalon.TabIndex = 128
         '
+        'lblNoGrupoAsignado
+        '
+        Me.lblNoGrupoAsignado.Font = New System.Drawing.Font("Corbel", 36.0!, System.Drawing.FontStyle.Bold)
+        Me.lblNoGrupoAsignado.ForeColor = System.Drawing.Color.White
+        Me.lblNoGrupoAsignado.Location = New System.Drawing.Point(0, 0)
+        Me.lblNoGrupoAsignado.Name = "lblNoGrupoAsignado"
+        Me.lblNoGrupoAsignado.Size = New System.Drawing.Size(1004, 493)
+        Me.lblNoGrupoAsignado.TabIndex = 131
+        Me.lblNoGrupoAsignado.Text = "Usted no tiene ningún grupo asignado"
+        Me.lblNoGrupoAsignado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblNoGrupoAsignado.Visible = False
+        '
         'frmAdminGrupos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(lblTitulo)
+        Me.Controls.Add(Me.lblNoGrupoAsignado)
         Me.Controls.Add(Me.cmbSalon)
         Me.Controls.Add(Me.cmbAdscripto)
         Me.Controls.Add(Me.lblAdscripto)
@@ -397,7 +412,6 @@ Partial Class frmAdminGrupos
         Me.Controls.Add(Me.btnAgregar)
         Me.Controls.Add(Me.btnNuevoGrupo)
         Me.Controls.Add(Me.lblNuevoGrupo)
-        Me.Controls.Add(lblTitulo)
         Me.Controls.Add(Me.lblTrayecto)
         Me.Controls.Add(Me.lblOrientacion)
         Me.Controls.Add(Me.lblCurso)
@@ -442,5 +456,6 @@ Partial Class frmAdminGrupos
     Friend WithEvents lblAdscripto As System.Windows.Forms.Label
     Friend WithEvents cmbAdscripto As System.Windows.Forms.ComboBox
     Friend WithEvents cmbSalon As System.Windows.Forms.ComboBox
+    Friend WithEvents lblNoGrupoAsignado As System.Windows.Forms.Label
 
 End Class

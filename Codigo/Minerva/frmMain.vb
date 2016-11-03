@@ -6,7 +6,10 @@
     Friend Administrador As Boolean = False
     Friend vista As String = "Día"
     Dim frmHorariosExternos As New frmHorariosExternos(Me)
+    Dim filtrando As Boolean = False
     Friend tipoUsuario As String
+    Friend turnoElegido As ToolStripMenuItem = Nothing
+    Friend cursoElegido As ToolStripMenuItem = Nothing
 
     Public Sub New(Optional ByVal invitado As Boolean = False, Optional ByVal usuario As String = Nothing, Optional ByVal tipoUsuario As String = "Funcionario")
         'inicia el programa, en caso de que sea invitado lo detecta
@@ -96,6 +99,7 @@
         Me.WindowState = FormWindowState.Maximized
         Dim DB As New BaseDeDatos()
         DB.contarAprobacion_frmMain(Me)
+        DB.crearMenuCursosTurnos_frmMain(Me)
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
@@ -295,6 +299,34 @@
         pnlAyudabtnFullscreen.Visible = False
     End Sub
 
+    Private Sub btnFiltrar_Leave(sender As Object, e As EventArgs) Handles btnFiltrar.MouseLeave
+        lblFiltrado.Text = "Filtrado de grupos (activo)"
+        sender.backgroundimage = My.Resources.filtrar_click()
+
+        If Not filtrando Then
+            sender.BackgroundImage = My.Resources.filtrar_normal()
+            lblFiltrado.Text = "Filtrado de grupos (inactivo)"
+        End If
+        ' al dejar el botón btnEliminarAsignatura cambiar la imagen
+        pnlAyudabtnFiltrar.Visible = False
+    End Sub
+
+    Private Sub btnFiltrar_Enter(sender As Object, e As EventArgs) Handles btnFiltrar.MouseEnter
+        lblFiltrado.Text = "Filtrado de grupos (activo)"
+            sender.backgroundimage = My.Resources.filtrar_click()
+
+        If Not filtrando Then
+            sender.BackgroundImage = My.Resources.filtrar_hover()
+            lblFiltrado.Text = "Filtrado de grupos (inactivo)"
+        End If
+        ' al dejar el botón btnEliminarAsignatura cambiar la imagen
+        pnlAyudabtnFiltrar.Visible = True
+    End Sub
+
+    Private Sub btnFiltrar_Click(sender As Object, e As MouseEventArgs) Handles btnFiltrar.Click
+        ContextMenuStrip1.Show(sender, New Point(e.X, e.Y))
+    End Sub
+
     Private Sub alertaAprobacion_MouseEnter(sender As Object, e As EventArgs) Handles alertaAprobacion.MouseEnter
         pnlAyudaalertaAprobacion.Visible = True
     End Sub
@@ -303,11 +335,50 @@
         pnlAyudaalertaAprobacion.Visible = False
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As MouseEventArgs) Handles Button1.MouseUp
-        ContextMenuStrip1.Show(sender, New Point(e.X, e.Y))
-    End Sub
-
     Private Sub pnlMaterias_MouseEnter(sender As Object, e As EventArgs) Handles tblMaterias.MouseWheel, tblMaterias.MouseEnter
         pnlMaterias.Focus()
+    End Sub
+
+    Public Sub filtroTurnoCambiado(sender As Object, e As EventArgs)
+        If Not IsNothing(turnoElegido) Then
+            If sender Is turnoElegido Then
+                sender.checked = False
+                turnoElegido = Nothing
+                checkFiltrando()
+                recargarGrupo()
+                Return
+            End If
+            turnoElegido.Checked = False
+        End If
+        sender.checked = True
+        turnoElegido = sender
+        checkFiltrando()
+        recargarGrupo()
+    End Sub
+
+    Public Sub filtroCursoCambiado(sender As Object, e As EventArgs)
+        If Not IsNothing(cursoElegido) Then
+            If sender Is cursoElegido Then
+                sender.checked = False
+                cursoElegido = Nothing
+                checkFiltrando()
+                recargarGrupo()
+                Return
+            End If
+            cursoElegido.Checked = False
+        End If
+        sender.checked = True
+        cursoElegido = sender
+        checkFiltrando()
+        recargarGrupo()
+    End Sub
+
+    Private Sub checkFiltrando()
+        filtrando = True
+        btnFiltrar.BackgroundImage = My.Resources.filtrar_click()
+        If cursoElegido Is Nothing And turnoElegido Is Nothing Then
+            filtrando = False
+            btnFiltrar.BackgroundImage = My.Resources.filtrar_normal()
+        End If
     End Sub
 End Class

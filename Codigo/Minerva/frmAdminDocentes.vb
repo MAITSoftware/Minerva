@@ -405,5 +405,9 @@
             e.Handled = False
             Return
         End If
+        If Not Char.IsDigit(Chr(e.KeyValue)) Then
+            e.SuppressKeyPress = True
+        End If
+
     End Sub
 End Class

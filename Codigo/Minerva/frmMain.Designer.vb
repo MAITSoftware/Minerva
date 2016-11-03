@@ -54,7 +54,7 @@ Partial Class frmMain
         Me.btnSalir = New System.Windows.Forms.Button()
         Me.btnAdministrar = New System.Windows.Forms.Button()
         Me.pnlFiltro = New System.Windows.Forms.Panel()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnFiltrar = New System.Windows.Forms.PictureBox()
         Me.btnRecargar = New System.Windows.Forms.PictureBox()
         Me.lblGrupo = New System.Windows.Forms.Label()
         Me.cboGrupo = New System.Windows.Forms.ComboBox()
@@ -63,12 +63,25 @@ Partial Class frmMain
         Me.timerbtnrefrescar = New System.Windows.Forms.Timer(Me.components)
         Me.pnlHorarios = New System.Windows.Forms.Panel()
         Me.tblDias = New System.Windows.Forms.TableLayoutPanel()
+        Me.Lunes = New Minerva.frmDia()
+        Me.Martes = New Minerva.frmDia()
+        Me.Miércoles = New Minerva.frmDia()
+        Me.Sábado = New Minerva.frmDia()
+        Me.Jueves = New Minerva.frmDia()
+        Me.Viernes = New Minerva.frmDia()
         Me.pnlBotonesHorarios = New System.Windows.Forms.Panel()
         Me.btnGuardarPdf = New System.Windows.Forms.PictureBox()
         Me.btnRefrescarHorarios = New System.Windows.Forms.PictureBox()
         Me.btnVistaDias = New System.Windows.Forms.PictureBox()
         Me.btnVistaSemana = New System.Windows.Forms.PictureBox()
         Me.btnFullscreen = New System.Windows.Forms.PictureBox()
+        Me.Grilla = New Minerva.frmVistaGrilla()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.TurnoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.VespertinoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NocturnoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CursoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlAyudabtnVistaSemana = New System.Windows.Forms.Panel()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.pnlAyudabtnVistaDias = New System.Windows.Forms.Panel()
@@ -83,19 +96,8 @@ Partial Class frmMain
         Me.Label1 = New System.Windows.Forms.Label()
         Me.pnlAyudaalertaAprobacion = New System.Windows.Forms.Panel()
         Me.lblCantidadUsuariosAprobacion = New System.Windows.Forms.Label()
-        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.TurnoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.VespertinoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.NocturnoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CursoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Lunes = New Minerva.frmDia()
-        Me.Martes = New Minerva.frmDia()
-        Me.Miércoles = New Minerva.frmDia()
-        Me.Sábado = New Minerva.frmDia()
-        Me.Jueves = New Minerva.frmDia()
-        Me.Viernes = New Minerva.frmDia()
-        Me.Grilla = New Minerva.frmVistaGrilla()
+        Me.pnlAyudabtnFiltrar = New System.Windows.Forms.Panel()
+        Me.lblFiltrado = New System.Windows.Forms.Label()
         lblHorariosSemana = New System.Windows.Forms.Label()
         Me.pnlInfoCurso.SuspendLayout()
         Me.pnlDatosGrupo.SuspendLayout()
@@ -106,6 +108,7 @@ Partial Class frmMain
         CType(Me.imgLogoInvitado, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlFiltro.SuspendLayout()
+        CType(Me.btnFiltrar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnRecargar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlHorarios.SuspendLayout()
         Me.tblDias.SuspendLayout()
@@ -115,6 +118,7 @@ Partial Class frmMain
         CType(Me.btnVistaDias, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnVistaSemana, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnFullscreen, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ContextMenuStrip1.SuspendLayout()
         Me.pnlAyudabtnVistaSemana.SuspendLayout()
         Me.pnlAyudabtnVistaDias.SuspendLayout()
         Me.pnlAyudabtnRefrescarHorarios.SuspendLayout()
@@ -122,7 +126,7 @@ Partial Class frmMain
         Me.pnlAyudabtnGuardarPdf.SuspendLayout()
         Me.pnlAyudabtnRecargar.SuspendLayout()
         Me.pnlAyudaalertaAprobacion.SuspendLayout()
-        Me.ContextMenuStrip1.SuspendLayout()
+        Me.pnlAyudabtnFiltrar.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblHorariosSemana
@@ -139,12 +143,12 @@ Partial Class frmMain
         'pnlInfoCurso
         '
         Me.pnlInfoCurso.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.pnlInfoCurso.Controls.Add(Me.lblSeleccioneGrupo2)
         Me.pnlInfoCurso.Controls.Add(Me.pnlDatosGrupo)
         Me.pnlInfoCurso.Controls.Add(Me.lblInfoCurso)
         Me.pnlInfoCurso.Controls.Add(Me.pnlMaterias)
         Me.pnlInfoCurso.Controls.Add(Me.lblProfesores)
         Me.pnlInfoCurso.Controls.Add(Me.lblNomGrupo)
-        Me.pnlInfoCurso.Controls.Add(Me.lblSeleccioneGrupo2)
         Me.pnlInfoCurso.Dock = System.Windows.Forms.DockStyle.Right
         Me.pnlInfoCurso.ForeColor = System.Drawing.SystemColors.AppWorkspace
         Me.pnlInfoCurso.Location = New System.Drawing.Point(964, 0)
@@ -483,7 +487,7 @@ Partial Class frmMain
         'pnlFiltro
         '
         Me.pnlFiltro.AutoSize = True
-        Me.pnlFiltro.Controls.Add(Me.Button1)
+        Me.pnlFiltro.Controls.Add(Me.btnFiltrar)
         Me.pnlFiltro.Controls.Add(Me.btnRecargar)
         Me.pnlFiltro.Controls.Add(Me.lblGrupo)
         Me.pnlFiltro.Controls.Add(Me.cboGrupo)
@@ -494,20 +498,16 @@ Partial Class frmMain
         Me.pnlFiltro.Size = New System.Drawing.Size(964, 185)
         Me.pnlFiltro.TabIndex = 132
         '
-        'Button1
+        'btnFiltrar
         '
-        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
-        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button1.FlatAppearance.BorderColor = System.Drawing.Color.White
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(324, 52)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 130
-        Me.Button1.Text = "Filtrar por"
-        Me.Button1.UseVisualStyleBackColor = False
-        Me.Button1.Visible = False
+        Me.btnFiltrar.BackgroundImage = Global.Minerva.My.Resources.Resources.filtrar_normal
+        Me.btnFiltrar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnFiltrar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnFiltrar.Location = New System.Drawing.Point(324, 44)
+        Me.btnFiltrar.Name = "btnFiltrar"
+        Me.btnFiltrar.Size = New System.Drawing.Size(25, 25)
+        Me.btnFiltrar.TabIndex = 130
+        Me.btnFiltrar.TabStop = False
         '
         'btnRecargar
         '
@@ -572,10 +572,10 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlHorarios.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.pnlHorarios.Controls.Add(Me.lblSeleccioneGrupo)
         Me.pnlHorarios.Controls.Add(Me.tblDias)
         Me.pnlHorarios.Controls.Add(Me.pnlBotonesHorarios)
         Me.pnlHorarios.Controls.Add(lblHorariosSemana)
-        Me.pnlHorarios.Controls.Add(Me.lblSeleccioneGrupo)
         Me.pnlHorarios.Controls.Add(Me.Grilla)
         Me.pnlHorarios.Location = New System.Drawing.Point(0, 185)
         Me.pnlHorarios.Name = "pnlHorarios"
@@ -609,6 +609,79 @@ Partial Class frmMain
         Me.tblDias.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.125!))
         Me.tblDias.Size = New System.Drawing.Size(924, 428)
         Me.tblDias.TabIndex = 136
+        '
+        'Lunes
+        '
+        Me.Lunes.AutoScroll = True
+        Me.Lunes.AutoSize = True
+        Me.Lunes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Lunes.BackColor = System.Drawing.Color.Transparent
+        Me.Lunes.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Lunes.Location = New System.Drawing.Point(3, 3)
+        Me.Lunes.Name = "Lunes"
+        Me.Lunes.Size = New System.Drawing.Size(282, 194)
+        Me.Lunes.TabIndex = 5
+        Me.Lunes.TabStop = False
+        '
+        'Martes
+        '
+        Me.Martes.AutoSize = True
+        Me.Martes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Martes.BackColor = System.Drawing.Color.Transparent
+        Me.Martes.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Martes.Location = New System.Drawing.Point(319, 3)
+        Me.Martes.Name = "Martes"
+        Me.Martes.Size = New System.Drawing.Size(282, 194)
+        Me.Martes.TabIndex = 4
+        Me.Martes.TabStop = False
+        '
+        'Miércoles
+        '
+        Me.Miércoles.AutoSize = True
+        Me.Miércoles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Miércoles.BackColor = System.Drawing.Color.Transparent
+        Me.Miércoles.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Miércoles.Location = New System.Drawing.Point(635, 3)
+        Me.Miércoles.Name = "Miércoles"
+        Me.Miércoles.Size = New System.Drawing.Size(286, 194)
+        Me.Miércoles.TabIndex = 3
+        Me.Miércoles.TabStop = False
+        '
+        'Sábado
+        '
+        Me.Sábado.AutoSize = True
+        Me.Sábado.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Sábado.BackColor = System.Drawing.Color.Transparent
+        Me.Sábado.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Sábado.Location = New System.Drawing.Point(635, 216)
+        Me.Sábado.Name = "Sábado"
+        Me.Sábado.Size = New System.Drawing.Size(286, 194)
+        Me.Sábado.TabIndex = 8
+        Me.Sábado.TabStop = False
+        '
+        'Jueves
+        '
+        Me.Jueves.AutoSize = True
+        Me.Jueves.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Jueves.BackColor = System.Drawing.Color.Transparent
+        Me.Jueves.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Jueves.Location = New System.Drawing.Point(3, 216)
+        Me.Jueves.Name = "Jueves"
+        Me.Jueves.Size = New System.Drawing.Size(282, 194)
+        Me.Jueves.TabIndex = 6
+        Me.Jueves.TabStop = False
+        '
+        'Viernes
+        '
+        Me.Viernes.AutoSize = True
+        Me.Viernes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Viernes.BackColor = System.Drawing.Color.Transparent
+        Me.Viernes.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Viernes.Location = New System.Drawing.Point(319, 216)
+        Me.Viernes.Name = "Viernes"
+        Me.Viernes.Size = New System.Drawing.Size(282, 194)
+        Me.Viernes.TabIndex = 7
+        Me.Viernes.TabStop = False
         '
         'pnlBotonesHorarios
         '
@@ -682,6 +755,58 @@ Partial Class frmMain
         Me.btnFullscreen.TabIndex = 134
         Me.btnFullscreen.TabStop = False
         Me.btnFullscreen.Visible = False
+        '
+        'Grilla
+        '
+        Me.Grilla.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Grilla.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Grilla.Location = New System.Drawing.Point(37, 65)
+        Me.Grilla.Name = "Grilla"
+        Me.Grilla.Size = New System.Drawing.Size(923, 422)
+        Me.Grilla.TabIndex = 133
+        Me.Grilla.TabStop = False
+        Me.Grilla.Visible = False
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TurnoToolStripMenuItem, Me.CursoToolStripMenuItem})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(107, 48)
+        '
+        'TurnoToolStripMenuItem
+        '
+        Me.TurnoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TestToolStripMenuItem, Me.VespertinoToolStripMenuItem, Me.NocturnoToolStripMenuItem})
+        Me.TurnoToolStripMenuItem.Name = "TurnoToolStripMenuItem"
+        Me.TurnoToolStripMenuItem.Size = New System.Drawing.Size(106, 22)
+        Me.TurnoToolStripMenuItem.Text = "Turno"
+        '
+        'TestToolStripMenuItem
+        '
+        Me.TestToolStripMenuItem.Checked = True
+        Me.TestToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.TestToolStripMenuItem.Name = "TestToolStripMenuItem"
+        Me.TestToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
+        Me.TestToolStripMenuItem.Text = "Matutino"
+        '
+        'VespertinoToolStripMenuItem
+        '
+        Me.VespertinoToolStripMenuItem.Name = "VespertinoToolStripMenuItem"
+        Me.VespertinoToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
+        Me.VespertinoToolStripMenuItem.Text = "Vespertino"
+        '
+        'NocturnoToolStripMenuItem
+        '
+        Me.NocturnoToolStripMenuItem.Name = "NocturnoToolStripMenuItem"
+        Me.NocturnoToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
+        Me.NocturnoToolStripMenuItem.Text = "Nocturno"
+        '
+        'CursoToolStripMenuItem
+        '
+        Me.CursoToolStripMenuItem.Name = "CursoToolStripMenuItem"
+        Me.CursoToolStripMenuItem.Size = New System.Drawing.Size(106, 22)
+        Me.CursoToolStripMenuItem.Text = "Curso"
         '
         'pnlAyudabtnVistaSemana
         '
@@ -857,130 +982,29 @@ Partial Class frmMain
         Me.lblCantidadUsuariosAprobacion.Text = "0 usuario están esperando la aprobación de un administrador para poder ingresar."
         Me.lblCantidadUsuariosAprobacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'ContextMenuStrip1
+        'pnlAyudabtnFiltrar
         '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TurnoToolStripMenuItem, Me.CursoToolStripMenuItem})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(107, 48)
+        Me.pnlAyudabtnFiltrar.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.pnlAyudabtnFiltrar.BackgroundImage = Global.Minerva.My.Resources.Resources.dialogo_derecha
+        Me.pnlAyudabtnFiltrar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.pnlAyudabtnFiltrar.Controls.Add(Me.lblFiltrado)
+        Me.pnlAyudabtnFiltrar.Location = New System.Drawing.Point(73, 32)
+        Me.pnlAyudabtnFiltrar.Name = "pnlAyudabtnFiltrar"
+        Me.pnlAyudabtnFiltrar.Size = New System.Drawing.Size(249, 73)
+        Me.pnlAyudabtnFiltrar.TabIndex = 131
+        Me.pnlAyudabtnFiltrar.Visible = False
         '
-        'TurnoToolStripMenuItem
+        'lblFiltrado
         '
-        Me.TurnoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TestToolStripMenuItem, Me.VespertinoToolStripMenuItem, Me.NocturnoToolStripMenuItem})
-        Me.TurnoToolStripMenuItem.Name = "TurnoToolStripMenuItem"
-        Me.TurnoToolStripMenuItem.Size = New System.Drawing.Size(106, 22)
-        Me.TurnoToolStripMenuItem.Text = "Turno"
-        '
-        'TestToolStripMenuItem
-        '
-        Me.TestToolStripMenuItem.Checked = True
-        Me.TestToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.TestToolStripMenuItem.Name = "TestToolStripMenuItem"
-        Me.TestToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
-        Me.TestToolStripMenuItem.Text = "Matutino"
-        '
-        'VespertinoToolStripMenuItem
-        '
-        Me.VespertinoToolStripMenuItem.Name = "VespertinoToolStripMenuItem"
-        Me.VespertinoToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
-        Me.VespertinoToolStripMenuItem.Text = "Vespertino"
-        '
-        'NocturnoToolStripMenuItem
-        '
-        Me.NocturnoToolStripMenuItem.Name = "NocturnoToolStripMenuItem"
-        Me.NocturnoToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
-        Me.NocturnoToolStripMenuItem.Text = "Nocturno"
-        '
-        'CursoToolStripMenuItem
-        '
-        Me.CursoToolStripMenuItem.Name = "CursoToolStripMenuItem"
-        Me.CursoToolStripMenuItem.Size = New System.Drawing.Size(106, 22)
-        Me.CursoToolStripMenuItem.Text = "Curso"
-        '
-        'Lunes
-        '
-        Me.Lunes.AutoScroll = True
-        Me.Lunes.AutoSize = True
-        Me.Lunes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Lunes.BackColor = System.Drawing.Color.Transparent
-        Me.Lunes.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Lunes.Location = New System.Drawing.Point(3, 3)
-        Me.Lunes.Name = "Lunes"
-        Me.Lunes.Size = New System.Drawing.Size(282, 194)
-        Me.Lunes.TabIndex = 5
-        Me.Lunes.TabStop = False
-        '
-        'Martes
-        '
-        Me.Martes.AutoSize = True
-        Me.Martes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Martes.BackColor = System.Drawing.Color.Transparent
-        Me.Martes.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Martes.Location = New System.Drawing.Point(319, 3)
-        Me.Martes.Name = "Martes"
-        Me.Martes.Size = New System.Drawing.Size(282, 194)
-        Me.Martes.TabIndex = 4
-        Me.Martes.TabStop = False
-        '
-        'Miércoles
-        '
-        Me.Miércoles.AutoSize = True
-        Me.Miércoles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Miércoles.BackColor = System.Drawing.Color.Transparent
-        Me.Miércoles.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Miércoles.Location = New System.Drawing.Point(635, 3)
-        Me.Miércoles.Name = "Miércoles"
-        Me.Miércoles.Size = New System.Drawing.Size(286, 194)
-        Me.Miércoles.TabIndex = 3
-        Me.Miércoles.TabStop = False
-        '
-        'Sábado
-        '
-        Me.Sábado.AutoSize = True
-        Me.Sábado.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Sábado.BackColor = System.Drawing.Color.Transparent
-        Me.Sábado.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Sábado.Location = New System.Drawing.Point(635, 216)
-        Me.Sábado.Name = "Sábado"
-        Me.Sábado.Size = New System.Drawing.Size(286, 194)
-        Me.Sábado.TabIndex = 8
-        Me.Sábado.TabStop = False
-        '
-        'Jueves
-        '
-        Me.Jueves.AutoSize = True
-        Me.Jueves.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Jueves.BackColor = System.Drawing.Color.Transparent
-        Me.Jueves.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Jueves.Location = New System.Drawing.Point(3, 216)
-        Me.Jueves.Name = "Jueves"
-        Me.Jueves.Size = New System.Drawing.Size(282, 194)
-        Me.Jueves.TabIndex = 6
-        Me.Jueves.TabStop = False
-        '
-        'Viernes
-        '
-        Me.Viernes.AutoSize = True
-        Me.Viernes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Viernes.BackColor = System.Drawing.Color.Transparent
-        Me.Viernes.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Viernes.Location = New System.Drawing.Point(319, 216)
-        Me.Viernes.Name = "Viernes"
-        Me.Viernes.Size = New System.Drawing.Size(282, 194)
-        Me.Viernes.TabIndex = 7
-        Me.Viernes.TabStop = False
-        '
-        'Grilla
-        '
-        Me.Grilla.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Grilla.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
-        Me.Grilla.Location = New System.Drawing.Point(37, 65)
-        Me.Grilla.Name = "Grilla"
-        Me.Grilla.Size = New System.Drawing.Size(923, 422)
-        Me.Grilla.TabIndex = 133
-        Me.Grilla.TabStop = False
-        Me.Grilla.Visible = False
+        Me.lblFiltrado.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.lblFiltrado.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.lblFiltrado.ForeColor = System.Drawing.Color.White
+        Me.lblFiltrado.Location = New System.Drawing.Point(3, 7)
+        Me.lblFiltrado.Name = "lblFiltrado"
+        Me.lblFiltrado.Size = New System.Drawing.Size(209, 57)
+        Me.lblFiltrado.TabIndex = 0
+        Me.lblFiltrado.Text = "Filtrado de grupos (inactivo)"
+        Me.lblFiltrado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'frmMain
         '
@@ -988,6 +1012,7 @@ Partial Class frmMain
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1264, 681)
         Me.Controls.Add(Me.pnlAyudaalertaAprobacion)
+        Me.Controls.Add(Me.pnlAyudabtnFiltrar)
         Me.Controls.Add(Me.pnlAyudabtnVistaSemana)
         Me.Controls.Add(Me.pnlAyudabtnVistaDias)
         Me.Controls.Add(Me.pnlAyudabtnRefrescarHorarios)
@@ -1015,6 +1040,7 @@ Partial Class frmMain
         CType(Me.imgLogoInvitado, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlFiltro.ResumeLayout(False)
+        CType(Me.btnFiltrar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnRecargar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlHorarios.ResumeLayout(False)
         Me.pnlHorarios.PerformLayout()
@@ -1026,6 +1052,7 @@ Partial Class frmMain
         CType(Me.btnVistaDias, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnVistaSemana, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnFullscreen, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.pnlAyudabtnVistaSemana.ResumeLayout(False)
         Me.pnlAyudabtnVistaDias.ResumeLayout(False)
         Me.pnlAyudabtnRefrescarHorarios.ResumeLayout(False)
@@ -1033,7 +1060,7 @@ Partial Class frmMain
         Me.pnlAyudabtnGuardarPdf.ResumeLayout(False)
         Me.pnlAyudabtnRecargar.ResumeLayout(False)
         Me.pnlAyudaalertaAprobacion.ResumeLayout(False)
-        Me.ContextMenuStrip1.ResumeLayout(False)
+        Me.pnlAyudabtnFiltrar.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1101,12 +1128,14 @@ Partial Class frmMain
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents pnlAyudabtnVistaSemana As System.Windows.Forms.Panel
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents TurnoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CursoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TestToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents VespertinoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NocturnoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents btnFiltrar As System.Windows.Forms.PictureBox
+    Friend WithEvents pnlAyudabtnFiltrar As System.Windows.Forms.Panel
+    Friend WithEvents lblFiltrado As System.Windows.Forms.Label
 
 End Class

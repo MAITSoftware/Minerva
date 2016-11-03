@@ -172,6 +172,49 @@ Public Class BaseDeDatos
         frm.Dispose()
     End Sub
 
+    Public Sub crearMenuCursosTurnos_frmMain(ByVal frm As frmMain)
+        frm.ContextMenuStrip1.Items.Clear()
+        Dim item, turno, curso As ToolStripMenuItem
+        turno = New ToolStripMenuItem()
+        turno.Text = "Turno"
+        curso = New ToolStripMenuItem()
+        curso.Text = "Curso"
+        Dim conexion As New Conexion()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "select CONCAT(NombreTurno, ' (', IdTurno, ')') as Turno from Turno;"
+                .CommandType = CommandType.Text
+            End With
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                item = New ToolStripMenuItem()
+                item.Text = reader("Turno")
+                AddHandler item.Click, AddressOf frm.filtroTurnoCambiado
+                turno.DropDownItems.Add(item)
+            End While
+            reader.Close()
+        End Using
+
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "select CONCAT(NombreCurso, ' (', IdCurso, ')') as Curso from Curso;"
+                .CommandType = CommandType.Text
+            End With
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                item = New ToolStripMenuItem()
+                item.Text = reader("Curso")
+                AddHandler item.Click, AddressOf frm.filtroCursoCambiado
+                curso.DropDownItems.Add(item)
+            End While
+            reader.Close()
+        End Using
+        frm.ContextMenuStrip1.Items.Add(turno)
+        frm.ContextMenuStrip1.Items.Add(curso)
+        conexion.Close()
+    End Sub
     Public Sub contarAprobacion_frmMain(ByVal frm As frmMain)
         If Not frm.tipoUsuario.Equals("Administrador") Then
             frm.alertaAprobacion.Visible = False
@@ -265,6 +308,7 @@ Public Class BaseDeDatos
 
     Public Sub cargarDatos_frmMain(ByVal frm As frmMain)
         Dim conexion As New Conexion()
+        Dim cursoElegido, turnoElegido As String
         frm.cboGrupo.Items.Clear()
         frm.cboGrupo.Items.Add("Elija un grupo")
         frm.cboGrupo.SelectedIndex = 0
@@ -272,7 +316,32 @@ Public Class BaseDeDatos
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT *, Turno.NombreTurno from `Grupo`, `Turno` where Grupo.IdTurno=Turno.IdTurno;"
+                .CommandText = "SELECT *from `Grupo`;"
+                If Not IsNothing(frm.cursoElegido) And Not IsNothing(frm.turnoElegido) Then
+                    cursoElegido = frm.cursoElegido.Text.ToString()
+                    cursoElegido = cursoElegido.Substring(cursoElegido.IndexOf(" (") + 2).Trim(")")
+
+                    turnoElegido = frm.turnoElegido.Text.ToString()
+                    turnoElegido = turnoElegido.Substring(turnoElegido.IndexOf(" (") + 2).Trim(")")
+
+                    .CommandText = "SELECT * from `Grupo`, `Orientacion` where Grupo.IdTurno=@IdTurno and Orientacion.IdOrientacion=Grupo.IdOrientacion and Orientacion.IdCurso=@IdCurso;"
+                    .Parameters.AddWithValue("@IdCurso", cursoElegido)
+                    .Parameters.AddWithValue("@IdTurno", turnoElegido)
+
+                ElseIf Not IsNothing(frm.cursoElegido) Then
+                    cursoElegido = frm.cursoElegido.Text.ToString()
+                    cursoElegido = cursoElegido.Substring(cursoElegido.IndexOf(" (") + 2).Trim(")")
+
+                    .CommandText = "SELECT * from `Grupo`, `Orientacion` where Orientacion.IdOrientacion=Grupo.IdOrientacion and Orientacion.IdCurso=@IdCurso;"
+                    .Parameters.AddWithValue("@IdCurso", cursoElegido)
+
+                ElseIf Not IsNothing(frm.turnoElegido) Then
+                    turnoElegido = frm.turnoElegido.Text.ToString()
+                    turnoElegido = turnoElegido.Substring(turnoElegido.IndexOf(" (") + 2).Trim(")")
+
+                    .CommandText = "SELECT * from `Grupo` where Grupo.IdTurno=@IdTurno;"
+                    .Parameters.AddWithValue("@IdTurno", turnoElegido)
+                End If
                 .CommandType = CommandType.Text
             End With
 
@@ -496,6 +565,8 @@ Public Class BaseDeDatos
         frm.totalSalones = 0
         frm.lblCantidadSalones.Text = "(" + frm.totalSalones.ToString() + ")"
 
+        Dim primerSalonFijado As Boolean = False
+
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
@@ -510,6 +581,11 @@ Public Class BaseDeDatos
                     Continue While
                 End If
                 frm.agregarSalon(reader("IdSalon"))
+
+                If Not primerSalonFijado Then
+                    frm.primerSalon = reader("IdSalon")
+                    primerSalonFijado = True
+                End If
             End While
             reader.Close()
             conexion.Close()
@@ -807,7 +883,7 @@ Public Class BaseDeDatos
         frm.pnlGrupos.Controls.Clear()
         frm.totalGrupos = 0
         frm.lblCantidadGrupos.Text = "(" + frm.totalGrupos.ToString() + ")"
-
+        Dim primerGrupoFijado As Boolean = False
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
@@ -818,7 +894,16 @@ Public Class BaseDeDatos
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                frm.agregarGrupo(reader("NroGrupo"), reader("Grado").ToString() & " " & reader("IdGrupo") & ControlChars.NewLine & " (" & reader("NombreTurno") & ")", reader("NombreTurno"), reader("CiPersona"))
+                If frm.tipoUsuario.Equals("Adscripto") And reader("CiPersona").Equals(frm.ciusuario) Then
+                    frm.agregarGrupo(reader("NroGrupo"), reader("Grado").ToString() & " " & reader("IdGrupo") & ControlChars.NewLine & " (" & reader("NombreTurno") & ")", reader("NombreTurno"), reader("CiPersona"))
+
+                    If Not primerGrupoFijado Then
+                        frm.primerGrupo = reader("NroGrupo").ToString()
+                        primerGrupoFijado = True
+                    End If
+                ElseIf Not frm.tipoUsuario.Equals("Adscripto") Then
+                    frm.agregarGrupo(reader("NroGrupo"), reader("Grado").ToString() & " " & reader("IdGrupo") & ControlChars.NewLine & " (" & reader("NombreTurno") & ")", reader("NombreTurno"), reader("CiPersona"))
+                End If
             End While
             reader.Close()
             conexion.Close()
@@ -1014,8 +1099,6 @@ Public Class BaseDeDatos
 
         Dim reader As MySqlDataReader = subCmd.ExecuteReader()
         While reader.Read()
-            Console.WriteLine(reader("IdGrupo"))
-            Console.WriteLine(reader("Grado"))
             If reader("IdGrupo").Equals(frm.txtIDGrupo.Text) And reader("Grado").Equals(Integer.Parse(frm.cmbGrado.Text)) Then
                 Continue While
             End If

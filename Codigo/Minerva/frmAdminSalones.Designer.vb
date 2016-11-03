@@ -50,6 +50,7 @@ Partial Class frmAdminSalones
         Me.lblSalonVespertino = New System.Windows.Forms.Label()
         Me.lblSalonNocturno = New System.Windows.Forms.Label()
         Me.pnlAsignado = New System.Windows.Forms.Panel()
+        Me.lblAunNoHaySalones = New System.Windows.Forms.Label()
         lblSalones = New System.Windows.Forms.Label()
         lblTitulo = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
@@ -385,10 +386,24 @@ Partial Class frmAdminSalones
         Me.pnlAsignado.TabIndex = 129
         Me.pnlAsignado.Visible = False
         '
+        'lblAunNoHaySalones
+        '
+        Me.lblAunNoHaySalones.Font = New System.Drawing.Font("Corbel", 36.0!, System.Drawing.FontStyle.Bold)
+        Me.lblAunNoHaySalones.ForeColor = System.Drawing.Color.White
+        Me.lblAunNoHaySalones.Location = New System.Drawing.Point(0, 0)
+        Me.lblAunNoHaySalones.Name = "lblAunNoHaySalones"
+        Me.lblAunNoHaySalones.Size = New System.Drawing.Size(1004, 493)
+        Me.lblAunNoHaySalones.TabIndex = 130
+        Me.lblAunNoHaySalones.Text = "Aún no se han creado salones"
+        Me.lblAunNoHaySalones.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblAunNoHaySalones.Visible = False
+        '
         'frmAdminSalones
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(lblTitulo)
+        Me.Controls.Add(Me.lblAunNoHaySalones)
         Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.btnNuevoSalon)
         Me.Controls.Add(Me.btnCancelarEdicion)
@@ -399,7 +414,6 @@ Partial Class frmAdminSalones
         Me.Controls.Add(Me.cmbPlanta)
         Me.Controls.Add(Me.lblIDSalon)
         Me.Controls.Add(Me.txtIDSalon)
-        Me.Controls.Add(lblTitulo)
         Me.Controls.Add(Me.btnAgregar)
         Me.Controls.Add(Me.pnlFondo)
         Me.Controls.Add(Me.pnlAsignado)
@@ -441,5 +455,6 @@ Partial Class frmAdminSalones
     Friend WithEvents lblSalonVespertino As System.Windows.Forms.Label
     Friend WithEvents lblSalonNocturno As System.Windows.Forms.Label
     Friend WithEvents pnlAsignado As System.Windows.Forms.Panel
+    Friend WithEvents lblAunNoHaySalones As System.Windows.Forms.Label
 
 End Class

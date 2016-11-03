@@ -276,6 +276,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Minerva.ico" />
+    <None Include="Resources\filtrar_normal.png" />
+    <None Include="Resources\filtrar_hover.png" />
+    <None Include="Resources\filtrar_click.png" />
     <None Include="Resources\usuario_no_aprobado.png" />
     <None Include="Resources\usuario_aprobado.png" />
     <None Include="Resources\dialogo-abajo1.png" />

@@ -4,11 +4,15 @@
     Friend totalGrupos As Integer = 0
     Friend prevSelect As String
     Friend prevOrientacionSelect As String
+    Friend primerGrupo As String
     Friend frmMain As frmMain
-    Dim tipoUsuario As String
+
+    Dim nroGrupo As String
+    Dim grupoPreview As Control = New Button()
+    Friend tipoUsuario As String
     Dim editando As Boolean = False
     Dim previsualizando As Boolean = False
-    Dim ciusuario As String
+    Friend ciusuario As String
 
     Public Sub New(ByVal frmMain As frmMain, ByVal tipousuario As String, ByVal ciUsuario As String)
         InitializeComponent()
@@ -19,7 +23,6 @@
 
     Private Sub frmAdminGrupos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al cargar la ventana, cargarGrupos y rellenar los combos con los datos.
-        cargarGrupos()
 
         controlesHabilitados(True)
         rellenarCombos()
@@ -29,6 +32,7 @@
         cmbOrientacion.Enabled = False
         cmbGrado.Enabled = False
         cmbCurso.Focus()
+        cargarGrupos()
     End Sub
 
     Public Sub agregarGrupo(ByVal NroGrupo As String, idTexto As String, ByVal nombreTurno As String, ByVal ciAdscripto As String)
@@ -51,7 +55,7 @@
         btnGrupo.Font = btnGrupoPlantilla.Font
         btnGrupo.TabStop = False
 
-        btnGrupo.Tag = {NroGrupo}
+        btnGrupo.Tag = {NroGrupo, "principal"}
         AddHandler btnGrupo.Click, AddressOf verGrupo
 
         btnEditar.Size = btnEditarPlantilla.Size
@@ -62,7 +66,7 @@
         btnEditar.Location = btnEditarPlantilla.Location
         btnEditar.Cursor = btnEditarPlantilla.Cursor
         btnEditar.TabStop = False
-        btnEditar.Tag = {NroGrupo}
+        btnEditar.Tag = {NroGrupo, "editar"}
         AddHandler btnEditar.Click, AddressOf editarGrupo
 
         btnEliminar.Size = btnEliminarPlantilla.Size
@@ -87,12 +91,10 @@
         pnlTemporal.Controls.Add(btnEditar)
         pnlTemporal.Controls.Add(btnEliminar)
         pnlTemporal.Controls.Add(btnGrupo)
-        If ciAdscripto.Equals(Me.ciusuario) AndAlso Me.tipoUsuario.Equals("Adscripto") Or Me.tipoUsuario.Equals("Funcionario") Or Me.tipoUsuario.Equals("Administrador") Then
-            pnlGrupos.Controls.Add(pnlTemporal)
+        pnlGrupos.Controls.Add(pnlTemporal)
 
-            totalGrupos += 1
-            lblCantidadGrupos.Text = "(" + totalGrupos.ToString() + ")"
-        End If
+        totalGrupos += 1
+        lblCantidadGrupos.Text = "(" + totalGrupos.ToString() + ")"
     End Sub
 
     Private Sub fixScroll(sender As Object, e As Object)
@@ -122,6 +124,10 @@
 
     Public Sub btnNuevoGrupo_Click(sender As Object, e As EventArgs) Handles btnNuevoGrupo.Click
         ' Prepara la interfaz para agregar un nuevo grupo
+        If Me.tipoUsuario.Equals("Adscripto") Then
+            previsualizarGrupo(nroGrupo)
+            Return
+        End If
         controlesHabilitados(True)
         lblNuevoGrupo.Text = "Nuevo grupo"
         btnNuevoGrupo.Visible = False
@@ -134,6 +140,8 @@
         chkDiscapacitado.TabStop = True
         cmbAdscripto.Enabled = True
         rellenarCombos()
+        grupoPreview.Enabled = True
+        grupoPreview = New Button()
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
@@ -186,7 +194,15 @@
     Private Sub editarGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim nroGrupo As String = sender.Tag(0)
         previsualizarGrupo(sender.Tag(0))
+
+        grupoPreview.Enabled = True
+        grupoPreview = sender.Parent
+        grupoPreview.Enabled = False
+
         btnNuevoGrupo.Text = "Nuevo grupo / cancelar"
+        If Me.tipoUsuario.Equals("Adscripto") Then
+            btnNuevoGrupo.Text = "Cancelar"
+        End If
         btnNuevoGrupo.Visible = True
         btnAgregar.Text = "Guardar cambios"
         btnAgregar.Visible = True
@@ -198,14 +214,33 @@
         If Me.tipoUsuario.Equals("Adscripto") Then
             cmbAdscripto.Enabled = False
         End If
+
     End Sub
 
     Private Sub previsualizarGrupo(ByVal nroGrupo As String)
         ' Prepara la interfaz para previsualizarUnGrupo
+        Me.nroGrupo = nroGrupo
         btnNuevoGrupo.Visible = True
         btnAgregar.Visible = False
         btnNuevoGrupo.Text = "Nuevo grupo"
         lblNuevoGrupo.Text = "Previsualizar grupo"
+
+        grupoPreview.Enabled = True
+        grupoPreview = Nothing
+        For Each pnl As Panel In pnlGrupos.Controls
+            For Each x As Button In pnl.Controls
+                If x.Tag(0).Equals(nroGrupo) And x.Tag(1).Equals("principal") Then
+                    If IsNothing(grupoPreview) Then
+                        grupoPreview = x
+                    End If
+                End If
+            Next
+        Next
+
+        If Me.tipoUsuario.Equals("Adscripto") Then
+            btnNuevoGrupo.Visible = False
+        End If
+        grupoPreview.Enabled = False
 
         controlesHabilitados(False)
         cargarDatos(nroGrupo)
@@ -236,6 +271,11 @@
     Public Sub cargarGrupos()
         Dim DB As New BaseDeDatos()
         DB.cargarGrupos_frmAdminGrupos(Me)
+        If Me.totalGrupos = 0 And Me.tipoUsuario.Equals("Adscripto") Then
+            lblNoGrupoAsignado.Visible = True
+        ElseIf Me.tipoUsuario.Equals("Adscripto") Then
+            previsualizarGrupo(primerGrupo)
+        End If
     End Sub
 
     Public Sub cargarOrientaciones()

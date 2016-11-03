@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmRegistro
     Inherits System.Windows.Forms.Form
 
@@ -147,7 +147,7 @@ Partial Class frmRegistro
         Me.lblIngreseUsuario.Name = "lblIngreseUsuario"
         Me.lblIngreseUsuario.Size = New System.Drawing.Size(256, 30)
         Me.lblIngreseUsuario.TabIndex = 26
-        Me.lblIngreseUsuario.Text = "Ingrese su usuario"
+        Me.lblIngreseUsuario.Text = "Ingrese su CI"
         Me.lblIngreseUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtContraseña
