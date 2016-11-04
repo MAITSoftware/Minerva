@@ -118,25 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnPreferencias.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAAyBJREFUSEu1
-        lz9MFEEUhyEaGjF21P5JDNEEGjDYgTaWIrHF2kQ7Y0SsFG1sbC3UYCGGDgq1sbDR1ki0t7LUkGiiUdfv
-        m3uz3O3tHofoL/nCzu+9mXc7O7M7DOxERVGMwyZUpTceaf9eDH4+lSmK17AaeK3OR9rfi0GGYBGmwkpy
-        cFBlEa9bVmdh2ifBMYbC6i0TYQ3UV5iJkLH55NYXng9Lbwbsqxyrd3ETIlGtw2dwgEvR/gnqTHSxz5mW
-        lWLmmGsf+9pWzcUNRIJ6DHtgEhxAfYcVOAuD0c1+g+EZM0fZx76O4ViqvjjmjRRuJewJW9+VvAQHw2qU
-        OZFbrnCuLZ5vaDHsLWFOQZ6iybB3LceKMR27Y7GWIpAXhYm1+xL/GCzAI7gPV6B2NvCdrVy0XKS1IuEy
-        qKWwkmgfgCfw22BFLqx7kVoK73aKsuDCahZJrkQXSXkXXFv0HSjj07APjsMGqI+RXgrPZ+5Ya2FtCdPp
-        cC/KBfDXr0Q4ibZ3qhbC0jP3S3KL4iUci1CH8J+CY5qf64wbqHv3zkY/4z5Tp3c9rCTa78HC58KqFfFZ
-        qGrTgHoD+df4Qmjfp9dBTYeVRPsDbEQzibZ7ehTat6OeY+bxrVXkwquR1yViD1spxXBYSbS940+Q1gJ/
-        T0AaFHUszHYR88PSV2G3jBoJK4n23ZZdfIMX4OP4pYEeRFqXiHUU7jXVN0F17UM9yKv9GVxsXRbXIsWc
-        xqmuW1xz0an9hXI4jVQR/l44ChZ4Dt71aISNNy6uMci/Jm8n363tRSdinFoRt+gdUMthJ9Gu205jEd4S
-        pkXd9LVFaR+BUzACw3AaXoF6C/sj1dxD8AO6XyBVkeT3VNUVnQi/Kqd3GcqiinZ/r0wSGqfXdvjGb4Gr
-        3Q/FVSifabvwt/9IEPCMlIt2fBZth988QIMqfbs/i5gezFT1INB3UeI+U6d3RweBfo4+xuegevRxy7h6
-        XUgqzRpsf/RRBiJB+fnLd9rvYc++fs/zI9v+sJdlQiSqjunl+v8cb7NMhN0e6D3D9X+g7yUHB/V//oVp
-        EoP3+qet+zXYqIGBPx92o2ugkY3PAAAAAElFTkSuQmCC
-</value>
-  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAYAAAAAAAEAIAAoIAQAZgAAAICAAAABACAAKAgBAI4gBABAQAAAAQAgAChCAAC2KAUAMDAAAAEA

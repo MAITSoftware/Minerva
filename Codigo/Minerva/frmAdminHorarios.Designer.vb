@@ -1252,7 +1252,6 @@ Partial Class frmAdminHorarios
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.Controls.Add(Me.lblTapaMaterias)
-        Me.Controls.Add(Me.pnlAyudaBtnDeshacer)
         Me.Controls.Add(lblTitulo)
         Me.Controls.Add(Me.lblSeleccioneGrupo)
         Me.Controls.Add(Me.pnlBordeOculto)
@@ -1266,6 +1265,7 @@ Partial Class frmAdminHorarios
         Me.Controls.Add(pnlBorde11)
         Me.Controls.Add(Me.pnlBorde10)
         Me.Controls.Add(Me.pnlMaterias)
+        Me.Controls.Add(Me.pnlAyudaBtnDeshacer)
         Me.Controls.Add(Me.pnlBorde8)
         Me.Controls.Add(Me.pnlBorde9)
         Me.Controls.Add(Me.pnlBorde7)

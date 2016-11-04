@@ -4,7 +4,7 @@
     Friend totalUsuarios As Integer = 0
     Friend tipoSeleccionado As String = "Funcionario"
     Friend previsualizando As Boolean = False
-    Dim miUsuario As String = "asd"
+    Dim miUsuario As String = ""
     Dim frmMain As frmMain
 
     Public Sub New(ByVal usuario As String, ByVal frmMain As frmMain)

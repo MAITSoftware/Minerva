@@ -4,17 +4,26 @@ Imports System.Data
 Public Class Conexion
     ' Define la conexión como variable pública
     Friend Conn As MySqlConnection
+    Dim server, user, passwd, db As String
 
-    Public Sub New()
+    Public Sub New(Optional ByVal noSalir As Boolean = False)
         ' Al crear la clase, generar la conexión, y abrirla
         Try
-            Conn = New MySqlConnection("server=localhost;uid=minerva;password=minerva;database=Minerva")
+            server = GetSetting("Minerva", "BaseDeDatos", "IP").ToString()
+            user = GetSetting("Minerva", "BaseDeDatos", "Usuario").ToString()
+            passwd = GetSetting("Minerva", "BaseDeDatos", "Contraseña").ToString()
+            db = GetSetting("Minerva", "BaseDeDatos", "DB").ToString()
+            Dim servidor_sentencia As String = "server=" & server & ";uid=" & user & ";password=" & passwd & ";database=" & db & ";Connect Timeout=2;"
+            Conn = New MySqlConnection(servidor_sentencia)
             Conn.Open()
         Catch ex As Exception
             ' En caso de error mostrar un mensaje y salir
-            System.Console.WriteLine(ex)
-            MsgBox("Error al establecer la conexión con el servidor", MsgBoxStyle.Critical)
-            Environment.Exit(0)
+            If Not noSalir Then
+                MsgBox("Error al establecer la conexión con el servidor, puede cambiar los datos de conexión la ventana inicial. El programa procederá a cerrarse.", MsgBoxStyle.Critical)
+                Environment.Exit(0)
+            Else
+                MsgBox("Error al establecer la conexión con el servidor, puede cambiar los datos de conexión la ventana inicial.", MsgBoxStyle.Critical)
+            End If
         End Try
     End Sub
 
