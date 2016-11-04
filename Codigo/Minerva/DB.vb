@@ -34,6 +34,7 @@ Public Class Conexion
 End Class
 
 Public Class BaseDeDatos
+    ' frmLogin
     Public Sub Login_frmLogin(ByVal frm As frmLogin)
         ' Se encarga de comprobar los datos ingresados del usuario, con los de la DB
         Dim accesoDenegado As Boolean = True
@@ -77,6 +78,7 @@ Public Class BaseDeDatos
         End If
     End Sub
 
+    ' frmRegistro
     Public Function ContarAdministradores_frmRegistro() As Integer
         Dim cantidadAdministradores As Integer
         Dim conexion As New Conexion()
@@ -158,6 +160,7 @@ Public Class BaseDeDatos
         End Try
     End Sub
 
+    ' frmDatosUsuario
     Public Sub setDatos_frmDatosUsuario(ByVal frm As frmDatosUsuario)
         Dim conexion As New Conexion()
         Dim subConexion As New Conexion()
@@ -181,6 +184,7 @@ Public Class BaseDeDatos
         frm.Dispose()
     End Sub
 
+    ' frmMain
     Public Sub crearMenuCursosTurnos_frmMain(ByVal frm As frmMain)
         frm.ContextMenuStrip1.Items.Clear()
         Dim item, turno, curso As ToolStripMenuItem
@@ -224,6 +228,7 @@ Public Class BaseDeDatos
         frm.ContextMenuStrip1.Items.Add(curso)
         conexion.Close()
     End Sub
+
     Public Sub contarAprobacion_frmMain(ByVal frm As frmMain)
         If Not frm.tipoUsuario.Equals("Administrador") Then
             frm.alertaAprobacion.Visible = False
@@ -279,6 +284,7 @@ Public Class BaseDeDatos
             End If
         End If
     End Sub
+
     Public Sub cargarNombre_frmMain(ByVal frm As frmMain)
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
@@ -568,6 +574,7 @@ Public Class BaseDeDatos
 
     End Sub
 
+    ' frmAdminSalones
     Public Sub cargarSalones_frmAdminSalones(ByVal frm As frmAdminSalones)
         ' Carga los salones y los pone en la lista
         frm.pnlSalones.Controls.Clear()
@@ -712,6 +719,7 @@ Public Class BaseDeDatos
         conexion.Close() 'Cierra la conexión
     End Sub
 
+    ' frmAdminUsuarios
     Public Sub cargarUsuarios_frmAdminUsuarios(ByVal frm As frmAdminUsuarios)
         ' Carga los usuarios a la lista de usuarios
         Dim conexion As New Conexion()
@@ -887,6 +895,7 @@ Public Class BaseDeDatos
         conexion.Close()
     End Sub
 
+    ' frmAdminGrupos
     Public Sub cargarGrupos_frmAdminGrupos(ByVal frm As frmAdminGrupos)
         ' Carga los grupos a la lista de grupos
         frm.pnlGrupos.Controls.Clear()
@@ -1092,6 +1101,7 @@ Public Class BaseDeDatos
         frm.cmbAdscripto.SelectedIndex = 0
         conexion.Close()
     End Sub
+
     Public Sub checkSalonOcupado_frmAdminGrupos(ByVal frm As frmAdminGrupos)
         Dim conexion As New Conexion()
         Dim subCmd As New MySqlCommand()
@@ -1119,6 +1129,7 @@ Public Class BaseDeDatos
         reader.Close()
         conexion.Close()
     End Sub
+
     Public Sub actualizarDB_frmAdminGrupos(ByVal frm As frmAdminGrupos)
         ' Agrega un salón a la base de datos
         Dim conexion As New Conexion()
@@ -1267,6 +1278,7 @@ Public Class BaseDeDatos
         conexion.Close() 'Cierra la conexión
     End Sub
 
+    ' frmAdminDocentes
     Public Sub cargarAreas_frmAdminDocentes(ByVal frm As frmAdminDocentes)
         ' Carga areas
         Dim conexion As New Conexion()
@@ -1722,6 +1734,7 @@ Public Class BaseDeDatos
         conexion.Close()
     End Sub
 
+    ' frmAdminHorarios
     Public Sub cargarGrupos_frmAdminHorarios(ByVal frm As frmAdminHorarios)
         ' Carga los grupos a la lista de grupos
         Dim conexion As New Conexion()
@@ -2190,6 +2203,7 @@ Public Class BaseDeDatos
         reader.Close()
         conexion.Close()
     End Sub
+
     Public Sub guardarHorarios_frmAdminHorarios(ByVal frm As frmAdminHorarios)
         Dim conexion As New Conexion()
         Dim conexion2 As New Conexion()

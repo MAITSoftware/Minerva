@@ -51,6 +51,7 @@ Partial Class frmAdminGrupos
         Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         Me.cmbSalon = New System.Windows.Forms.ComboBox()
         Me.lblNoGrupoAsignado = New System.Windows.Forms.Label()
+        Me.chkDistribuir = New System.Windows.Forms.CheckBox()
         lblTitulo = New System.Windows.Forms.Label()
         lblGrupos = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
@@ -393,13 +394,26 @@ Partial Class frmAdminGrupos
         Me.lblNoGrupoAsignado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.lblNoGrupoAsignado.Visible = False
         '
+        'chkDistribuir
+        '
+        Me.chkDistribuir.Checked = True
+        Me.chkDistribuir.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkDistribuir.Font = New System.Drawing.Font("Corbel", 9.0!)
+        Me.chkDistribuir.ForeColor = System.Drawing.Color.White
+        Me.chkDistribuir.Location = New System.Drawing.Point(461, 370)
+        Me.chkDistribuir.Name = "chkDistribuir"
+        Me.chkDistribuir.Size = New System.Drawing.Size(154, 41)
+        Me.chkDistribuir.TabIndex = 132
+        Me.chkDistribuir.Text = "Distribución inicial de asignaturas"
+        Me.chkDistribuir.UseVisualStyleBackColor = True
+        '
         'frmAdminGrupos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.chkDistribuir)
         Me.Controls.Add(lblTitulo)
-        Me.Controls.Add(Me.lblNoGrupoAsignado)
         Me.Controls.Add(Me.cmbSalon)
         Me.Controls.Add(Me.cmbAdscripto)
         Me.Controls.Add(Me.lblAdscripto)
@@ -420,6 +434,7 @@ Partial Class frmAdminGrupos
         Me.Controls.Add(Me.lblTurno)
         Me.Controls.Add(Me.lblIDGrupo)
         Me.Controls.Add(Me.pnlFondo)
+        Me.Controls.Add(Me.lblNoGrupoAsignado)
         Me.Name = "frmAdminGrupos"
         Me.Size = New System.Drawing.Size(1004, 493)
         Me.pnlFondo.ResumeLayout(False)
@@ -457,5 +472,6 @@ Partial Class frmAdminGrupos
     Friend WithEvents cmbAdscripto As System.Windows.Forms.ComboBox
     Friend WithEvents cmbSalon As System.Windows.Forms.ComboBox
     Friend WithEvents lblNoGrupoAsignado As System.Windows.Forms.Label
+    Friend WithEvents chkDistribuir As System.Windows.Forms.CheckBox
 
 End Class
