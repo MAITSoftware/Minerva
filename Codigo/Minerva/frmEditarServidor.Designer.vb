@@ -208,6 +208,7 @@ Partial Class frmEditarServidor
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmEditarServidor"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Minerva · Editar datos de conexión al servidor"
         Me.GroupBox1.ResumeLayout(False)

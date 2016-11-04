@@ -210,6 +210,7 @@ Partial Class frmAdministrar
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmAdministrar"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Minerva · Administración"
         Me.pnlPestañas.ResumeLayout(False)

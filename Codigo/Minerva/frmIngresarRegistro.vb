@@ -5,6 +5,7 @@
         ' Al clickear ingresar mostrar login
         Dim login As New frmLogin()
         login.Show()
+        Me.Hide()
     End Sub
 
     Private Sub btnInvitado_Click(sender As Object, e As EventArgs) Handles btnInvitado.Click
@@ -12,7 +13,6 @@
         Dim programa As New frmMain(True)
         programa.Show()
         Me.Hide()
-
     End Sub
 
     Private Sub btnRegistro_Click(sender As Object, e As EventArgs) Handles btnRegistro.Click
@@ -21,7 +21,6 @@
         Dim registro As New frmRegistro()
         registro.Show()
         Me.Hide()
-
     End Sub
 
     Private Sub btnPreferencias_Enter(sender As Object, e As EventArgs) Handles btnPreferencias.MouseEnter
