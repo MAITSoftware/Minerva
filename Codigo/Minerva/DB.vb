@@ -72,6 +72,7 @@ Public Class BaseDeDatos
             frm.pnlError.Visible = True
         Else
             Dim minerva As New frmMain(False, frm.cuentaUsuario, tipoUsuario)
+
             minerva.Show()
             minerva.BringToFront()
             frm.Hide()
@@ -1180,6 +1181,7 @@ Public Class BaseDeDatos
 
                     reader.Close()
                 End If
+
                 Try
                     checkSalonOcupado_frmAdminGrupos(frm)
                 Catch ex As Exception
@@ -1188,6 +1190,19 @@ Public Class BaseDeDatos
                     Return
                 End Try
                 cmd.ExecuteNonQuery()
+                If frm.chkDistribuir.Checked Then
+                    frm.frmAdministrar.habilitarBotones(False)
+                    frm.ParentForm.Enabled = False
+                    Dim ventanaEspere As New frmDialogoEspere()
+                    ventanaEspere.Show()
+                    ventanaEspere.lblComprobando.Text = "Repartiendo horarios"
+                    Me.repartirHorarios(frm)
+
+                    frm.ParentForm.Enabled = True
+                    frm.frmAdministrar.habilitarBotones(True)
+                    ventanaEspere.Dispose()
+                End If
+
                 frm.cargarGrupos()
                 If frm.btnAgregar.Text.Equals("Agregar grupo") Then
                     MessageBox.Show("Grupo agregado correctamente", "Grupo agregado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
@@ -1269,7 +1284,6 @@ Public Class BaseDeDatos
                 End Try
 
                 MessageBox.Show("No se pudo eliminar el grupo, el mismo tiene materias docentes (ver admin. de docentes) asignados.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Console.WriteLine(ex.ToString())
 
             End Try
         End Using
@@ -2657,4 +2671,447 @@ Public Class BaseDeDatos
         frm.frmMain.recargarGrupo()
     End Sub
 
+    ' Miscelaneo
+    Dim max_horas_diarias As Integer = 7
+    Dim materias_auxiliares(1) As Array
+    Dim materias_ordenadas(1) As Array
+    Dim asignacionLunes(1) As String
+    Dim asignacionMartes(1) As String
+    Dim asignacionMiercoles(1) As String
+    Dim asignacionJueves(1) As String
+    Dim asignacionViernes(1) As String
+    Dim asignacionSabado(1) As String
+
+    Public Function cargarMateriasAsignacion(ByVal frm As frmAdminGrupos) As Object
+        Dim IdTurno, NroGrupo As String
+        Dim conexion As New Conexion()
+        Dim cmd As New MySqlCommand()
+        cmd.Connection = conexion.Conn
+        cmd.CommandType = CommandType.Text
+        cmd.CommandText = "select NroGrupo, Tiene_Ta.IdAsignatura, CargaHoraria, EnseniaDeCorrido, Tiene_Ta.IdOrientacion, Grupo.IdTurno from Tiene_Ta, Grupo, Asignatura where Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura and Tiene_Ta.IdOrientacion=Grupo.IdOrientacion and Grupo.IdGrupo=@IdGrupo and Grupo.Grado=@Grado and Tiene_Ta.Grado=Grupo.Grado order by `CargaHoraria` DESC;"
+        cmd.Parameters.AddWithValue("@Grado", frm.cmbGrado.Text)
+        cmd.Parameters.AddWithValue("@IdGrupo", frm.txtIDGrupo.Text)
+        Dim reader As MySqlDataReader = cmd.ExecuteReader()
+        Dim pos As Integer = 0
+        While reader.Read()
+            materias_auxiliares(pos) = {reader("IdAsignatura"), reader("CargaHoraria"), reader("EnseniaDeCorrido")}
+            IdTurno = reader("IdTurno")
+            NroGrupo = reader("NroGrupo")
+            pos += 1
+            ReDim Preserve materias_auxiliares(pos + 1)
+        End While
+        reader.Close()
+        conexion.Close()
+
+        ReDim Preserve materias_auxiliares(pos - 1)
+        Return {NroGrupo, IdTurno}
+    End Function
+
+    Public Sub crearModulos()
+        Dim pos As Integer = 0
+        For Each materia As Object In materias_auxiliares
+            If Not materia(2) And materia(1) > 1 Then
+                While materia(1) > 0
+                    If materia(1) = 1 Then
+                        materia = {materia(0), 0, False}
+                        materias_ordenadas(pos) = {materia(0), 1, "-"}
+                    ElseIf materia(1) = 2 Then
+                        materia = {materia(0), 0, False}
+                        materias_ordenadas(pos) = {materia(0), 2, "-"}
+                    Else
+                        materia = {materia(0), materia(1) - 2, False}
+                        materias_ordenadas(pos) = {materia(0), 2, "-"}
+                    End If
+
+                    pos += 1
+                    ReDim Preserve materias_ordenadas(pos + 1)
+                End While
+            ElseIf materia(2) Then
+                materias_ordenadas(pos) = {materia(0), materia(1), "--"}
+                pos += 1
+                ReDim Preserve materias_ordenadas(pos + 1)
+            End If
+        Next
+        ReDim Preserve materias_ordenadas(materias_ordenadas.Length - 1)
+    End Sub
+
+    Public Sub repartirHorarios(ByVal frm As frmAdminGrupos)
+        ReDim Me.materias_auxiliares(1)
+        ReDim Me.materias_ordenadas(1)
+        ReDim Me.asignacionLunes(1)
+        ReDim Me.asignacionMartes(1)
+        ReDim Me.asignacionMiercoles(1)
+        ReDim Me.asignacionJueves(1)
+        ReDim Me.asignacionViernes(1)
+        ReDim me.asignacionSabado(1)
+        Try
+            repartirHorariosAutomagicamente(frm)
+        Catch ex As Exception
+            Console.WriteLine(ex)
+            MessageBox.Show("Hubieron errores al hacer la asignación inicial de materias." & vbCrLf & "Deberá modificar las asignaturas manualmente en la pestaña horarios", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
+    End Sub
+
+    Public Sub repartirHorariosAutomagicamente(ByVal frm As frmAdminGrupos)
+        Dim infoGrupo As Object = cargarMateriasAsignacion(frm)
+        Dim NroGrupo, IdTurno As String
+        NroGrupo = infoGrupo(0)
+        IdTurno = infoGrupo(1)
+        crearModulos()
+
+        Dim materias_asignadas(materias_ordenadas.Length) As Array
+
+        Dim posLunes As Integer = 0
+        Dim posMartes As Integer = 0
+        Dim posMiercoles As Integer = 0
+        Dim posJueves As Integer = 0
+        Dim posViernes As Integer = 0
+        Dim posSabado As Integer = 0
+        For value As Integer = 0 To 50
+            Dim pos As Integer = 0
+            For Each materia As Object In materias_ordenadas
+                If materias_asignadas.Contains(materia) Then
+                    Continue For
+                End If
+                If max_horas_diarias > asignacionLunes.Length - 1 + materia(1) And Not asignacionLunes.Contains(materia(0)) Then
+                    Dim x As Integer = 0
+                    While x < materia(1)
+                        asignacionLunes(posLunes) = materia(0)
+                        x += 1
+                        posLunes += 1
+                        ReDim Preserve asignacionLunes(posLunes)
+                    End While
+                    materias_asignadas(pos) = materia
+                    pos += 1
+                ElseIf max_horas_diarias > asignacionMartes.Length - 1 + materia(1) And Not asignacionMartes.Contains(materia(0)) Then
+                    Dim x As Integer = 0
+                    While x < materia(1)
+                        asignacionMartes(posMartes) = materia(0)
+                        x += 1
+                        posMartes += 1
+                        ReDim Preserve asignacionMartes(posMartes)
+                    End While
+                    materias_asignadas(pos) = materia
+                    pos += 1
+
+                ElseIf max_horas_diarias > asignacionMiercoles.Length - 1 + materia(1) And Not asignacionMiercoles.Contains(materia(0)) Then
+                    Dim x As Integer = 0
+                    While x < materia(1)
+                        asignacionMiercoles(posMiercoles) = materia(0)
+                        x += 1
+                        posMiercoles += 1
+                        ReDim Preserve asignacionMiercoles(posMiercoles)
+                    End While
+                    materias_asignadas(pos) = materia
+                    pos += 1
+
+                ElseIf max_horas_diarias > asignacionJueves.Length - 1 + materia(1) And Not asignacionJueves.Contains(materia(0)) Then
+                    Dim x As Integer = 0
+                    While x < materia(1)
+                        asignacionJueves(posJueves) = materia(0)
+                        x += 1
+                        posJueves += 1
+                        ReDim Preserve asignacionJueves(posJueves)
+                    End While
+                    materias_asignadas(pos) = materia
+                    pos += 1
+
+                ElseIf max_horas_diarias > asignacionViernes.Length - 1 + materia(1) And Not asignacionViernes.Contains(materia(0)) Then
+                    Dim x As Integer = 0
+                    While x < materia(1)
+                        asignacionViernes(posViernes) = materia(0)
+                        x += 1
+                        posViernes += 1
+                        ReDim Preserve asignacionViernes(posViernes)
+                    End While
+                    materias_asignadas(pos) = materia
+                    pos += 1
+
+                ElseIf max_horas_diarias > asignacionSabado.Length - 1 + materia(1) And Not asignacionSabado.Contains(materia(0)) Then
+                    Dim x As Integer = 0
+                    While x < materia(1)
+                        asignacionSabado(posSabado) = materia(0)
+                        x += 1
+                        posSabado += 1
+                        ReDim Preserve asignacionSabado(posSabado)
+                    End While
+                    materias_asignadas(pos) = materia
+                    pos += 1
+                Else
+                End If
+            Next
+        Next
+
+        For Each item In materias_asignadas
+            Try
+                Throw New System.Exception("No se pueden asignar :'(")
+            Catch ex As Exception
+            End Try
+        Next
+
+        ReDim Preserve asignacionLunes(asignacionLunes.Length - 2)
+        ReDim Preserve asignacionMartes(asignacionMartes.Length - 2)
+        ReDim Preserve asignacionMiercoles(asignacionMiercoles.Length - 2)
+        ReDim Preserve asignacionJueves(asignacionJueves.Length - 2)
+        ReDim Preserve asignacionViernes(asignacionViernes.Length - 2)
+        ReDim Preserve asignacionSabado(asignacionSabado.Length - 2)
+
+        Dim horarioPrimera, finPrimera, _
+            horarioSegunda, finSegunda, _
+            horarioTercera, finTercera, _
+            horarioCuarta, finCuarta, _
+            horarioQuinta, finQuinta, _
+            horarioSexta, finSexta, _
+            horarioExtra, finExtra As String
+
+        Dim cmd As New MySqlCommand()
+        Dim conexion As New Conexion()
+        cmd.Connection = conexion.Conn
+        cmd.CommandType = CommandType.Text
+        cmd.CommandText = "select DISTINCT HoraInicio, HoraFin from Asignacion where IdTurno=@IdTurno;"
+        cmd.Parameters.AddWithValue("@IdTurno", IdTurno)
+
+        Dim reader As MySqlDataReader = cmd.ExecuteReader()
+        Dim posActual As Integer = 1
+        While reader.Read()
+            If posActual = 1 Then
+                horarioPrimera = reader("HoraInicio").ToString()
+                finPrimera = reader("HoraFin").ToString()
+            ElseIf posActual = 2 Then
+                horarioSegunda = reader("HoraInicio").ToString()
+                finSegunda = reader("HoraFin").ToString()
+            ElseIf posActual = 3 Then
+                horarioTercera = reader("HoraInicio").ToString()
+                finTercera = reader("HoraFin").ToString()
+            ElseIf posActual = 4 Then
+                horarioCuarta = reader("HoraInicio").ToString()
+                finCuarta = reader("HoraFin").ToString()
+            ElseIf posActual = 5 Then
+                horarioQuinta = reader("HoraInicio").ToString()
+                finQuinta = reader("HoraFin").ToString()
+            ElseIf posActual = 6 Then
+                horarioSexta = reader("HoraInicio").ToString()
+                finSexta = reader("HoraFin").ToString()
+            ElseIf posActual = 7 Then
+                horarioExtra = reader("HoraInicio").ToString()
+                finExtra = reader("HoraFin").ToString()
+            End If
+            posActual += 1
+        End While
+        reader.Close()
+
+        Dim total As Integer = 0
+        Dim horaActual As Integer = 1
+        Dim sentencias(0) As Array
+        Dim horaInicio, horaFin As String
+
+        For Each item In asignacionLunes
+            If horaActual = 1 Then
+                horaInicio = horarioPrimera
+                horaFin = finPrimera
+            ElseIf horaActual = 2 Then
+                horaInicio = horarioSegunda
+                horaFin = finSegunda
+            ElseIf horaActual = 3 Then
+                horaInicio = horarioTercera
+                horaFin = finTercera
+            ElseIf horaActual = 4 Then
+                horaInicio = horarioCuarta
+                horaFin = finCuarta
+            ElseIf horaActual = 5 Then
+                horaInicio = horarioQuinta
+                horaFin = finQuinta
+            ElseIf horaActual = 6 Then
+                horaInicio = horarioSexta
+                horaFin = finSexta
+            ElseIf horaActual = 7 Then
+                horaInicio = horarioExtra
+                horaFin = finExtra
+            End If
+            sentencias(total) = {item, NroGrupo, horaInicio, horaFin, "Lunes", IdTurno, "-1"}
+
+            horaActual += 1
+            total += 1
+            ReDim Preserve sentencias(total)
+        Next
+
+
+        horaActual = 1
+        For Each item In asignacionMartes
+            If horaActual = 1 Then
+                horaInicio = horarioPrimera
+                horaFin = finPrimera
+            ElseIf horaActual = 2 Then
+                horaInicio = horarioSegunda
+                horaFin = finSegunda
+            ElseIf horaActual = 3 Then
+                horaInicio = horarioTercera
+                horaFin = finTercera
+            ElseIf horaActual = 4 Then
+                horaInicio = horarioCuarta
+                horaFin = finCuarta
+            ElseIf horaActual = 5 Then
+                horaInicio = horarioQuinta
+                horaFin = finQuinta
+            ElseIf horaActual = 6 Then
+                horaInicio = horarioSexta
+                horaFin = finSexta
+            ElseIf horaActual = 7 Then
+                horaInicio = horarioExtra
+                horaFin = finExtra
+            End If
+            sentencias(total) = {item, NroGrupo, horaInicio, horaFin, "Martes", IdTurno, "-1"}
+            horaActual += 1
+            total += 1
+            ReDim Preserve sentencias(total)
+        Next
+
+        horaActual = 1
+        For Each item In asignacionMiercoles
+            If horaActual = 1 Then
+                horaInicio = horarioPrimera
+                horaFin = finPrimera
+            ElseIf horaActual = 2 Then
+                horaInicio = horarioSegunda
+                horaFin = finSegunda
+            ElseIf horaActual = 3 Then
+                horaInicio = horarioTercera
+                horaFin = finTercera
+            ElseIf horaActual = 4 Then
+                horaInicio = horarioCuarta
+                horaFin = finCuarta
+            ElseIf horaActual = 5 Then
+                horaInicio = horarioQuinta
+                horaFin = finQuinta
+            ElseIf horaActual = 6 Then
+                horaInicio = horarioSexta
+                horaFin = finSexta
+            ElseIf horaActual = 7 Then
+                horaInicio = horarioExtra
+                horaFin = finExtra
+            End If
+            sentencias(total) = {item, NroGrupo, horaInicio, horaFin, "Miércoles", IdTurno, "-1"}
+
+            horaActual += 1
+            total += 1
+            ReDim Preserve sentencias(total)
+        Next
+
+
+        horaActual = 1
+        For Each item In asignacionJueves
+            If horaActual = 1 Then
+                horaInicio = horarioPrimera
+                horaFin = finPrimera
+            ElseIf horaActual = 2 Then
+                horaInicio = horarioSegunda
+                horaFin = finSegunda
+            ElseIf horaActual = 3 Then
+                horaInicio = horarioTercera
+                horaFin = finTercera
+            ElseIf horaActual = 4 Then
+                horaInicio = horarioCuarta
+                horaFin = finCuarta
+            ElseIf horaActual = 5 Then
+                horaInicio = horarioQuinta
+                horaFin = finQuinta
+            ElseIf horaActual = 6 Then
+                horaInicio = horarioSexta
+                horaFin = finSexta
+            ElseIf horaActual = 7 Then
+                horaInicio = horarioExtra
+                horaFin = finExtra
+            End If
+            sentencias(total) = {item, NroGrupo, horaInicio, horaFin, "Jueves", IdTurno, "-1"}
+            horaActual += 1
+            total += 1
+            ReDim Preserve sentencias(total)
+        Next
+
+        horaActual = 1
+        For Each item In asignacionViernes
+            If horaActual = 1 Then
+                horaInicio = horarioPrimera
+                horaFin = finPrimera
+            ElseIf horaActual = 2 Then
+                horaInicio = horarioSegunda
+                horaFin = finSegunda
+            ElseIf horaActual = 3 Then
+                horaInicio = horarioTercera
+                horaFin = finTercera
+            ElseIf horaActual = 4 Then
+                horaInicio = horarioCuarta
+                horaFin = finCuarta
+            ElseIf horaActual = 5 Then
+                horaInicio = horarioQuinta
+                horaFin = finQuinta
+            ElseIf horaActual = 6 Then
+                horaInicio = horarioSexta
+                horaFin = finSexta
+            ElseIf horaActual = 7 Then
+                horaInicio = horarioExtra
+                horaFin = finExtra
+            End If
+            sentencias(total) = {item, NroGrupo, horaInicio, horaFin, "Viernes", IdTurno, "-1"}
+            horaActual += 1
+            total += 1
+            ReDim Preserve sentencias(total)
+        Next
+
+        horaActual = 1
+        For Each item In asignacionSabado
+            If horaActual = 1 Then
+                horaInicio = horarioPrimera
+                horaFin = finPrimera
+            ElseIf horaActual = 2 Then
+                horaInicio = horarioSegunda
+                horaFin = finSegunda
+            ElseIf horaActual = 3 Then
+                horaInicio = horarioTercera
+                horaFin = finTercera
+            ElseIf horaActual = 4 Then
+                horaInicio = horarioCuarta
+                horaFin = finCuarta
+            ElseIf horaActual = 5 Then
+                horaInicio = horarioQuinta
+                horaFin = finQuinta
+            ElseIf horaActual = 6 Then
+                horaInicio = horarioSexta
+                horaFin = finSexta
+            ElseIf horaActual = 7 Then
+                horaInicio = horarioExtra
+                horaFin = finExtra
+            End If
+            sentencias(total) = {item, NroGrupo, horaInicio, horaFin, "Sábado", IdTurno, "-1"}
+            horaActual += 1
+            total += 1
+            ReDim Preserve sentencias(total)
+        Next
+
+        ReDim Preserve sentencias(sentencias.Length - 1)
+        Dim huboError = False
+
+        For Each sentencia As Object In sentencias
+            Dim subCmd As MySqlCommand
+            Try
+                subCmd = New MySqlCommand()
+                subCmd.Connection = conexion.Conn
+                subCmd.CommandType = CommandType.Text
+                subCmd.CommandText = "INSERT INTO `Genera` VALUES (@IdAsignatura, @NroGrupo, @HoraInicio, @HoraFin, @Dia, @IdTurno, @CiPersona);"
+                subCmd.Parameters.AddWithValue("@IdAsignatura", sentencia(0))
+                subCmd.Parameters.AddWithValue("@NroGrupo", sentencia(1))
+                subCmd.Parameters.AddWithValue("@HoraInicio", sentencia(2))
+                subCmd.Parameters.AddWithValue("@HoraFin", sentencia(3))
+                subCmd.Parameters.AddWithValue("@Dia", sentencia(4))
+                subCmd.Parameters.AddWithValue("@IdTurno", sentencia(5))
+                subCmd.Parameters.AddWithValue("@CiPersona", sentencia(6))
+                subCmd.ExecuteNonQuery()
+            Catch ex As Exception
+                huboError = True
+            End Try
+        Next
+        If huboError Then
+            Throw New System.Exception("Error al asignar los horarios :(")
+        End If
+    End Sub
 End Class

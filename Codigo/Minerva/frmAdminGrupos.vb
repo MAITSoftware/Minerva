@@ -13,12 +13,14 @@
     Dim editando As Boolean = False
     Dim previsualizando As Boolean = False
     Friend ciusuario As String
+    Friend frmAdministrar As frmAdministrar
 
-    Public Sub New(ByVal frmMain As frmMain, ByVal tipousuario As String, ByVal ciUsuario As String)
+    Public Sub New(ByVal frmMain As frmMain, ByVal tipousuario As String, ByVal ciUsuario As String, ByVal frmAdministrar As frmAdministrar)
         InitializeComponent()
         Me.frmMain = frmMain
         Me.tipoUsuario = tipousuario
         Me.ciusuario = ciUsuario
+        Me.frmAdministrar = frmAdministrar
     End Sub
 
     Private Sub frmAdminGrupos_Load(sender As Object, e As EventArgs) Handles MyBase.Load

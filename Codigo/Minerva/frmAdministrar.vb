@@ -149,7 +149,7 @@
         Me.Text = "Minerva · Administración de grupos"
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño()
-        pnlTrabajo = New frmAdminGrupos(Me.frmMain, Me.tipoUsuario, Me.frmMain.nombreUsuario)
+        pnlTrabajo = New frmAdminGrupos(Me.frmMain, Me.tipoUsuario, Me.frmMain.nombreUsuario, Me)
         Me.Size = New Point(1024, 575)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)
