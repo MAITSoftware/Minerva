@@ -3107,11 +3107,7 @@ Public Class BaseDeDatos
                 subCmd.Parameters.AddWithValue("@CiPersona", sentencia(6))
                 subCmd.ExecuteNonQuery()
             Catch ex As Exception
-                huboError = True
             End Try
         Next
-        If huboError Then
-            Throw New System.Exception("Error al asignar los horarios :(")
-        End If
     End Sub
 End Class
