@@ -27,8 +27,8 @@
             Return
         End If
 
-        Dim DB As New BaseDeDatos()
-        DB.setDatos_frmDatosUsuario(Me)
+        Dim Logica as New Logica()
+        Logica.setDatos_frmDatosUsuario(Me)
     End Sub
 
     Private Sub frmDatosUsuario_Load(sender As Object, e As EventArgs) Handles MyBase.Load

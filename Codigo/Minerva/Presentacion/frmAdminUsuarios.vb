@@ -226,8 +226,8 @@
     ' Persistencia
 
     Public Sub cargarUsuarios()
-        Dim DB As New BaseDeDatos()
-        DB.cargarUsuarios_frmAdminUsuarios(Me)
+        Dim Logica as New Logica()
+        Logica.cargarUsuarios_frmAdminUsuarios(Me)
 
     End Sub
 
@@ -238,20 +238,20 @@
             Return
         End If
 
-        Dim DB As New BaseDeDatos()
-        DB.eliminarUsuario_frmAdminUsuarios(sender, Me)
-        DB.contarAprobacion_frmMain(Me.frmMain)
+        Dim Logica as New Logica()
+        Logica.eliminarUsuario_frmAdminUsuarios(sender, Me)
+        Logica.contarAprobacion_frmMain(Me.frmMain)
     End Sub
 
     Public Sub cargarDatos(ByVal ID As String)
         ' Carga los datos del usuario y los muestra en pantalla
-        Dim DB As New BaseDeDatos()
-        DB.cargarDatos_frmAdminUsuarios(ID, Me)
+        Dim Logica as New Logica()
+        Logica.cargarDatos_frmAdminUsuarios(ID, Me)
     End Sub
 
     Public Sub actualizarDB()
-        Dim DB As New BaseDeDatos()
-        DB.actualizarDB_frmAdminUsuarios(Me)
-        DB.contarAprobacion_frmMain(Me.frmMain)
+        Dim Logica as New Logica()
+        Logica.actualizarDB_frmAdminUsuarios(Me)
+        Logica.contarAprobacion_frmMain(Me.frmMain)
     End Sub
 End Class

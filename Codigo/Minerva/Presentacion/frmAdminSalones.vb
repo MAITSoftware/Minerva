@@ -210,8 +210,8 @@
     End Sub
 
     Public Sub cargarSalones()
-        Dim DB As New BaseDeDatos()
-        DB.cargarSalones_frmAdminSalones(Me)
+        Dim Logica as New Logica()
+        Logica.cargarSalones_frmAdminSalones(Me)
         If Me.totalSalones = 0 And Me.tipoUsuario.Equals("Adscripto") Then
             lblAunNoHaySalones.Visible = True
         ElseIf Me.tipoUsuario.Equals("Adscripto") Then
@@ -220,14 +220,14 @@
     End Sub
 
     Public Sub actualizarDB()
-        Dim DB As New BaseDeDatos()
-        DB.actualizarDB_frmAdminSalones(Me)
+        Dim Logica as New Logica()
+        Logica.actualizarDB_frmAdminSalones(Me)
     End Sub
 
     Public Sub cargarDatos(ByVal idSalon As String)
         ' Carga los datos de un salón
-        Dim DB As New BaseDeDatos()
-        DB.cargarDatos_frmAdminSalones(idSalon, Me)
+        Dim Logica as New Logica()
+        Logica.cargarDatos_frmAdminSalones(idSalon, Me)
     End Sub
 
     Private Sub eliminarSalon(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -236,8 +236,8 @@
         If result = DialogResult.No Then
             Return
         End If
-        Dim DB As New BaseDeDatos()
-        DB.eliminarSalon_frmAdminSalones(sender, Me)
+        Dim Logica as New Logica()
+        Logica.eliminarSalon_frmAdminSalones(sender, Me)
         frmMain.recargarGrupo()
     End Sub
 

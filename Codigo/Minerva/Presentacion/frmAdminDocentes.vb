@@ -295,29 +295,29 @@
 
     ' Persistencia
     Public Sub cargarAreas()
-        Dim Db As New BaseDeDatos()
-        Db.cargarAreas_frmAdminDocentes(Me)
+        Dim Logica As New Logica()
+        Logica.cargarAreas_frmAdminDocentes(Me)
     End Sub
 
     Public Sub rellenarCombos()
-        Dim DB As New BaseDeDatos()
-        DB.rellenarCombos_frmAdminDocentes(Me)
+        Dim Logica As New Logica()
+        Logica.rellenarCombos_frmAdminDocentes(Me)
     End Sub
 
     Public Sub cargarDocentes()
-        Dim DB As New BaseDeDatos()
-        DB.cargarDocentes_frmAdminDocentes(Me)
+        Dim Logica As New Logica()
+        Logica.cargarDocentes_frmAdminDocentes(Me)
     End Sub
 
     Public Sub actualizarDB()
-        Dim DB As New BaseDeDatos()
-        DB.actualizarDB_frmAdminDocentes(Me)
+        Dim Logica As New Logica()
+        Logica.actualizarDB_frmAdminDocentes(Me)
         frmMain.recargarGrupo()
     End Sub
 
     Public Sub cargarDatos(ByVal ciDocente As String)
-        Dim DB As New BaseDeDatos()
-        DB.cargarDatos_frmAdminDocentes(ciDocente, Me)
+        Dim Logica As New Logica()
+        Logica.cargarDatos_frmAdminDocentes(ciDocente, Me)
     End Sub
 
     Public Sub eliminarAsignatura(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.Click
@@ -327,8 +327,8 @@
             Return
         End If
 
-        Dim DB As New BaseDeDatos()
-        DB.eliminarAsignatura_frmAdminDocentes(sender, Me)
+        Dim Logica As New Logica()
+        Logica.eliminarAsignatura_frmAdminDocentes(sender, Me)
         frmMain.recargarGrupo()
     End Sub
 
@@ -338,28 +338,28 @@
         If result = DialogResult.No Then
             Return
         End If
-        Dim DB As New BaseDeDatos()
-        DB.eliminarDocente_frmAdminDocentes(sender, Me)
+        Dim Logica As New Logica()
+        Logica.eliminarDocente_frmAdminDocentes(sender, Me)
         frmMain.recargarGrupo()
     End Sub
 
     Public Sub cargarMaterias(ByVal CI As String)
-        Dim DB As New BaseDeDatos()
+        Dim Logica As New Logica()
         lstAsignaturas.Enabled = True
-        DB.cargarMaterias_frmAdminDocentes(CI, Me)
+        Logica.cargarMaterias_frmAdminDocentes(CI, Me)
     End Sub
 
     Public Sub actualizarDBMaterias()
         ' Se encarga de manejar la DB (parte asignaturas del docente), agrega o edita asignaturas.
-        Dim DB As New BaseDeDatos()
-        DB.actualizarDBMaterias_frmAdminDocentes(Me)
+        Dim Logica As New Logica()
+        Logica.actualizarDBMaterias_frmAdminDocentes(Me)
         frmMain.recargarGrupo()
     End Sub
 
     Public Sub cargarAsignaturas()
         ' Carga las asignaturas al combo
-        Dim DB As New BaseDeDatos()
-        DB.cargarAsignaturas_frmAdminDocentes(Me)
+        Dim Logica As New Logica()
+        Logica.cargarAsignaturas_frmAdminDocentes(Me)
     End Sub
 
     ' Presentación

@@ -271,8 +271,8 @@
 
     ' Persistencia
     Public Sub cargarGrupos()
-        Dim DB As New BaseDeDatos()
-        DB.cargarGrupos_frmAdminGrupos(Me)
+        Dim Logica as New Logica()
+        Logica.cargarGrupos_frmAdminGrupos(Me)
         If Me.totalGrupos = 0 And Me.tipoUsuario.Equals("Adscripto") Then
             lblNoGrupoAsignado.Visible = True
         ElseIf Me.tipoUsuario.Equals("Adscripto") Then
@@ -282,35 +282,35 @@
 
     Public Sub cargarOrientaciones()
         ' carga las orientaciones a los combobox
-        Dim DB As New BaseDeDatos()
-        DB.cargarOrientaciones_frmAdminGrupos(Me)
+        Dim Logica as New Logica()
+        Logica.cargarOrientaciones_frmAdminGrupos(Me)
     End Sub
 
     Public Sub rellenarCombos()
-        ' Llena los combos con los datos de la DB.
+        ' Llena los combos con los datos de la Logica.
         cmbCurso.Items.Clear()
         cmbAdscripto.Items.Clear()
-        Dim DB As New BaseDeDatos()
-        DB.rellenarCombos_frmAdminGrupos(Me)
-        DB.cargarAdscriptos_frmAdminGrupos(Me)
-        DB.cargarSalones_frmAdminGrupos(Me)
+        Dim Logica as New Logica()
+        Logica.rellenarCombos_frmAdminGrupos(Me)
+        Logica.cargarAdscriptos_frmAdminGrupos(Me)
+        Logica.cargarSalones_frmAdminGrupos(Me)
     End Sub
 
     Public Sub cargarDatos(ByVal nroGrupo As String)
         ' carga los datos del grupo y los coloca en la interfaz
-        Dim DB As New BaseDeDatos()
-        DB.cargarDatos_frmAdminGrupos(nroGrupo, Me)
+        Dim Logica as New Logica()
+        Logica.cargarDatos_frmAdminGrupos(nroGrupo, Me)
         previsualizando = True
     End Sub
 
     Public Sub actualizarDB()
-        Dim DB As New BaseDeDatos()
-        DB.actualizarDB_frmAdminGrupos(Me)
+        Dim Logica as New Logica()
+        Logica.actualizarDB_frmAdminGrupos(Me)
     End Sub
 
     Public Sub cargarGrados()
-        Dim DB As New BaseDeDatos()
-        DB.cargarGrados_frmAdminGrupos(Me)
+        Dim Logica as New Logica()
+        Logica.cargarGrados_frmAdminGrupos(Me)
     End Sub
 
     Private Sub eliminarGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -322,8 +322,8 @@
             Return
         End If
 
-        Dim DB As New BaseDeDatos()
-        DB.eliminarGrupo_frmAdminGrupos(sender.Tag(0), sender.Tag(1), Me)
+        Dim Logica as New Logica()
+        Logica.eliminarGrupo_frmAdminGrupos(sender.Tag(0), sender.Tag(1), Me)
         Me.frmMain.recargarGrupo()
     End Sub
 

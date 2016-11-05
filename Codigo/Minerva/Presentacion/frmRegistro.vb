@@ -52,8 +52,8 @@
     Private Sub frmLogin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' al cargar ventana, iniciar animacion
         timerAnimacion.Start()
-        Dim DB As New BaseDeDatos
-        Dim cantidadAdministradores As Integer = DB.ContarAdministradores_frmRegistro()
+        Dim Logica As New Logica
+        Dim cantidadAdministradores As Integer = Logica.ContarAdministradores_frmRegistro()
         If cantidadAdministradores <= 0 Then
             radAdministrador.Checked = True
             radFuncionario.Enabled = False
@@ -81,7 +81,7 @@
 
     ' Persistencia
     Private Sub Registro(sender As Object, e As EventArgs) Handles btnEntrar.Click
-        Dim DB As New BaseDeDatos()
-        DB.Registro_frmRegistro(Me)
+        Dim Logica as New Logica()
+        Logica.Registro_frmRegistro(Me)
     End Sub
 End Class

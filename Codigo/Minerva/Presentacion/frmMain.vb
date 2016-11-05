@@ -72,10 +72,10 @@
         End If
 
         timerbtnrefrescar.Enabled = True
-        Dim DB As New BaseDeDatos()
+        Dim Logica as New Logica()
 
-        DB.cargarDatosGrupo_frmMain(Me)
-        DB.cargarMateriasGrupo_frmMain(Me)
+        Logica.cargarDatosGrupo_frmMain(Me)
+        Logica.cargarMateriasGrupo_frmMain(Me)
         imgLogoMAITs.Focus()
     End Sub
 
@@ -97,9 +97,9 @@
             timerDatosUsuario.Enabled = True
         End If
         Me.WindowState = FormWindowState.Maximized
-        Dim DB As New BaseDeDatos()
-        DB.contarAprobacion_frmMain(Me)
-        DB.crearMenuCursosTurnos_frmMain(Me)
+        Dim Logica as New Logica()
+        Logica.contarAprobacion_frmMain(Me)
+        Logica.crearMenuCursosTurnos_frmMain(Me)
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
@@ -110,8 +110,8 @@
 
     ' Persistencia
     Private Sub cargarDatos()
-        Dim DB As New BaseDeDatos()
-        DB.cargarDatos_frmMain(Me)
+        Dim Logica as New Logica()
+        Logica.cargarDatos_frmMain(Me)
     End Sub
 
     Private Sub timerDatosUsuario_Tick(sender As Object, e As EventArgs) Handles timerDatosUsuario.Tick
@@ -121,8 +121,8 @@
     End Sub
 
     Public Sub cargarNombre()
-        Dim DB As New BaseDeDatos()
-        DB.cargarNombre_frmMain(Me)
+        Dim Logica as New Logica()
+        Logica.cargarNombre_frmMain(Me)
     End Sub
 
     Private Sub btnRefrescarHorarios_Click(sender As Object, e As EventArgs) Handles btnRefrescarHorarios.Click

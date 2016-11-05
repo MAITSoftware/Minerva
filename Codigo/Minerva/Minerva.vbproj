@@ -97,95 +97,95 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DB.vb" />
-    <Compile Include="frmAdminDocentes.Designer.vb">
+    <Compile Include="Logica\Logica.vb" />
+    <Compile Include="Presentacion\frmAdminDocentes.Designer.vb">
       <DependentUpon>frmAdminDocentes.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmAdminDocentes.vb">
+    <Compile Include="Presentacion\frmAdminDocentes.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="frmAdminGrupos.Designer.vb">
+    <Compile Include="Presentacion\frmAdminGrupos.Designer.vb">
       <DependentUpon>frmAdminGrupos.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmAdminGrupos.vb">
+    <Compile Include="Presentacion\frmAdminGrupos.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="frmAdminHorarios.Designer.vb">
+    <Compile Include="Presentacion\frmAdminHorarios.Designer.vb">
       <DependentUpon>frmAdminHorarios.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmAdminHorarios.vb">
+    <Compile Include="Presentacion\frmAdminHorarios.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="frmAdministrar.Designer.vb">
+    <Compile Include="Presentacion\frmAdministrar.Designer.vb">
       <DependentUpon>frmAdministrar.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmAdministrar.vb">
+    <Compile Include="Presentacion\frmAdministrar.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAdminSalones.Designer.vb">
+    <Compile Include="Presentacion\frmAdminSalones.Designer.vb">
       <DependentUpon>frmAdminSalones.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmAdminSalones.vb">
+    <Compile Include="Presentacion\frmAdminSalones.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="frmAdminUsuarios.Designer.vb">
+    <Compile Include="Presentacion\frmAdminUsuarios.Designer.vb">
       <DependentUpon>frmAdminUsuarios.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmAdminUsuarios.vb">
+    <Compile Include="Presentacion\frmAdminUsuarios.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="frmDatosUsuario.Designer.vb">
+    <Compile Include="Presentacion\frmDatosUsuario.Designer.vb">
       <DependentUpon>frmDatosUsuario.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmDatosUsuario.vb">
+    <Compile Include="Presentacion\frmDatosUsuario.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmDia.Designer.vb">
+    <Compile Include="Presentacion\frmDia.Designer.vb">
       <DependentUpon>frmDia.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmDia.vb">
+    <Compile Include="Presentacion\frmDia.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="frmDialogoEspere.Designer.vb">
+    <Compile Include="Presentacion\frmDialogoEspere.Designer.vb">
       <DependentUpon>frmDialogoEspere.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmDialogoEspere.vb">
+    <Compile Include="Presentacion\frmDialogoEspere.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmEditarServidor.Designer.vb">
+    <Compile Include="Presentacion\frmEditarServidor.Designer.vb">
       <DependentUpon>frmEditarServidor.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmEditarServidor.vb">
+    <Compile Include="Presentacion\frmEditarServidor.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmHorariosExternos.Designer.vb">
+    <Compile Include="Presentacion\frmHorariosExternos.Designer.vb">
       <DependentUpon>frmHorariosExternos.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmHorariosExternos.vb">
+    <Compile Include="Presentacion\frmHorariosExternos.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmIngresarRegistro.Designer.vb">
+    <Compile Include="Presentacion\frmIngresarRegistro.Designer.vb">
       <DependentUpon>frmIngresarRegistro.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmIngresarRegistro.vb">
+    <Compile Include="Presentacion\frmIngresarRegistro.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmLogin.Designer.vb">
+    <Compile Include="Presentacion\frmLogin.Designer.vb">
       <DependentUpon>frmLogin.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmLogin.vb">
+    <Compile Include="Presentacion\frmLogin.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmRegistro.Designer.vb">
+    <Compile Include="Presentacion\frmRegistro.Designer.vb">
       <DependentUpon>frmRegistro.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmRegistro.vb">
+    <Compile Include="Presentacion\frmRegistro.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.vb">
+    <Compile Include="Presentacion\frmMain.Designer.vb">
       <DependentUpon>frmMain.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmMain.vb">
+    <Compile Include="Presentacion\frmMain.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Bedelia\AssemblyInfo.vb" />
@@ -203,57 +203,58 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="frmVistaGrilla.Designer.vb">
+    <Compile Include="Presentacion\frmVistaGrilla.Designer.vb">
       <DependentUpon>frmVistaGrilla.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmVistaGrilla.vb">
+    <Compile Include="Presentacion\frmVistaGrilla.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Persistencia\Conexion.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="frmAdminDocentes.resx">
+    <EmbeddedResource Include="Presentacion\frmAdminDocentes.resx">
       <DependentUpon>frmAdminDocentes.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAdminGrupos.resx">
+    <EmbeddedResource Include="Presentacion\frmAdminGrupos.resx">
       <DependentUpon>frmAdminGrupos.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAdminHorarios.resx">
+    <EmbeddedResource Include="Presentacion\frmAdminHorarios.resx">
       <DependentUpon>frmAdminHorarios.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAdministrar.resx">
+    <EmbeddedResource Include="Presentacion\frmAdministrar.resx">
       <DependentUpon>frmAdministrar.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAdminSalones.resx">
+    <EmbeddedResource Include="Presentacion\frmAdminSalones.resx">
       <DependentUpon>frmAdminSalones.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAdminUsuarios.resx">
+    <EmbeddedResource Include="Presentacion\frmAdminUsuarios.resx">
       <DependentUpon>frmAdminUsuarios.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmDatosUsuario.resx">
+    <EmbeddedResource Include="Presentacion\frmDatosUsuario.resx">
       <DependentUpon>frmDatosUsuario.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmDia.resx">
+    <EmbeddedResource Include="Presentacion\frmDia.resx">
       <DependentUpon>frmDia.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmDialogoEspere.resx">
+    <EmbeddedResource Include="Presentacion\frmDialogoEspere.resx">
       <DependentUpon>frmDialogoEspere.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmEditarServidor.resx">
+    <EmbeddedResource Include="Presentacion\frmEditarServidor.resx">
       <DependentUpon>frmEditarServidor.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmHorariosExternos.resx">
+    <EmbeddedResource Include="Presentacion\frmHorariosExternos.resx">
       <DependentUpon>frmHorariosExternos.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmIngresarRegistro.resx">
+    <EmbeddedResource Include="Presentacion\frmIngresarRegistro.resx">
       <DependentUpon>frmIngresarRegistro.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmLogin.resx">
+    <EmbeddedResource Include="Presentacion\frmLogin.resx">
       <DependentUpon>frmLogin.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmRegistro.resx">
+    <EmbeddedResource Include="Presentacion\frmRegistro.resx">
       <DependentUpon>frmRegistro.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
+    <EmbeddedResource Include="Presentacion\frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Bedelia\Resources.resx">
@@ -262,7 +263,7 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmVistaGrilla.resx">
+    <EmbeddedResource Include="Presentacion\frmVistaGrilla.resx">
       <DependentUpon>frmVistaGrilla.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -281,64 +282,64 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Resources\logoMAITS.png" />
+    <None Include="Recursos\logoMAITS.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\logoMinerva.png" />
+    <None Include="Recursos\logoMinerva.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\warningBlanco.png" />
+    <None Include="Recursos\warningBlanco.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\warningRojo.png" />
+    <None Include="Recursos\warningRojo.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Minerva.ico" />
-    <None Include="Resources\dialogo-abajo_preferencias.png" />
-    <None Include="Resources\preferencias_hover.png" />
-    <None Include="Resources\preferencias_normal.png" />
-    <None Include="Resources\filtrar_normal.png" />
-    <None Include="Resources\filtrar_hover.png" />
-    <None Include="Resources\filtrar_click.png" />
-    <None Include="Resources\usuario_no_aprobado.png" />
-    <None Include="Resources\usuario_aprobado.png" />
-    <None Include="Resources\dialogo-izquierda.png" />
-    <None Include="Resources\dialogo-derecha.png" />
-    <None Include="Resources\dialogo-arriba.png" />
-    <None Include="Resources\dialogo-abajo.png" />
-    <None Include="Resources\test.png" />
-    <None Include="Resources\notificacion-max.png" />
-    <None Include="Resources\notificacion-10.png" />
-    <None Include="Resources\notificacion-9.png" />
-    <None Include="Resources\notificacion-8.png" />
-    <None Include="Resources\notificacion-7.png" />
-    <None Include="Resources\notificacion-6.png" />
-    <None Include="Resources\notificacion-5.png" />
-    <None Include="Resources\notificacion-4.png" />
-    <None Include="Resources\notificacion-3.png" />
-    <None Include="Resources\notificacion-2.png" />
-    <None Include="Resources\notificacion-1.png" />
-    <None Include="Resources\unfullscreen_normal.png" />
-    <None Include="Resources\unfullscreen_hover.png" />
-    <None Include="Resources\guardar_como_pdf_seleccionado.png" />
-    <None Include="Resources\guardar_como_pdf_normal.png" />
-    <None Include="Resources\guardar_como_pdf_hover.png" />
-    <None Include="Resources\fullscreen_normal.png" />
-    <None Include="Resources\fullscreen_hover.png" />
-    <None Include="Resources\semana_seleccionado.png" />
-    <None Include="Resources\semana_normal.png" />
-    <None Include="Resources\semana_hover.png" />
-    <None Include="Resources\dia_seleccionado.png" />
-    <None Include="Resources\dia_normal.png" />
-    <None Include="Resources\dia_hover.png" />
-    <None Include="Resources\refrescar_hover.png" />
-    <None Include="Resources\refrescar_normal.png" />
-    <None Include="Resources\cancelar_normal.png" />
-    <None Include="Resources\cancelar_hover.png" />
-    <None Include="Resources\borrar_normal.png" />
-    <None Include="Resources\agregar_hover.png" />
-    <None Include="Resources\borrar_hover.png" />
-    <None Include="Resources\agregar_normal.png" />
+    <None Include="Recursos\dialogo-abajo_preferencias.png" />
+    <None Include="Recursos\preferencias_hover.png" />
+    <None Include="Recursos\preferencias_normal.png" />
+    <None Include="Recursos\filtrar_normal.png" />
+    <None Include="Recursos\filtrar_hover.png" />
+    <None Include="Recursos\filtrar_click.png" />
+    <None Include="Recursos\usuario_no_aprobado.png" />
+    <None Include="Recursos\usuario_aprobado.png" />
+    <None Include="Recursos\dialogo-izquierda.png" />
+    <None Include="Recursos\dialogo-derecha.png" />
+    <None Include="Recursos\dialogo-arriba.png" />
+    <None Include="Recursos\dialogo-abajo.png" />
+    <None Include="Recursos\test.png" />
+    <None Include="Recursos\notificacion-max.png" />
+    <None Include="Recursos\notificacion-10.png" />
+    <None Include="Recursos\notificacion-9.png" />
+    <None Include="Recursos\notificacion-8.png" />
+    <None Include="Recursos\notificacion-7.png" />
+    <None Include="Recursos\notificacion-6.png" />
+    <None Include="Recursos\notificacion-5.png" />
+    <None Include="Recursos\notificacion-4.png" />
+    <None Include="Recursos\notificacion-3.png" />
+    <None Include="Recursos\notificacion-2.png" />
+    <None Include="Recursos\notificacion-1.png" />
+    <None Include="Recursos\unfullscreen_normal.png" />
+    <None Include="Recursos\unfullscreen_hover.png" />
+    <None Include="Recursos\guardar_como_pdf_seleccionado.png" />
+    <None Include="Recursos\guardar_como_pdf_normal.png" />
+    <None Include="Recursos\guardar_como_pdf_hover.png" />
+    <None Include="Recursos\fullscreen_normal.png" />
+    <None Include="Recursos\fullscreen_hover.png" />
+    <None Include="Recursos\semana_seleccionado.png" />
+    <None Include="Recursos\semana_normal.png" />
+    <None Include="Recursos\semana_hover.png" />
+    <None Include="Recursos\dia_seleccionado.png" />
+    <None Include="Recursos\dia_normal.png" />
+    <None Include="Recursos\dia_hover.png" />
+    <None Include="Recursos\refrescar_hover.png" />
+    <None Include="Recursos\refrescar_normal.png" />
+    <None Include="Recursos\cancelar_normal.png" />
+    <None Include="Recursos\cancelar_hover.png" />
+    <None Include="Recursos\borrar_normal.png" />
+    <None Include="Recursos\agregar_hover.png" />
+    <None Include="Recursos\borrar_hover.png" />
+    <None Include="Recursos\agregar_normal.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

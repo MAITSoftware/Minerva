@@ -142,7 +142,7 @@ Partial Class frmVistaGrilla
         'Viernes
         '
         Me.Viernes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.Viernes.HeaderText = "Viérnes"
+        Me.Viernes.HeaderText = "Viernes"
         Me.Viernes.Name = "Viernes"
         Me.Viernes.ReadOnly = True
         Me.Viernes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable

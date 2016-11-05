@@ -124,8 +124,8 @@
             Next
         Next
 
-        Dim DB As New BaseDeDatos()
-        DB.cargarGrupos_frmAdminHorarios(Me)
+        Dim Logica as New Logica()
+        Logica.cargarGrupos_frmAdminHorarios(Me)
         cmbGrupo.Focus()
     End Sub
 
@@ -141,8 +141,8 @@
 
     Private Sub btnGuardado_Click(sender As Object, e As EventArgs) Handles btnGuardado.Click
         dialogoEspere.BringToFront()
-        Dim DB As New BaseDeDatos()
-        DB.guardarHorarios_frmAdminHorarios(Me)
+        Dim Logica as New Logica()
+        Logica.guardarHorarios_frmAdminHorarios(Me)
         dialogoEspere.SendToBack()
     End Sub
 
@@ -171,10 +171,10 @@
 
         dialogoEspere.BringToFront()
 
-        Dim DB As New BaseDeDatos()
+        Dim Logica as New Logica()
 
-        DB.cargarHorarios_frmAdminHorarios(Me)
-        DB.cargarMaterias_frmAdminHorarios(Me)
+        Logica.cargarHorarios_frmAdminHorarios(Me)
+        Logica.cargarMaterias_frmAdminHorarios(Me)
         dialogoEspere.SendToBack()
     End Sub
 
