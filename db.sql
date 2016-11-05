@@ -2,7 +2,7 @@ drop database if exists `Minerva`;
 create database `Minerva`;
 use `Minerva`;
 
-DROP USER IF EXISTS 'minerva'@'%';
+DROP USER 'minerva'@'%';
 CREATE USER 'minerva'@'%' IDENTIFIED BY 'minerva';
 
 create table `Persona` (
@@ -15,7 +15,7 @@ create table `Persona` (
 create table `Usuario` (
   `CiPersona` VARCHAR(8) NOT NULL,
   `TipoUsuario` VARCHAR(13) NOT NULL,
-  `ContraseñaUsuario` VARCHAR(25) NOT NULL,
+  `ContraseniaUsuario` VARCHAR(25) NOT NULL,
   `AprobacionUsuario` BOOLEAN NOT NULL,
   FOREIGN KEY (`CiPersona`) REFERENCES Persona(`CiPersona`),
   PRIMARY KEY (`CiPersona`)
@@ -157,7 +157,7 @@ create view AsignaturasTomadas AS select IdAsignatura, Tiene_Ag.NroGrupo, Grado 
 create view Calendario AS select Asignatura.IdAsignatura as IdAsignatura, HoraInicio, DATE_FORMAT(HoraInicio, '%H:%i') as HoraOrden, CONCAT(DATE_FORMAT(HoraInicio, '%H:%i'), " - ", DATE_FORMAT(HoraFin, '%H:%i')) as Hora, Dia, CONCAT(Grupo.Grado, " ", Grupo.IdGrupo) as Grupo, CONCAT(NombrePersona, ' ', ApellidoPersona) as NombreProfesor, Persona.CiPersona, NombreAsignatura as Materia from Genera, Asignatura, Persona, Grupo where Grupo.NroGrupo=Genera.NroGrupo and Genera.IdAsignatura=Asignatura.IdAsignatura and Genera.CiPersona=Persona.CiPersona;
 create view AsignaturasOrientaciones as select Tiene_Ta.IdOrientacion, Tiene_Ta.Grado, Tiene_Ta.IdAsignatura, Tiene_Ta.CargaHoraria, Asignatura.NombreAsignatura from Tiene_Ta, Asignatura where Asignatura.IdAsignatura=Tiene_Ta.IdAsignatura;
 create view Grupos AS select NroGrupo, CONCAT(Grado, ' ', IdGrupo) as Grupo from Grupo;
-create view DatosGrupos as select Grupo.IdSalon as Salon, Orientacion.IdOrientacion, Orientacion.NombreOrientacion as Orientacion, Curso.NombreCurso as Curso, Grupo.Grado as Grado, Grupo.IdGrupo as IdGrupo, Grupo.NroGrupo as NroGrupo, Turno.NombreTurno, Grupo.CiPersona from Curso, Orientacion, Grupo, Turno where Grupo.IdTurno=Turno.IdTurno and Orientacion.IdOrientacion=Grupo.IdOrientacion and Orientacion.IdCurso=CursoIdCurso;
+create view DatosGrupos as select Grupo.IdSalon as Salon, Orientacion.IdOrientacion, Orientacion.NombreOrientacion as Orientacion, Curso.NombreCurso as Curso, Grupo.Grado as Grado, Grupo.IdGrupo as IdGrupo, Grupo.NroGrupo as NroGrupo, Turno.NombreTurno, Grupo.CiPersona from Curso, Orientacion, Grupo, Turno where Grupo.IdTurno=Turno.IdTurno and Orientacion.IdOrientacion=Grupo.IdOrientacion and Orientacion.IdCurso=Curso.IdCurso;
 create view Adscriptos as select Usuario.CiPersona, CONCAT(NombrePersona, ' ', ApellidoPersona) as Adscripto from Persona, Usuario where Usuario.CiPersona=Persona.CiPersona and Usuario.TipoUsuario="Adscripto";
 
 -- Datos necesarios

@@ -43,10 +43,10 @@ Public Class BaseDeDatos
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Usuario` WHERE CiPersona=@ID AND ContraseñaUsuario=@Contraseña;"
+                .CommandText = "SELECT * FROM `Usuario` WHERE CiPersona=@ID AND ContraseniaUsuario=@Contrasenia;"
                 .CommandType = CommandType.Text
                 .Parameters.AddWithValue("@ID", frm.txtUsuario.Text)
-                .Parameters.AddWithValue("@Contraseña", frm.txtContraseña.Text)
+                .Parameters.AddWithValue("@Contrasenia", frm.txtContraseña.Text)
                 frm.cuentaUsuario = frm.txtUsuario.Text
             End With
 
@@ -118,10 +118,10 @@ Public Class BaseDeDatos
             Using cmd As New MySqlCommand()
                 With cmd
                     .Connection = conexion.Conn
-                    .CommandText = "INSERT INTO `Usuario` VALUES (@CiPersona, @TipoUsuario, @ContraseñaUsuario, @AprobacionUsuario);"
+                    .CommandText = "INSERT INTO `Usuario` VALUES (@CiPersona, @TipoUsuario, @ContraseniaUsuario, @AprobacionUsuario);"
                     .CommandType = CommandType.Text
                     .Parameters.AddWithValue("@CiPersona", frm.txtUsuario.Text)
-                    .Parameters.AddWithValue("@ContraseñaUsuario", frm.txtContraseña.Text)
+                    .Parameters.AddWithValue("@ContraseniaUsuario", frm.txtContraseña.Text)
                     If cantidadAdministradores <= 0 Then
                         .Parameters.AddWithValue("@AprobacionUsuario", True) ' Habilitada
                         .Parameters.AddWithValue("@TipoUsuario", "Administrador") ' Admin
@@ -423,7 +423,7 @@ Public Class BaseDeDatos
         cmd = New MySqlCommand()
         cmd.Connection = conexion.Conn
         cmd.CommandType = CommandType.Text
-        cmd.CommandText = "select Tiene_ta.IdAsignatura, Tiene_Ta.Grado, Tiene_Ta.IdOrientacion, NombreAsignatura from tiene_ta, asignatura where IdOrientacion=@IdOrientacion and Grado=@Grado and Tiene_ta.IdAsignatura=Asignatura.IdAsignatura;"
+        cmd.CommandText = "select Tiene_Ta.IdAsignatura, Tiene_Ta.Grado, Tiene_Ta.IdOrientacion, NombreAsignatura from Tiene_Ta, Asignatura where IdOrientacion=@IdOrientacion and Grado=@Grado and Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura;"
         cmd.Parameters.AddWithValue("@IdOrientacion", idOrientacion)
         cmd.Parameters.AddWithValue("@Grado", frm.lblValorTipoGrado.Text)
         reader = cmd.ExecuteReader()
@@ -432,7 +432,7 @@ Public Class BaseDeDatos
             Dim subcmd As New MySqlCommand()
             subcmd.Connection = subconexion.Conn
             subcmd.CommandType = CommandType.Text
-            subcmd.CommandText = "select Tiene_ag.IdAsignatura, CONCAT(NombrePersona, ' ', ApellidoPersona) as Profesor from Tiene_ag, Persona, Grupo where Grupo.IdOrientacion=@IdOrientacion and IdAsignatura=@IdAsignatura and Tiene_ag.NroGrupo=@NroGrupo and Grupo.Grado=@Grado and Persona.CiPersona=Tiene_ag.CiPersona;"
+            subcmd.CommandText = "select Tiene_Ag.IdAsignatura, CONCAT(NombrePersona, ' ', ApellidoPersona) as Profesor from Tiene_Ag, Persona, Grupo where Grupo.IdOrientacion=@IdOrientacion and IdAsignatura=@IdAsignatura and Tiene_Ag.NroGrupo=@NroGrupo and Grupo.Grado=@Grado and Persona.CiPersona=Tiene_Ag.CiPersona;"
             subcmd.Parameters.AddWithValue("@IdOrientacion", idOrientacion)
             subcmd.Parameters.AddWithValue("@IdAsignatura", reader("IdAsignatura"))
             subcmd.Parameters.AddWithValue("@NroGrupo", nroGrupo)
@@ -783,10 +783,10 @@ Public Class BaseDeDatos
                 Using backCmd As New MySqlCommand()
                     With backCmd
                         .Connection = conexion.Conn
-                        .CommandText = "INSERT INTO Usuario VALUES (@CiPersona, @TipoUsuario, @ContraseñaUsuario, @AprobacionUsuario);"
+                        .CommandText = "INSERT INTO Usuario VALUES (@CiPersona, @TipoUsuario, @ContraseniaUsuario, @AprobacionUsuario);"
                         .CommandType = CommandType.Text
                         .Parameters.AddWithValue("@CiPersona", ci)
-                        .Parameters.AddWithValue("@ContraseñaUsuario", contraseña)
+                        .Parameters.AddWithValue("@ContraseniaUsuario", contraseña)
                         .Parameters.AddWithValue("@AprobacionUsuario", aprobado)
                         .Parameters.AddWithValue("@TipoUsuario", tipousuario)
                     End With
@@ -815,7 +815,7 @@ Public Class BaseDeDatos
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
                 frm.txtID.Text = reader("CiPersona")
-                frm.txtContraseña.Text = reader("ContraseñaUsuario")
+                frm.txtContraseña.Text = reader("ContraseniaUsuario")
                 frm.chkHabilitado.Checked = reader("AprobacionUsuario")
                 frm.tipoSeleccionado = reader("TipoUsuario")
                 Try
@@ -848,13 +848,13 @@ Public Class BaseDeDatos
                 .CommandType = CommandType.Text
 
                 If frm.btnAgregar.Text.Equals("Agregar usuario") Then
-                    .CommandText = "INSERT INTO `Usuario` VALUES (@CiPersona, @TipoUsuario, @ContraseñaUsuario, @AprobacionUsuario);"
+                    .CommandText = "INSERT INTO `Usuario` VALUES (@CiPersona, @TipoUsuario, @ContraseniaUsuario, @AprobacionUsuario);"
                 Else
-                    .CommandText = "UPDATE `Usuario` SET TipoUsuario=@TipoUsuario, ContraseñaUsuario=@ContraseñaUsuario, AprobacionUsuario=@AprobacionUsuario WHERE CiPersona=@CiPersona;"
+                    .CommandText = "UPDATE `Usuario` SET TipoUsuario=@TipoUsuario, ContraseniaUsuario=@ContraseniaUsuario, AprobacionUsuario=@AprobacionUsuario WHERE CiPersona=@CiPersona;"
                 End If
 
                 .Parameters.AddWithValue("@CiPersona", frm.txtID.Text)
-                .Parameters.AddWithValue("@ContraseñaUsuario", frm.txtContraseña.Text)
+                .Parameters.AddWithValue("@ContraseniaUsuario", frm.txtContraseña.Text)
                 .Parameters.AddWithValue("@AprobacionUsuario", frm.chkHabilitado.Checked)
                 .Parameters.AddWithValue("@TipoUsuario", frm.tipoSeleccionado)
             End With
@@ -1314,7 +1314,7 @@ Public Class BaseDeDatos
         Using subCmd As New MySqlCommand()
             With subCmd
                 .Connection = conexion.Conn
-                .CommandText = "select DISTINCT Area.IdArea, NombreArea from (select Asignatura.IdArea from Tiene_ta, Asignatura where Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura and Tiene_ta.IdOrientacion=@IdOrientacion and Tiene_ta.Grado=@Grado) Orientacion, Area where Orientacion.IdArea=Area.IdArea;"
+                .CommandText = "select DISTINCT Area.IdArea, NombreArea from (select Asignatura.IdArea from Tiene_Ta, Asignatura where Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura and Tiene_Ta.IdOrientacion=@IdOrientacion and Tiene_Ta.Grado=@Grado) Orientacion, Area where Orientacion.IdArea=Area.IdArea;"
                 .Parameters.AddWithValue("@IdOrientacion", IdOrientacion)
                 .Parameters.AddWithValue("@Grado", frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim())
                 .CommandType = CommandType.Text
@@ -1723,7 +1723,7 @@ Public Class BaseDeDatos
         Using subCmd As New MySqlCommand()
             With subCmd
                 .Connection = conexion.Conn
-                .CommandText = "select Asignatura.IdArea, Asignatura.IdAsignatura, Asignatura.NombreAsignatura, Tiene_Ta.IdOrientacion from (select DISTINCT Area.IdArea, NombreArea from (select Asignatura.IdArea from Tiene_ta, Asignatura where Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura and Tiene_ta.IdOrientacion=@IdOrientacion) Orientacion, Area where Orientacion.IdArea=Area.IdArea) Areas, Asignatura, Tiene_ta where Asignatura.IdArea=Areas.IdArea and Tiene_ta.IdAsignatura=Asignatura.IdAsignatura and Tiene_Ta.Grado=@Grado and IdOrientacion=@IdOrientacion1 and Asignatura.IdArea=@IdArea;"
+                .CommandText = "select Asignatura.IdArea, Asignatura.IdAsignatura, Asignatura.NombreAsignatura, Tiene_Ta.IdOrientacion from (select DISTINCT Area.IdArea, NombreArea from (select Asignatura.IdArea from Tiene_Ta, Asignatura where Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura and Tiene_Ta.IdOrientacion=@IdOrientacion) Orientacion, Area where Orientacion.IdArea=Area.IdArea) Areas, Asignatura, Tiene_Ta where Asignatura.IdArea=Areas.IdArea and Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura and Tiene_Ta.Grado=@Grado and IdOrientacion=@IdOrientacion1 and Asignatura.IdArea=@IdArea;"
                 .CommandType = CommandType.Text
                 .Parameters.AddWithValue("@Grado", grado)
                 .Parameters.AddWithValue("@IdOrientacion", IdOrientacion)
@@ -1831,7 +1831,7 @@ Public Class BaseDeDatos
                         Dim nombreProfesor As String = "Sin profesor"
                         Dim ciProfesor As String = "-1"
                         subCmd.Connection = subConexion.Conn
-                        subCmd.CommandText = "select Tiene_ag.CiPersona, Concat(NombrePersona, ' ', ApellidoPersona) as 'Profesor' from Tiene_ag, Persona where IdAsignatura=@IdAsignatura and NroGrupo=@NroGrupo and Tiene_ag.CiPersona=Persona.CiPersona;"
+                        subCmd.CommandText = "select Tiene_Ag.CiPersona, Concat(NombrePersona, ' ', ApellidoPersona) as 'Profesor' from Tiene_Ag, Persona where IdAsignatura=@IdAsignatura and NroGrupo=@NroGrupo and Tiene_Ag.CiPersona=Persona.CiPersona;"
                         subCmd.Parameters.AddWithValue("@NroGrupo", nroGrupo)
                         subCmd.Parameters.AddWithValue("@IdAsignatura", reader("IdAsignatura"))
                         Dim subReader As MySqlDataReader = subCmd.ExecuteReader()
