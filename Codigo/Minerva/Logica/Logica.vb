@@ -2,6 +2,52 @@ Imports MySql.Data.MySqlClient ' Importa el módulo de MySQL
 Imports System.Data
 
 Public Class Logica
+    ' Logica: Una clase con muchos métodos :)
+    ' Cada un de estos métodos, se encarga de conectarse a la Base de datos:
+    ' guardar, eliminar, cargar datos, y en algunos hacer operaciones complejas.
+    ' Metimos todo aca, y no en Persistencia, porque cada funcion depende de su form principal.
+    ' Si bien actua con la base de datos, la clase principal de la base de datos se encuentra en la carpeta
+    ' Persistencia.
+
+    ' Estructura "básica" de un módulo de ésta clase.
+    ' Public Sub nombreFuncion(*argumentos*) -> Definimos el módulo, el Public lo utilizamos, porque lo vamos a llamar desde otra parte del programa
+    '   Dim conexion AS New Conexion() -> Establece la conexión con la base de datos
+    '   Dim xArgumento AS tipoDeObjeto -> Crea una variable
+ 
+    '   1 - "Hablar" con la base de datos:
+    '       Dim cmd AS New MySqlCommand()   -> Crea el comando para la Consultas
+    '       cmd.Connection = conexion.Conn  -> Utilizo la conexión que cree previamente
+    '       cmd.CommandType = CommandType.Text  -> Establezco el tipo de comando a texto (??)
+
+    '   1.1 - Consultas
+    '       cmd.CommandText = 'SELECT * FROM Tabla;' -> La sentencia
+    '       Dim reader AS MySqlDataReader() -> Abro un reader para obtener los resultados de la Consultas
+
+    '       while reader.Read() -> reader.Read() nos lleva a la próxima fila de el resultado
+    '           xArgumento = reader("Campo") -> Para leer datos (y ejecutar la sentencia) tengo que llamar a reader (y el campo de la consulta)
+    '           o, hago lo que quiero con los datos
+    '       end while -> termino el while
+
+    '   1.2 - Insertar datos
+    '       .CommandText = "INSERT INTO `Tabla` VALUES (Valor1, Valor2, Valor3);" -> La sentencia
+    '       cmd.ExecuteNonQuery() -> Ejecuto la sentencia
+
+    '   1.3 - Reemplazar datos de una consulta: Como no puedo combinar datos, tengo que ponerlos manualmente.
+    '   Por lo tanto, en la sentencia, los datos que quiero reemplazar de forma manual debo ponerlos con un @ delante.
+    '   Es decir: Tengo la sentencia: "SELECT * FROM Usuario WHERE Contraseña=[123]", y quiero cambiar el valor de la contraseña
+    '   al de un campo de texto.
+    '   En ese caso, la sentencia quedaría: "SELECT * FROM Usuario WHERE Contraseña=@Contraseña", ahora queda pasarle el valor
+    '   Por lo tanto:
+    '       cmd.Parameters.AddWithValue("@Contraseña", Valor) -> Cabe destacar que @Contraseña puede ser cualquier campo
+
+    '   1.4 - Al terminar de usar la base de datos
+    '       reader.Close() -> Es muy importante cerrar el reader cuando termino para no saturar la conexión
+    '       conexion.Close() -> Cierro la conexión para no saturar a MySQL.
+
+    '   1.5 - Hago lo que quiero con los datos
+    
+    ' End Sub -> Finalizamos el módulo
+
     ' frmLogin
     Public Sub Login_frmLogin(ByVal frm As frmLogin)
         ' Se encarga de comprobar los datos ingresados del usuario, con los de la DB
