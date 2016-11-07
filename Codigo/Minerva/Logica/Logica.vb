@@ -13,7 +13,7 @@ Public Class Logica
     ' Public Sub nombreFuncion(*argumentos*) -> Definimos el módulo, el Public lo utilizamos, porque lo vamos a llamar desde otra parte del programa
     '   Dim conexion AS New Conexion() -> Establece la conexión con la base de datos
     '   Dim xArgumento AS tipoDeObjeto -> Crea una variable
- 
+
     '   1 - "Hablar" con la base de datos:
     '       Dim cmd AS New MySqlCommand()   -> Crea el comando para la Consultas
     '       cmd.Connection = conexion.Conn  -> Utilizo la conexión que cree previamente
@@ -45,7 +45,7 @@ Public Class Logica
     '       conexion.Close() -> Cierro la conexión para no saturar a MySQL.
 
     '   1.5 - Hago lo que quiero con los datos
-    
+
     ' End Sub -> Finalizamos el módulo
 
     ' frmLogin
@@ -346,7 +346,7 @@ Public Class Logica
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT *from `Grupo`;"
+                .CommandText = "SELECT * from `Grupo`;"
                 If Not IsNothing(frm.cursoElegido) And Not IsNothing(frm.turnoElegido) Then
                     cursoElegido = frm.cursoElegido.Text.ToString()
                     cursoElegido = cursoElegido.Substring(cursoElegido.IndexOf(" (") + 2).Trim(")")
@@ -395,7 +395,7 @@ Public Class Logica
             With primerCmd
                 .Connection = conexion.Conn
                 .CommandType = CommandType.Text
-                .CommandText = "SELECT * from `Grupos` WHERE Grupos.Grupo=@Grupo;"
+                .CommandText = "select * from Grupo where CONCAT(Grado, ' ', IdGrupo)=@Grupo;"
                 .Parameters.AddWithValue("@Grupo", frm.cboGrupo.Text)
             End With
             reader = primerCmd.ExecuteReader()
@@ -1185,7 +1185,7 @@ Public Class Logica
                     Dim subCmd As New MySqlCommand()
                     subCmd.Connection = conexion.Conn
                     subCmd.CommandType = CommandType.Text
-                    subCmd.CommandText = "SELECT * from Grupos where Grupo=@Grupo;"
+                    subCmd.CommandText = "select * from Grupo where CONCAT(Grado, ' ', IdGrupo)=@Grupo"
                     subCmd.Parameters.AddWithValue("@Grupo", frm.cmbGrado.Text & " " & frm.txtIDGrupo.Text)
 
                     Dim reader As MySqlDataReader = subCmd.ExecuteReader()
@@ -1479,7 +1479,7 @@ Public Class Logica
             With primerCmd
                 .Connection = conexion.Conn
                 .CommandType = CommandType.Text
-                .CommandText = "SELECT * from `Grupos` WHERE Grupos.Grupo=@Grupo;"
+                .CommandText = "select * from Grupo where CONCAT(Grado, ' ', IdGrupo)=@Grupo;"
                 .Parameters.AddWithValue("@Grupo", frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text)
             End With
             Dim reader As MySqlDataReader = primerCmd.ExecuteReader()
@@ -1626,7 +1626,7 @@ Public Class Logica
             With primerCmd
                 .Connection = conexion.Conn
                 .CommandType = CommandType.Text
-                .CommandText = "SELECT * from `Grupos` WHERE Grupos.Grupo=@Grupo;"
+                .CommandText = "select * from Grupo where CONCAT(Grado, ' ', IdGrupo)=@Grupo"
                 .Parameters.AddWithValue("@Grupo", frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" - ")))
             End With
             Dim reader As MySqlDataReader = primerCmd.ExecuteReader()
@@ -1640,7 +1640,7 @@ Public Class Logica
             With cmd
                 .Connection = conexion.Conn
                 .CommandType = CommandType.Text
-                .CommandText = "SELECT * from `AsignaturasTomadas`, `Grupos` WHERE IdAsignatura=@IdAsignatura and Grupos.Grupo=@Grupo;"
+                .CommandText = "SELECT * from `Tiene_Ag`, `Grupo` WHERE IdAsignatura=@IdAsignatura and CONCAT(Grupo.Grado, ' ', Grupo.IdGrupo)=@Grupo and Tiene_Ag.NroGrupo=Grupo.NroGrupo;"
                 .Parameters.AddWithValue("@IdAsignatura", frm.cmbAsignatura.Text.Substring(0, frm.cmbAsignatura.Text.IndexOf(" - ")).Trim())
                 .Parameters.AddWithValue("@Grupo", frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" - ")))
             End With
@@ -1675,7 +1675,7 @@ Public Class Logica
                 Dim subCmd As New MySqlCommand()
                 subCmd.Connection = subconexion.Conn
                 subCmd.CommandType = CommandType.Text
-                subCmd.CommandText = "select IdAsignatura, Grupo from Genera, Grupos, (select HoraInicio, Dia from Genera where IdAsignatura=@IdAsignatura and Genera.NroGrupo=@NroGrupo) AsignaturaEnCalendario where Genera.CiPersona=@CiPersona and Genera.HoraInicio=AsignaturaEnCalendario.HoraInicio and Genera.Dia=AsignaturaEnCalendario.Dia and Grupos.NroGrupo=@NroGrupo;"
+                subCmd.CommandText = "select IdAsignatura, CONCAT(Grado, ' ', IdGrupo) as Grupo from Genera, Grupo, (select HoraInicio, Dia from Genera where IdAsignatura=@IdAsignatura and Genera.NroGrupo=@NroGrupo) AEC where Genera.CiPersona=@CiPersona and Genera.HoraInicio=AEC.HoraInicio and Genera.Dia=AEC.Dia and Grupo.NroGrupo=@NroGrupo;"
                 subCmd.Parameters.AddWithValue("@CiPersona", frm.txtCI.Text)
                 subCmd.Parameters.AddWithValue("@IdAsignatura", frm.cmbAsignatura.Text.Substring(0, frm.cmbAsignatura.Text.IndexOf(" - ")).Trim())
                 subCmd.Parameters.AddWithValue("@NroGrupo", nroGrupo)
@@ -1795,7 +1795,7 @@ Public Class Logica
             With primerCmd
                 .Connection = conexion.Conn
                 .CommandType = CommandType.Text
-                .CommandText = "SELECT * from `Grupos` WHERE Grupos.Grupo=@Grupo;"
+                .CommandText = "select * from Grupo where CONCAT(Grado, ' ', IdGrupo)=@Grupo;"
                 .Parameters.AddWithValue("@Grupo", frm.cmbGrupo.Text)
             End With
             Dim reader As MySqlDataReader = primerCmd.ExecuteReader()
@@ -1824,7 +1824,7 @@ Public Class Logica
             Using cmd As New MySqlCommand()
                 With cmd
                     .Connection = conexion.Conn
-                    .CommandText = "select DISTINCT AsignaturasOrientaciones.IdAsignatura, NombreAsignatura, CargaHoraria from AsignaturasOrientaciones, Grupo where Grupo.IdOrientacion=AsignaturasOrientaciones.IdOrientacion and Grupo.IdGrupo=@IdGrupo and Grupo.Grado=@Grado and AsignaturasOrientaciones.Grado=Grupo.Grado;"
+                    .CommandText = "select DISTINCT AO.IdAsignatura, NombreAsignatura, CargaHoraria from (select Tiene_Ta.*, Asignatura.NombreAsignatura from Tiene_Ta, Asignatura WHERE Asignatura.IdAsignatura=Tiene_Ta.IdAsignatura) AO, Grupo WHERE Grupo.IdOrientacion=AO.IdOrientacion and Grupo.IdGrupo=@IdGrupo AND Grupo.Grado=@Grado AND AO.Grado=Grupo.Grado;"
                     .CommandType = CommandType.Text
                     .Parameters.AddWithValue("@Grado", Integer.Parse(frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" ")).Trim()))
                     .Parameters.AddWithValue("@IdGrupo", frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.Length - 1).Trim())
@@ -2178,7 +2178,7 @@ Public Class Logica
         Dim cmd As New MySqlCommand()
         cmd.Connection = conexion.Conn
         cmd.CommandType = CommandType.Text
-        cmd.CommandText = "select IdTurno from Grupo, Grupos where Grupos.Grupo=@Grupo and Grupo.nroGrupo=Grupos.nroGrupo;"
+        cmd.CommandText = "select IdTurno from Grupo where CONCAT(Grado, ' ', IdGrupo)=@Grupo;"
         cmd.Parameters.AddWithValue("@Grupo", frm.cmbGrupo.Text)
         Dim reader As MySqlDataReader = cmd.ExecuteReader()
         reader.Read()
@@ -2243,7 +2243,7 @@ Public Class Logica
             With primerCmd
                 .Connection = conexion.Conn
                 .CommandType = CommandType.Text
-                .CommandText = "SELECT * from `Grupos` WHERE Grupos.Grupo=@Grupo;"
+                .CommandText = "select * from Grupo where CONCAT(Grado, ' ', IdGrupo)=@Grupo;"
                 .Parameters.AddWithValue("@Grupo", frm.cmbGrupo.Text)
             End With
             Dim reader As MySqlDataReader = primerCmd.ExecuteReader()
