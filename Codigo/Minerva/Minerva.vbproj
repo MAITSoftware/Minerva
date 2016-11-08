@@ -98,6 +98,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logica\Logica.vb" />
+    <Compile Include="Logica\Salon.vb" />
+    <Compile Include="Persistencia\PersistenciaSalones.vb" />
     <Compile Include="Presentacion\frmAdminDocentes.Designer.vb">
       <DependentUpon>frmAdminDocentes.vb</DependentUpon>
     </Compile>

@@ -26,7 +26,7 @@ Partial Class frmAdminSalones
         Dim lblTitulo As System.Windows.Forms.Label
         Me.lblNuevoSalon = New System.Windows.Forms.Label()
         Me.btnAgregar = New System.Windows.Forms.Button()
-        Me.txtIDSalon = New System.Windows.Forms.TextBox()
+        Me.txtIdSalon = New System.Windows.Forms.TextBox()
         Me.lblIDSalon = New System.Windows.Forms.Label()
         Me.cmbPlanta = New System.Windows.Forms.ComboBox()
         Me.lblPlanta = New System.Windows.Forms.Label()
@@ -105,16 +105,16 @@ Partial Class frmAdminSalones
         Me.btnAgregar.Text = "Agregar salón"
         Me.btnAgregar.UseVisualStyleBackColor = True
         '
-        'txtIDSalon
+        'txtIdSalon
         '
-        Me.txtIDSalon.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.txtIDSalon.Location = New System.Drawing.Point(26, 161)
-        Me.txtIDSalon.MaxLength = 2
-        Me.txtIDSalon.Name = "txtIDSalon"
-        Me.txtIDSalon.ShortcutsEnabled = False
-        Me.txtIDSalon.Size = New System.Drawing.Size(114, 34)
-        Me.txtIDSalon.TabIndex = 0
-        Me.txtIDSalon.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtIdSalon.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.txtIdSalon.Location = New System.Drawing.Point(26, 161)
+        Me.txtIdSalon.MaxLength = 2
+        Me.txtIdSalon.Name = "txtIdSalon"
+        Me.txtIdSalon.ShortcutsEnabled = False
+        Me.txtIdSalon.Size = New System.Drawing.Size(114, 34)
+        Me.txtIdSalon.TabIndex = 0
+        Me.txtIdSalon.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblIDSalon
         '
@@ -413,7 +413,7 @@ Partial Class frmAdminSalones
         Me.Controls.Add(Me.lblPlanta)
         Me.Controls.Add(Me.cmbPlanta)
         Me.Controls.Add(Me.lblIDSalon)
-        Me.Controls.Add(Me.txtIDSalon)
+        Me.Controls.Add(Me.txtIdSalon)
         Me.Controls.Add(Me.btnAgregar)
         Me.Controls.Add(Me.pnlFondo)
         Me.Controls.Add(Me.pnlAsignado)
@@ -430,7 +430,7 @@ Partial Class frmAdminSalones
 
     End Sub
     Friend WithEvents btnAgregar As System.Windows.Forms.Button
-    Friend WithEvents txtIDSalon As System.Windows.Forms.TextBox
+    Friend WithEvents txtIdSalon As System.Windows.Forms.TextBox
     Friend WithEvents lblIDSalon As System.Windows.Forms.Label
     Friend WithEvents cmbPlanta As System.Windows.Forms.ComboBox
     Friend WithEvents lblPlanta As System.Windows.Forms.Label

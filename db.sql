@@ -119,7 +119,7 @@ create table `Tiene_Ta` (
   `EnseniaDeCorrido` BOOLEAN NOT NULL,
   FOREIGN KEY (`IdAsignatura`) REFERENCES Asignatura(`IdAsignatura`),
   FOREIGN KEY (`Grado`) REFERENCES Trayecto(`Grado`),
-  FOREIGN KEY (`IdOrientacion`) REFERENCES Orientacion(`IdOrientacion`),
+  FOREIGN KEY (`IdOrientacion`) REFERENCES Trayecto(`IdOrientacion`),
   PRIMARY KEY (`IdAsignatura`, `Grado`, `IdOrientacion`)
 );
 
@@ -153,7 +153,7 @@ create table `Genera` (
   PRIMARY KEY (`HoraInicio`, `HoraFin`, `Dia`, `IdAsignatura`, `IdTurno`, `NroGrupo`)
 );
 
-create view Calendario AS select Asignatura.IdAsignatura as IdAsignatura, HoraInicio, DATE_FORMAT(HoraInicio, '%H:%i') as HoraOrden, CONCAT(DATE_FORMAT(HoraInicio, '%H:%i'), " - ", DATE_FORMAT(HoraFin, '%H:%i')) as Hora, Dia, CONCAT(Grupo.Grado, " ", Grupo.IdGrupo) as Grupo, CONCAT(NombrePersona, ' ', ApellidoPersona) as NombreProfesor, Persona.CiPersona, NombreAsignatura as Materia from Genera, Asignatura, Persona, Grupo where Grupo.NroGrupo=Genera.NroGrupo and Genera.IdAsignatura=Asignatura.IdAsignatura and Genera.CiPersona=Persona.CiPersona;
+create view Calendario AS select A.IdAsignatura as IdAsignatura, HoraInicio, Dia, CONCAT(G.Grado, " ", G.IdGrupo) as Grupo, CONCAT(P.NombrePersona, ' ', P.ApellidoPersona) as NombreProfesor, P.CiPersona, NombreAsignatura as Materia from Genera, Asignatura A, Persona P, Grupo G where Genera.NroGrupo=G.NroGrupo and Genera.IdAsignatura=A.IdAsignatura and Genera.CiPersona=P.CiPersona;
 create view DatosGrupos as select Grupo.IdSalon as Salon, Orientacion.IdOrientacion, Orientacion.NombreOrientacion as Orientacion, Curso.NombreCurso as Curso, Grupo.Grado as Grado, Grupo.IdGrupo as IdGrupo, Grupo.NroGrupo as NroGrupo, Turno.NombreTurno, Grupo.CiPersona from Curso, Orientacion, Grupo, Turno where Grupo.IdTurno=Turno.IdTurno and Orientacion.IdOrientacion=Grupo.IdOrientacion and Orientacion.IdCurso=Curso.IdCurso;
 create view Adscriptos as select Usuario.CiPersona, CONCAT(NombrePersona, ' ', ApellidoPersona) as Adscripto from Persona, Usuario where Usuario.CiPersona=Persona.CiPersona and Usuario.TipoUsuario="Adscripto";
 

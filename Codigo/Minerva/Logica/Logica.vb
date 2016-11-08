@@ -495,7 +495,7 @@ Public Class Logica
             Using cmd As New MySqlCommand()
                 With cmd
                     .Connection = conexion.Conn
-                    .CommandText = "select * from Calendario where Dia=@Dia and Grupo=@StringGrupo order by HoraOrden;"
+                    .CommandText = "select *, DATE_FORMAT(HoraInicio, '%H:%i') as HoraOrden from Calendario where Dia=@Dia and Grupo=@StringGrupo order by HoraOrden;"
                     .CommandType = CommandType.Text
                     .Parameters.AddWithValue("@Dia", dia)
                     .Parameters.AddWithValue("@StringGrupo", frm.cboGrupo.Text)
@@ -587,151 +587,6 @@ Public Class Logica
         conexion.Close()
         frm.Cursor = Cursors.Default
 
-    End Sub
-
-    ' frmAdminSalones
-    Public Sub cargarSalones_frmAdminSalones(ByVal frm As frmAdminSalones)
-        ' Carga los salones y los pone en la lista
-        frm.pnlSalones.Controls.Clear()
-        frm.totalSalones = 0
-        frm.lblCantidadSalones.Text = "(" + frm.totalSalones.ToString() + ")"
-
-        Dim primerSalonFijado As Boolean = False
-
-        Dim conexion As New Conexion()
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Salon`;"
-                .CommandType = CommandType.Text
-            End With
-
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            While reader.Read()
-                If reader("IdSalon").Equals(-1) Then
-                    Continue While
-                End If
-                frm.agregarSalon(reader("IdSalon"))
-
-                If Not primerSalonFijado Then
-                    frm.primerSalon = reader("IdSalon")
-                    primerSalonFijado = True
-                End If
-            End While
-            reader.Close()
-            conexion.Close()
-        End Using
-    End Sub
-
-    Public Sub actualizarDB_frmAdminSalones(ByVal frm As frmAdminSalones)
-        ' Agrega o actualiza los datos del salón en la DB
-        Dim conexion As New Conexion()
-
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandType = CommandType.Text
-
-                If frm.btnAgregar.Text.Equals("Agregar salón") Then
-                    .CommandText = "INSERT INTO `Salon` VALUES (@IdSalon, @ComentariosSalon, @PlantaSalon);"
-                Else
-                    .CommandText = "UPDATE `Salon` SET ComentariosSalon=@ComentariosSalon, PlantaSalon=@PlantaSalon WHERE IDSalon=@IDSalon;"
-                End If
-
-                .Parameters.AddWithValue("@IdSalon", frm.txtIDSalon.Text)
-                .Parameters.AddWithValue("@ComentariosSalon", frm.txtComentarios.Text)
-                .Parameters.AddWithValue("@PlantaSalon", frm.cmbPlanta.Text)
-            End With
-
-            Try
-                cmd.ExecuteNonQuery()
-                conexion.Close()
-                frm.cargarSalones()
-                If frm.btnAgregar.Text.Equals("Agregar salón") Then
-                    MessageBox.Show("Salón agregado correctamente", "Salón agregado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-                Else
-                    MessageBox.Show("Información de salón actualizada correctamente", "Salón actualizado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-                End If
-                frm.previsualizarSalon(frm.txtIDSalon.Text)
-            Catch ex As Exception
-                If ex.ToString().Contains("Duplicate") Then
-                    MessageBox.Show("Ya existe un salón con ese ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Else
-                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                End If
-                conexion.Close()
-            End Try
-        End Using
-    End Sub
-
-    Public Sub cargarDatos_frmAdminSalones(ByVal idSalon As String, ByVal frm As frmAdminSalones)
-        ' Carga los datos de un salón
-        Dim conexion As New Conexion()
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Salon` where IdSalon=@IdSalon;"
-                .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@IdSalon", idSalon)
-            End With
-
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            While reader.Read()
-                frm.txtIDSalon.Text = reader("IdSalon")
-                frm.txtComentarios.Text = reader("ComentariosSalon").ToString()
-                frm.cmbPlanta.SelectedIndex = frm.cmbPlanta.FindStringExact(reader("PlantaSalon"))
-            End While
-            reader.Close()
-        End Using
-
-        ' Carga los horarios del salón.
-        For Turno As Integer = 1 To 3
-            Using cmd As New MySqlCommand()
-                With cmd
-                    .Connection = conexion.Conn
-                    .CommandText = "SELECT CONCAT(Grupo.Grado, ' ', Grupo.IdGrupo) as Grupo FROM `Salon`, `Grupo` WHERE Salon.IdSalon=Grupo.IdSalon and Grupo.IdTurno=@IdTurno and Salon.IdSalon=@IdSalon;"
-                    .CommandType = CommandType.Text
-                    .Parameters.AddWithValue("@IdSalon", idSalon)
-                    .Parameters.AddWithValue("@IdTurno", Turno)
-                End With
-
-                Dim reader As MySqlDataReader = cmd.ExecuteReader()
-                While reader.Read()
-                    If Turno = 1 Then
-                        frm.lblSalonMatutino.Text = reader("Grupo")
-                    ElseIf Turno = 2 Then
-                        frm.lblSalonVespertino.Text = reader("Grupo")
-                    ElseIf Turno = 3 Then
-                        frm.lblSalonNocturno.Text = reader("Grupo")
-                    End If
-                End While
-                reader.Close()
-            End Using
-        Next
-        conexion.Close()
-    End Sub
-
-    Public Sub eliminarSalon_frmAdminSalones(ByVal sender As System.Object, ByVal frm As frmAdminSalones)
-        Dim conexion As New Conexion()
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "DELETE FROM `Salon` WHERE IdSalon=@IdSalon;"
-                .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@IdSalon", sender.Tag)
-            End With
-            frm.totalSalones -= 1
-            Try
-                cmd.ExecuteNonQuery()
-                frm.cargarSalones()
-                frm.btnNuevoSalon_Click(Nothing, Nothing)
-                MessageBox.Show("Salón '" + sender.tag + "' eliminado.", "Salón eliminado.", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Catch ex As Exception
-                MessageBox.Show("El salón no se puede eliminar, ya que está asignado a un grupo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Using
-
-        conexion.Close() 'Cierra la conexión
     End Sub
 
     ' frmAdminUsuarios
@@ -2605,7 +2460,7 @@ Public Class Logica
                         Dim cmd_check As New MySqlCommand()
                         cmd_check.Connection = conexion_check.Conn
                         cmd_check.CommandType = CommandType.Text
-                        cmd_check.CommandText = "select IdAsignatura, Grupo, HoraOrden, Dia, CiPersona, NombreProfesor from Calendario where CiPersona=@CiPersona and HoraInicio=@horaInicio and Dia=@dia;"
+                        cmd_check.CommandText = "select IdAsignatura, Grupo, Dia, CiPersona, NombreProfesor from Calendario where CiPersona=@CiPersona and HoraInicio=@horaInicio and Dia=@dia;"
                         If Not btn.Tag(1).ToString().Equals("-1") Then
 
                             cmd_check.Parameters.AddWithValue("@horainicio", horarios(hora_n))

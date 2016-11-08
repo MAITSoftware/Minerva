@@ -131,7 +131,7 @@
         Me.Text = "Minerva · Administración de salones"
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño()
-        pnlTrabajo = New frmAdminSalones(Me.frmMain, Me.tipoUsuario)
+        pnlTrabajo = New frmAdminSalones(Me.tipoUsuario)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)
         pnlTrabajo.BringToFront()
