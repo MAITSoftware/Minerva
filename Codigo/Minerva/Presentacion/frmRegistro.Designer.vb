@@ -35,19 +35,19 @@ Partial Class frmRegistro
         Me.lblIngreseUsuario = New System.Windows.Forms.Label()
         Me.txtContraseña = New System.Windows.Forms.TextBox()
         Me.lblContraseña = New System.Windows.Forms.Label()
-        Me.txtUsuario = New System.Windows.Forms.TextBox()
+        Me.txtCi = New System.Windows.Forms.TextBox()
         Me.imgMinerva = New System.Windows.Forms.PictureBox()
         Me.lblNombrePrograma = New System.Windows.Forms.Label()
         Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         Me.radAdscripto = New System.Windows.Forms.RadioButton()
         Me.radFuncionario = New System.Windows.Forms.RadioButton()
         Me.radAdministrador = New System.Windows.Forms.RadioButton()
-        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.pnlTipoUsuario = New System.Windows.Forms.Panel()
         Me.pnlError.SuspendLayout()
         CType(Me.imgWarning, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgMinerva, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
+        Me.pnlTipoUsuario.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblUsuario
@@ -172,15 +172,15 @@ Partial Class frmRegistro
         Me.lblContraseña.TabIndex = 24
         Me.lblContraseña.Text = "Contraseña"
         '
-        'txtUsuario
+        'txtCi
         '
-        Me.txtUsuario.Font = New System.Drawing.Font("Corbel", 15.0!)
-        Me.txtUsuario.Location = New System.Drawing.Point(52, 231)
-        Me.txtUsuario.MaxLength = 8
-        Me.txtUsuario.Name = "txtUsuario"
-        Me.txtUsuario.ShortcutsEnabled = False
-        Me.txtUsuario.Size = New System.Drawing.Size(267, 32)
-        Me.txtUsuario.TabIndex = 0
+        Me.txtCi.Font = New System.Drawing.Font("Corbel", 15.0!)
+        Me.txtCi.Location = New System.Drawing.Point(52, 231)
+        Me.txtCi.MaxLength = 8
+        Me.txtCi.Name = "txtCi"
+        Me.txtCi.ShortcutsEnabled = False
+        Me.txtCi.Size = New System.Drawing.Size(267, 32)
+        Me.txtCi.TabIndex = 0
         '
         'imgMinerva
         '
@@ -252,22 +252,22 @@ Partial Class frmRegistro
         Me.radAdministrador.Text = "Administrador"
         Me.radAdministrador.UseVisualStyleBackColor = True
         '
-        'Panel1
+        'pnlTipoUsuario
         '
-        Me.Panel1.Controls.Add(Me.radAdministrador)
-        Me.Panel1.Controls.Add(Me.radFuncionario)
-        Me.Panel1.Controls.Add(Me.radAdscripto)
-        Me.Panel1.Location = New System.Drawing.Point(32, 175)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(306, 23)
-        Me.Panel1.TabIndex = 131
+        Me.pnlTipoUsuario.Controls.Add(Me.radAdministrador)
+        Me.pnlTipoUsuario.Controls.Add(Me.radFuncionario)
+        Me.pnlTipoUsuario.Controls.Add(Me.radAdscripto)
+        Me.pnlTipoUsuario.Location = New System.Drawing.Point(32, 175)
+        Me.pnlTipoUsuario.Name = "pnlTipoUsuario"
+        Me.pnlTipoUsuario.Size = New System.Drawing.Size(306, 23)
+        Me.pnlTipoUsuario.TabIndex = 131
         '
         'frmRegistro
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(371, 514)
-        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.pnlTipoUsuario)
         Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.lblUsuario)
         Me.Controls.Add(Me.pnlError)
@@ -277,7 +277,7 @@ Partial Class frmRegistro
         Me.Controls.Add(Me.lblIngreseUsuario)
         Me.Controls.Add(Me.txtContraseña)
         Me.Controls.Add(Me.lblContraseña)
-        Me.Controls.Add(Me.txtUsuario)
+        Me.Controls.Add(Me.txtCi)
         Me.Controls.Add(Me.imgMinerva)
         Me.Controls.Add(Me.lblNombrePrograma)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -291,8 +291,8 @@ Partial Class frmRegistro
         CType(Me.imgWarning, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgMinerva, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
+        Me.pnlTipoUsuario.ResumeLayout(False)
+        Me.pnlTipoUsuario.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -308,12 +308,12 @@ Partial Class frmRegistro
     Friend WithEvents lblIngreseUsuario As System.Windows.Forms.Label
     Friend WithEvents txtContraseña As System.Windows.Forms.TextBox
     Friend WithEvents lblContraseña As System.Windows.Forms.Label
-    Friend WithEvents txtUsuario As System.Windows.Forms.TextBox
+    Friend WithEvents txtCi As System.Windows.Forms.TextBox
     Friend WithEvents imgMinerva As System.Windows.Forms.PictureBox
     Friend WithEvents lblNombrePrograma As System.Windows.Forms.Label
     Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
     Friend WithEvents radAdscripto As System.Windows.Forms.RadioButton
     Friend WithEvents radFuncionario As System.Windows.Forms.RadioButton
     Friend WithEvents radAdministrador As System.Windows.Forms.RadioButton
-    Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents pnlTipoUsuario As System.Windows.Forms.Panel
 End Class

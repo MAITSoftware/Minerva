@@ -32,7 +32,7 @@ Partial Class frmLogin
         Me.lblDatosInc = New System.Windows.Forms.Label()
         Me.timerAnimacion = New System.Windows.Forms.Timer(Me.components)
         Me.lblUsuario = New System.Windows.Forms.Label()
-        Me.txtUsuario = New System.Windows.Forms.TextBox()
+        Me.txtCi = New System.Windows.Forms.TextBox()
         Me.txtContraseña = New System.Windows.Forms.TextBox()
         Me.lblContraseña = New System.Windows.Forms.Label()
         Me.lblIngreseUsuario = New System.Windows.Forms.Label()
@@ -130,15 +130,15 @@ Partial Class frmLogin
         Me.lblUsuario.TabIndex = 5
         Me.lblUsuario.Text = "Usuario"
         '
-        'txtUsuario
+        'txtCi
         '
-        Me.txtUsuario.Font = New System.Drawing.Font("Corbel", 15.0!)
-        Me.txtUsuario.Location = New System.Drawing.Point(52, 231)
-        Me.txtUsuario.MaxLength = 8
-        Me.txtUsuario.Name = "txtUsuario"
-        Me.txtUsuario.ShortcutsEnabled = False
-        Me.txtUsuario.Size = New System.Drawing.Size(267, 32)
-        Me.txtUsuario.TabIndex = 0
+        Me.txtCi.Font = New System.Drawing.Font("Corbel", 15.0!)
+        Me.txtCi.Location = New System.Drawing.Point(52, 231)
+        Me.txtCi.MaxLength = 8
+        Me.txtCi.Name = "txtCi"
+        Me.txtCi.ShortcutsEnabled = False
+        Me.txtCi.Size = New System.Drawing.Size(267, 32)
+        Me.txtCi.TabIndex = 0
         '
         'txtContraseña
         '
@@ -219,7 +219,7 @@ Partial Class frmLogin
         Me.Controls.Add(Me.lblIngreseUsuario)
         Me.Controls.Add(Me.txtContraseña)
         Me.Controls.Add(Me.lblContraseña)
-        Me.Controls.Add(Me.txtUsuario)
+        Me.Controls.Add(Me.txtCi)
         Me.Controls.Add(Me.lblUsuario)
         Me.Controls.Add(Me.pnlError)
         Me.Controls.Add(Me.btnEntrar)
@@ -250,7 +250,7 @@ Partial Class frmLogin
     Friend WithEvents lblDatosInc As System.Windows.Forms.Label
     Friend WithEvents timerAnimacion As System.Windows.Forms.Timer
     Friend WithEvents lblUsuario As System.Windows.Forms.Label
-    Friend WithEvents txtUsuario As System.Windows.Forms.TextBox
+    Friend WithEvents txtCi As System.Windows.Forms.TextBox
     Friend WithEvents txtContraseña As System.Windows.Forms.TextBox
     Friend WithEvents lblContraseña As System.Windows.Forms.Label
     Friend WithEvents lblIngreseUsuario As System.Windows.Forms.Label

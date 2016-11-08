@@ -101,9 +101,12 @@
     <Compile Include="Logica\InformacionDB.vb" />
     <Compile Include="Logica\Logica.vb" />
     <Compile Include="Logica\Salon.vb" />
+    <Compile Include="Logica\Usuario.vb" />
     <Compile Include="Persistencia\PersistenciaGrupos.vb" />
     <Compile Include="Persistencia\PersistenciaHorarios.vb" />
+    <Compile Include="Persistencia\PersistenciaPersona.vb" />
     <Compile Include="Persistencia\PersistenciaSalones.vb" />
+    <Compile Include="Persistencia\PersistenciaUsuario.vb" />
     <Compile Include="Presentacion\frmAdminDocentes.Designer.vb">
       <DependentUpon>frmAdminDocentes.vb</DependentUpon>
     </Compile>
