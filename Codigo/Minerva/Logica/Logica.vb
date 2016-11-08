@@ -50,30 +50,6 @@ Public Class Logica
 
 
 
-    ' frmDatosUsuario
-    Public Sub setDatos_frmDatosUsuario(ByVal frm As frmDatosUsuario)
-        Dim conexion As New Conexion()
-        Dim subConexion As New Conexion()
-
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandType = CommandType.Text
-                .CommandText = "UPDATE `Persona` SET NombrePersona=@NombrePersona, ApellidoPersona=@ApellidoPersona WHERE CiPersona=@CiPersona;"
-
-                .Parameters.AddWithValue("@CiPersona", frm._frmMain.nombreUsuario)
-                .Parameters.AddWithValue("@NombrePersona", frm.txtNombre.Text)
-                .Parameters.AddWithValue("@ApellidoPersona", frm.txtApellido.Text)
-            End With
-            cmd.ExecuteNonQuery()
-            conexion.Close()
-        End Using
-
-        MessageBox.Show("Información de usuario actualizada correctamente", "Usuario actualizado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-        frm._frmMain.BringToFront()
-        frm.Dispose()
-    End Sub
-
     ' frmMain
     Public Sub crearMenuCursosTurnos_frmMain(ByVal frm As frmMain)
         frm.ContextMenuStrip1.Items.Clear()

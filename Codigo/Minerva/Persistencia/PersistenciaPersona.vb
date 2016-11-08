@@ -23,4 +23,22 @@ Public Class PersistenciaPersona
             End Try
         End Using
     End Sub
+
+    Public Shared Sub Edit(ByVal Ci As String, Nombre As String, Apellido As String)
+        Dim conexion As New Conexion()
+
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandType = CommandType.Text
+                .CommandText = "UPDATE `Persona` SET NombrePersona=@NombrePersona, ApellidoPersona=@ApellidoPersona WHERE CiPersona=@CiPersona;"
+
+                .Parameters.AddWithValue("@CiPersona", Ci)
+                .Parameters.AddWithValue("@NombrePersona", Nombre)
+                .Parameters.AddWithValue("@ApellidoPersona", Apellido)
+            End With
+            cmd.ExecuteNonQuery()
+            conexion.Close()
+        End Using
+    End Sub
 End Class

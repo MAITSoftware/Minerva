@@ -72,4 +72,10 @@ Public Class Usuario
         End Try
     End Sub
 
+    Public Shared Sub EditarDatos(ByVal frm As frmDatosUsuario)
+        PersistenciaPersona.Edit(frm.frmMain.nombreUsuario, frm.txtNombre.Text, frm.txtApellido.Text)
+        MessageBox.Show("Información de usuario actualizada correctamente", "Usuario actualizado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+        frm.frmMain.BringToFront()
+        frm.Dispose()
+    End Sub
 End Class
