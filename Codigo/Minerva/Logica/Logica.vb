@@ -2677,12 +2677,12 @@ Public Class Logica
 
         frm.dialogoEspere.SendToBack()
         frm.frmAdministrar.habilitarBotones(True)
-        cargarMaterias_frmAdminHorarios(frm)
         If Not huboError Then
+            cargarMaterias_frmAdminHorarios(frm)
             MessageBox.Show("Asignación de horarios guardada", "Todo salió bien", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            frm.frmMain.recargarGrupo()
         End If
 
-        frm.frmMain.recargarGrupo()
     End Sub
 
     ' Miscelaneo
@@ -2781,12 +2781,19 @@ Public Class Logica
         Dim posJueves As Integer = 0
         Dim posViernes As Integer = 0
         Dim posSabado As Integer = 0
+        Dim pos As Integer = 0
         For value As Integer = 0 To 50
-            Dim pos As Integer = 0
             For Each materia As Object In materias_ordenadas
                 If materias_asignadas.Contains(materia) Then
                     Continue For
                 End If
+
+                If value > 25 And Not IdTurno = 3 Then
+                    max_horas_diarias = 8
+                Else
+                    max_horas_diarias = 7
+                End If
+
                 If max_horas_diarias > asignacionLunes.Length - 1 + materia(1) And Not asignacionLunes.Contains(materia(0)) Then
                     Dim x As Integer = 0
                     While x < materia(1)
@@ -2841,7 +2848,7 @@ Public Class Logica
                     materias_asignadas(pos) = materia
                     pos += 1
 
-                ElseIf max_horas_diarias > asignacionSabado.Length - 1 + materia(1) And Not asignacionSabado.Contains(materia(0)) Then
+                ElseIf max_horas_diarias > asignacionSabado.Length - 1 + materia(1) And Not asignacionSabado.Contains(materia(0)) And max_horas_diarias <= 7 Then
                     Dim x As Integer = 0
                     While x < materia(1)
                         asignacionSabado(posSabado) = materia(0)
@@ -2854,13 +2861,6 @@ Public Class Logica
                 Else
                 End If
             Next
-        Next
-
-        For Each item In materias_asignadas
-            Try
-                Throw New System.Exception("No se pueden asignar :'(")
-            Catch ex As Exception
-            End Try
         Next
 
         ReDim Preserve asignacionLunes(asignacionLunes.Length - 2)
@@ -3123,5 +3123,21 @@ Public Class Logica
             Catch ex As Exception
             End Try
         Next
+
+        For Each materia As Object In materias_ordenadas
+            If materias_asignadas.Contains(materia) Then
+                Continue For
+            End If
+            Try
+                Console.WriteLine(materia(0))
+                Throw New System.Exception("No se pueden asignar :(")
+            Catch ex As Exception
+                If ex.ToString().Contains("No se pueden") Then
+                    Throw New System.Exception("No se pueden asignar :(")
+                End If
+            End Try
+            Exit For
+        Next
+
     End Sub
 End Class

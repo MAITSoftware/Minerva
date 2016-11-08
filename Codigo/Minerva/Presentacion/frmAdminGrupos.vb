@@ -144,6 +144,8 @@
         rellenarCombos()
         grupoPreview.Enabled = True
         grupoPreview = New Button()
+        chkDistribuir.Checked = True
+        chkDistribuir.Visible = True
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
@@ -216,7 +218,8 @@
         If Me.tipoUsuario.Equals("Adscripto") Then
             cmbAdscripto.Enabled = False
         End If
-
+        chkDistribuir.Checked = False
+        chkDistribuir.Visible = False
     End Sub
 
     Private Sub previsualizarGrupo(ByVal nroGrupo As String)
@@ -243,6 +246,9 @@
             btnNuevoGrupo.Visible = False
         End If
         grupoPreview.Enabled = False
+
+        chkDistribuir.Checked = False
+        chkDistribuir.Visible = False
 
         controlesHabilitados(False)
         cargarDatos(nroGrupo)

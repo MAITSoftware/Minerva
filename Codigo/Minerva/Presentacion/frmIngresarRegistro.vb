@@ -1,5 +1,6 @@
 ﻿Public Class frmIngresarRegistro
 
+    Dim primeraVez As Boolean = True
 
     Private Sub btnIngresar_Click(sender As Object, e As EventArgs) Handles btnIngresar.Click
         ' Al clickear ingresar mostrar login
@@ -39,6 +40,10 @@
     End Sub
 
     Private Sub frmIngresarRegistro_Load(sender As Object, e As EventArgs) Handles MyBase.Shown
+        If Not primeraVez Then
+            Return
+        End If
+        primeraVez = True
         Me.Cursor = Cursors.WaitCursor
         Me.Enabled = False
         Dim ventanaEspere As New frmDialogoEspere
@@ -46,7 +51,7 @@
 
         ' Datos por defecto de la base de datos
         If String.IsNullOrEmpty(GetSetting("Minerva", "BaseDeDatos", "IP").ToString()) Then
-            SaveSetting("Minerva", "BaseDeDatos", "IP", "192.168.0.1")
+            SaveSetting("Minerva", "BaseDeDatos", "IP", "localhost")
         End If
         If String.IsNullOrEmpty(GetSetting("Minerva", "BaseDeDatos", "Usuario").ToString()) Then
             SaveSetting("Minerva", "BaseDeDatos", "Usuario", "Minerva")
