@@ -108,4 +108,19 @@ Public Class InformacionDB
             Return {reader, conexion}
         End Using
     End Function
+
+    Public Shared Function GetUsuarios() As Object
+        Dim conexion As New Conexion()
+
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT * FROM `Usuario`;"
+                .CommandType = CommandType.Text
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            Return {reader, conexion}
+        End Using
+    End Function
 End Class

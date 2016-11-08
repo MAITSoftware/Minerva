@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 Imports System.Data
 
-Public Class PersistenciaPersona
+Public Class PersistenciaPersonas
 
     Public Shared Sub Add(ByVal Ci As String, Optional Nombre As String = Nothing, Optional Apellido As String = Nothing)
         Dim conexion As New Conexion()
@@ -39,6 +39,25 @@ Public Class PersistenciaPersona
             End With
             cmd.ExecuteNonQuery()
             conexion.Close()
+        End Using
+    End Sub
+
+    Public Shared Sub Del(ByVal Ci As String)
+        Dim conexion As New Conexion()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "DELETE FROM `Persona` WHERE CiPersona=@CiPersona"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@CiPersona", Ci)
+            End With
+            Try
+                cmd.ExecuteNonQuery()
+                conexion.Close()
+            Catch ex As Exception
+                conexion.Close()
+                Throw ex
+            End Try
         End Using
     End Sub
 End Class

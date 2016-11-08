@@ -1,9 +1,8 @@
 ﻿Public Class frmAdminUsuarios
-    ' Clase principal para la administracion de usuarios
-
     Friend totalUsuarios As Integer = 0
     Friend tipoSeleccionado As String = "Funcionario"
-    Friend previsualizando As Boolean = False
+
+    Dim previsualizando As Boolean = False
     Dim miUsuario As String = ""
     Dim frmMain As frmMain
 
@@ -13,14 +12,15 @@
         Me.miUsuario = usuario
         Me.frmMain = frmMain
     End Sub
+
     Private Sub frmAdminUsuarios_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al iniciar el programa, cargar los usuarios, y reiniciar la interfaz
-        cargarUsuarios()
-        nuevoUsuario(Nothing, Nothing)
+        Usuario.CargarUsuarios(Me)
+        InterfazNuevoUsuario()
         txtID.Focus()
     End Sub
 
-    Public Sub agregarUsuario(ByVal IDUsuario As String, ByVal Tipo As String, ByVal usuarioAprobado As Boolean)
+    Public Sub AgregarWidgetUsuario(ByVal IDUsuario As String, ByVal Tipo As String, ByVal usuarioAprobado As Boolean)
         ' Basicamente copio la plantilla a un nuevo panel
         Dim pnlTemporal As New Panel
         Dim btnUsuario As New Button
@@ -46,7 +46,7 @@
         End If
 
         btnUsuario.Tag = IDUsuario
-        AddHandler btnUsuario.Click, AddressOf verUsuario_Click
+        AddHandler btnUsuario.Click, AddressOf ClickVerUsuario
 
         btnEditar.Size = btnEditarPlantilla.Size
         btnEditar.FlatStyle = btnEditarPlantilla.FlatStyle
@@ -58,7 +58,7 @@
         btnEditar.TabStop = False
 
         btnEditar.Tag = IDUsuario
-        AddHandler btnEditar.Click, AddressOf editarUsuario
+        AddHandler btnEditar.Click, AddressOf InterfazEditarUsuario
 
         btnEliminar.Size = btnEliminarPlantilla.Size
         btnEliminar.FlatStyle = btnEliminarPlantilla.FlatStyle
@@ -91,13 +91,7 @@
         pnlUsuarios.Focus()
     End Sub
 
-    Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
-        ' Llama a checkDatos() al clickear en el botón agregar usuario
-        checkDatos()
-    End Sub
-
-    Private Sub checkDatos()
-        ' Comprueba que haya datos en los campos y llama a actualizarDB()
+    Private Sub CheckDatosCorrectos(Optional ByVal sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnAgregar.Click
         If String.IsNullOrWhiteSpace(txtID.Text) Then
             MessageBox.Show("Debe ingresar un ID de usuario.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
@@ -108,16 +102,17 @@
             Return
         End If
 
-        actualizarDB()
+        Usuario.ActualizarDB(Me)
+        Usuario.ContUsuariosNoAprobados(Me.frmMain)
     End Sub
 
-    Private Sub rad_CheckedChanged(sender As Object, e As EventArgs) Handles radFuncionario.CheckedChanged, radAdministrador.CheckedChanged, radAdscripto.CheckedChanged
+    Private Sub TipoUsuario_Cambiado(sender As Object, e As EventArgs) Handles radFuncionario.CheckedChanged, radAdministrador.CheckedChanged, radAdscripto.CheckedChanged
         If sender.Checked Then
             tipoSeleccionado = sender.Text
         End If
     End Sub
 
-    Public Sub nuevoUsuario(sender As Object, e As EventArgs) Handles btnNuevoUsuario.Click, btnCancelar.Click
+    Public Sub InterfazNuevoUsuario(Optional ByVal sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnNuevoUsuario.Click, btnCancelar.Click
         ' Reinicia la interfaz 
         lblNuevoUsuario.Text = "Nuevo usuario"
         btnAgregar.Text = "Agregar usuario"
@@ -132,10 +127,10 @@
         txtNombre.Enabled = True
         txtApellido.Enabled = True
         tipoSeleccionado = "Funcionario"
-        limpiarControles()
+        RestablecerControles()
     End Sub
 
-    Private Sub limpiarControles()
+    Private Sub RestablecerControles()
         ' Limpia los valores de los controles
         chkHabilitado.Checked = False
         chkHabilitado.Enabled = True
@@ -152,7 +147,7 @@
         radAdscripto.Enabled = True
     End Sub
 
-    Private Sub editarUsuario(sender As Object, e As EventArgs)
+    Private Sub InterfazEditarUsuario(sender As Object, e As EventArgs)
         ' Prepara la interfaz para editar el usuario
         lblNuevoUsuario.Text = "Editar usuario"
         btnNuevoUsuario.Visible = False
@@ -161,7 +156,7 @@
         btnNuevoUsuario.Visible = True
         btnCancelar.Visible = True
         txtContraseña.Enabled = True
-        cargarDatos(sender.Tag)
+        Usuario.CargarDatos(sender.Tag, Me)
         txtID.Enabled = False
         previsualizando = False
         txtNombre.Enabled = True
@@ -186,16 +181,16 @@
         End If
     End Sub
 
-    Private Sub verUsuario_Click(sender As Object, e As EventArgs)
+    Private Sub ClickVerUsuario(sender As Object, e As EventArgs)
         ' Llama a la función que permite mostrar los datos del usuario
-        verUsuario(sender.Tag)
+        InterfazVerUsuario(sender.Tag)
         previsualizando = True
     End Sub
 
-    Private Sub verUsuario(ByVal ID As String)
+    Private Sub InterfazVerUsuario(ByVal ID As String)
         ' Muestra los datos del usuario
-        limpiarControles()
-        cargarDatos(ID)
+        RestablecerControles()
+        Usuario.CargarDatos(ID, Me)
         lblNuevoUsuario.Text = "Previsualizar usuario"
         btnNuevoUsuario.Visible = True
         btnCancelar.Visible = False
@@ -209,49 +204,32 @@
         txtApellido.Enabled = False
     End Sub
 
-    Private Sub chkHabilitado_CheckedChanged(sender As Object, e As EventArgs) Handles chkHabilitado.Click
+    Private Sub CuentaHabilitada_Cambiado(sender As Object, e As EventArgs) Handles chkHabilitado.Click
         If previsualizando Then
             chkHabilitado.Checked = Not chkHabilitado.Checked
         End If
     End Sub
 
-    Private Sub txtID_TextChanged(t As Object, e As KeyEventArgs) Handles txtID.KeyDown
+    Private Sub Check_Numero(t As Object, e As KeyEventArgs) Handles txtID.KeyDown
         ' Al escribir un caracter que no sea número lo ignora.
         If e.KeyCode.Equals(Keys.Delete) Or e.KeyCode.Equals(Keys.Back) Or e.KeyCode.Equals(Keys.Left) Or e.KeyCode.Equals(Keys.Right) Or e.KeyCode.Equals(Keys.Tab) Then
             e.Handled = False
             Return
         End If
+
+        If Not Char.IsDigit(Chr(e.KeyValue)) Then
+            e.SuppressKeyPress = True
+        End If
     End Sub
 
-    ' Persistencia
-
-    Public Sub cargarUsuarios()
-        Dim Logica as New Logica()
-        Logica.cargarUsuarios_frmAdminUsuarios(Me)
-
-    End Sub
-
-    Public Sub eliminarUsuario(sender As Object, e As EventArgs)
+    Public Sub EliminarUsuario(sender As Object, e As EventArgs)
         ' Pregunta al usuario si quiere eliminar el usuario y de ser correcto lo elimina
         Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar el usuario '" + sender.Tag(1) + "'?", "Eliminar usuario", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.No Then
             Return
         End If
 
-        Dim Logica as New Logica()
-        Logica.eliminarUsuario_frmAdminUsuarios(sender, Me)
-        Logica.contarAprobacion_frmMain(Me.frmMain)
-    End Sub
-
-    Public Sub cargarDatos(ByVal ID As String)
-        ' Carga los datos del usuario y los muestra en pantalla
-        Dim Logica as New Logica()
-        Logica.cargarDatos_frmAdminUsuarios(ID, Me)
-    End Sub
-
-    Public Sub actualizarDB()
-        Dim Logica as New Logica()
-        Logica.actualizarDB_frmAdminUsuarios(Me)
-        Logica.contarAprobacion_frmMain(Me.frmMain)
+        Usuario.EliminarUsuario(sender.Tag(0), Me)
+        Usuario.ContUsuariosNoAprobados(Me.frmMain)
     End Sub
 End Class

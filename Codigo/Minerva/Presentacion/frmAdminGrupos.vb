@@ -289,7 +289,6 @@
         End If
     End Sub
 
-
     Private Sub EliminarGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
         ' Le pregunta al usuario si quiere eliminar el grupo, de ser correcto, lo elimina
         Dim grupo_ As String

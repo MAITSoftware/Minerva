@@ -104,9 +104,9 @@
     <Compile Include="Logica\Usuario.vb" />
     <Compile Include="Persistencia\PersistenciaGrupos.vb" />
     <Compile Include="Persistencia\PersistenciaHorarios.vb" />
-    <Compile Include="Persistencia\PersistenciaPersona.vb" />
+    <Compile Include="Persistencia\PersistenciaPersonas.vb" />
     <Compile Include="Persistencia\PersistenciaSalones.vb" />
-    <Compile Include="Persistencia\PersistenciaUsuario.vb" />
+    <Compile Include="Persistencia\PersistenciaUsuarios.vb" />
     <Compile Include="Presentacion\frmAdminDocentes.Designer.vb">
       <DependentUpon>frmAdminDocentes.vb</DependentUpon>
     </Compile>

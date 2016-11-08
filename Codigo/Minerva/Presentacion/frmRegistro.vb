@@ -7,7 +7,7 @@
 
     Private Sub frmLogin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         timerAnimacion.Start()
-        Dim cantidadAdministradores As Integer = PersistenciaUsuario.CantAdministradores()
+        Dim cantidadAdministradores As Integer = PersistenciaUsuarios.CantAdministradores()
         If cantidadAdministradores <= 0 Then
             radAdministrador.Checked = True
             radFuncionario.Enabled = False

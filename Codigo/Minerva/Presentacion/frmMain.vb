@@ -98,7 +98,7 @@
         End If
         Me.WindowState = FormWindowState.Maximized
         Dim Logica as New Logica()
-        Logica.contarAprobacion_frmMain(Me)
+        Usuario.ContUsuariosNoAprobados(Me)
         Logica.crearMenuCursosTurnos_frmMain(Me)
     End Sub
 
