@@ -97,8 +97,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logica\Grupo.vb" />
+    <Compile Include="Logica\InformacionDB.vb" />
     <Compile Include="Logica\Logica.vb" />
     <Compile Include="Logica\Salon.vb" />
+    <Compile Include="Persistencia\PersistenciaGrupos.vb" />
+    <Compile Include="Persistencia\PersistenciaHorarios.vb" />
     <Compile Include="Persistencia\PersistenciaSalones.vb" />
     <Compile Include="Presentacion\frmAdminDocentes.Designer.vb">
       <DependentUpon>frmAdminDocentes.vb</DependentUpon>

@@ -1,44 +1,48 @@
 ﻿Public Class frmAdminGrupos
     ' Clase principal para la administración de grupos
 
-    Friend totalGrupos As Integer = 0
-    Friend prevSelect As String
-    Friend prevOrientacionSelect As String
-    Friend primerGrupo As String
-    Friend frmMain As frmMain
-
-    Dim nroGrupo As String
-    Dim grupoPreview As Control = New Button()
-    Friend tipoUsuario As String
-    Dim editando As Boolean = False
-    Dim previsualizando As Boolean = False
-    Friend ciusuario As String
+    Friend CiUsuario As String
     Friend frmAdministrar As frmAdministrar
+    Friend frmMain As frmMain
+    Friend PrimerGrupo As String
+    Friend TipoUsuario As String
+    Friend TotalGrupos As Integer = 0
+
+    Dim PrevSelect As String
+    Dim PrevOrientacionSelect As String
+
+    Dim NroGrupo As String
+    Dim GrupoPreview As Control = New Button()
+    Dim Editando As Boolean = False
+    Dim Previsualizando As Boolean = False
 
     Public Sub New(ByVal frmMain As frmMain, ByVal tipousuario As String, ByVal ciUsuario As String, ByVal frmAdministrar As frmAdministrar)
         InitializeComponent()
         Me.frmMain = frmMain
-        Me.tipoUsuario = tipousuario
-        Me.ciusuario = ciUsuario
+        Me.TipoUsuario = tipousuario
+        Me.CiUsuario = ciUsuario
         Me.frmAdministrar = frmAdministrar
     End Sub
 
     Private Sub frmAdminGrupos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al cargar la ventana, cargarGrupos y rellenar los combos con los datos.
 
-        controlesHabilitados(True)
-        rellenarCombos()
+        HabilitarControles(True)
+
+        Grupo.CargarTurnos(Me)
+        Grupo.CargarCursos(Me)
+        Grupo.CargarAdscriptos(Me)
+        Grupo.CargarSalones(Me)
 
         cmbAdscripto.SelectedIndex = 0
 
         cmbOrientacion.Enabled = False
-        cmbGrado.Enabled = False
+        cboGrado.Enabled = False
         cmbCurso.Focus()
-        cargarGrupos()
+        CargarGrupos()
     End Sub
 
-    Public Sub agregarGrupo(ByVal NroGrupo As String, idTexto As String, ByVal nombreTurno As String, ByVal ciAdscripto As String)
-        ' Basicamente copio la plantilla a un nuevo panel
+    Public Sub AgregarWidgetGrupo(ByVal NroGrupo As String, idTexto As String, ByVal nombreTurno As String, ByVal ciAdscripto As String)
         Dim pnlTemporal As New Panel
         Dim btnGrupo As New Button
         Dim btnEliminar As New Button
@@ -58,7 +62,7 @@
         btnGrupo.TabStop = False
 
         btnGrupo.Tag = {NroGrupo, "principal"}
-        AddHandler btnGrupo.Click, AddressOf verGrupo
+        AddHandler btnGrupo.Click, AddressOf ClickVerGrupo
 
         btnEditar.Size = btnEditarPlantilla.Size
         btnEditar.FlatStyle = btnEditarPlantilla.FlatStyle
@@ -69,7 +73,7 @@
         btnEditar.Cursor = btnEditarPlantilla.Cursor
         btnEditar.TabStop = False
         btnEditar.Tag = {NroGrupo, "editar"}
-        AddHandler btnEditar.Click, AddressOf editarGrupo
+        AddHandler btnEditar.Click, AddressOf InterfazEditarGrupo
 
         btnEliminar.Size = btnEliminarPlantilla.Size
         btnEliminar.FlatStyle = btnEliminarPlantilla.FlatStyle
@@ -83,7 +87,7 @@
         btnEliminar.Tag = {NroGrupo, idTexto, nombreTurno}
         AddHandler btnEliminar.Click, AddressOf eliminarGrupo
 
-        If Me.tipoUsuario.Equals("Adscripto") Then
+        If Me.TipoUsuario.Equals("Adscripto") Then
             btnEliminar.Visible = False
             btnEditar.Text = "Editar" & vbCrLf & "salón"
             btnEditar.Height = btnGrupo.Height
@@ -95,72 +99,72 @@
         pnlTemporal.Controls.Add(btnGrupo)
         pnlGrupos.Controls.Add(pnlTemporal)
 
-        totalGrupos += 1
-        lblCantidadGrupos.Text = "(" + totalGrupos.ToString() + ")"
+        TotalGrupos += 1
+        lblCantidadGrupos.Text = "(" + TotalGrupos.ToString() + ")"
     End Sub
 
     Private Sub fixScroll(sender As Object, e As Object)
         pnlGrupos.Focus()
     End Sub
 
-    Private Sub controlesHabilitados(ByVal habilitado As Boolean)
+    Private Sub HabilitarControles(ByVal habilitado As Boolean)
         ' Habilita o deshabilita los controles
-        txtIDGrupo.Enabled = habilitado
-        txtIDGrupo.Text = ""
+        txtIdGrupo.Enabled = habilitado
+        txtIdGrupo.Text = ""
 
         cmbTurno.Enabled = habilitado
         cmbTurno.SelectedIndex = -1
 
-        prevSelect = ""
+        PrevSelect = ""
         cmbCurso.Enabled = habilitado
         cmbCurso.SelectedIndex = -1
         cmbOrientacion.Enabled = habilitado
         cmbOrientacion.SelectedIndex = -1
-        cmbGrado.Enabled = habilitado
-        cmbGrado.SelectedIndex = -1
+        cboGrado.Enabled = habilitado
+        cboGrado.SelectedIndex = -1
         chkDiscapacitado.Enabled = True
         chkDiscapacitado.Checked = False
 
         cmbSalon.Enabled = habilitado
     End Sub
 
-    Public Sub btnNuevoGrupo_Click(sender As Object, e As EventArgs) Handles btnNuevoGrupo.Click
+    Public Sub InterfazNuevoGrupo(Optional ByVal sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnNuevoGrupo.Click
         ' Prepara la interfaz para agregar un nuevo grupo
-        If Me.tipoUsuario.Equals("Adscripto") Then
-            previsualizarGrupo(nroGrupo)
+        If Me.TipoUsuario.Equals("Adscripto") Then
+            InterfazPrevisualizarGrupo(NroGrupo)
             Return
         End If
-        controlesHabilitados(True)
+        HabilitarControles(True)
         lblNuevoGrupo.Text = "Nuevo grupo"
         btnNuevoGrupo.Visible = False
         btnAgregar.Visible = True
         btnAgregar.Text = "Agregar grupo"
         cmbOrientacion.Enabled = False
-        cmbGrado.Enabled = False
-        editando = False
-        previsualizando = False
+        cboGrado.Enabled = False
+        Editando = False
+        Previsualizando = False
         chkDiscapacitado.TabStop = True
         cmbAdscripto.Enabled = True
-        rellenarCombos()
-        grupoPreview.Enabled = True
-        grupoPreview = New Button()
+
+        Grupo.CargarTurnos(Me)
+        Grupo.CargarCursos(Me)
+        Grupo.CargarAdscriptos(Me)
+        Grupo.CargarSalones(Me)
+
+        GrupoPreview.Enabled = True
+        GrupoPreview = New Button()
         chkDistribuir.Checked = True
         chkDistribuir.Visible = True
     End Sub
 
-    Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
-        ' llama a checkDatos() cuando btnAgregar es clickeado
-        checkDatos()
-    End Sub
-
-    Private Sub checkDatos()
+    Private Sub CheckDatosCorrectos(Optional ByVal sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnAgregar.Click
         ' Comprueba los datos y en caso de que no falte ninguno, llama a actualizarDB()
-        If Me.tipoUsuario.Equals("Adscripto") And Not editando Then
+        If Me.TipoUsuario.Equals("Adscripto") And Not Editando Then
             MessageBox.Show("Oops!" & vbCrLf & "Solo los administradores y funcionarios pueden hacer eso...", "Acceso denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        If String.IsNullOrWhiteSpace(txtIDGrupo.Text) Then
+        If String.IsNullOrWhiteSpace(txtIdGrupo.Text) Then
             MessageBox.Show("Debe ingresar un ID de grupo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
         End If
@@ -180,31 +184,30 @@
             Return
         End If
 
-        If String.IsNullOrWhiteSpace(cmbGrado.Text) Then
+        If String.IsNullOrWhiteSpace(cboGrado.Text) Then
             MessageBox.Show("Debe seleccionar un grado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
         End If
 
-        actualizarDB()
+        Grupo.ActualizarDB(Me)
     End Sub
 
-    Private Sub verGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        ' Llama a previsualizarGrupo cuando un botón es clickeado.
-        previsualizarGrupo(sender.Tag(0))
+    Private Sub ClickVerGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        InterfazPrevisualizarGrupo(sender.Tag(0))
 
         chkDiscapacitado.TabStop = False
     End Sub
 
-    Private Sub editarGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub InterfazEditarGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim nroGrupo As String = sender.Tag(0)
-        previsualizarGrupo(sender.Tag(0))
+        InterfazPrevisualizarGrupo(sender.Tag(0))
 
-        grupoPreview.Enabled = True
-        grupoPreview = sender.Parent
-        grupoPreview.Enabled = False
+        GrupoPreview.Enabled = True
+        GrupoPreview = sender.Parent
+        GrupoPreview.Enabled = False
 
         btnNuevoGrupo.Text = "Nuevo grupo / cancelar"
-        If Me.tipoUsuario.Equals("Adscripto") Then
+        If Me.TipoUsuario.Equals("Adscripto") Then
             btnNuevoGrupo.Text = "Cancelar"
         End If
         btnNuevoGrupo.Visible = True
@@ -212,145 +215,112 @@
         btnAgregar.Visible = True
         lblNuevoGrupo.Text = "Editar grupo"
         cmbAdscripto.Enabled = True
-        previsualizando = False
-        editando = True
+        Previsualizando = False
+        Editando = True
         cmbSalon.Enabled = True
-        If Me.tipoUsuario.Equals("Adscripto") Then
+        If Me.TipoUsuario.Equals("Adscripto") Then
             cmbAdscripto.Enabled = False
         End If
         chkDistribuir.Checked = False
         chkDistribuir.Visible = False
     End Sub
 
-    Private Sub previsualizarGrupo(ByVal nroGrupo As String)
+    Private Sub InterfazPrevisualizarGrupo(ByVal nroGrupo As String)
         ' Prepara la interfaz para previsualizarUnGrupo
-        Me.nroGrupo = nroGrupo
+        Me.NroGrupo = nroGrupo
         btnNuevoGrupo.Visible = True
         btnAgregar.Visible = False
         btnNuevoGrupo.Text = "Nuevo grupo"
         lblNuevoGrupo.Text = "Previsualizar grupo"
 
-        grupoPreview.Enabled = True
-        grupoPreview = Nothing
+        GrupoPreview.Enabled = True
+        GrupoPreview = Nothing
         For Each pnl As Panel In pnlGrupos.Controls
             For Each x As Button In pnl.Controls
                 If x.Tag(0).Equals(nroGrupo) And x.Tag(1).Equals("principal") Then
-                    If IsNothing(grupoPreview) Then
-                        grupoPreview = x
+                    If IsNothing(GrupoPreview) Then
+                        GrupoPreview = x
                     End If
                 End If
             Next
         Next
 
-        If Me.tipoUsuario.Equals("Adscripto") Then
+        If Me.TipoUsuario.Equals("Adscripto") Then
             btnNuevoGrupo.Visible = False
         End If
-        grupoPreview.Enabled = False
+        GrupoPreview.Enabled = False
 
         chkDistribuir.Checked = False
         chkDistribuir.Visible = False
 
-        controlesHabilitados(False)
-        cargarDatos(nroGrupo)
+        HabilitarControles(False)
+        Grupo.CargarGrupo(nroGrupo, Me)
+        Previsualizando = True
     End Sub
 
-    Private Sub cmbCurso_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCurso.SelectedIndexChanged
+    Private Sub CursoCambiado(sender As Object, e As EventArgs) Handles cmbCurso.SelectedIndexChanged
         ' Al cambiar el id de curso, cargarOrientaciones
-        If cmbCurso.Text.Equals(prevSelect) Then
+        If cmbCurso.Text.Equals(PrevSelect) Then
             Return
         End If
         cmbOrientacion.SelectedIndex = -1
-        cargarOrientaciones()
+        Grupo.CargarOrientaciones(Me)
         cmbOrientacion.Enabled = False
         If Not String.IsNullOrWhiteSpace(cmbCurso.Text) Then
             cmbOrientacion.Enabled = True
         End If
-        prevSelect = cmbCurso.Text
+        PrevSelect = cmbCurso.Text
     End Sub
 
-    Private Sub txtIDGrupo_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtIDGrupo.KeyPress
+    Private Sub IgnorarEspacio(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtIdGrupo.KeyPress
         ' Al apretar la tecla espacio, ignorarla
         If e.KeyChar = " " Then
             e.KeyChar = Nothing
         End If
     End Sub
 
-    ' Persistencia
-    Public Sub cargarGrupos()
-        Dim Logica as New Logica()
-        Logica.cargarGrupos_frmAdminGrupos(Me)
-        If Me.totalGrupos = 0 And Me.tipoUsuario.Equals("Adscripto") Then
+    Public Sub CargarGrupos()
+        Grupo.CargarGrupos(Me)
+
+        If Me.TotalGrupos = 0 And Me.TipoUsuario.Equals("Adscripto") Then
             lblNoGrupoAsignado.Visible = True
-        ElseIf Me.tipoUsuario.Equals("Adscripto") Then
-            previsualizarGrupo(primerGrupo)
+        ElseIf Me.TipoUsuario.Equals("Adscripto") Then
+            InterfazPrevisualizarGrupo(PrimerGrupo)
         End If
     End Sub
 
-    Public Sub cargarOrientaciones()
-        ' carga las orientaciones a los combobox
-        Dim Logica as New Logica()
-        Logica.cargarOrientaciones_frmAdminGrupos(Me)
-    End Sub
 
-    Public Sub rellenarCombos()
-        ' Llena los combos con los datos de la Logica.
-        cmbCurso.Items.Clear()
-        cmbAdscripto.Items.Clear()
-        Dim Logica as New Logica()
-        Logica.rellenarCombos_frmAdminGrupos(Me)
-        Logica.cargarAdscriptos_frmAdminGrupos(Me)
-        Logica.cargarSalones_frmAdminGrupos(Me)
-    End Sub
-
-    Public Sub cargarDatos(ByVal nroGrupo As String)
-        ' carga los datos del grupo y los coloca en la interfaz
-        Dim Logica as New Logica()
-        Logica.cargarDatos_frmAdminGrupos(nroGrupo, Me)
-        previsualizando = True
-    End Sub
-
-    Public Sub actualizarDB()
-        Dim Logica as New Logica()
-        Logica.actualizarDB_frmAdminGrupos(Me)
-    End Sub
-
-    Public Sub cargarGrados()
-        Dim Logica as New Logica()
-        Logica.cargarGrados_frmAdminGrupos(Me)
-    End Sub
-
-    Private Sub eliminarGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub EliminarGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
         ' Le pregunta al usuario si quiere eliminar el grupo, de ser correcto, lo elimina
-        Dim grupo As String
-        grupo = sender.Tag(1)
-        Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar el grupo '" + grupo + "'?", "Eliminar grupo", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        Dim grupo_ As String
+        grupo_ = sender.Tag(1)
+        Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar el grupo '" + grupo_ + "'?", "Eliminar grupo", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.No Then
             Return
         End If
 
-        Dim Logica as New Logica()
-        Logica.eliminarGrupo_frmAdminGrupos(sender.Tag(0), sender.Tag(1), Me)
+        Grupo.EliminarGrupo(sender.Tag(0), sender.Tag(1), Me)
         Me.frmMain.recargarGrupo()
     End Sub
 
-    Private Sub chkDiscapacitado_CheckedChanged(sender As Object, e As EventArgs) Handles chkDiscapacitado.Click
-        If previsualizando Or Me.tipoUsuario.Equals("Adscripto") Then
+    Private Sub IngnorarClick_ChkDiscapacitado(sender As Object, e As EventArgs) Handles chkDiscapacitado.Click
+        If Previsualizando Or Me.TipoUsuario.Equals("Adscripto") Then
             chkDiscapacitado.Checked = Not chkDiscapacitado.Checked
         End If
     End Sub
 
-    Private Sub cmbOrientacion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbOrientacion.SelectedIndexChanged
-        If cmbOrientacion.Text.Equals(prevOrientacionSelect) Then
+    Private Sub OrientacionCambiada(sender As Object, e As EventArgs) Handles cmbOrientacion.SelectedIndexChanged
+        If cmbOrientacion.Text.Equals(PrevOrientacionSelect) Then
             Return
         End If
 
-        cmbGrado.SelectedIndex = -1
-        cargarGrados()
-        cmbGrado.Enabled = False
+        cboGrado.SelectedIndex = -1
+        Grupo.CargarGrados(Me)
+        cboGrado.Enabled = False
         If Not String.IsNullOrWhiteSpace(cmbOrientacion.Text) Then
-            cmbGrado.Enabled = True
+            cboGrado.Enabled = True
         End If
-        prevOrientacionSelect = cmbOrientacion.Text
+        PrevOrientacionSelect = cmbOrientacion.Text
     End Sub
 
 End Class

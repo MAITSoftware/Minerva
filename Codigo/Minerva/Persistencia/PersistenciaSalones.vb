@@ -3,21 +3,6 @@ Imports System.Data
 
 Public Class PersistenciaSalones
 
-    Public Shared Function GetSalones() As Object
-        Dim conexion As New Conexion()
-
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "SELECT * FROM `Salon`;"
-                .CommandType = CommandType.Text
-            End With
-
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            Return {reader, conexion}
-        End Using
-    End Function
-
     Public Shared Sub Add(ByVal IdSalon As String, ComentariosSalon As String, PlantaSalon As String)
         Dim conexion As New Conexion()
 
@@ -117,4 +102,20 @@ Public Class PersistenciaSalones
             End Try
         End Using
     End Sub
+
+    Public Shared Function GetOcupadoBy(ByVal IdSalon As String, Turno As Integer) As Object
+        Dim conexion As New Conexion()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "select * from Grupo where IdSalon=@IdSalon and IdTurno=@IdTurno and not IdSalon='-1';"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@IdSalon", IdSalon)
+                .Parameters.AddWithValue("@IdTurno", Turno)
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            Return {reader, conexion}
+        End Using
+    End Function
 End Class

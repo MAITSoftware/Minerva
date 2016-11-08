@@ -10,13 +10,10 @@ Public Class Salon
 
         Dim primerSalonFijado As Boolean = False
 
-        Dim resultadosPersistencia As Object = PersistenciaSalones.GetSalones()
+        Dim resultadosPersistencia As Object = InformacionDB.GetSalones()
         Dim reader As MySqlDataReader = resultadosPersistencia(0)
 
         While reader.Read()
-            If reader("IdSalon").Equals(-1) Then
-                Continue While
-            End If
             frm.agregarWidgetSalon(reader("IdSalon"))
 
             If Not primerSalonFijado Then
@@ -31,7 +28,6 @@ Public Class Salon
 
     Public Shared Sub ActualizarDB(ByVal frm As frmAdminSalones)
         ' Agrega o actualiza los datos del salón en la DB
-        Dim conexion As New Conexion()
         If frm.btnAgregar.Text.Equals("Agregar salón") Then
             Try
                 PersistenciaSalones.Add(frm.txtIdSalon.Text, frm.txtComentarios.Text, frm.cmbPlanta.Text)

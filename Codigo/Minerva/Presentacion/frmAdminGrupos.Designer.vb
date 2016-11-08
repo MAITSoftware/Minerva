@@ -26,7 +26,7 @@ Partial Class frmAdminGrupos
         Dim lblGrupos As System.Windows.Forms.Label
         Me.cmbTurno = New System.Windows.Forms.ComboBox()
         Me.lblTurno = New System.Windows.Forms.Label()
-        Me.txtIDGrupo = New System.Windows.Forms.TextBox()
+        Me.txtIdGrupo = New System.Windows.Forms.TextBox()
         Me.lblCurso = New System.Windows.Forms.Label()
         Me.lblOrientacion = New System.Windows.Forms.Label()
         Me.lblTrayecto = New System.Windows.Forms.Label()
@@ -44,7 +44,7 @@ Partial Class frmAdminGrupos
         Me.cmbOrientacion = New System.Windows.Forms.ComboBox()
         Me.chkDiscapacitado = New System.Windows.Forms.CheckBox()
         Me.lblSalon = New System.Windows.Forms.Label()
-        Me.cmbGrado = New System.Windows.Forms.ComboBox()
+        Me.cboGrado = New System.Windows.Forms.ComboBox()
         Me.lblIDGrupo = New System.Windows.Forms.Label()
         Me.lblAdscripto = New System.Windows.Forms.Label()
         Me.cmbAdscripto = New System.Windows.Forms.ComboBox()
@@ -103,15 +103,15 @@ Partial Class frmAdminGrupos
         Me.lblTurno.TabIndex = 76
         Me.lblTurno.Text = "Turno"
         '
-        'txtIDGrupo
+        'txtIdGrupo
         '
-        Me.txtIDGrupo.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.txtIDGrupo.Location = New System.Drawing.Point(184, 253)
-        Me.txtIDGrupo.MaxLength = 4
-        Me.txtIDGrupo.Name = "txtIDGrupo"
-        Me.txtIDGrupo.Size = New System.Drawing.Size(121, 34)
-        Me.txtIDGrupo.TabIndex = 4
-        Me.txtIDGrupo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtIdGrupo.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.txtIdGrupo.Location = New System.Drawing.Point(184, 253)
+        Me.txtIdGrupo.MaxLength = 4
+        Me.txtIdGrupo.Name = "txtIdGrupo"
+        Me.txtIdGrupo.Size = New System.Drawing.Size(121, 34)
+        Me.txtIdGrupo.TabIndex = 4
+        Me.txtIdGrupo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblCurso
         '
@@ -317,17 +317,17 @@ Partial Class frmAdminGrupos
         Me.lblSalon.TabIndex = 124
         Me.lblSalon.Text = "Salón"
         '
-        'cmbGrado
+        'cboGrado
         '
-        Me.cmbGrado.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbGrado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbGrado.Enabled = False
-        Me.cmbGrado.Font = New System.Drawing.Font("Corbel", 16.0!)
-        Me.cmbGrado.FormattingEnabled = True
-        Me.cmbGrado.Location = New System.Drawing.Point(27, 253)
-        Me.cmbGrado.Name = "cmbGrado"
-        Me.cmbGrado.Size = New System.Drawing.Size(140, 34)
-        Me.cmbGrado.TabIndex = 2
+        Me.cboGrado.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cboGrado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboGrado.Enabled = False
+        Me.cboGrado.Font = New System.Drawing.Font("Corbel", 16.0!)
+        Me.cboGrado.FormattingEnabled = True
+        Me.cboGrado.Location = New System.Drawing.Point(27, 253)
+        Me.cboGrado.Name = "cboGrado"
+        Me.cboGrado.Size = New System.Drawing.Size(140, 34)
+        Me.cboGrado.TabIndex = 2
         '
         'lblIDGrupo
         '
@@ -418,7 +418,7 @@ Partial Class frmAdminGrupos
         Me.Controls.Add(Me.cmbSalon)
         Me.Controls.Add(Me.cmbAdscripto)
         Me.Controls.Add(Me.lblAdscripto)
-        Me.Controls.Add(Me.cmbGrado)
+        Me.Controls.Add(Me.cboGrado)
         Me.Controls.Add(Me.lblSalon)
         Me.Controls.Add(Me.imgLogoMAITs)
         Me.Controls.Add(Me.chkDiscapacitado)
@@ -430,7 +430,7 @@ Partial Class frmAdminGrupos
         Me.Controls.Add(Me.lblTrayecto)
         Me.Controls.Add(Me.lblOrientacion)
         Me.Controls.Add(Me.lblCurso)
-        Me.Controls.Add(Me.txtIDGrupo)
+        Me.Controls.Add(Me.txtIdGrupo)
         Me.Controls.Add(Me.cmbTurno)
         Me.Controls.Add(Me.lblTurno)
         Me.Controls.Add(Me.lblIDGrupo)
@@ -447,7 +447,7 @@ Partial Class frmAdminGrupos
     End Sub
     Friend WithEvents cmbTurno As System.Windows.Forms.ComboBox
     Friend WithEvents lblTurno As System.Windows.Forms.Label
-    Friend WithEvents txtIDGrupo As System.Windows.Forms.TextBox
+    Friend WithEvents txtIdGrupo As System.Windows.Forms.TextBox
     Friend WithEvents lblCurso As System.Windows.Forms.Label
     Friend WithEvents lblOrientacion As System.Windows.Forms.Label
     Friend WithEvents lblTrayecto As System.Windows.Forms.Label
@@ -465,7 +465,7 @@ Partial Class frmAdminGrupos
     Friend WithEvents chkDiscapacitado As System.Windows.Forms.CheckBox
     Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
     Friend WithEvents lblSalon As System.Windows.Forms.Label
-    Friend WithEvents cmbGrado As System.Windows.Forms.ComboBox
+    Friend WithEvents cboGrado As System.Windows.Forms.ComboBox
     Friend WithEvents btnEditarPlantilla As System.Windows.Forms.Button
     Friend WithEvents lblIDGrupo As System.Windows.Forms.Label
     Friend WithEvents lblAdscripto As System.Windows.Forms.Label
