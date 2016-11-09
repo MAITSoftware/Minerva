@@ -374,4 +374,9 @@
     Private Sub Animacion_8_L(sender As Object, e As EventArgs) Handles alertaAprobacion.MouseLeave
         pnlAyudaalertaAprobacion.Visible = False
     End Sub
+
+    Private Sub imgLogoInvitado_Click(sender As Object, e As EventArgs) Handles imgLogoInvitado.Click, imgLogoUsuario.Click
+        Dim frmAcerca As New frmAcerca()
+        frmAcerca.ShowDialog(Me)
+    End Sub
 End Class

@@ -49,8 +49,7 @@
 
     Private Sub pnl_DragDrop(sender As Object, e As DragEventArgs)
         Dim c As Control = TryCast(e.Data.GetData(e.Data.GetFormats()(0)), Control)
-        Console.WriteLine(sender)
-        Dim x As Button
+
         prevHover.BackColor = Color.FromArgb(35, 35, 35)
         If TypeOf (c) Is TableLayoutPanel Then
             c = c.Controls(0)

@@ -183,7 +183,6 @@ Public Class Docente
             frm.InterfazNuevoDocente()
         Catch ex As Exception
             MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK)
-            Console.WriteLine(ex.ToString())
         End Try
 
     End Sub

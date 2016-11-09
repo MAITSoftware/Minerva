@@ -232,7 +232,6 @@ Public Class Magia
             Try
                 PersistenciaHorarios.Add(sentencia(0), sentencia(1), sentencia(2), sentencia(3), sentencia(4), sentencia(5), sentencia(6))
             Catch ex As Exception
-                Console.WriteLine(ex.ToString())
             End Try
         Next
 

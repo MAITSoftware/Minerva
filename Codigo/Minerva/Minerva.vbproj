@@ -112,6 +112,12 @@
     <Compile Include="Persistencia\PersistenciaPersonas.vb" />
     <Compile Include="Persistencia\PersistenciaSalones.vb" />
     <Compile Include="Persistencia\PersistenciaUsuarios.vb" />
+    <Compile Include="Presentacion\frmAcerca.Designer.vb">
+      <DependentUpon>frmAcerca.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\frmAcerca.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Presentacion\frmAdminDocentes.Designer.vb">
       <DependentUpon>frmAdminDocentes.vb</DependentUpon>
     </Compile>
@@ -226,6 +232,9 @@
     <Compile Include="Persistencia\Conexion.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Presentacion\frmAcerca.resx">
+      <DependentUpon>frmAcerca.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\frmAdminDocentes.resx">
       <DependentUpon>frmAdminDocentes.vb</DependentUpon>
     </EmbeddedResource>

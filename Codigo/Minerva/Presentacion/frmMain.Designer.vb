@@ -389,6 +389,7 @@ Partial Class frmMain
         Me.imgLogoUsuario.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
         Me.imgLogoUsuario.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMinerva
         Me.imgLogoUsuario.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoUsuario.Cursor = System.Windows.Forms.Cursors.Hand
         Me.imgLogoUsuario.Location = New System.Drawing.Point(66, 14)
         Me.imgLogoUsuario.Name = "imgLogoUsuario"
         Me.imgLogoUsuario.Size = New System.Drawing.Size(75, 89)
@@ -402,6 +403,7 @@ Partial Class frmMain
         Me.imgLogoInvitado.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
         Me.imgLogoInvitado.BackgroundImage = Global.Minerva.My.Resources.Resources.logoMinerva
         Me.imgLogoInvitado.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.imgLogoInvitado.Cursor = System.Windows.Forms.Cursors.Hand
         Me.imgLogoInvitado.Location = New System.Drawing.Point(54, 3)
         Me.imgLogoInvitado.Name = "imgLogoInvitado"
         Me.imgLogoInvitado.Size = New System.Drawing.Size(103, 125)
