@@ -255,7 +255,7 @@ Public Class Grupo
 
         frm.InterfazNuevoGrupo()
         frm.btnNuevoGrupo.Text = "Agregar grupo"
-        frm.frmMain.recargarGrupo()
+        frm.frmMain.RecargarGrupo()
 
     End Sub
 

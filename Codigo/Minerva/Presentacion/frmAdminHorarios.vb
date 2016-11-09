@@ -124,7 +124,7 @@
             Next
         Next
 
-        Dim Logica as New Logica()
+        Dim Logica As New Logica()
         Logica.cargarGrupos_frmAdminHorarios(Me)
         cmbGrupo.Focus()
     End Sub
@@ -141,7 +141,7 @@
 
     Private Sub btnGuardado_Click(sender As Object, e As EventArgs) Handles btnGuardado.Click
         dialogoEspere.BringToFront()
-        Dim Logica as New Logica()
+        Dim Logica As New Logica()
         Logica.guardarHorarios_frmAdminHorarios(Me)
         dialogoEspere.SendToBack()
     End Sub
@@ -171,7 +171,7 @@
 
         dialogoEspere.BringToFront()
 
-        Dim Logica as New Logica()
+        Dim Logica As New Logica()
 
         Logica.cargarHorarios_frmAdminHorarios(Me)
         Logica.cargarMaterias_frmAdminHorarios(Me)

@@ -149,7 +149,7 @@
         Me.Text = "Minerva · Administración de grupos"
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño()
-        pnlTrabajo = New frmAdminGrupos(Me.frmMain, Me.tipoUsuario, Me.frmMain.nombreUsuario, Me)
+        pnlTrabajo = New frmAdminGrupos(Me.frmMain, Me.tipoUsuario, Me.frmMain.NombreUsuario, Me)
         Me.Size = New Point(1024, 575)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)
@@ -207,7 +207,7 @@
         Me.Text = "Minerva · Administración de usuarios"
         Me.Controls.Remove(pnlTrabajo)
         acomodarDiseño()
-        pnlTrabajo = New frmAdminUsuarios(Me.frmMain.nombreUsuario, Me.frmMain)
+        pnlTrabajo = New frmAdminUsuarios(Me.frmMain.NombreUsuario, Me.frmMain)
         Me.Size = New Point(1024, 575)
         Me.Controls.Add(pnlTrabajo)
         pnlTrabajo.Location = New Point(2, 42)
@@ -219,6 +219,6 @@
     Private Sub frmAdministrar_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         Me.Hide()
         FuncionesMinerva.CargarNombre(Me.frmMain)
-        frmMain.recargarGrupo()
+        frmMain.RecargarGrupo()
     End Sub
 End Class

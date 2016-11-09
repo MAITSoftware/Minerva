@@ -70,7 +70,7 @@
         btnEliminar.TabStop = False
 
         btnEliminar.Tag = {IDUsuario, btnUsuario.Text.Replace(vbCrLf, " ")}
-        AddHandler btnEliminar.Click, AddressOf eliminarUsuario
+        AddHandler btnEliminar.Click, AddressOf EliminarUsuario
 
         pnlTemporal.Controls.Add(btnUsuario)
         If Not IDUsuario.Equals(miUsuario) Then
@@ -222,7 +222,7 @@
         End If
     End Sub
 
-    Public Sub EliminarUsuario(sender As Object, e As EventArgs)
+    Private Sub EliminarUsuario(sender As Object, e As EventArgs)
         ' Pregunta al usuario si quiere eliminar el usuario y de ser correcto lo elimina
         Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar el usuario '" + sender.Tag(1) + "'?", "Eliminar usuario", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.No Then

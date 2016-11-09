@@ -85,7 +85,7 @@
         btnEliminar.TabStop = False
 
         btnEliminar.Tag = {NroGrupo, idTexto, nombreTurno}
-        AddHandler btnEliminar.Click, AddressOf eliminarGrupo
+        AddHandler btnEliminar.Click, AddressOf EliminarGrupo
 
         If Me.TipoUsuario.Equals("Adscripto") Then
             btnEliminar.Visible = False
@@ -279,7 +279,7 @@
         End If
     End Sub
 
-    Public Sub CargarGrupos()
+    Private Sub CargarGrupos()
         Grupo.CargarGrupos(Me)
 
         If Me.TotalGrupos = 0 And Me.TipoUsuario.Equals("Adscripto") Then
@@ -299,7 +299,7 @@
         End If
 
         Grupo.EliminarGrupo(sender.Tag(0), sender.Tag(1), Me)
-        Me.frmMain.recargarGrupo()
+        Me.frmMain.RecargarGrupo()
     End Sub
 
     Private Sub IngnorarClick_ChkDiscapacitado(sender As Object, e As EventArgs) Handles chkDiscapacitado.Click

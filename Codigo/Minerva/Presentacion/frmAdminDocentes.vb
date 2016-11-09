@@ -152,7 +152,7 @@
         btnAgregarAsignatura.Enabled = habilitadas
     End Sub
 
-    Public Sub InterfazVerDocente(sender As System.Object, e As System.EventArgs)
+    Private Sub InterfazVerDocente(sender As System.Object, e As System.EventArgs)
         docentePreview.Enabled = True
         docentePreview = sender
         docentePreview.Enabled = False
@@ -210,7 +210,7 @@
         InterfazEditarDocente(sender)
     End Sub
 
-    Public Sub LimpiarDatosAsignatura(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnLimpiarAsignatura.Click
+    Private Sub LimpiarDatosAsignatura(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnLimpiarAsignatura.Click
         cmbArea.SelectedIndex = -1
         cmbGrupo.SelectedIndex = -1
         numGradoArea.Value = 1
@@ -265,7 +265,7 @@
         End If
 
         Docente.ActualizarDB_Asignatura(Me)
-        frmMain.recargarGrupo()
+        frmMain.RecargarGrupo()
     End Sub
 
     Private Sub EditarAsignaturasDelDocente_Click(sender As Object, e As EventArgs) Handles AsignaturasDelDocenteToolStripMenuItem.Click
@@ -290,23 +290,23 @@
         docentePreview.Enabled = False
     End Sub
 
-    Public Sub EliminarAsignatura(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.Click
+    Private Sub EliminarAsignatura(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.Click
         Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar la asignatura seleccionada?", "Eliminar asignatura", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.No Then
             Return
         End If
 
         Docente.EliminarAsignatura(Me)
-        frmMain.recargarGrupo()
+        frmMain.RecargarGrupo()
     End Sub
 
-    Public Sub EliminarDocente(sender As Object, e As EventArgs)
+    Private Sub EliminarDocente(sender As Object, e As EventArgs)
         Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar el docente '" + sender.Tag(1) + "'?", "Eliminar docente", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.No Then
             Return
         End If
         Docente.EliminarDocente(sender.Tag(0), sender.Tag(1), Me)
-        frmMain.recargarGrupo()
+        frmMain.RecargarGrupo()
     End Sub
 
     Private Sub AsignaturaSeleccionada(sender As Object, e As EventArgs) Handles lstAsignaturas.SelectedIndexChanged

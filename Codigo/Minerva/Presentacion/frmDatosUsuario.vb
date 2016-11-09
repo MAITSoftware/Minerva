@@ -9,7 +9,7 @@
     End Sub
 
     Private Sub frmDatosUsuario_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        lblNombreUsuario.Text = frmMain.nombreUsuario
+        lblNombreUsuario.Text = frmMain.NombreUsuario
         txtNombre.Focus()
     End Sub
 
