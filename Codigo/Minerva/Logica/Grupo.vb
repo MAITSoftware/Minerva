@@ -238,8 +238,8 @@ Public Class Grupo
                 ventanaEspere.Show()
                 ventanaEspere.lblComprobando.Text = "Repartiendo horarios"
 
-                Dim logica As New Logica()
-                logica.repartirHorarios(frm)
+                Dim Magia As New Magia()
+                Magia.RepartirHorarios(frm)
 
                 frm.ParentForm.Enabled = True
                 frm.frmAdministrar.habilitarBotones(True)

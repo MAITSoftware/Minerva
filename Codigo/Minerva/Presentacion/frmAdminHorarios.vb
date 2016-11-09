@@ -57,35 +57,11 @@
         End If
         If c IsNot Nothing Then
             c.Location = sender.PointToClient(New Point(e.X, e.Y))
-            If c Is btnSinAsignar Then
-                ' Replica del botoncito :c
-                x = New Button()
-                x.Text = "Sin asignar"
-                x.Size = btnSinAsignar.Size
-                x.Tag = {"-1", "-1"}
-                x.FlatStyle = FlatStyle.Flat
-                x.FlatAppearance.BorderColor = btnSinAsignar.FlatAppearance.BorderColor
-                x.FlatAppearance.BorderSize = btnSinAsignar.FlatAppearance.BorderSize
-                x.FlatAppearance.CheckedBackColor = btnSinAsignar.FlatAppearance.CheckedBackColor
-                x.FlatAppearance.MouseDownBackColor = btnSinAsignar.FlatAppearance.MouseDownBackColor
-                x.FlatAppearance.MouseOverBackColor = btnSinAsignar.FlatAppearance.MouseOverBackColor
-                x.BackColor = Color.White
-                x.TabStop = False
-                AddHandler x.MouseDown, AddressOf Materia_MouseDown
-                AddHandler x.MouseEnter, AddressOf fixScroll
-                AddHandler x.MouseWheel, AddressOf fixScroll
-                sender.Controls.Add(x)
-            Else
-                If c.Text = "Sin asignar" Or c.Tag Is {"-1", "-1"} Then
-                    c.Dispose()
-                    Return
-                End If
-                sender.Controls.Add(c)
-            End If
+            sender.Controls.Add(c)
         End If
     End Sub
 
-    Public Sub fixScroll(sender As Object, e As Object) Handles btnSinAsignar.MouseWheel, btnSinAsignar.MouseEnter
+    Public Sub fixScroll(sender As Object, e As Object)
         pnlMaterias.Focus()
     End Sub
 
@@ -124,8 +100,7 @@
             Next
         Next
 
-        Dim Logica As New Logica()
-        Logica.cargarGrupos_frmAdminHorarios(Me)
+        FuncionesHorarios.CargarGrupos(Me)
         cmbGrupo.Focus()
     End Sub
 
@@ -141,15 +116,17 @@
 
     Private Sub btnGuardado_Click(sender As Object, e As EventArgs) Handles btnGuardado.Click
         dialogoEspere.BringToFront()
-        Dim Logica As New Logica()
-        Logica.guardarHorarios_frmAdminHorarios(Me)
+        FuncionesHorarios.GuardarHorarios(Me)
         dialogoEspere.SendToBack()
     End Sub
 
-    Private Sub cargarGrupo()
+    Public Sub LimpiarTablas()
         For Each tabla As Control In tablas
             tabla.Controls.Clear()
         Next
+    End Sub
+    Private Sub cargarGrupo()
+        LimpiarTablas()
 
         lblSeleccioneGrupo.Visible = False
         lblTapaMaterias.Visible = False
@@ -171,10 +148,8 @@
 
         dialogoEspere.BringToFront()
 
-        Dim Logica As New Logica()
-
-        Logica.cargarHorarios_frmAdminHorarios(Me)
-        Logica.cargarMaterias_frmAdminHorarios(Me)
+        FuncionesHorarios.CargarHorariosTurno(Me)
+        FuncionesHorarios.CargarAsignaturas(Me)
         dialogoEspere.SendToBack()
     End Sub
 
@@ -184,12 +159,8 @@
                 Return
             End If
             For Each btn As Control In tabla.Controls()
-                If btn.Text.Equals("Sin asignar") Then
-                    btn.Dispose()
-                Else
-                    btn.Parent = Nothing
-                    pnlMaterias.Controls.Add(btn)
-                End If
+                btn.Parent = Nothing
+                pnlMaterias.Controls.Add(btn)
             Next
         Next
     End Sub

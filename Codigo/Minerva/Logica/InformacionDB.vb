@@ -186,4 +186,21 @@ Public Class InformacionDB
             Return {reader, conexion}
         End Using
     End Function
+
+    Public Shared Function GetAsignaturasReparticion(IdGrupo As String, Grado As String) As Object
+        Dim conexion As New Conexion()
+
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "select T.* from Tiene_Ta T, Grupo G, Asignatura A where T.IdAsignatura=A.IdAsignatura and T.IdOrientacion=G.IdOrientacion and G.IdGrupo=@IdGrupo and G.Grado=@Grado and T.Grado=G.Grado order by `CargaHoraria` DESC;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@IdGrupo", IdGrupo)
+                .Parameters.AddWithValue("@Grado", Grado)
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            Return {reader, conexion}
+        End Using
+    End Function
 End Class

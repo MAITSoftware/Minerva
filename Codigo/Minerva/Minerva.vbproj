@@ -98,9 +98,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logica\Docente.vb" />
+    <Compile Include="Logica\FuncionesHorarios.vb" />
     <Compile Include="Logica\Grupo.vb" />
     <Compile Include="Logica\InformacionDB.vb" />
-    <Compile Include="Logica\Logica.vb" />
+    <Compile Include="Logica\Magia.vb" />
     <Compile Include="Logica\FuncionesMinerva.vb" />
     <Compile Include="Logica\Salon.vb" />
     <Compile Include="Logica\Usuario.vb" />

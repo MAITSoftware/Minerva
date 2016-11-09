@@ -2,11 +2,11 @@
 
     Friend NombreUsuario As String
     Friend TipoUsuario As String
+    Friend cuentaInvitado As Boolean = True
 
     Friend TurnoElegido As ToolStripMenuItem = Nothing
     Friend CursoElegido As ToolStripMenuItem = Nothing
 
-    Dim cuentaInvitado As Boolean = True
     Dim estadoAnimacion As Boolean = False
     Dim prevGrupo As String = ""
     Dim frmHorariosExternos As New frmHorariosExternos(Me)
@@ -111,7 +111,7 @@
         Me.Dispose()
     End Sub
 
-    Private Sub RefrescarHorarios(sender As Object, e As EventArgs) Handles btnRefrescarHorarios.Click, btnRecargar.Click
+    Public Sub RefrescarHorarios(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnRefrescarHorarios.Click, btnRecargar.Click
         prevGrupo = "-1"
         RecargarGrupo()
     End Sub

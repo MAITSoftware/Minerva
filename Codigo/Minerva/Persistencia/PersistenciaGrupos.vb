@@ -218,4 +218,28 @@ Public Class PersistenciaGrupos
             Return {reader, conexion}
         End Using
     End Function
+
+    Public Shared Function GetTurno(StringGrupo As String) As String
+        Dim IdTurno As String = Nothing
+        Dim NroGrupo As String = GetNroGrupo(StringGrupo)
+
+        Dim conexion As New Conexion()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT IdTurno from Grupo where NroGrupo=@NroGrupo;"
+                .Parameters.AddWithValue("@NroGrupo", NroGrupo)
+                .CommandType = CommandType.Text
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                IdTurno = reader("IdTurno")
+            End While
+            reader.Close()
+            conexion.Close()
+
+            Return IdTurno
+        End Using
+    End Function
 End Class

@@ -88,8 +88,11 @@ Public Class PersistenciaUsuarios
         Dim resultadosPersistencia As Object = GetInfo(Ci)
         Dim reader As MySqlDataReader = resultadosPersistencia(0)
         While reader.Read()
-            Nombre = reader("NombrePersona")
-            Apellido = reader("ApellidoPersona")
+            Try
+                Nombre = reader("NombrePersona")
+                Apellido = reader("ApellidoPersona")
+            Catch ex As Exception
+            End Try
         End While
 
         Return {Nombre, Apellido}

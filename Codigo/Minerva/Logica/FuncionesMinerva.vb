@@ -2,7 +2,10 @@
 Public Class FuncionesMinerva
 
     Public Shared Sub CargarNombre(frm As frmMain)
-        Dim InfoUsuario As Object = PersistenciaUsuarios.GetNombre(frm.nombreUsuario)
+        If frm.cuentaInvitado Then
+            Return
+        End If
+        Dim InfoUsuario As Object = PersistenciaUsuarios.GetNombre(frm.NombreUsuario)
         Dim Nombre As String = InfoUsuario(0)
         Dim Apellido As String = InfoUsuario(1)
 
@@ -122,7 +125,7 @@ Public Class FuncionesMinerva
 
         While readerMaterias.Read()
             Dim NombreAsignatura As String = readerMaterias("NombreAsignatura")
-            Dim NombreProfesor As String = PersistenciaAsignaturas.GetProfesor(readerMaterias("IdAsignatura"), NroGrupo)
+            Dim NombreProfesor As String = PersistenciaAsignaturas.GetProfesor(readerMaterias("IdAsignatura"), NroGrupo)(0)
 
             Dim lblMateria As New Label
             Dim lblProfesor As New Label
@@ -185,7 +188,7 @@ Public Class FuncionesMinerva
         End While
 
         For Each Dia As String In Dias
-            Dim resultadoPersistencia As Object = PersistenciaHorarios.GetCalendarioForGrupo(Dia, frm.cboGrupo.Text)
+            Dim resultadoPersistencia As Object = PersistenciaHorarios.GetCalendarioDiarioForGrupo(Dia, frm.cboGrupo.Text)
             Dim reader As MySqlDataReader = resultadoPersistencia(0)
 
             While reader.Read()

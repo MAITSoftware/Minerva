@@ -81,14 +81,15 @@ Public Class PersistenciaAsignaturas
         End Using
     End Function
 
-    Public Shared Function GetProfesor(IdAsignatura As String, NroGrupo As String) As String
+    Public Shared Function GetProfesor(IdAsignatura As String, NroGrupo As String) As Object
         Dim NombreProfesor As String = "Sin profesor"
+        Dim CiProfesor As String = "-1"
         Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "select CONCAT(NombrePersona, ' ', ApellidoPersona) as Profesor from Tiene_Ag T, Persona P where T.IdAsignatura=@IdAsignatura and T.NroGrupo=@NroGrupo and P.CiPersona=T.CiPersona;"
+                .CommandText = "select T.CiPersona, CONCAT(NombrePersona, ' ', ApellidoPersona) as Profesor from Tiene_Ag T, Persona P where T.IdAsignatura=@IdAsignatura and T.NroGrupo=@NroGrupo and P.CiPersona=T.CiPersona;"
                 .Parameters.AddWithValue("@IdAsignatura", IdAsignatura)
                 .Parameters.AddWithValue("@NroGrupo", NroGrupo)
                 .CommandType = CommandType.Text
@@ -97,12 +98,13 @@ Public Class PersistenciaAsignaturas
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
                 NombreProfesor = reader("Profesor")
+                CiProfesor = reader("CiPersona")
             End While
             reader.Close()
         End Using
 
         conexion.Close()
 
-        Return NombreProfesor
+        Return {NombreProfesor, CiProfesor}
     End Function
 End Class

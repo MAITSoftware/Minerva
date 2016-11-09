@@ -98,6 +98,40 @@ Public Class PersistenciaDocentes
 
             Return {Conflictivo, IdGrupo}
         End Using
+    End Function
 
+    Public Shared Function GetConflictoGuardado(HoraInicio As String, CiPersona As String, Dia As String, Grupo As String, IdAsignatura As String) As Object
+        Dim NombreProfesor As String
+        Dim StrGrupo As String
+        Dim conexion As New Conexion()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "select IdAsignatura, Grupo, Dia, CiPersona, NombreProfesor from Calendario where CiPersona=@CiPersona and HoraInicio=@horaInicio and Dia=@dia;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@HoraInicio", HoraInicio)
+                .Parameters.AddWithValue("@CiPersona", CiPersona)
+                .Parameters.AddWithValue("@Dia", Dia)
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                If reader("IdAsignatura").ToString().Equals(IdAsignatura) And reader("Grupo").ToString().Equals(Grupo) Then
+                    reader.Close()
+                    conexion.Close()
+                    Return {False}
+                End If
+
+                NombreProfesor = reader("NombreProfesor")
+                StrGrupo = reader("Grupo")
+                reader.Close()
+                conexion.Close()
+                Return {True, NombreProfesor, StrGrupo}
+            End While
+            reader.Close()
+        End Using
+
+        Return {False}
+        conexion.Close()
     End Function
 End Class
