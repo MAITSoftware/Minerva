@@ -33,7 +33,14 @@ Partial Class frmAdministrar
         Me.pnlBorde1 = New System.Windows.Forms.Panel()
         Me.pnlBorde2 = New System.Windows.Forms.Panel()
         Me.pnlBorde3 = New System.Windows.Forms.Panel()
+        Me.sfdBackupSQL = New System.Windows.Forms.SaveFileDialog()
+        Me.pnlAyudabtnBackup = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.btnBackup = New System.Windows.Forms.PictureBox()
+        Me.btnLimpiar = New System.Windows.Forms.Button()
         Me.pnlPestañas.SuspendLayout()
+        Me.pnlAyudabtnBackup.SuspendLayout()
+        CType(Me.btnBackup, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnSalones
@@ -196,11 +203,66 @@ Partial Class frmAdministrar
         Me.pnlBorde3.Size = New System.Drawing.Size(1007, 2)
         Me.pnlBorde3.TabIndex = 8
         '
+        'sfdBackupSQL
+        '
+        Me.sfdBackupSQL.Filter = "Archivos SQL|*.sql|Todos los archivos|*.*"
+        '
+        'pnlAyudabtnBackup
+        '
+        Me.pnlAyudabtnBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlAyudabtnBackup.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer), CType(CType(24, Byte), Integer))
+        Me.pnlAyudabtnBackup.BackgroundImage = CType(resources.GetObject("pnlAyudabtnBackup.BackgroundImage"), System.Drawing.Image)
+        Me.pnlAyudabtnBackup.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.pnlAyudabtnBackup.Controls.Add(Me.Label2)
+        Me.pnlAyudabtnBackup.Location = New System.Drawing.Point(793, 44)
+        Me.pnlAyudabtnBackup.Name = "pnlAyudabtnBackup"
+        Me.pnlAyudabtnBackup.Size = New System.Drawing.Size(218, 79)
+        Me.pnlAyudabtnBackup.TabIndex = 137
+        Me.pnlAyudabtnBackup.Visible = False
+        '
+        'Label2
+        '
+        Me.Label2.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.Label2.ForeColor = System.Drawing.Color.White
+        Me.Label2.Location = New System.Drawing.Point(11, 25)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(196, 46)
+        Me.Label2.TabIndex = 0
+        Me.Label2.Text = "Respaldar base de datos a archivo SQL"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'btnBackup
+        '
+        Me.btnBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnBackup.BackgroundImage = Global.Minerva.My.Resources.Resources.guardar_sql_normal
+        Me.btnBackup.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnBackup.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnBackup.Location = New System.Drawing.Point(966, 3)
+        Me.btnBackup.Name = "btnBackup"
+        Me.btnBackup.Size = New System.Drawing.Size(35, 35)
+        Me.btnBackup.TabIndex = 9
+        Me.btnBackup.TabStop = False
+        Me.btnBackup.Visible = False
+        '
+        'btnLimpiar
+        '
+        Me.btnLimpiar.Location = New System.Drawing.Point(850, 4)
+        Me.btnLimpiar.Name = "btnLimpiar"
+        Me.btnLimpiar.Size = New System.Drawing.Size(95, 34)
+        Me.btnLimpiar.TabIndex = 138
+        Me.btnLimpiar.Text = "Limpiar DB" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(No hace nada)"
+        Me.btnLimpiar.UseVisualStyleBackColor = True
+        Me.btnLimpiar.Visible = False
+        '
         'frmAdministrar
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1008, 537)
+        Me.Controls.Add(Me.btnLimpiar)
+        Me.Controls.Add(Me.pnlAyudabtnBackup)
+        Me.Controls.Add(Me.btnBackup)
         Me.Controls.Add(Me.pnlBorde3)
         Me.Controls.Add(Me.pnlBorde2)
         Me.Controls.Add(Me.pnlBorde1)
@@ -214,6 +276,8 @@ Partial Class frmAdministrar
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Minerva · Administración"
         Me.pnlPestañas.ResumeLayout(False)
+        Me.pnlAyudabtnBackup.ResumeLayout(False)
+        CType(Me.btnBackup, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -227,4 +291,9 @@ Partial Class frmAdministrar
     Friend WithEvents pnlBorde2 As System.Windows.Forms.Panel
     Friend WithEvents pnlBorde3 As System.Windows.Forms.Panel
     Friend WithEvents btnUsuarios As System.Windows.Forms.Button
+    Friend WithEvents sfdBackupSQL As System.Windows.Forms.SaveFileDialog
+    Friend WithEvents btnBackup As System.Windows.Forms.PictureBox
+    Friend WithEvents pnlAyudabtnBackup As System.Windows.Forms.Panel
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents btnLimpiar As System.Windows.Forms.Button
 End Class

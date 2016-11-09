@@ -2,7 +2,7 @@
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <AppDesignerFolder>Bedelia</AppDesignerFolder>
+    <AppDesignerFolder>Minerva</AppDesignerFolder>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{046CD464-6E30-428D-B91D-A138BBBBA32D}</ProjectGuid>
@@ -65,7 +65,7 @@
     <ApplicationIcon>Minerva.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationManifest>Bedelia\app.manifest</ApplicationManifest>
+    <ApplicationManifest>Minerva\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="itextsharp, Version=5.5.10.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
@@ -73,6 +73,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySqlBackup, Version=2.0.9.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\MySqlBackup.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -190,6 +194,12 @@
     <Compile Include="Presentacion\frmIngresarRegistro.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Presentacion\frmLimpiarDB.Designer.vb">
+      <DependentUpon>frmLimpiarDB.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\frmLimpiarDB.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Presentacion\frmLogin.Designer.vb">
       <DependentUpon>frmLogin.vb</DependentUpon>
     </Compile>
@@ -208,17 +218,17 @@
     <Compile Include="Presentacion\frmMain.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Bedelia\AssemblyInfo.vb" />
-    <Compile Include="Bedelia\Application.Designer.vb">
+    <Compile Include="Minerva\AssemblyInfo.vb" />
+    <Compile Include="Minerva\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
-    <Compile Include="Bedelia\Resources.Designer.vb">
+    <Compile Include="Minerva\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Bedelia\Settings.Designer.vb">
+    <Compile Include="Minerva\Settings.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -271,6 +281,9 @@
     <EmbeddedResource Include="Presentacion\frmIngresarRegistro.resx">
       <DependentUpon>frmIngresarRegistro.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\frmLimpiarDB.resx">
+      <DependentUpon>frmLimpiarDB.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\frmLogin.resx">
       <DependentUpon>frmLogin.vb</DependentUpon>
     </EmbeddedResource>
@@ -280,7 +293,7 @@
     <EmbeddedResource Include="Presentacion\frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Bedelia\Resources.resx">
+    <EmbeddedResource Include="Minerva\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
@@ -291,78 +304,84 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Bedelia\app.manifest" />
-    <None Include="Bedelia\Application.myapp">
+    <None Include="Minerva\app.manifest" />
+    <None Include="Minerva\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
-    <None Include="Bedelia\Settings.settings">
+    <None Include="Minerva\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Recursos\logoMAITS.png" />
+    <None Include="Resources\logoMAITS.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Recursos\logoMinerva.png" />
+    <None Include="Resources\logoMinerva.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Recursos\warningBlanco.png" />
+    <None Include="Resources\warningBlanco.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Recursos\warningRojo.png" />
+    <None Include="Resources\warningRojo.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Minerva.ico" />
-    <None Include="Recursos\dialogo-abajo_preferencias.png" />
-    <None Include="Recursos\preferencias_hover.png" />
-    <None Include="Recursos\preferencias_normal.png" />
-    <None Include="Recursos\filtrar_normal.png" />
-    <None Include="Recursos\filtrar_hover.png" />
-    <None Include="Recursos\filtrar_click.png" />
-    <None Include="Recursos\usuario_no_aprobado.png" />
-    <None Include="Recursos\usuario_aprobado.png" />
-    <None Include="Recursos\dialogo-izquierda.png" />
-    <None Include="Recursos\dialogo-derecha.png" />
-    <None Include="Recursos\dialogo-arriba.png" />
-    <None Include="Recursos\dialogo-abajo.png" />
-    <None Include="Recursos\test.png" />
-    <None Include="Recursos\notificacion-max.png" />
-    <None Include="Recursos\notificacion-10.png" />
-    <None Include="Recursos\notificacion-9.png" />
-    <None Include="Recursos\notificacion-8.png" />
-    <None Include="Recursos\notificacion-7.png" />
-    <None Include="Recursos\notificacion-6.png" />
-    <None Include="Recursos\notificacion-5.png" />
-    <None Include="Recursos\notificacion-4.png" />
-    <None Include="Recursos\notificacion-3.png" />
-    <None Include="Recursos\notificacion-2.png" />
-    <None Include="Recursos\notificacion-1.png" />
-    <None Include="Recursos\unfullscreen_normal.png" />
-    <None Include="Recursos\unfullscreen_hover.png" />
-    <None Include="Recursos\guardar_como_pdf_seleccionado.png" />
-    <None Include="Recursos\guardar_como_pdf_normal.png" />
-    <None Include="Recursos\guardar_como_pdf_hover.png" />
-    <None Include="Recursos\fullscreen_normal.png" />
-    <None Include="Recursos\fullscreen_hover.png" />
-    <None Include="Recursos\semana_seleccionado.png" />
-    <None Include="Recursos\semana_normal.png" />
-    <None Include="Recursos\semana_hover.png" />
-    <None Include="Recursos\dia_seleccionado.png" />
-    <None Include="Recursos\dia_normal.png" />
-    <None Include="Recursos\dia_hover.png" />
-    <None Include="Recursos\refrescar_hover.png" />
-    <None Include="Recursos\refrescar_normal.png" />
-    <None Include="Recursos\cancelar_normal.png" />
-    <None Include="Recursos\cancelar_hover.png" />
-    <None Include="Recursos\borrar_normal.png" />
-    <None Include="Recursos\agregar_hover.png" />
-    <None Include="Recursos\borrar_hover.png" />
-    <None Include="Recursos\agregar_normal.png" />
+    <None Include="Resources\dialogo-arriba_backup.png" />
+    <None Include="Resources\guardar_sql_seleccionado.png" />
+    <None Include="Resources\guardar_sql_normal.png" />
+    <None Include="Resources\guardar_sql_hover.png" />
+    <None Include="Resources\dialogo-abajo_preferencias.png" />
+    <None Include="Resources\preferencias_hover.png" />
+    <None Include="Resources\preferencias_normal.png" />
+    <None Include="Resources\filtrar_normal.png" />
+    <None Include="Resources\filtrar_hover.png" />
+    <None Include="Resources\filtrar_click.png" />
+    <None Include="Resources\usuario_no_aprobado.png" />
+    <None Include="Resources\usuario_aprobado.png" />
+    <None Include="Resources\dialogo-izquierda.png" />
+    <None Include="Resources\dialogo-derecha.png" />
+    <None Include="Resources\dialogo-arriba.png" />
+    <None Include="Resources\dialogo-abajo.png" />
+    <None Include="Resources\test.png" />
+    <None Include="Resources\notificacion-max.png" />
+    <None Include="Resources\notificacion-10.png" />
+    <None Include="Resources\notificacion-9.png" />
+    <None Include="Resources\notificacion-8.png" />
+    <None Include="Resources\notificacion-7.png" />
+    <None Include="Resources\notificacion-6.png" />
+    <None Include="Resources\notificacion-5.png" />
+    <None Include="Resources\notificacion-4.png" />
+    <None Include="Resources\notificacion-3.png" />
+    <None Include="Resources\notificacion-2.png" />
+    <None Include="Resources\notificacion-1.png" />
+    <None Include="Resources\unfullscreen_normal.png" />
+    <None Include="Resources\unfullscreen_hover.png" />
+    <None Include="Resources\guardar_como_pdf_seleccionado.png" />
+    <None Include="Resources\guardar_como_pdf_normal.png" />
+    <None Include="Resources\guardar_como_pdf_hover.png" />
+    <None Include="Resources\fullscreen_normal.png" />
+    <None Include="Resources\fullscreen_hover.png" />
+    <None Include="Resources\semana_seleccionado.png" />
+    <None Include="Resources\semana_normal.png" />
+    <None Include="Resources\semana_hover.png" />
+    <None Include="Resources\dia_seleccionado.png" />
+    <None Include="Resources\dia_normal.png" />
+    <None Include="Resources\dia_hover.png" />
+    <None Include="Resources\refrescar_hover.png" />
+    <None Include="Resources\refrescar_normal.png" />
+    <None Include="Resources\cancelar_normal.png" />
+    <None Include="Resources\cancelar_hover.png" />
+    <None Include="Resources\borrar_normal.png" />
+    <None Include="Resources\agregar_hover.png" />
+    <None Include="Resources\borrar_hover.png" />
+    <None Include="Resources\agregar_normal.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -381,8 +400,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

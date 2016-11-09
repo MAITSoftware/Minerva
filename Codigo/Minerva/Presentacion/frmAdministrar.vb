@@ -1,4 +1,6 @@
-﻿Public Class frmAdministrar
+﻿Imports MySql.Data.MySqlClient
+
+Public Class frmAdministrar
     ' Clase principal de administración de datos
 
     Dim btnActual As Button = New Button()
@@ -29,18 +31,24 @@
             btnDocentes.Visible = True
             btnHorarios.Visible = True
             btnUsuarios.Visible = True
+            btnBackup.Visible = True
+            btnLimpiar.Visible = True
         ElseIf tipoUsuario.Equals("Funcionario") Then
             btnSalones.Visible = True
             btnGrupos.Visible = True
             btnDocentes.Visible = True
             btnHorarios.Visible = True
             btnUsuarios.Visible = False
+            btnBackup.Visible = False
+            btnLimpiar.Visible = False
         ElseIf tipoUsuario.Equals("Adscripto") Then
             btnSalones.Visible = True
             btnGrupos.Visible = True
             btnDocentes.Visible = False
             btnHorarios.Visible = False
             btnUsuarios.Visible = False
+            btnBackup.Visible = False
+            btnLimpiar.Visible = False
         End If
         ' Clickear el btnSalones por defecto al iniciar
         btnSalones.PerformClick()
@@ -75,7 +83,6 @@
         btnActual.BringToFront()
         pnlTrabajo.BringToFront()
     End Sub
-
     Private Sub acomodarDiseño(Optional original As Boolean = True)
         If original Then
             pnlBorde.Size = New Point(1007, 2)
@@ -220,5 +227,41 @@
         Me.Hide()
         FuncionesMinerva.CargarNombre(Me.frmMain)
         frmMain.RecargarGrupo()
+    End Sub
+
+    Private Sub btnBackup_Click(sender As Object, e As EventArgs) Handles btnBackup.Click
+        Dim path As String = Nothing
+        If sfdBackupSQL.ShowDialog = Windows.Forms.DialogResult.OK Then
+            path = sfdBackupSQL.FileName
+            Try
+                Dim conexion As New Conexion()
+                Using cmd As New MySqlCommand()
+                    Using backup As New MySqlBackup(cmd)
+                        cmd.Connection = conexion.Conn
+                        backup.ExportToFile(path)
+                        conexion.Close()
+                        MessageBox.Show("Respaldo guardado.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End Using
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Error al respaldar.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End Try
+        End If
+    End Sub
+    ' btnBackup
+    Private Sub Animacion_1_E(sender As Object, e As EventArgs) Handles btnBackup.MouseEnter
+        pnlAyudabtnBackup.Visible = True
+        pnlAyudabtnBackup.BringToFront()
+        sender.BackgroundImage = My.Resources.guardar_sql_hover()
+    End Sub
+
+    Private Sub Animacion_1_L(sender As Object, e As EventArgs) Handles btnBackup.MouseLeave
+        pnlAyudabtnBackup.Visible = False
+        sender.BackgroundImage = My.Resources.guardar_sql_normal()
+    End Sub
+
+    Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
+        Dim frmLimpiarDB As New frmLimpiarDB()
+        frmLimpiarDB.ShowDialog(Me)
     End Sub
 End Class
