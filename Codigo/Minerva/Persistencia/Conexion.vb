@@ -5,7 +5,7 @@ Public Class Conexion
     Friend Conn As MySqlConnection
     Dim server, user, passwd, db As String
 
-    Public Sub New(Optional ByVal noSalir As Boolean = False)
+    Public Sub New(Optional noSalir As Boolean = False)
         ' Al crear la clase, generar la conexión, y abrirla
         Try
             server = GetSetting("Minerva", "BaseDeDatos", "IP").ToString()

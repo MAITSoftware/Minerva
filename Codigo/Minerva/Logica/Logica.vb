@@ -48,343 +48,8 @@ Public Class Logica
 
     ' End Sub -> Finalizamos el módulo
 
-
-    ' frmMain
-    Public Sub crearMenuCursosTurnos_frmMain(ByVal frm As frmMain)
-        frm.ContextMenuStrip1.Items.Clear()
-        Dim item, turno, curso As ToolStripMenuItem
-        turno = New ToolStripMenuItem()
-        turno.Text = "Turno"
-        curso = New ToolStripMenuItem()
-        curso.Text = "Curso"
-        Dim conexion As New Conexion()
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "select CONCAT(NombreTurno, ' (', IdTurno, ')') as Turno from Turno;"
-                .CommandType = CommandType.Text
-            End With
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            While reader.Read()
-                item = New ToolStripMenuItem()
-                item.Text = reader("Turno")
-                AddHandler item.Click, AddressOf frm.filtroTurnoCambiado
-                turno.DropDownItems.Add(item)
-            End While
-            reader.Close()
-        End Using
-
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "select CONCAT(NombreCurso, ' (', IdCurso, ')') as Curso from Curso;"
-                .CommandType = CommandType.Text
-            End With
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            While reader.Read()
-                item = New ToolStripMenuItem()
-                item.Text = reader("Curso")
-                AddHandler item.Click, AddressOf frm.filtroCursoCambiado
-                curso.DropDownItems.Add(item)
-            End While
-            reader.Close()
-        End Using
-        frm.ContextMenuStrip1.Items.Add(turno)
-        frm.ContextMenuStrip1.Items.Add(curso)
-        conexion.Close()
-    End Sub
-
-    Public Sub cargarNombre_frmMain(ByVal frm As frmMain)
-        Dim conexion As New Conexion()
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "SELECT NombrePersona, ApellidoPersona from `Persona` where CiPersona=@CiPersona"
-                .Parameters.AddWithValue("@CiPersona", frm.nombreUsuario)
-                .CommandType = CommandType.Text
-            End With
-
-            Dim nombreElegido = False
-
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            While reader.Read()
-                If String.IsNullOrEmpty(reader("NombrePersona").ToString()) Or String.IsNullOrEmpty(reader("ApellidoPersona").ToString()) Then
-                    nombreElegido = False
-                Else
-                    frm.lblUsuario.Text = "Bienvenido " & reader("NombrePersona") & " " & reader("ApellidoPersona") & "."
-                    nombreElegido = True
-                End If
-            End While
-            reader.Close()
-            conexion.Close()
-
-            If Not nombreElegido Then
-                Try
-                    Dim x As New frmDatosUsuario(frm)
-                    x.ShowDialog(frm)
-                    cargarNombre_frmMain(frm)
-                Catch ex As Exception
-                    ' El usuario presionó salir.
-                End Try
-            End If
-        End Using
-    End Sub
-
-    Public Sub cargarDatos_frmMain(ByVal frm As frmMain)
-        Dim conexion As New Conexion()
-        Dim cursoElegido, turnoElegido As String
-        frm.cboGrupo.Items.Clear()
-        frm.cboGrupo.Items.Add("Elija un grupo")
-        frm.cboGrupo.SelectedIndex = 0
-        ' Carga los grupos al combo
-        Using cmd As New MySqlCommand()
-            With cmd
-                .Connection = conexion.Conn
-                .CommandText = "SELECT * from `Grupo`;"
-                If Not IsNothing(frm.cursoElegido) And Not IsNothing(frm.turnoElegido) Then
-                    cursoElegido = frm.cursoElegido.Text.ToString()
-                    cursoElegido = cursoElegido.Substring(cursoElegido.IndexOf(" (") + 2).Trim(")")
-
-                    turnoElegido = frm.turnoElegido.Text.ToString()
-                    turnoElegido = turnoElegido.Substring(turnoElegido.IndexOf(" (") + 2).Trim(")")
-
-                    .CommandText = "SELECT * from `Grupo`, `Orientacion` where Grupo.IdTurno=@IdTurno and Orientacion.IdOrientacion=Grupo.IdOrientacion and Orientacion.IdCurso=@IdCurso;"
-                    .Parameters.AddWithValue("@IdCurso", cursoElegido)
-                    .Parameters.AddWithValue("@IdTurno", turnoElegido)
-
-                ElseIf Not IsNothing(frm.cursoElegido) Then
-                    cursoElegido = frm.cursoElegido.Text.ToString()
-                    cursoElegido = cursoElegido.Substring(cursoElegido.IndexOf(" (") + 2).Trim(")")
-
-                    .CommandText = "SELECT * from `Grupo`, `Orientacion` where Orientacion.IdOrientacion=Grupo.IdOrientacion and Orientacion.IdCurso=@IdCurso;"
-                    .Parameters.AddWithValue("@IdCurso", cursoElegido)
-
-                ElseIf Not IsNothing(frm.turnoElegido) Then
-                    turnoElegido = frm.turnoElegido.Text.ToString()
-                    turnoElegido = turnoElegido.Substring(turnoElegido.IndexOf(" (") + 2).Trim(")")
-
-                    .CommandText = "SELECT * from `Grupo` where Grupo.IdTurno=@IdTurno;"
-                    .Parameters.AddWithValue("@IdTurno", turnoElegido)
-                End If
-                .CommandType = CommandType.Text
-            End With
-
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            While reader.Read()
-                frm.cboGrupo.Items.Add(reader("Grado").ToString() & " " & reader("IdGrupo"))
-            End While
-            reader.Close()
-        End Using
-        conexion.Close()
-    End Sub
-
-    Public Sub cargarDatosGrupo_frmMain(ByVal frm As frmMain)
-        Dim conexion As New Conexion()
-        Dim subconexion As New Conexion()
-        frm.tblMaterias.Controls.Clear()
-        Dim nroGrupo As Integer
-        Dim reader As MySqlDataReader
-
-        Using primerCmd As New MySqlCommand()
-            With primerCmd
-                .Connection = conexion.Conn
-                .CommandType = CommandType.Text
-                .CommandText = "select * from Grupo where CONCAT(Grado, ' ', IdGrupo)=@Grupo;"
-                .Parameters.AddWithValue("@Grupo", frm.cboGrupo.Text)
-            End With
-            reader = primerCmd.ExecuteReader()
-            While reader.Read()
-                nroGrupo = reader("NroGrupo")
-            End While
-            reader.Close()
-        End Using
-
-        Dim cmd As MySqlCommand
-        cmd = New MySqlCommand()
-        cmd.Connection = conexion.Conn
-        cmd.CommandType = CommandType.Text
-        cmd.CommandText = "select Adscripto, Salon, IdOrientacion, Orientacion, Curso, Grado, IdGrupo, DatosGrupos.NombreTurno, IdTurno, Concat(Grado, ' ', IdGrupo) as Grupo from DatosGrupos, Turno, Adscriptos where Adscriptos.CiPersona=DatosGrupos.CiPersona and DatosGrupos.NombreTurno=Turno.NombreTurno;"
-
-        reader = cmd.ExecuteReader()
-        Dim idOrientacion As String = ""
-        Dim grado As String = ""
-        Dim idgrupo As String = ""
-
-        While reader.Read()
-            If reader("Grupo").ToString().Equals(frm.cboGrupo.Text) Then
-                frm.lblValorTipoCurso.Text = reader("Curso")
-                frm.lblValorTipoSalon.Text = reader("Salon")
-                If frm.lblValorTipoSalon.Text.Equals("-1") Then
-                    frm.lblValorTipoSalon.Text = "Sin asignar"
-                End If
-                frm.lblValorTipoGrado.Text = reader("Grado")
-                frm.lblValorTipoTurno.Text = reader("NombreTurno")
-                frm.lblValorTipoTurno.Tag = reader("IdTurno").ToString()
-                frm.lblValorTipoAdscripto.Text = reader("Adscripto")
-                grado = reader("Grado")
-                idgrupo = reader("IdGrupo")
-                idOrientacion = reader("IdOrientacion").ToString()
-            End If
-        End While
-        reader.Dispose()
-
-        cmd = New MySqlCommand()
-        cmd.Connection = conexion.Conn
-        cmd.CommandType = CommandType.Text
-        cmd.CommandText = "select Tiene_Ta.IdAsignatura, Tiene_Ta.Grado, Tiene_Ta.IdOrientacion, NombreAsignatura from Tiene_Ta, Asignatura where IdOrientacion=@IdOrientacion and Grado=@Grado and Tiene_Ta.IdAsignatura=Asignatura.IdAsignatura;"
-        cmd.Parameters.AddWithValue("@IdOrientacion", idOrientacion)
-        cmd.Parameters.AddWithValue("@Grado", frm.lblValorTipoGrado.Text)
-        reader = cmd.ExecuteReader()
-        Dim x As Integer = 1
-        While reader.Read()
-            Dim subcmd As New MySqlCommand()
-            subcmd.Connection = subconexion.Conn
-            subcmd.CommandType = CommandType.Text
-            subcmd.CommandText = "select Tiene_Ag.IdAsignatura, CONCAT(NombrePersona, ' ', ApellidoPersona) as Profesor from Tiene_Ag, Persona, Grupo where Grupo.IdOrientacion=@IdOrientacion and IdAsignatura=@IdAsignatura and Tiene_Ag.NroGrupo=@NroGrupo and Grupo.Grado=@Grado and Persona.CiPersona=Tiene_Ag.CiPersona;"
-            subcmd.Parameters.AddWithValue("@IdOrientacion", idOrientacion)
-            subcmd.Parameters.AddWithValue("@IdAsignatura", reader("IdAsignatura"))
-            subcmd.Parameters.AddWithValue("@NroGrupo", nroGrupo)
-            subcmd.Parameters.AddWithValue("@Grado", grado)
-            Dim subreader As MySqlDataReader = subcmd.ExecuteReader()
-            Dim profesor = "Sin profesor"
-            While subreader.Read()
-                profesor = subreader("Profesor")
-            End While
-
-            Dim lblMateria As New Label
-            Dim lblProfesor As New Label
-
-            lblMateria.Font = New Font("Microsoft Sans Serif", 12, FontStyle.Bold)
-            lblProfesor.Font = New Font("Microsoft Sans Serif", 12)
-            lblProfesor.Padding = New Padding(0, 0, 0, 5)
-            lblMateria.ForeColor = Color.White
-
-            lblMateria.Text = reader("NombreAsignatura").ToString()
-            lblProfesor.Text = "         " & profesor
-
-
-            frm.tblMaterias.RowStyles.Add(New RowStyle(SizeType.AutoSize, 0))
-            frm.tblMaterias.RowStyles.Add(New RowStyle(SizeType.AutoSize, 0))
-            frm.tblMaterias.Controls.Add(lblMateria, 0, x)
-            frm.tblMaterias.Controls.Add(lblProfesor, 0, x + 1)
-
-            lblMateria.AutoSize = True
-            lblProfesor.AutoSize = True
-            subreader.Dispose()
-            x += 2
-        End While
-
-        reader.Dispose()
-        conexion.Close()
-        subconexion.Close()
-    End Sub
-
-    Public Sub cargarMateriasGrupo_frmMain(ByVal frm As frmMain)
-        Dim conexion As New Conexion()
-        Dim reader As MySqlDataReader
-        ' Carga los grupos al combo
-        Dim dias As Object = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"}
-        frm.Cursor = Cursors.WaitCursor
-        For Each dia As String In dias
-            Using cmd As New MySqlCommand()
-                With cmd
-                    .Connection = conexion.Conn
-                    .CommandText = "select *, DATE_FORMAT(HoraInicio, '%H:%i') as HoraOrden from Calendario where Dia=@Dia and Grupo=@StringGrupo order by HoraOrden;"
-                    .CommandType = CommandType.Text
-                    .Parameters.AddWithValue("@Dia", dia)
-                    .Parameters.AddWithValue("@StringGrupo", frm.cboGrupo.Text)
-                End With
-
-                reader = cmd.ExecuteReader()
-                While reader.Read()
-                    If reader("Materia").Equals("Sin asignar") Then
-                        Continue While
-                    End If
-                    If dia.Equals("Lunes") Then
-                        frm.Lunes.agregarHora(reader("HoraOrden"), reader("Materia"))
-                    End If
-                    If dia.Equals("Martes") Then
-                        frm.Martes.agregarHora(reader("HoraOrden"), reader("Materia"))
-                    End If
-                    If dia.Equals("Miércoles") Then
-                        frm.Miércoles.agregarHora(reader("HoraOrden"), reader("Materia"))
-                    End If
-                    If dia.Equals("Jueves") Then
-                        frm.Jueves.agregarHora(reader("HoraOrden"), reader("Materia"))
-                    End If
-                    If dia.Equals("Viernes") Then
-                        frm.Viernes.agregarHora(reader("HoraOrden"), reader("Materia"))
-                    End If
-                    If dia.Equals("Sábado") Then
-                        frm.Sábado.agregarHora(reader("HoraOrden"), reader("Materia"))
-                    End If
-                End While
-                reader.Close()
-            End Using
-        Next
-        Dim Label As New Label()
-        Label.Anchor = AnchorStyles.Left
-        Label.Visible = False
-
-        Dim horarios(0) As Object
-        If frm.lblValorTipoTurno.Tag.Equals("3") Then
-            ReDim horarios(5)
-        Else
-            ReDim horarios(6)
-        End If
-
-        Dim subCmd As New MySqlCommand()
-        subCmd.CommandType = CommandType.Text
-        subCmd.Connection = conexion.Conn
-        subCmd.CommandText = "select DISTINCT HoraInicio, HoraFin from Asignacion where IdTurno=@IdTurno;"
-        subCmd.Parameters.AddWithValue("@IdTurno", frm.lblValorTipoTurno.Tag)
-        reader = subCmd.ExecuteReader()
-        Dim x As Integer = 0
-        While reader.Read()
-            horarios(x) = reader("HoraInicio").ToString()
-            x += 1
-        End While
-        reader.Close()
-
-        Dim current_dia As Integer
-        For Each hora As String In horarios
-            Dim row_dia(8) As String
-            current_dia = 1
-            row_dia(0) = hora.Substring(0, hora.Length - 3)
-            For Each dia As String In dias
-                Dim testCmd As New MySqlCommand()
-                testCmd.CommandText = "select IdAsignatura, Materia, NombreProfesor from (select DISTINCT * from Calendario where HoraInicio=@HoraInicio and Grupo=@Grupo) Resultado where Dia=@Dia;"
-                testCmd.CommandType = CommandType.Text
-                testCmd.Connection = conexion.Conn
-                testCmd.Parameters.AddWithValue("@HoraInicio", hora)
-                testCmd.Parameters.AddWithValue("@Grupo", frm.cboGrupo.Text)
-                testCmd.Parameters.AddWithValue("@Dia", dia)
-                reader = testCmd.ExecuteReader()
-                Dim huboResultado As Boolean = False
-                While reader.Read()
-                    huboResultado = True
-                    If reader("IdAsignatura").Equals("-1") Then
-                        row_dia(current_dia) = "Sin definir" & vbCrLf & ""
-                        Continue While
-                    End If
-                    row_dia(current_dia) = reader("Materia") & vbCrLf & reader("NombreProfesor")
-                End While
-                If Not huboResultado Then
-                    row_dia(current_dia) = "Sin definir" & vbCrLf
-                End If
-                reader.Close()
-                current_dia += 1
-            Next
-            frm.Grilla.dgvMaterias.Rows.Add(row_dia)
-        Next
-
-        conexion.Close()
-        frm.Cursor = Cursors.Default
-
-    End Sub
-
     ' frmAdminHorarios
-    Public Sub cargarGrupos_frmAdminHorarios(ByVal frm As frmAdminHorarios)
+    Public Sub cargarGrupos_frmAdminHorarios(frm As frmAdminHorarios)
         ' Carga los grupos a la lista de grupos
         Dim conexion As New Conexion()
         frm.cmbGrupo.Items.Clear()
@@ -406,7 +71,7 @@ Public Class Logica
         End Using
     End Sub
 
-    Public Sub cargarMaterias_frmAdminHorarios(ByVal frm As frmAdminHorarios)
+    Public Sub cargarMaterias_frmAdminHorarios(frm As frmAdminHorarios)
         Dim conexion As New Conexion()
         Dim subConexion As New Conexion()
 
@@ -794,7 +459,7 @@ Public Class Logica
         frm.tableSabado.Enabled = True
     End Sub
 
-    Public Sub cargarHorarios_frmAdminHorarios(ByVal frm As frmAdminHorarios)
+    Public Sub cargarHorarios_frmAdminHorarios(frm As frmAdminHorarios)
         Dim conexion As New Conexion()
         Dim cmd As New MySqlCommand()
         cmd.Connection = conexion.Conn
@@ -853,7 +518,7 @@ Public Class Logica
         conexion.Close()
     End Sub
 
-    Public Sub guardarHorarios_frmAdminHorarios(ByVal frm As frmAdminHorarios)
+    Public Sub guardarHorarios_frmAdminHorarios(frm As frmAdminHorarios)
         Dim conexion As New Conexion()
         Dim conexion2 As New Conexion()
         Dim conexion_check As New Conexion()
@@ -1317,7 +982,7 @@ Public Class Logica
     Dim asignacionViernes(1) As String
     Dim asignacionSabado(1) As String
 
-    Public Function cargarMateriasAsignacion(ByVal frm As frmAdminGrupos) As Object
+    Public Function cargarMateriasAsignacion(frm As frmAdminGrupos) As Object
         Dim IdTurno, NroGrupo As String
         Dim conexion As New Conexion()
         Dim cmd As New MySqlCommand()
@@ -1370,7 +1035,7 @@ Public Class Logica
         ReDim Preserve materias_ordenadas(materias_ordenadas.Length - 1)
     End Sub
 
-    Public Sub repartirHorarios(ByVal frm As frmAdminGrupos)
+    Public Sub repartirHorarios(frm As frmAdminGrupos)
         ReDim Me.materias_auxiliares(1)
         ReDim Me.materias_ordenadas(1)
         ReDim Me.asignacionLunes(1)
@@ -1387,7 +1052,7 @@ Public Class Logica
         End Try
     End Sub
 
-    Public Sub repartirHorariosAutomagicamente(ByVal frm As frmAdminGrupos)
+    Public Sub repartirHorariosAutomagicamente(frm As frmAdminGrupos)
         Dim infoGrupo As Object = cargarMateriasAsignacion(frm)
         Dim NroGrupo, IdTurno As String
         NroGrupo = infoGrupo(0)

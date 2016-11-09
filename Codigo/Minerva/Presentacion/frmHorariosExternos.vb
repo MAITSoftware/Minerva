@@ -7,7 +7,7 @@ Imports iTextSharp.text.pdf
 Public Class frmHorariosExternos
 
     Dim frmMain As frmMain
-    Public Sub New(ByVal frmMain As frmMain)
+    Public Sub New(frmMain As frmMain)
 
         ' Llamada necesaria para el diseñador.
         InitializeComponent()

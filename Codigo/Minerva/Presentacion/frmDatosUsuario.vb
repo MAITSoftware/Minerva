@@ -2,7 +2,7 @@
 
     Friend frmMain As frmMain
 
-    Public Sub New(ByVal frmMain As frmMain)
+    Public Sub New(frmMain As frmMain)
         'inicia el programa, en caso de que sea invitado lo detecta
         InitializeComponent()
         Me.frmMain = frmMain
@@ -21,7 +21,7 @@
         Me.frmMain.Dispose()
     End Sub
 
-    Private Sub checkDatos(Optional ByVal sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnAceptar.Click
+    Private Sub checkDatos(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnAceptar.Click
         ' Comprueba si hay datos enlos entrys y en base a esto habilita o deshabilita el botón aceptar.
         If String.IsNullOrWhiteSpace(txtNombre.Text) Then
             MessageBox.Show("Debe escribir un nombre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
@@ -36,7 +36,7 @@
         Usuario.EditarDatos(Me)
     End Sub
 
-    Private Sub EnterClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtNombre.KeyDown, txtApellido.KeyDown
+    Private Sub EnterClick(sender As System.Object, e As System.Windows.Forms.KeyEventArgs) Handles txtNombre.KeyDown, txtApellido.KeyDown
         If e.KeyCode.Equals(Keys.Enter) Then
             btnAceptar.PerformClick()
         End If

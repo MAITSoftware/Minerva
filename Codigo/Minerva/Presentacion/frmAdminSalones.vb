@@ -6,7 +6,7 @@
     Dim Editando As Boolean = False
     Dim SalonPreview As Object = New Button()
 
-    Public Sub New(ByVal tipousuario As String)
+    Public Sub New(tipousuario As String)
         InitializeComponent()
 
         Me.TipoUsuario = tipousuario
@@ -18,7 +18,7 @@
         CargarSalones()
     End Sub
 
-    Public Sub AgregarWidgetSalon(ByVal idSalon As String)
+    Public Sub AgregarWidgetSalon(idSalon As String)
         Dim pnlTemporal As New Panel
         Dim btnSalon As New Button
         Dim btnEditar, btnEliminar As New Button
@@ -82,7 +82,7 @@
         pnlSalones.Focus()
     End Sub
 
-    Private Sub InterfazEditarSalon(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub InterfazEditarSalon(sender As System.Object, e As System.EventArgs)
         SalonPreview.Enabled = True
         SalonPreview = sender.Parent
         SalonPreview.Enabled = False
@@ -104,7 +104,7 @@
         Salon.CargarSalon(sender.Tag, Me)
     End Sub
 
-    Public Sub InterfazPrevisualizarSalon(ByVal IdSalon As String)
+    Public Sub InterfazPrevisualizarSalon(IdSalon As String)
         btnNuevoSalon.Visible = True
         btnAgregar.Visible = False
         btnCancelarEdicion.Visible = False
@@ -133,7 +133,7 @@
         End If
     End Sub
 
-    Private Sub HabilitarControles(ByVal habilitado As Boolean)
+    Private Sub HabilitarControles(habilitado As Boolean)
         txtIdSalon.Enabled = habilitado
         txtIdSalon.Text = ""
         cmbPlanta.Enabled = habilitado
@@ -145,7 +145,7 @@
         txtComentarios.Text = ""
     End Sub
 
-    Public Sub IntefazNuevoSalon(Optional ByVal sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnNuevoSalon.Click, btnCancelarEdicion.Click
+    Public Sub IntefazNuevoSalon(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnNuevoSalon.Click, btnCancelarEdicion.Click
         HabilitarControles(True)
 
         btnNuevoSalon.Visible = False
@@ -171,12 +171,12 @@
         End If
     End Sub
 
-    Private Sub ClickVerSalon(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub ClickVerSalon(sender As System.Object, e As System.EventArgs)
         InterfazPrevisualizarSalon(sender.Tag)
     End Sub
 
     ' Comunicación con lógica y persistencia
-    Private Sub CheckDatosCorrectos(Optional ByVal sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnAgregar.Click
+    Private Sub CheckDatosCorrectos(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnAgregar.Click
         If Me.TipoUsuario.Equals("Adscripto") And Not Editando Then
             MessageBox.Show("Oops!" & vbCrLf & "Solo los administradores y funcionarios pueden hacer eso...", "Acceso denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             Return
@@ -205,7 +205,7 @@
         End If
     End Sub
 
-    Private Sub EliminarSalon(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub EliminarSalon(sender As System.Object, e As System.EventArgs)
         Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar el salón '" + sender.Tag + "'?", "Eliminar salón", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.No Then
             Return

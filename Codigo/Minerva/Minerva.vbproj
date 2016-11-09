@@ -101,6 +101,7 @@
     <Compile Include="Logica\Grupo.vb" />
     <Compile Include="Logica\InformacionDB.vb" />
     <Compile Include="Logica\Logica.vb" />
+    <Compile Include="Logica\FuncionesMinerva.vb" />
     <Compile Include="Logica\Salon.vb" />
     <Compile Include="Logica\Usuario.vb" />
     <Compile Include="Persistencia\PersistenciaAsignaturas.vb" />

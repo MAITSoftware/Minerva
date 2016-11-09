@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class Usuario
-    Public Shared Sub Login(ByVal frm As frmLogin)
+    Public Shared Sub Login(frm As frmLogin)
         ' Se encarga de comprobar los datos ingresados del usuario, con los de la DB
         Dim accesoDenegado As Boolean = True
         Dim conexion As New Conexion()
@@ -36,7 +36,7 @@ Public Class Usuario
         End If
     End Sub
 
-    Public Shared Sub Registro(ByVal frm As frmRegistro)
+    Public Shared Sub Registro(frm As frmRegistro)
         Dim cantidadAdministradores As Integer = PersistenciaUsuarios.CantAdministradores()
 
         Try
@@ -72,14 +72,14 @@ Public Class Usuario
         End Try
     End Sub
 
-    Public Shared Sub EditarDatos(ByVal frm As frmDatosUsuario)
+    Public Shared Sub EditarDatos(frm As frmDatosUsuario)
         PersistenciaPersonas.Edit(frm.frmMain.nombreUsuario, frm.txtNombre.Text, frm.txtApellido.Text)
         MessageBox.Show("Información de usuario actualizada correctamente", "Usuario actualizado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
         frm.frmMain.BringToFront()
         frm.Dispose()
     End Sub
 
-    Public Shared Sub CargarUsuarios(ByVal frm As frmAdminUsuarios)
+    Public Shared Sub CargarUsuarios(frm As frmAdminUsuarios)
         frm.pnlUsuarios.Controls.Clear()
         frm.totalUsuarios = 0
         Dim resultadosPersistencia As Object = InformacionDB.GetUsuarios()
@@ -94,7 +94,7 @@ Public Class Usuario
         resultadosPersistencia(1).Close()
     End Sub
 
-    Public Shared Sub EliminarUsuario(ByVal Ci As String, frm As frmAdminUsuarios)
+    Public Shared Sub EliminarUsuario(Ci As String, frm As frmAdminUsuarios)
         Dim resultadosPersistenciaBackup As Object = PersistenciaUsuarios.GetInfo(Ci)
         Dim readerBackup As MySqlDataReader = resultadosPersistenciaBackup(0)
 
@@ -115,7 +115,7 @@ Public Class Usuario
         resultadosPersistenciaBackup(1).Close()
     End Sub
 
-    Public Shared Sub CargarDatos(ByVal Ci As String, ByVal frm As frmAdminUsuarios)
+    Public Shared Sub CargarDatos(Ci As String, frm As frmAdminUsuarios)
         Dim resultadosPersistencia As Object = PersistenciaUsuarios.GetInfo(Ci)
         Dim reader As MySqlDataReader = resultadosPersistencia(0)
 
@@ -144,7 +144,7 @@ Public Class Usuario
         resultadosPersistencia(1).Close()
     End Sub
 
-    Public Shared Sub ActualizarDB(ByVal frm As frmAdminUsuarios)
+    Public Shared Sub ActualizarDB(frm As frmAdminUsuarios)
         Dim CiPersona As String = frm.txtID.Text
         Dim ContraseniaUsuario As String = frm.txtContraseña.Text
         Dim AprobacionUsuario As Boolean = frm.chkHabilitado.Checked
@@ -175,7 +175,7 @@ Public Class Usuario
         End If
     End Sub
 
-    Public Shared Sub ContUsuariosNoAprobados(ByVal frm As frmMain)
+    Public Shared Sub ContUsuariosNoAprobados(frm As frmMain)
         If Not frm.tipoUsuario.Equals("Administrador") Then
             frm.alertaAprobacion.Visible = False
             Return

@@ -2,7 +2,7 @@
 Imports System.Data
 
 Public Class PersistenciaDocentes
-    Public Shared Sub Add(ByVal Ci As String, GradoProfesor As Integer)
+    Public Shared Sub Add(Ci As String, GradoProfesor As Integer)
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
@@ -22,7 +22,7 @@ Public Class PersistenciaDocentes
         End Using
     End Sub
 
-    Public Shared Sub Edit(ByVal Ci As String, GradoProfesor As Integer)
+    Public Shared Sub Edit(Ci As String, GradoProfesor As Integer)
         Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
@@ -38,7 +38,7 @@ Public Class PersistenciaDocentes
         End Using
     End Sub
 
-    Public Shared Sub Del(ByVal Ci As String)
+    Public Shared Sub Del(Ci As String)
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
@@ -57,7 +57,7 @@ Public Class PersistenciaDocentes
         End Using
     End Sub
 
-    Public Shared Function GetInfo(ByVal Ci As String) As Object
+    Public Shared Function GetInfo(Ci As String) As Object
         Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
@@ -73,7 +73,7 @@ Public Class PersistenciaDocentes
         End Using
     End Function
 
-    Public Shared Function GetConflictosAsignacion(ByVal Ci As String, IdAsignatura As String, NroGrupo As String) As Object
+    Public Shared Function GetConflictosAsignacion(Ci As String, IdAsignatura As String, NroGrupo As String) As Object
         Dim Conflictivo As Boolean = False
         Dim IdGrupo As String = ""
 

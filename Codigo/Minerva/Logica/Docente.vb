@@ -2,7 +2,7 @@
 
 Public Class Docente
 
-    Public Shared Sub CargarAreas(ByVal frm As frmAdminDocentes)
+    Public Shared Sub CargarAreas(frm As frmAdminDocentes)
         frm.cmbArea.Items.Clear()
 
         Dim conexion As New Conexion()
@@ -21,7 +21,7 @@ Public Class Docente
         resultadosPersistencia(1).Close()
     End Sub
 
-    Public Shared Sub CargarGrupos(ByVal frm As frmAdminDocentes)
+    Public Shared Sub CargarGrupos(frm As frmAdminDocentes)
         Dim resultadosPersistencia As Object = InformacionDB.GetGrupos()
         Dim reader As MySqlDataReader = resultadosPersistencia(0)
 
@@ -33,7 +33,7 @@ Public Class Docente
         resultadosPersistencia(1).Close()
     End Sub
 
-    Public Shared Sub CargarDocentes(ByVal frm As frmAdminDocentes)
+    Public Shared Sub CargarDocentes(frm As frmAdminDocentes)
         frm.pnlDocentes.Controls.Clear()
         frm.totalDocentes = 0
         frm.lblCantidadDocentes.Text = "(" + frm.totalDocentes.ToString() + ")"
@@ -52,7 +52,7 @@ Public Class Docente
         resultadosPersistencia(1).Close()
     End Sub
 
-    Public Shared Sub ActualizarDB(ByVal frm As frmAdminDocentes)
+    Public Shared Sub ActualizarDB(frm As frmAdminDocentes)
         Dim Ci As String = frm.txtCI.Text
         Dim Nombre As String = frm.txtNombre.Text
         Dim Apellido As String = frm.txtApellido.Text
@@ -81,7 +81,7 @@ Public Class Docente
         End If
     End Sub
 
-    Public Shared Sub CargarInfo(ByVal Ci As String, frm As frmAdminDocentes)
+    Public Shared Sub CargarInfo(Ci As String, frm As frmAdminDocentes)
         Dim resultadosPersistencia As Object = PersistenciaDocentes.GetInfo(Ci)
         Dim reader As MySqlDataReader = resultadosPersistencia(0)
 
@@ -96,7 +96,7 @@ Public Class Docente
         resultadosPersistencia(1).Close()
     End Sub
 
-    Public Shared Sub EliminarDocente(ByVal Ci As String, Nombre As String, frm As frmAdminDocentes)
+    Public Shared Sub EliminarDocente(Ci As String, Nombre As String, frm As frmAdminDocentes)
         Dim resultadosPersistenciaBackup As Object = PersistenciaDocentes.GetInfo(Ci)
         Dim readerBackup As MySqlDataReader = resultadosPersistenciaBackup(0)
 
@@ -123,7 +123,7 @@ Public Class Docente
 
     ' **** Asignaturas **** 
 
-    Public Shared Sub EliminarAsignatura(ByVal frm As frmAdminDocentes)
+    Public Shared Sub EliminarAsignatura(frm As frmAdminDocentes)
         Dim NroGrupo As String = PersistenciaGrupos.GetNroGrupo(frm.lstAsignaturas.SelectedItems.Item(0).SubItems(1).Text)
         Dim IdAsignatura As String = frm.lstAsignaturas.SelectedItems.Item(0).SubItems(0).Text
         Dim CiPersona As String = frm.txtCI.Text
@@ -140,7 +140,7 @@ Public Class Docente
 
     End Sub
 
-    Public Shared Sub CargarAsignaturas(ByVal Ci As String, frm As frmAdminDocentes)
+    Public Shared Sub CargarAsignaturas(Ci As String, frm As frmAdminDocentes)
         frm.lstAsignaturas.Items.Clear()
         Dim resultadosPersistencia As Object = PersistenciaAsignaturas.GetAsignadasDocente(Ci)
 
@@ -156,7 +156,7 @@ Public Class Docente
         resultadosPersistencia(1).Close()
     End Sub
 
-    Public Shared Sub ActualizarDB_Asignatura(ByVal frm As frmAdminDocentes)
+    Public Shared Sub ActualizarDB_Asignatura(frm As frmAdminDocentes)
         Dim NroGrupo As String = PersistenciaGrupos.GetNroGrupo(frm.cmbGrupo.Text.Substring(0, frm.cmbGrupo.Text.IndexOf(" - ")))
         Dim IdAsignatura As String = frm.cmbAsignatura.Text.Substring(0, frm.cmbAsignatura.Text.IndexOf(" - ")).Trim()
         Dim FechaAhora As DateTime = Now
@@ -188,7 +188,7 @@ Public Class Docente
 
     End Sub
 
-    Public Shared Sub CargarAsignaturasGrupo(ByVal frm As frmAdminDocentes)
+    Public Shared Sub CargarAsignaturasGrupo(frm As frmAdminDocentes)
         frm.cmbAsignatura.Items.Clear()
 
         Dim IdGrupo As String = frm.cmbGrupo.Text.Substring(frm.cmbGrupo.Text.IndexOf(" "), frm.cmbGrupo.Text.IndexOf(" - ")).Trim()

@@ -3,7 +3,7 @@ Imports System.Data
 
 Public Class PersistenciaPersonas
 
-    Public Shared Sub Add(ByVal Ci As String, Optional Nombre As String = Nothing, Optional Apellido As String = Nothing)
+    Public Shared Sub Add(Ci As String, Optional Nombre As String = Nothing, Optional Apellido As String = Nothing)
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
@@ -24,7 +24,7 @@ Public Class PersistenciaPersonas
         End Using
     End Sub
 
-    Public Shared Sub Edit(ByVal Ci As String, Nombre As String, Apellido As String)
+    Public Shared Sub Edit(Ci As String, Nombre As String, Apellido As String)
         Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
@@ -42,7 +42,7 @@ Public Class PersistenciaPersonas
         End Using
     End Sub
 
-    Public Shared Sub Del(ByVal Ci As String)
+    Public Shared Sub Del(Ci As String)
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd

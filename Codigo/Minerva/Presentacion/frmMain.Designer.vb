@@ -4,7 +4,7 @@ Partial Class frmMain
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
     <System.Diagnostics.DebuggerNonUserCode()> _
-    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+    Protected Overrides Sub Dispose(disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
@@ -26,6 +26,7 @@ Partial Class frmMain
         Dim lblHorariosSemana As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.pnlInfoCurso = New System.Windows.Forms.Panel()
+        Me.lblSeleccioneGrupo2 = New System.Windows.Forms.Label()
         Me.pnlDatosGrupo = New System.Windows.Forms.Panel()
         Me.lblValorTipoAdscripto = New System.Windows.Forms.Label()
         Me.lblAdscripto = New System.Windows.Forms.Label()
@@ -42,7 +43,6 @@ Partial Class frmMain
         Me.tblMaterias = New System.Windows.Forms.TableLayoutPanel()
         Me.lblProfesores = New System.Windows.Forms.Label()
         Me.lblNomGrupo = New System.Windows.Forms.Label()
-        Me.lblSeleccioneGrupo2 = New System.Windows.Forms.Label()
         Me.pnlHeader = New System.Windows.Forms.Panel()
         Me.alertaAprobacion = New System.Windows.Forms.PictureBox()
         Me.imgLogoUsuario = New System.Windows.Forms.PictureBox()
@@ -59,8 +59,7 @@ Partial Class frmMain
         Me.lblGrupo = New System.Windows.Forms.Label()
         Me.cboGrupo = New System.Windows.Forms.ComboBox()
         Me.lblSeleccioneGrupo = New System.Windows.Forms.Label()
-        Me.timerDatosUsuario = New System.Windows.Forms.Timer(Me.components)
-        Me.timerbtnrefrescar = New System.Windows.Forms.Timer(Me.components)
+        Me.TimerBtnRefrescar = New System.Windows.Forms.Timer(Me.components)
         Me.pnlHorarios = New System.Windows.Forms.Panel()
         Me.tblDias = New System.Windows.Forms.TableLayoutPanel()
         Me.Lunes = New Minerva.frmDia()
@@ -76,12 +75,7 @@ Partial Class frmMain
         Me.btnVistaSemana = New System.Windows.Forms.PictureBox()
         Me.btnFullscreen = New System.Windows.Forms.PictureBox()
         Me.Grilla = New Minerva.frmVistaGrilla()
-        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.TurnoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.VespertinoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.NocturnoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CursoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmsFiltrado = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.pnlAyudabtnVistaSemana = New System.Windows.Forms.Panel()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.pnlAyudabtnVistaDias = New System.Windows.Forms.Panel()
@@ -118,7 +112,6 @@ Partial Class frmMain
         CType(Me.btnVistaDias, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnVistaSemana, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnFullscreen, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ContextMenuStrip1.SuspendLayout()
         Me.pnlAyudabtnVistaSemana.SuspendLayout()
         Me.pnlAyudabtnVistaDias.SuspendLayout()
         Me.pnlAyudabtnRefrescarHorarios.SuspendLayout()
@@ -155,6 +148,21 @@ Partial Class frmMain
         Me.pnlInfoCurso.Name = "pnlInfoCurso"
         Me.pnlInfoCurso.Size = New System.Drawing.Size(300, 681)
         Me.pnlInfoCurso.TabIndex = 0
+        '
+        'lblSeleccioneGrupo2
+        '
+        Me.lblSeleccioneGrupo2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblSeleccioneGrupo2.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.lblSeleccioneGrupo2.Font = New System.Drawing.Font("Corbel", 28.0!, System.Drawing.FontStyle.Bold)
+        Me.lblSeleccioneGrupo2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
+        Me.lblSeleccioneGrupo2.Location = New System.Drawing.Point(-2, 52)
+        Me.lblSeleccioneGrupo2.Name = "lblSeleccioneGrupo2"
+        Me.lblSeleccioneGrupo2.Size = New System.Drawing.Size(300, 681)
+        Me.lblSeleccioneGrupo2.TabIndex = 12
+        Me.lblSeleccioneGrupo2.Text = "No disponible" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.lblSeleccioneGrupo2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'pnlDatosGrupo
         '
@@ -344,21 +352,6 @@ Partial Class frmMain
         Me.lblNomGrupo.TabIndex = 1
         Me.lblNomGrupo.Text = "X XX"
         Me.lblNomGrupo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblSeleccioneGrupo2
-        '
-        Me.lblSeleccioneGrupo2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblSeleccioneGrupo2.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
-        Me.lblSeleccioneGrupo2.Font = New System.Drawing.Font("Corbel", 28.0!, System.Drawing.FontStyle.Bold)
-        Me.lblSeleccioneGrupo2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(102, Byte), Integer))
-        Me.lblSeleccioneGrupo2.Location = New System.Drawing.Point(-2, 52)
-        Me.lblSeleccioneGrupo2.Name = "lblSeleccioneGrupo2"
-        Me.lblSeleccioneGrupo2.Size = New System.Drawing.Size(300, 681)
-        Me.lblSeleccioneGrupo2.TabIndex = 12
-        Me.lblSeleccioneGrupo2.Text = "No disponible" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        Me.lblSeleccioneGrupo2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'pnlHeader
         '
@@ -558,13 +551,9 @@ Partial Class frmMain
         Me.lblSeleccioneGrupo.Text = "Para visualizar los horarios," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "debe escoger un grupo"
         Me.lblSeleccioneGrupo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'timerDatosUsuario
+        'TimerBtnRefrescar
         '
-        Me.timerDatosUsuario.Interval = 300
-        '
-        'timerbtnrefrescar
-        '
-        Me.timerbtnrefrescar.Interval = 1000
+        Me.TimerBtnRefrescar.Interval = 1000
         '
         'pnlHorarios
         '
@@ -769,44 +758,10 @@ Partial Class frmMain
         Me.Grilla.TabStop = False
         Me.Grilla.Visible = False
         '
-        'ContextMenuStrip1
+        'cmsFiltrado
         '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TurnoToolStripMenuItem, Me.CursoToolStripMenuItem})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(107, 48)
-        '
-        'TurnoToolStripMenuItem
-        '
-        Me.TurnoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TestToolStripMenuItem, Me.VespertinoToolStripMenuItem, Me.NocturnoToolStripMenuItem})
-        Me.TurnoToolStripMenuItem.Name = "TurnoToolStripMenuItem"
-        Me.TurnoToolStripMenuItem.Size = New System.Drawing.Size(106, 22)
-        Me.TurnoToolStripMenuItem.Text = "Turno"
-        '
-        'TestToolStripMenuItem
-        '
-        Me.TestToolStripMenuItem.Checked = True
-        Me.TestToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.TestToolStripMenuItem.Name = "TestToolStripMenuItem"
-        Me.TestToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
-        Me.TestToolStripMenuItem.Text = "Matutino"
-        '
-        'VespertinoToolStripMenuItem
-        '
-        Me.VespertinoToolStripMenuItem.Name = "VespertinoToolStripMenuItem"
-        Me.VespertinoToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
-        Me.VespertinoToolStripMenuItem.Text = "Vespertino"
-        '
-        'NocturnoToolStripMenuItem
-        '
-        Me.NocturnoToolStripMenuItem.Name = "NocturnoToolStripMenuItem"
-        Me.NocturnoToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
-        Me.NocturnoToolStripMenuItem.Text = "Nocturno"
-        '
-        'CursoToolStripMenuItem
-        '
-        Me.CursoToolStripMenuItem.Name = "CursoToolStripMenuItem"
-        Me.CursoToolStripMenuItem.Size = New System.Drawing.Size(106, 22)
-        Me.CursoToolStripMenuItem.Text = "Curso"
+        Me.cmsFiltrado.Name = "ContextMenuStrip1"
+        Me.cmsFiltrado.Size = New System.Drawing.Size(61, 4)
         '
         'pnlAyudabtnVistaSemana
         '
@@ -1052,7 +1007,6 @@ Partial Class frmMain
         CType(Me.btnVistaDias, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnVistaSemana, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnFullscreen, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.pnlAyudabtnVistaSemana.ResumeLayout(False)
         Me.pnlAyudabtnVistaDias.ResumeLayout(False)
         Me.pnlAyudabtnRefrescarHorarios.ResumeLayout(False)
@@ -1092,11 +1046,10 @@ Partial Class frmMain
     Friend WithEvents btnSalir As System.Windows.Forms.Button
     Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox
     Friend WithEvents lblUsuario As System.Windows.Forms.Label
-    Friend WithEvents timerDatosUsuario As System.Windows.Forms.Timer
     Friend WithEvents lblValorTipoGrado As System.Windows.Forms.Label
     Friend WithEvents btnRecargar As System.Windows.Forms.PictureBox
     Friend WithEvents btnRefrescarHorarios As System.Windows.Forms.PictureBox
-    Friend WithEvents timerbtnrefrescar As System.Windows.Forms.Timer
+    Friend WithEvents TimerBtnRefrescar As System.Windows.Forms.Timer
     Friend WithEvents tblMaterias As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents btnVistaDias As System.Windows.Forms.PictureBox
     Friend WithEvents btnVistaSemana As System.Windows.Forms.PictureBox
@@ -1128,12 +1081,7 @@ Partial Class frmMain
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents pnlAyudabtnVistaSemana As System.Windows.Forms.Panel
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
-    Friend WithEvents TurnoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents CursoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TestToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents VespertinoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents NocturnoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmsFiltrado As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents btnFiltrar As System.Windows.Forms.PictureBox
     Friend WithEvents pnlAyudabtnFiltrar As System.Windows.Forms.Panel
     Friend WithEvents lblFiltrado As System.Windows.Forms.Label

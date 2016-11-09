@@ -22,7 +22,7 @@
     Friend frmAdministrar As frmAdministrar
     Dim tablas As Object = Nothing
 
-    Public Sub New(ByVal frmMain As frmMain, ByVal frmAdministrar As frmAdministrar)
+    Public Sub New(frmMain As frmMain, frmAdministrar As frmAdministrar)
         Me.frmMain = frmMain
         Me.frmAdministrar = frmAdministrar
         ' Llamada necesaria para el diseñador.

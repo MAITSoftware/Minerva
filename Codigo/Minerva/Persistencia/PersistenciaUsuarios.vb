@@ -3,7 +3,7 @@ Imports System.Data
 
 Public Class PersistenciaUsuarios
 
-    Public Shared Sub Add(ByVal Ci As String, TipoUsuario As String, ContraseniaUsuario As String, AprobacionUsuario As Boolean)
+    Public Shared Sub Add(Ci As String, TipoUsuario As String, ContraseniaUsuario As String, AprobacionUsuario As Boolean)
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
@@ -25,7 +25,7 @@ Public Class PersistenciaUsuarios
         End Using
     End Sub
 
-    Public Shared Sub Del(ByVal Ci As String)
+    Public Shared Sub Del(Ci As String)
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
@@ -44,7 +44,7 @@ Public Class PersistenciaUsuarios
         End Using
     End Sub
 
-    Public Shared Sub Edit(ByVal Ci As String, TipoUsuario As String, ContraseniaUsuario As String, AprobacionUsuario As Boolean)
+    Public Shared Sub Edit(Ci As String, TipoUsuario As String, ContraseniaUsuario As String, AprobacionUsuario As Boolean)
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
@@ -66,7 +66,7 @@ Public Class PersistenciaUsuarios
         End Using
     End Sub
 
-    Public Shared Function GetInfo(ByVal Ci As String) As Object
+    Public Shared Function GetInfo(Ci As String) As Object
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
@@ -81,7 +81,21 @@ Public Class PersistenciaUsuarios
         End Using
     End Function
 
-    Public Shared Function Login(ByVal Ci As String, Contraseña As String) As Object
+    Public Shared Function GetNombre(Ci As String) As Object
+        Dim Nombre As String = ""
+        Dim Apellido As String = ""
+
+        Dim resultadosPersistencia As Object = GetInfo(Ci)
+        Dim reader As MySqlDataReader = resultadosPersistencia(0)
+        While reader.Read()
+            Nombre = reader("NombrePersona")
+            Apellido = reader("ApellidoPersona")
+        End While
+
+        Return {Nombre, Apellido}
+    End Function
+
+    Public Shared Function Login(Ci As String, Contraseña As String) As Object
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd

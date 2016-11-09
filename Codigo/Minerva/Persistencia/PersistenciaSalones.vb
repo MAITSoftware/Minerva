@@ -3,7 +3,7 @@ Imports System.Data
 
 Public Class PersistenciaSalones
 
-    Public Shared Sub Add(ByVal IdSalon As String, ComentariosSalon As String, PlantaSalon As String)
+    Public Shared Sub Add(IdSalon As String, ComentariosSalon As String, PlantaSalon As String)
         Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
@@ -27,7 +27,7 @@ Public Class PersistenciaSalones
         End Using
     End Sub
 
-    Public Shared Sub Edit(ByVal IdSalon As String, ComentariosSalon As String, PlantaSalon As String)
+    Public Shared Sub Edit(IdSalon As String, ComentariosSalon As String, PlantaSalon As String)
         Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
@@ -51,7 +51,7 @@ Public Class PersistenciaSalones
         End Using
     End Sub
 
-    Public Shared Function GetInfo(ByVal IdSalon As String) As Object
+    Public Shared Function GetInfo(IdSalon As String) As Object
         Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
@@ -67,7 +67,7 @@ Public Class PersistenciaSalones
         End Using
     End Function
 
-    Public Shared Function GetAsignado(ByVal IdSalon As String, Turno As Integer) As Object
+    Public Shared Function GetAsignado(IdSalon As String, Turno As Integer) As Object
         Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
@@ -84,7 +84,7 @@ Public Class PersistenciaSalones
         End Using
     End Function
 
-    Public Shared Sub Del(ByVal IdSalon As String)
+    Public Shared Sub Del(IdSalon As String)
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
@@ -103,7 +103,7 @@ Public Class PersistenciaSalones
         End Using
     End Sub
 
-    Public Shared Function GetOcupadoBy(ByVal IdSalon As String, Turno As Integer) As Object
+    Public Shared Function GetOcupadoBy(IdSalon As String, Turno As Integer) As Object
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd

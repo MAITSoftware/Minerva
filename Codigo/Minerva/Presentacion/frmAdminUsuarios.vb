@@ -6,7 +6,7 @@
     Dim miUsuario As String = ""
     Dim frmMain As frmMain
 
-    Public Sub New(ByVal usuario As String, ByVal frmMain As frmMain)
+    Public Sub New(usuario As String, frmMain As frmMain)
         ' Llamada necesaria para el diseñador.
         InitializeComponent()
         Me.miUsuario = usuario
@@ -20,7 +20,7 @@
         txtID.Focus()
     End Sub
 
-    Public Sub AgregarWidgetUsuario(ByVal IDUsuario As String, ByVal Tipo As String, ByVal usuarioAprobado As Boolean)
+    Public Sub AgregarWidgetUsuario(IDUsuario As String, Tipo As String, usuarioAprobado As Boolean)
         ' Basicamente copio la plantilla a un nuevo panel
         Dim pnlTemporal As New Panel
         Dim btnUsuario As New Button
@@ -91,7 +91,7 @@
         pnlUsuarios.Focus()
     End Sub
 
-    Private Sub CheckDatosCorrectos(Optional ByVal sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnAgregar.Click
+    Private Sub CheckDatosCorrectos(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnAgregar.Click
         If String.IsNullOrWhiteSpace(txtID.Text) Then
             MessageBox.Show("Debe ingresar un ID de usuario.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
@@ -112,7 +112,7 @@
         End If
     End Sub
 
-    Public Sub InterfazNuevoUsuario(Optional ByVal sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnNuevoUsuario.Click, btnCancelar.Click
+    Public Sub InterfazNuevoUsuario(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnNuevoUsuario.Click, btnCancelar.Click
         ' Reinicia la interfaz 
         lblNuevoUsuario.Text = "Nuevo usuario"
         btnAgregar.Text = "Agregar usuario"
@@ -187,7 +187,7 @@
         previsualizando = True
     End Sub
 
-    Private Sub InterfazVerUsuario(ByVal ID As String)
+    Private Sub InterfazVerUsuario(ID As String)
         ' Muestra los datos del usuario
         RestablecerControles()
         Usuario.CargarDatos(ID, Me)

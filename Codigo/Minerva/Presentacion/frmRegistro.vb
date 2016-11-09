@@ -55,7 +55,7 @@
         txtContraseña.Focus()
     End Sub
 
-    Private Sub EnterClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtCi.KeyDown, txtContraseña.KeyDown
+    Private Sub EnterClick(sender As System.Object, e As System.Windows.Forms.KeyEventArgs) Handles txtCi.KeyDown, txtContraseña.KeyDown
         If e.KeyCode.Equals(Keys.Delete) Or e.KeyCode.Equals(Keys.Back) Or e.KeyCode.Equals(Keys.Left) Or e.KeyCode.Equals(Keys.Right) Or e.KeyCode.Equals(Keys.Tab) Then
             e.Handled = False
             Return

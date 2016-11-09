@@ -16,7 +16,7 @@
     Dim Editando As Boolean = False
     Dim Previsualizando As Boolean = False
 
-    Public Sub New(ByVal frmMain As frmMain, ByVal tipousuario As String, ByVal ciUsuario As String, ByVal frmAdministrar As frmAdministrar)
+    Public Sub New(frmMain As frmMain, tipousuario As String, ciUsuario As String, frmAdministrar As frmAdministrar)
         InitializeComponent()
         Me.frmMain = frmMain
         Me.TipoUsuario = tipousuario
@@ -42,7 +42,7 @@
         CargarGrupos()
     End Sub
 
-    Public Sub AgregarWidgetGrupo(ByVal NroGrupo As String, idTexto As String, ByVal nombreTurno As String, ByVal ciAdscripto As String)
+    Public Sub AgregarWidgetGrupo(NroGrupo As String, idTexto As String, nombreTurno As String, ciAdscripto As String)
         Dim pnlTemporal As New Panel
         Dim btnGrupo As New Button
         Dim btnEliminar As New Button
@@ -107,7 +107,7 @@
         pnlGrupos.Focus()
     End Sub
 
-    Private Sub HabilitarControles(ByVal habilitado As Boolean)
+    Private Sub HabilitarControles(habilitado As Boolean)
         ' Habilita o deshabilita los controles
         txtIdGrupo.Enabled = habilitado
         txtIdGrupo.Text = ""
@@ -128,7 +128,7 @@
         cmbSalon.Enabled = habilitado
     End Sub
 
-    Public Sub InterfazNuevoGrupo(Optional ByVal sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnNuevoGrupo.Click
+    Public Sub InterfazNuevoGrupo(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnNuevoGrupo.Click
         ' Prepara la interfaz para agregar un nuevo grupo
         If Me.TipoUsuario.Equals("Adscripto") Then
             InterfazPrevisualizarGrupo(NroGrupo)
@@ -157,7 +157,7 @@
         chkDistribuir.Visible = True
     End Sub
 
-    Private Sub CheckDatosCorrectos(Optional ByVal sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnAgregar.Click
+    Private Sub CheckDatosCorrectos(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnAgregar.Click
         ' Comprueba los datos y en caso de que no falte ninguno, llama a actualizarDB()
         If Me.TipoUsuario.Equals("Adscripto") And Not Editando Then
             MessageBox.Show("Oops!" & vbCrLf & "Solo los administradores y funcionarios pueden hacer eso...", "Acceso denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -192,13 +192,13 @@
         Grupo.ActualizarDB(Me)
     End Sub
 
-    Private Sub ClickVerGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub ClickVerGrupo(sender As System.Object, e As System.EventArgs)
         InterfazPrevisualizarGrupo(sender.Tag(0))
 
         chkDiscapacitado.TabStop = False
     End Sub
 
-    Private Sub InterfazEditarGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub InterfazEditarGrupo(sender As System.Object, e As System.EventArgs)
         Dim nroGrupo As String = sender.Tag(0)
         InterfazPrevisualizarGrupo(sender.Tag(0))
 
@@ -225,7 +225,7 @@
         chkDistribuir.Visible = False
     End Sub
 
-    Private Sub InterfazPrevisualizarGrupo(ByVal nroGrupo As String)
+    Private Sub InterfazPrevisualizarGrupo(nroGrupo As String)
         ' Prepara la interfaz para previsualizarUnGrupo
         Me.NroGrupo = nroGrupo
         btnNuevoGrupo.Visible = True
@@ -272,7 +272,7 @@
         PrevSelect = cmbCurso.Text
     End Sub
 
-    Private Sub IgnorarEspacio(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtIdGrupo.KeyPress
+    Private Sub IgnorarEspacio(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtIdGrupo.KeyPress
         ' Al apretar la tecla espacio, ignorarla
         If e.KeyChar = " " Then
             e.KeyChar = Nothing
@@ -289,7 +289,7 @@
         End If
     End Sub
 
-    Private Sub EliminarGrupo(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub EliminarGrupo(sender As System.Object, e As System.EventArgs)
         ' Le pregunta al usuario si quiere eliminar el grupo, de ser correcto, lo elimina
         Dim grupo_ As String
         grupo_ = sender.Tag(1)

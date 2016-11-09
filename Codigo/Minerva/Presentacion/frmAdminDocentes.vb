@@ -8,7 +8,7 @@
     Dim prevGrupoSelect As String
     Dim docentePreview As Object = New Button()
 
-    Public Sub New(ByVal frmMain As frmMain)
+    Public Sub New(frmMain As frmMain)
         InitializeComponent()
         Me.frmMain = frmMain
     End Sub
@@ -20,7 +20,7 @@
         txtCI.Focus()
     End Sub
 
-    Public Sub AgregarWidgetDocente(ByVal ciDocente As String, ByVal txtDocente As String)
+    Public Sub AgregarWidgetDocente(ciDocente As String, txtDocente As String)
         Dim pnlTemporal As New Panel
         Dim btnDocente As New Button
         Dim btnEditar, btnEliminar As New Button
@@ -79,13 +79,13 @@
         pnlDocentes.Focus()
     End Sub
 
-    Private Sub AbrirMenuEdicionDocente(ByVal sender As System.Object, ByVal e As MouseEventArgs) Handles btnEditarPlantilla.MouseUp
+    Private Sub AbrirMenuEdicionDocente(sender As System.Object, e As MouseEventArgs) Handles btnEditarPlantilla.MouseUp
         DatosDelDocenteToolStripMenuItem.Tag = {sender.Parent, sender.Tag}
         AsignaturasDelDocenteToolStripMenuItem.Tag = {sender.Parent, sender.Tag}
         mnuEdicionDocente.Show(sender, New Point(e.X, e.Y))
     End Sub
 
-    Private Sub CheckDatosDocente(Optional ByVal sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnAgregarDocente.Click
+    Private Sub CheckDatosDocente(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnAgregarDocente.Click
         If String.IsNullOrWhiteSpace(txtCI.Text) Then
             MessageBox.Show("Debe ingresar una CI.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
@@ -105,7 +105,7 @@
         frmMain.recargarGrupo()
     End Sub
 
-    Private Sub InterfazEditarDocente(ByVal sender As System.Object)
+    Private Sub InterfazEditarDocente(sender As System.Object)
         docentePreview.Enabled = True
         docentePreview = sender.Tag(0)
         docentePreview.Enabled = False
@@ -122,9 +122,10 @@
         Docente.CargarInfo(sender.Tag(1), Me)
         txtCI.Enabled = False
         HabilitarControlesAsignaturas(False)
+        Docente.CargarAsignaturas(sender.Tag(1), Me)
     End Sub
 
-    Private Sub HabilitarControles(ByVal habilitado As Boolean)
+    Private Sub HabilitarControles(habilitado As Boolean)
         txtCI.Enabled = habilitado
         txtCI.Text = ""
         txtNombre.Enabled = habilitado
@@ -135,7 +136,7 @@
         numGrado.Value = 1
     End Sub
 
-    Private Sub HabilitarControlesAsignaturas(ByVal habilitadas As Boolean)
+    Private Sub HabilitarControlesAsignaturas(habilitadas As Boolean)
         lstAsignaturas.Enabled = habilitadas
         lstAsignaturas.Items.Clear()
         btnLimpiarAsignatura.Enabled = habilitadas
@@ -151,7 +152,7 @@
         btnAgregarAsignatura.Enabled = habilitadas
     End Sub
 
-    Public Sub InterfazVerDocente(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Public Sub InterfazVerDocente(sender As System.Object, e As System.EventArgs)
         docentePreview.Enabled = True
         docentePreview = sender
         docentePreview.Enabled = False
@@ -161,7 +162,7 @@
         Docente.CargarAsignaturas(sender.Tag, Me)
     End Sub
 
-    Public Sub InterfazPrevisualizarDocente(ByVal ci As String)
+    Public Sub InterfazPrevisualizarDocente(ci As String)
         btnNuevoDocente.Visible = True
         btnAgregarDocente.Visible = False
         btnAgregarAsignatura.Visible = False
@@ -275,7 +276,7 @@
         docentePreview.Enabled = False
     End Sub
 
-    Public Sub InterfazEditarAsignaturasDocente(ByVal CI As String)
+    Public Sub InterfazEditarAsignaturasDocente(CI As String)
         InterfazPrevisualizarDocente(CI)
         HabilitarControlesAsignaturas(True)
         btnAgregarAsignatura.Visible = True

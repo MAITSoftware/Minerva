@@ -2,7 +2,7 @@
 Imports System.Data
 
 Public Class PersistenciaHorarios
-    Public Shared Sub Add(ByVal IdAsignatura As String, NroGrupo As String, HoraInicio As TimeSpan, HoraFin As TimeSpan, Dia As String, IdTurno As String, CiPersona As String)
+    Public Shared Sub Add(IdAsignatura As String, NroGrupo As String, HoraInicio As TimeSpan, HoraFin As TimeSpan, Dia As String, IdTurno As String, CiPersona As String)
         Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
@@ -27,8 +27,7 @@ Public Class PersistenciaHorarios
             End Try
         End Using
     End Sub
-
-    Public Shared Sub Del(ByVal IdAsignatura As String, NroGrupo As String, CiPersona As String)
+    Public Shared Sub Del(IdAsignatura As String, NroGrupo As String, CiPersona As String)
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
@@ -49,7 +48,7 @@ Public Class PersistenciaHorarios
         End Using
     End Sub
 
-    Public Shared Sub Edit(ByVal Ci As String, IdAsignatura As String, NroGrupo As String)
+    Public Shared Sub Edit(Ci As String, IdAsignatura As String, NroGrupo As String)
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
@@ -70,7 +69,7 @@ Public Class PersistenciaHorarios
         End Using
     End Sub
 
-    Public Shared Function GetForGrupo(ByVal NroGrupo As String) As Object
+    Public Shared Function GetForGrupo(NroGrupo As String) As Object
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
@@ -85,7 +84,7 @@ Public Class PersistenciaHorarios
         End Using
     End Function
 
-    Public Shared Sub DelGrupoEntero(ByVal NroGrupo As String)
+    Public Shared Sub DelGrupoEntero(NroGrupo As String)
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
@@ -103,4 +102,37 @@ Public Class PersistenciaHorarios
             End Try
         End Using
     End Sub
+
+    Public Shared Function GetCalendarioForGrupo(Dia As String, StringGrupo As String) As Object
+        Dim conexion As New Conexion()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "select *, DATE_FORMAT(HoraInicio, '%H:%i') as HoraOrden from Calendario where Dia=@Dia and Grupo=@StringGrupo order by HoraOrden;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@StringGrupo", StringGrupo)
+                .Parameters.AddWithValue("@Dia", Dia)
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            Return {reader, conexion}
+        End Using
+    End Function
+
+    Public Shared Function GetHorariosTurno(IdTurno As String) As Object
+        Dim conexion As New Conexion()
+
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "select DISTINCT HoraInicio, HoraFin from Asignacion where IdTurno=@IdTurno;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@IdTurno", IdTurno)
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            Return {reader, conexion}
+        End Using
+
+    End Function
 End Class

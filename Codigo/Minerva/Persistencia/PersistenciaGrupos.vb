@@ -2,7 +2,7 @@
 Imports System.Data
 
 Public Class PersistenciaGrupos
-    Public Shared Sub Add(ByVal IdGrupo As String, Discapacitado As Boolean, IdSalon As String, IdTurno As Integer, Grado As String, IdOrientacion As String, CiAdscripto As String)
+    Public Shared Sub Add(IdGrupo As String, Discapacitado As Boolean, IdSalon As String, IdTurno As Integer, Grado As String, IdOrientacion As String, CiAdscripto As String)
         Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
@@ -28,8 +28,7 @@ Public Class PersistenciaGrupos
             End Try
         End Using
     End Sub
-
-    Public Shared Sub Edit(ByVal IdGrupo As String, Discapacitado As Boolean, IdSalon As String, IdTurno As Integer, Grado As String, CiAdscripto As String)
+    Public Shared Sub Edit(IdGrupo As String, Discapacitado As Boolean, IdSalon As String, IdTurno As Integer, Grado As String, CiAdscripto As String)
         Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
@@ -55,7 +54,7 @@ Public Class PersistenciaGrupos
         End Using
     End Sub
 
-    Public Shared Sub Del(ByVal NroGrupo As String)
+    Public Shared Sub Del(NroGrupo As String)
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
@@ -74,7 +73,7 @@ Public Class PersistenciaGrupos
         End Using
     End Sub
 
-    Public Shared Function GetInfo(ByVal nroGrupo As String)
+    Public Shared Function GetInfo(nroGrupo As String) As Object
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
@@ -89,7 +88,7 @@ Public Class PersistenciaGrupos
         End Using
     End Function
 
-    Public Shared Function GetNroGrupo(ByVal Grupo As String) As String
+    Public Shared Function GetNroGrupo(Grupo As String) As String
         Dim NroGrupo As String = Nothing
 
         Dim conexion As New Conexion()
@@ -112,7 +111,7 @@ Public Class PersistenciaGrupos
         End Using
     End Function
 
-    Public Shared Function GetExiste(ByVal Grupo As String) As Boolean
+    Public Shared Function GetExiste(Grupo As String) As Boolean
         Dim conexion As New Conexion()
         Dim existe As Boolean = False
 
@@ -135,17 +134,39 @@ Public Class PersistenciaGrupos
         Return existe
     End Function
 
-    Public Shared Function GetOrientacion(ByVal IdGrupo As String, Grado As String) As String
+    Public Shared Function GetGrado(NroGrupo As String) As String
+        Dim conexion As New Conexion()
+        Dim grado As String = ""
+
+        Dim resultadosPersistencia As Object = GetInfo(NroGrupo)
+
+        Dim reader As MySqlDataReader = resultadosPersistencia(0)
+        While reader.Read()
+            grado = reader("Grado")
+        End While
+        reader.Close()
+
+        resultadosPersistencia(1).Close()
+
+        Return grado
+    End Function
+
+    Public Shared Function GetOrientacion(Optional IdGrupo As String = "", Optional Grado As String = "", Optional NroGrupo As String = Nothing) As String
         Dim IdOrientacion As String = Nothing
 
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT IdOrientacion from Grupo where IdGrupo=@IdGrupo and Grado=@Grado;"
+                If IsNothing(NroGrupo) Then
+                    .CommandText = "SELECT IdOrientacion from Grupo where IdGrupo=@IdGrupo and Grado=@Grado;"
+                    .Parameters.AddWithValue("@IdGrupo", IdGrupo)
+                    .Parameters.AddWithValue("@Grado", Grado)
+                Else
+                    .CommandText = "SELECT IdOrientacion from Grupo where NroGrupo=@NroGrupo;"
+                    .Parameters.AddWithValue("@NroGrupo", NroGrupo)
+                End If
                 .CommandType = CommandType.Text
-                .Parameters.AddWithValue("@IdGrupo", IdGrupo)
-                .Parameters.AddWithValue("@Grado", Grado)
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
@@ -159,7 +180,7 @@ Public Class PersistenciaGrupos
         End Using
     End Function
 
-    Public Shared Function GetAsignaturaTomada(ByVal IdAsignatura As String, NroGrupo As String) As Boolean
+    Public Shared Function GetAsignaturaTomada(IdAsignatura As String, NroGrupo As String) As Boolean
         Dim AsignaturaTomada As Boolean = False
 
         Dim conexion As New Conexion()
@@ -180,6 +201,21 @@ Public Class PersistenciaGrupos
             conexion.Close()
 
             Return AsignaturaTomada
+        End Using
+    End Function
+
+    Public Shared Function GetDetalles(NroGrupo As String) As Object
+        Dim conexion As New Conexion()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "select A.Adscripto, D.*, T.IdTurno, CONCAT(G.Grado, ' ', G.IdGrupo) as Grupo from DatosGrupos D, Turno T, Adscriptos A, Grupo G where A.CiPersona=D.CiPersona and T.NombreTurno=D.NombreTurno and D.Grado=G.Grado and D.IdGrupo=G.IdGrupo and G.NroGrupo=@NroGrupo;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@NroGrupo", NroGrupo)
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            Return {reader, conexion}
         End Using
     End Function
 End Class

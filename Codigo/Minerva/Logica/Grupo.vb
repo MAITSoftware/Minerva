@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class Grupo
-    Public Shared Sub CargarGrupos(ByVal frm As frmAdminGrupos)
+    Public Shared Sub CargarGrupos(frm As frmAdminGrupos)
         ' Carga los grupos a la lista de grupos
         frm.pnlGrupos.Controls.Clear()
         frm.totalGrupos = 0
@@ -28,7 +28,7 @@ Public Class Grupo
         resultadosPersistencia(1).Close()
     End Sub
 
-    Public Shared Sub CargarSalones(ByVal frm As frmAdminGrupos)
+    Public Shared Sub CargarSalones(frm As frmAdminGrupos)
         frm.cmbSalon.Items.Clear()
         frm.cmbSalon.Items.Add("Sin asignar")
         frm.cmbSalon.SelectedIndex = 0
@@ -44,7 +44,7 @@ Public Class Grupo
         resultadosPersistencia(1).Close()
     End Sub
 
-    Public Shared Sub CargarGrados(ByVal frm As frmAdminGrupos)
+    Public Shared Sub CargarGrados(frm As frmAdminGrupos)
         frm.cboGrado.Items.Clear()
 
         Try
@@ -61,7 +61,7 @@ Public Class Grupo
         End Try
     End Sub
 
-    Public Shared Sub CargarOrientaciones(ByVal frm As frmAdminGrupos)
+    Public Shared Sub CargarOrientaciones(frm As frmAdminGrupos)
         frm.cmbOrientacion.Items.Clear()
         Dim resultadosPersistencia = InformacionDB.GetOrientaciones(frm.cmbCurso.Text.Substring(0, frm.cmbCurso.Text.IndexOf(" (")).Trim())
         Dim reader As MySqlDataReader = resultadosPersistencia(0)
@@ -74,7 +74,7 @@ Public Class Grupo
         resultadosPersistencia(1).Close()
     End Sub
 
-    Public Shared Sub CargarCursos(ByVal frm As frmAdminGrupos)
+    Public Shared Sub CargarCursos(frm As frmAdminGrupos)
         frm.cmbCurso.Items.Clear()
 
         Dim resultadosPersistencia = InformacionDB.GetCursos()
@@ -88,7 +88,7 @@ Public Class Grupo
         resultadosPersistencia(1).Close()
     End Sub
 
-    Public Shared Sub CargarTurnos(ByVal frm As frmAdminGrupos)
+    Public Shared Sub CargarTurnos(frm As frmAdminGrupos)
         frm.cmbTurno.Items.Clear()
 
         Dim resultadosPersistencia = InformacionDB.GetTurnos()
@@ -102,7 +102,7 @@ Public Class Grupo
         resultadosPersistencia(1).Close()
     End Sub
 
-    Public Shared Sub CargarGrupo(ByVal nroGrupo As String, frm As frmAdminGrupos)
+    Public Shared Sub CargarGrupo(nroGrupo As String, frm As frmAdminGrupos)
         Dim resultadosPersistencia As Object = PersistenciaGrupos.GetInfo(nroGrupo)
         Dim reader As MySqlDataReader = resultadosPersistencia(0)
 
@@ -141,7 +141,7 @@ Public Class Grupo
         resultadosPersistencia(1).Close()
     End Sub
 
-    Public Shared Sub CargarAdscriptos(ByVal frm As frmAdminGrupos)
+    Public Shared Sub CargarAdscriptos(frm As frmAdminGrupos)
         frm.cmbAdscripto.Items.Clear()
 
         Dim resultadosPersistencia As Object = InformacionDB.GetAdscriptos()
@@ -161,7 +161,7 @@ Public Class Grupo
         resultadosPersistencia(1).Close()
     End Sub
 
-    Public Shared Sub CheckSalonOcupado(ByVal frm As frmAdminGrupos)
+    Public Shared Sub CheckSalonOcupado(frm As frmAdminGrupos)
 
         Dim salon As String
         salon = frm.cmbSalon.Text
@@ -187,7 +187,7 @@ Public Class Grupo
         resultadosPersistencia(1).Close()
     End Sub
 
-    Public Shared Sub ActualizarDB(ByVal frm As frmAdminGrupos)
+    Public Shared Sub ActualizarDB(frm As frmAdminGrupos)
         ' Agrega un salón a la base de datos
         Dim IdGrupo As String = frm.txtIdGrupo.Text
         Dim Discapacitado As Boolean = frm.chkDiscapacitado.Checked
@@ -259,7 +259,7 @@ Public Class Grupo
 
     End Sub
 
-    Public Shared Sub EliminarGrupo(ByVal nroGrupo As String, nombreGrupo As String, frm As frmAdminGrupos)
+    Public Shared Sub EliminarGrupo(nroGrupo As String, nombreGrupo As String, frm As frmAdminGrupos)
         Dim backupMaterias As Object = PersistenciaHorarios.GetForGrupo(nroGrupo)
 
         Try

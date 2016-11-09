@@ -17,12 +17,24 @@ Public Class InformacionDB
         End Using
     End Function
 
-    Public Shared Function GetGrupos() As Object
+    Public Shared Function GetGrupos(Optional IdCurso As String = Nothing, Optional IdTurno As String = Nothing) As Object
         Dim conexion As New Conexion()
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT Grupo.*, Turno.NombreTurno FROM `Grupo`, `Turno` WHERE Grupo.IdTurno=Turno.IdTurno;"
+                If Not IsNothing(IdCurso) And Not IsNothing(IdTurno) Then
+                    .CommandText = "SELECT Grupo.*, Turno.NombreTurno from `Grupo`, `Orientacion`, `Turno` where Grupo.IdTurno=@IdTurno and Grupo.IdTurno=Turno.IdTurno and Orientacion.IdOrientacion=Grupo.IdOrientacion and Orientacion.IdCurso=@IdCurso;"
+                    .Parameters.AddWithValue("@IdCurso", IdCurso)
+                    .Parameters.AddWithValue("@IdTurno", IdTurno)
+                ElseIf Not IsNothing(IdCurso) Then
+                    .CommandText = "SELECT Grupo.*, Turno.NombreTurno from `Grupo`, `Orientacion`, `Turno` where Grupo.IdTurno=Turno.IdTurno and Orientacion.IdOrientacion=Grupo.IdOrientacion and Orientacion.IdCurso=@IdCurso;"
+                    .Parameters.AddWithValue("@IdCurso", IdCurso)
+                ElseIf Not IsNothing(IdTurno) Then
+                    .CommandText = "SELECT Grupo.*, Turno.NombreTurno from `Grupo`, `Turno` where Grupo.IdTurno=@IdTurno and Grupo.IdTurno=Turno.IdTurno;"
+                    .Parameters.AddWithValue("@IdTurno", IdTurno)
+                Else
+                    .CommandText = "SELECT Grupo.*, Turno.NombreTurno FROM `Grupo`, `Turno` WHERE Grupo.IdTurno=Turno.IdTurno;"
+                End If
                 .CommandType = CommandType.Text
             End With
 
@@ -46,7 +58,7 @@ Public Class InformacionDB
         End Using
     End Function
 
-    Public Shared Function GetOrientaciones(ByVal IdCurso As String) As Object
+    Public Shared Function GetOrientaciones(IdCurso As String) As Object
         Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
@@ -62,7 +74,7 @@ Public Class InformacionDB
         End Using
     End Function
 
-    Public Shared Function GetGrados(ByVal IdOrientacion As String) As Object
+    Public Shared Function GetGrados(IdOrientacion As String) As Object
         Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
@@ -123,7 +135,7 @@ Public Class InformacionDB
         End Using
     End Function
 
-    Public Shared Function GetAreasOrientacionByGrado(ByVal IdOrientacion As String, Grado As String) As Object
+    Public Shared Function GetAreasOrientacionByGrado(IdOrientacion As String, Grado As String) As Object
         Dim conexion As New Conexion()
 
         Using cmd As New MySqlCommand()
@@ -155,7 +167,7 @@ Public Class InformacionDB
         End Using
     End Function
 
-    Public Shared Function GetAsignaturasForGrupo(ByVal IdGrupo As String, Grado As String, IdArea As String) As Object
+    Public Shared Function GetAsignaturasForGrupo(IdGrupo As String, Grado As String, IdArea As String) As Object
         Dim conexion As New Conexion()
 
         Dim IdOrientacion As String = PersistenciaGrupos.GetOrientacion(IdGrupo, Grado)
@@ -173,9 +185,5 @@ Public Class InformacionDB
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             Return {reader, conexion}
         End Using
-
-        ' 
-        ' SELECT IdOrientacion from Grupo where CONCAT(Grado, ' ', IdGrupo)=@Grupo;
-
     End Function
 End Class

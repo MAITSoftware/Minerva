@@ -2,7 +2,7 @@
 
 Public Class Salon
 
-    Public Shared Sub CargarSalones(ByVal frm As frmAdminSalones)
+    Public Shared Sub CargarSalones(frm As frmAdminSalones)
         ' Carga los salones y los pone en la lista
         frm.pnlSalones.Controls.Clear()
         frm.totalSalones = 0
@@ -26,7 +26,7 @@ Public Class Salon
         resultadosPersistencia(1).Close()
     End Sub
 
-    Public Shared Sub ActualizarDB(ByVal frm As frmAdminSalones)
+    Public Shared Sub ActualizarDB(frm As frmAdminSalones)
         ' Agrega o actualiza los datos del salón en la DB
         If frm.btnAgregar.Text.Equals("Agregar salón") Then
             Try
@@ -47,7 +47,7 @@ Public Class Salon
         End If
     End Sub
 
-    Public Shared Sub CargarSalon(ByVal IdSalon As String, frm As frmAdminSalones)
+    Public Shared Sub CargarSalon(IdSalon As String, frm As frmAdminSalones)
         '  Carga los datos de un salón
         Dim resultadoPersistencia As Object = PersistenciaSalones.GetInfo(IdSalon)
         Dim reader As MySqlDataReader = resultadoPersistencia(0)
@@ -80,7 +80,7 @@ Public Class Salon
         Next
     End Sub
 
-    Public Shared Sub EliminarSalon(ByVal IdSalon As String, frm As frmAdminSalones)
+    Public Shared Sub EliminarSalon(IdSalon As String, frm As frmAdminSalones)
         Try
             PersistenciaSalones.Del(IdSalon)
             frm.cargarSalones()

@@ -14,7 +14,7 @@
         e.Graphics.DrawRectangle(New Pen(Color.White, 2), New Rectangle(New Point(1, 34), New Size(New Point(pnlDias.Width + 2, pnlDias.Height + 2))))
     End Sub
 
-    Public Sub agregarHora(ByVal horario As String, ByVal materia As String)
+    Public Sub agregarHora(horario As String, materia As String)
         ' Agrega una nueva hora a la lista de horas
         Dim labelHorario As New Label
         Dim labelMateria As New Label

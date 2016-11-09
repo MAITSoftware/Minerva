@@ -7,14 +7,14 @@
     Dim frmMain As frmMain
     Dim abrirUsuarios As Boolean
 
-    Public Sub New(ByVal tipoUsuario As String, ByVal frmMain As frmMain, Optional ByVal abrirUsuarios As Boolean = False)
+    Public Sub New(tipoUsuario As String, frmMain As frmMain, Optional abrirUsuarios As Boolean = False)
         InitializeComponent()
         Me.tipoUsuario = tipoUsuario
         Me.frmMain = frmMain
         Me.abrirUsuarios = abrirUsuarios
     End Sub
 
-    Public Sub habilitarBotones(ByVal habilitar As Boolean)
+    Public Sub habilitarBotones(habilitar As Boolean)
         btnSalones.Enabled = habilitar
         btnGrupos.Enabled = habilitar
         btnDocentes.Enabled = habilitar
@@ -76,7 +76,7 @@
         pnlTrabajo.BringToFront()
     End Sub
 
-    Private Sub acomodarDiseño(Optional ByVal original As Boolean = True)
+    Private Sub acomodarDiseño(Optional original As Boolean = True)
         If original Then
             pnlBorde.Size = New Point(1007, 2)
             pnlBorde1.Location = New Point(1005, 41)
@@ -218,7 +218,7 @@
 
     Private Sub frmAdministrar_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         Me.Hide()
-        frmMain.cargarNombre()
+        FuncionesMinerva.CargarNombre(Me.frmMain)
         frmMain.recargarGrupo()
     End Sub
 End Class
