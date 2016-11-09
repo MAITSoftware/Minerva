@@ -45,6 +45,7 @@ Public Class frmEditarServidor
         testeado = True
         Me.Enabled = True
         Me.Cursor = Cursors.Default
+        ventanaEspere.Dispose()
         Me.BringToFront()
     End Sub
 
