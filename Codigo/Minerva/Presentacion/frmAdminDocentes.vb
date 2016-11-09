@@ -2,10 +2,11 @@
     ' Clase principal para la administracion de docentes
 
     Friend totalDocentes As Integer = 0
-    Friend docentePreview As Object = New Button()
-    Friend prevSelect As String
-    Friend prevGrupoSelect As String
-    Friend frmMain As frmMain
+
+    Dim frmMain As frmMain
+    Dim prevSelect As String
+    Dim prevGrupoSelect As String
+    Dim docentePreview As Object = New Button()
 
     Public Sub New(ByVal frmMain As frmMain)
         InitializeComponent()
@@ -13,15 +14,13 @@
     End Sub
 
     Private Sub frmAdminDocentes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Al cargar la ventana, cargar la lista de docentes, y rellenar los combos con los datos adecuados
         lstAsignaturas.FullRowSelect = True
-        cargarDocentes()
-        rellenarCombos()
+        Docente.CargarDocentes(Me)
+        Docente.CargarGrupos(Me)
         txtCI.Focus()
     End Sub
 
-    Public Sub agregarDocente(ByVal ciDocente As String, ByVal txtDocente As String)
-        ' Basicamente copio la plantilla a un nuevo panel
+    Public Sub AgregarWidgetDocente(ByVal ciDocente As String, ByVal txtDocente As String)
         Dim pnlTemporal As New Panel
         Dim btnDocente As New Button
         Dim btnEditar, btnEliminar As New Button
@@ -38,7 +37,7 @@
         btnDocente.TabStop = False
 
         btnDocente.Tag = ciDocente
-        AddHandler btnDocente.Click, AddressOf verDocente
+        AddHandler btnDocente.Click, AddressOf InterfazVerDocente
 
         btnEditar.Size = btnEditarPlantilla.Size
         btnEditar.FlatStyle = btnEditarPlantilla.FlatStyle
@@ -50,7 +49,7 @@
         btnEditar.TabStop = False
 
         btnEditar.Tag = ciDocente
-        AddHandler btnEditar.MouseUp, AddressOf mnuEditarDocente
+        AddHandler btnEditar.MouseUp, AddressOf AbrirMenuEdicionDocente
 
         btnEliminar.Size = btnEliminarPlantilla.Size
         btnEliminar.FlatStyle = btnEliminarPlantilla.FlatStyle
@@ -62,13 +61,13 @@
         btnEliminar.TabStop = False
 
         btnEliminar.Tag = {ciDocente, txtDocente.Replace(ControlChars.NewLine, " ")}
-        AddHandler btnEliminar.Click, AddressOf eliminarDocente
+        AddHandler btnEliminar.Click, AddressOf EliminarDocente
 
         AddHandler pnlTemporal.MouseWheel, AddressOf fixScroll
         AddHandler pnlTemporal.MouseEnter, AddressOf fixScroll
+        pnlTemporal.Controls.Add(btnDocente)
         pnlTemporal.Controls.Add(btnEditar)
         pnlTemporal.Controls.Add(btnEliminar)
-        pnlTemporal.Controls.Add(btnDocente)
 
         pnlDocentes.Controls.Add(pnlTemporal)
 
@@ -80,20 +79,13 @@
         pnlDocentes.Focus()
     End Sub
 
-    Public Sub mnuEditarDocente(ByVal sender As System.Object, ByVal e As MouseEventArgs) Handles btnEditarPlantilla.MouseUp
-        ' Al clickear el botón editarDocente mostrar un menú
+    Private Sub AbrirMenuEdicionDocente(ByVal sender As System.Object, ByVal e As MouseEventArgs) Handles btnEditarPlantilla.MouseUp
         DatosDelDocenteToolStripMenuItem.Tag = {sender.Parent, sender.Tag}
-        MateriasDelDocenteToolStripMenuItem.Tag = {sender.Parent, sender.Tag}
+        AsignaturasDelDocenteToolStripMenuItem.Tag = {sender.Parent, sender.Tag}
         mnuEdicionDocente.Show(sender, New Point(e.X, e.Y))
     End Sub
 
-    Private Sub btnAgregarDocentes_Click(sender As Object, e As EventArgs) Handles btnAgregarDocente.Click
-        ' Al clickear el botón de agregarDocentes llamar checkDatos()
-        checkDatos()
-    End Sub
-
-    Private Sub checkDatos()
-        ' Comprueba que haya datos en todos los campos, y llama a actualizarDB()
+    Private Sub CheckDatosDocente(Optional ByVal sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnAgregarDocente.Click
         If String.IsNullOrWhiteSpace(txtCI.Text) Then
             MessageBox.Show("Debe ingresar una CI.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
@@ -109,31 +101,30 @@
             Return
         End If
 
-        actualizarDB()
+        Docente.ActualizarDB(Me)
+        frmMain.recargarGrupo()
     End Sub
 
-    Private Sub editarDocente(ByVal sender As System.Object)
-        ' Al clickear editarDocente preparar la interfaz para editarlo
+    Private Sub InterfazEditarDocente(ByVal sender As System.Object)
         docentePreview.Enabled = True
         docentePreview = sender.Tag(0)
         docentePreview.Enabled = False
         lblNuevoDocente.Text = "Editar docente"
         btnCancelarEdicion.Visible = True
         btnAgregarDocente.Visible = True
-        btnAgregarMateria.Visible = False
         btnAgregarAsignatura.Visible = False
+        btnLimpiarAsignatura.Visible = False
         btnEliminarAsignatura.Visible = False
         btnNuevoDocente.Visible = False
         btnAgregarDocente.Text = "Guardar cambios"
 
-        controlesHabilitados(True)
-        cargarDatos(sender.Tag(1))
+        HabilitarControles(True)
+        Docente.CargarInfo(sender.Tag(1), Me)
         txtCI.Enabled = False
-        habilitarAsignaturas(False)
+        HabilitarControlesAsignaturas(False)
     End Sub
 
-    Private Sub controlesHabilitados(ByVal habilitado As Boolean)
-        ' Habilita o deshabilita los controles del docente en base a el argumento habilitado.
+    Private Sub HabilitarControles(ByVal habilitado As Boolean)
         txtCI.Enabled = habilitado
         txtCI.Text = ""
         txtNombre.Enabled = habilitado
@@ -144,11 +135,10 @@
         numGrado.Value = 1
     End Sub
 
-    Private Sub habilitarAsignaturas(ByVal habilitadas As Boolean)
-        ' Habilita o deshabilita los controles de las asignaturas en base a el argumento habilitado.
+    Private Sub HabilitarControlesAsignaturas(ByVal habilitadas As Boolean)
         lstAsignaturas.Enabled = habilitadas
         lstAsignaturas.Items.Clear()
-        btnAgregarAsignatura.Enabled = habilitadas
+        btnLimpiarAsignatura.Enabled = habilitadas
         btnEliminarAsignatura.Enabled = habilitadas
         cmbArea.Enabled = False
         cmbArea.SelectedIndex = -1
@@ -158,65 +148,74 @@
         cmbGrupo.SelectedIndex = -1
         numGradoArea.Enabled = habilitadas
         numGradoArea.Value = 1
-        btnAgregarMateria.Enabled = habilitadas
+        btnAgregarAsignatura.Enabled = habilitadas
     End Sub
 
-    Public Sub verDocente(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDocentePlantilla.Click
-        ' Carga y muestra los datos del docente (y materias) llamando a previsualizarDocente()
+    Public Sub InterfazVerDocente(ByVal sender As System.Object, ByVal e As System.EventArgs)
         docentePreview.Enabled = True
         docentePreview = sender
         docentePreview.Enabled = False
-        previsualizarDocente(sender.Tag)
-        cargarMaterias(sender.Tag)
+        InterfazPrevisualizarDocente(sender.Tag)
+
+        lstAsignaturas.Enabled = True
+        Docente.CargarAsignaturas(sender.Tag, Me)
     End Sub
 
-    Public Sub previsualizarDocente(ByVal ci As String)
-        ' muestra los datos del docente y los muestra
+    Public Sub InterfazPrevisualizarDocente(ByVal ci As String)
         btnNuevoDocente.Visible = True
         btnAgregarDocente.Visible = False
-        btnAgregarMateria.Visible = False
-        btnCancelarEdicion.Visible = False
         btnAgregarAsignatura.Visible = False
+        btnCancelarEdicion.Visible = False
+        btnLimpiarAsignatura.Visible = False
         btnEliminarAsignatura.Visible = False
 
         lblNuevoDocente.Text = "Previsualizar docente"
-        habilitarAsignaturas(False)
+        HabilitarControlesAsignaturas(False)
 
-        controlesHabilitados(False)
-        cargarDatos(ci)
+        HabilitarControles(False)
+        Docente.CargarInfo(ci, Me)
+
+        docentePreview.Enabled = True
+        docentePreview = Nothing
+        For Each pnl As Panel In pnlDocentes.Controls
+            For Each x As Button In pnl.Controls
+                If x.Tag.Equals(ci) Then
+                    If IsNothing(docentePreview) Then
+                        docentePreview = x
+                    End If
+                End If
+            Next
+        Next
+        docentePreview.Enabled = False
     End Sub
 
-    Public Sub btnNuevoDocente_Click(sender As Object, e As EventArgs) Handles btnNuevoDocente.Click, btnCancelarEdicion.Click
-        ' al clickear en nuevo docente, reestablece la interfaz
-        controlesHabilitados(True)
+    Public Sub InterfazNuevoDocente(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnNuevoDocente.Click, btnCancelarEdicion.Click
+        HabilitarControles(True)
         lblNuevoDocente.Text = "Nuevo docente"
         btnNuevoDocente.Visible = False
-        btnAgregarMateria.Visible = False
-        btnAgregarDocente.Visible = True
         btnAgregarAsignatura.Visible = False
+        btnAgregarDocente.Visible = True
+        btnLimpiarAsignatura.Visible = False
         btnEliminarAsignatura.Visible = False
-        btnAgregarDocente.Text = "Agregar docente " & ControlChars.NewLine & "y editar materias"
+        btnAgregarDocente.Text = "Agregar docente " & ControlChars.NewLine & "y editar asignaturas"
         btnCancelarEdicion.Visible = False
         docentePreview.Enabled = True
         docentePreview = New Button()
-        btnAgregarAsignatura_Click(Nothing, Nothing)
-        habilitarAsignaturas(False)
+        LimpiarDatosAsignatura()
+        HabilitarControlesAsignaturas(False)
     End Sub
 
-    Private Sub DatosDelDocenteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatosDelDocenteToolStripMenuItem.Click
-        ' Al clickear la opción "Datos del docente" en el menu, llamar a editarDocente
-        editarDocente(sender)
+    Private Sub EditarDatosDelDocente_Click(sender As Object, e As EventArgs) Handles DatosDelDocenteToolStripMenuItem.Click
+        InterfazEditarDocente(sender)
     End Sub
 
-    Public Sub btnAgregarAsignatura_Click(sender As Object, e As EventArgs) Handles btnAgregarAsignatura.Click
-        ' Al clickear btnAgregarAsignatura reestablecer la zona de materias
+    Public Sub LimpiarDatosAsignatura(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnLimpiarAsignatura.Click
         cmbArea.SelectedIndex = -1
         cmbGrupo.SelectedIndex = -1
         numGradoArea.Value = 1
     End Sub
 
-    Private Sub cmbGrupo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbGrupo.SelectedIndexChanged
-        ' Al cambiar el id del area cargas las ASignaturas de la misma
+    Private Sub GrupoCambiado(sender As Object, e As EventArgs) Handles cmbGrupo.SelectedIndexChanged
         If cmbGrupo.Text.Equals(prevGrupoSelect) Then
             Return
         End If
@@ -229,11 +228,10 @@
         Else
             Return
         End If
-        cargarAreas()
+        Docente.CargarAreas(Me)
     End Sub
 
-    Private Sub cmbArea_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbArea.SelectedIndexChanged
-        ' Al cambiar el id del area cargas las ASignaturas de la misma
+    Private Sub AreaCambiada(sender As Object, e As EventArgs) Handles cmbArea.SelectedIndexChanged
         If cmbArea.Text.Equals(prevSelect) Then
             Return
         End If
@@ -246,11 +244,10 @@
         Else
             Return
         End If
-        cargarAsignaturas()
+        Docente.CargarAsignaturasGrupo(Me)
     End Sub
 
-    Private Sub checkDatosMaterias()
-        ' Comprueba que hay datos en los campos requeridos para agregar una materia, y actualiza la db
+    Private Sub CheckDatosAsignatura(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnAgregarAsignatura.Click
         If String.IsNullOrWhiteSpace(cmbArea.Text) Then
             MessageBox.Show("Debe seleccionar un área.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Return
@@ -266,131 +263,53 @@
             Return
         End If
 
-        actualizarDBMaterias()
+        Docente.ActualizarDB_Asignatura(Me)
+        frmMain.recargarGrupo()
     End Sub
 
-    Private Sub btnAgregarMateria_Click(sender As Object, e As EventArgs) Handles btnAgregarMateria.Click
-        ' Al clickear en agregarMateria llamar a checkDatosMaterias()
-        checkDatosMaterias()
-    End Sub
-
-    Private Sub MateriasDelDocenteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MateriasDelDocenteToolStripMenuItem.Click
+    Private Sub EditarAsignaturasDelDocente_Click(sender As Object, e As EventArgs) Handles AsignaturasDelDocenteToolStripMenuItem.Click
         ' Deshabilita la edición de datos del docente.
-        editarMateriasDocente(sender.Tag(1))
+        InterfazEditarAsignaturasDocente(sender.Tag(1))
         docentePreview.Enabled = True
         docentePreview = sender.Tag(0)
         docentePreview.Enabled = False
     End Sub
 
-    Public Sub editarMateriasDocente(ByVal CI As String)
-        ' Al clickear en editarmateriasDocentes preparar la interfaz
-        previsualizarDocente(CI)
-        habilitarAsignaturas(True)
-        btnAgregarMateria.Visible = True
+    Public Sub InterfazEditarAsignaturasDocente(ByVal CI As String)
+        InterfazPrevisualizarDocente(CI)
+        HabilitarControlesAsignaturas(True)
         btnAgregarAsignatura.Visible = True
+        btnLimpiarAsignatura.Visible = True
         btnEliminarAsignatura.Visible = False
-        cargarMaterias(CI)
-        lblNuevoDocente.Text = "Editar materias del docente"
+        lstAsignaturas.Enabled = True
+        Docente.CargarAsignaturas(CI, Me)
+        lblNuevoDocente.Text = "Editar ms del docente"
+        docentePreview.Enabled = True
+        docentePreview = docentePreview.Parent
+        docentePreview.Enabled = False
     End Sub
 
-    ' Persistencia
-    Public Sub cargarAreas()
-        Dim Logica As New Logica()
-        Logica.cargarAreas_frmAdminDocentes(Me)
-    End Sub
-
-    Public Sub rellenarCombos()
-        Dim Logica As New Logica()
-        Logica.rellenarCombos_frmAdminDocentes(Me)
-    End Sub
-
-    Public Sub cargarDocentes()
-        Dim Logica As New Logica()
-        Logica.cargarDocentes_frmAdminDocentes(Me)
-    End Sub
-
-    Public Sub actualizarDB()
-        Dim Logica As New Logica()
-        Logica.actualizarDB_frmAdminDocentes(Me)
-        frmMain.recargarGrupo()
-    End Sub
-
-    Public Sub cargarDatos(ByVal ciDocente As String)
-        Dim Logica As New Logica()
-        Logica.cargarDatos_frmAdminDocentes(ciDocente, Me)
-    End Sub
-
-    Public Sub eliminarAsignatura(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.Click
-        ' Pregunta al usuario si quiere eliminar la asignatura, y de ser correcto la elimina
+    Public Sub EliminarAsignatura(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.Click
         Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar la asignatura seleccionada?", "Eliminar asignatura", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.No Then
             Return
         End If
 
-        Dim Logica As New Logica()
-        Logica.eliminarAsignatura_frmAdminDocentes(sender, Me)
+        Docente.EliminarAsignatura(Me)
         frmMain.recargarGrupo()
     End Sub
 
-    Public Sub eliminarDocente(sender As Object, e As EventArgs)
-        ' Pregunta al usuario si quiere eliminar al profesor, y de ser correcto lo elimina
+    Public Sub EliminarDocente(sender As Object, e As EventArgs)
         Dim result As Integer = MessageBox.Show("¿Está seguro de que desea eliminar el docente '" + sender.Tag(1) + "'?", "Eliminar docente", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.No Then
             Return
         End If
-        Dim Logica As New Logica()
-        Logica.eliminarDocente_frmAdminDocentes(sender, Me)
+        Docente.EliminarDocente(sender.Tag(0), sender.Tag(1), Me)
         frmMain.recargarGrupo()
     End Sub
 
-    Public Sub cargarMaterias(ByVal CI As String)
-        Dim Logica As New Logica()
-        lstAsignaturas.Enabled = True
-        Logica.cargarMaterias_frmAdminDocentes(CI, Me)
-    End Sub
-
-    Public Sub actualizarDBMaterias()
-        ' Se encarga de manejar la DB (parte asignaturas del docente), agrega o edita asignaturas.
-        Dim Logica As New Logica()
-        Logica.actualizarDBMaterias_frmAdminDocentes(Me)
-        frmMain.recargarGrupo()
-    End Sub
-
-    Public Sub cargarAsignaturas()
-        ' Carga las asignaturas al combo
-        Dim Logica As New Logica()
-        Logica.cargarAsignaturas_frmAdminDocentes(Me)
-    End Sub
-
-    ' Presentación
-
-    Private Sub btnAgregarAsignatura_Leave(sender As Object, e As EventArgs) Handles btnAgregarAsignatura.MouseLeave
-        ' al dejar el botón btnAgregarAsignatura cambiar la imagen
-        btnAgregarAsignatura.BackgroundImage = My.Resources.agregar_normal()
-        pnlAyudabtnAgregarAsignatura.Visible = False
-    End Sub
-
-    Private Sub btnAgregarAsignatura_Enter(sender As Object, e As EventArgs) Handles btnAgregarAsignatura.MouseEnter
-        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
-        btnAgregarAsignatura.BackgroundImage = My.Resources.agregar_hover()
-        pnlAyudabtnAgregarAsignatura.Visible = True
-    End Sub
-
-    Private Sub btnEliminarAsignatura_Leave(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.MouseLeave
-        ' al dejar el botón btnEliminarAsignatura cambiar la imagen
-        btnEliminarAsignatura.BackgroundImage = My.Resources.borrar_normal()
-        pnlAyudabtnEliminarAsignatura.Visible = False
-    End Sub
-
-    Private Sub btnEliminarAsignatura_Enter(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.MouseEnter
-        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
-        btnEliminarAsignatura.BackgroundImage = My.Resources.borrar_hover()
-        pnlAyudabtnEliminarAsignatura.Visible = True
-    End Sub
-
-    Private Sub lstAsignaturas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstAsignaturas.SelectedIndexChanged
-        ' Al cambiar la seleccion en la lista de asignaturas, habilita o deshabilita el botón eliminarAsignatura
-        If btnAgregarAsignatura.Visible = False Then
+    Private Sub AsignaturaSeleccionada(sender As Object, e As EventArgs) Handles lstAsignaturas.SelectedIndexChanged
+        If btnLimpiarAsignatura.Visible = False Then
             Return
         End If
         btnEliminarAsignatura.Visible = False
@@ -399,8 +318,7 @@
         End If
     End Sub
 
-    Private Sub txtCI_TextChanged(t As Object, e As KeyEventArgs) Handles txtCI.KeyDown
-        ' Al escribir un caracter que no sea número lo ignora.
+    Private Sub CheckNumeros(t As Object, e As KeyEventArgs) Handles txtCI.KeyDown
         If e.KeyCode.Equals(Keys.Delete) Or e.KeyCode.Equals(Keys.Back) Or e.KeyCode.Equals(Keys.Left) Or e.KeyCode.Equals(Keys.Right) Or e.KeyCode.Equals(Keys.Tab) Then
             e.Handled = False
             Return
@@ -409,5 +327,26 @@
             e.SuppressKeyPress = True
         End If
 
+    End Sub
+
+    Private Sub Animacion_1_L(sender As Object, e As EventArgs) Handles btnLimpiarAsignatura.MouseLeave
+        btnLimpiarAsignatura.BackgroundImage = My.Resources.agregar_normal()
+        pnlAyudabtnAgregarAsignatura.Visible = False
+    End Sub
+
+    Private Sub Animacion_1_E(sender As Object, e As EventArgs) Handles btnLimpiarAsignatura.MouseEnter
+        ' al entrar a el botón btnAgregarAsignatura cambiar la imagen
+        btnLimpiarAsignatura.BackgroundImage = My.Resources.agregar_hover()
+        pnlAyudabtnAgregarAsignatura.Visible = True
+    End Sub
+
+    Private Sub Animacion_2_L(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.MouseLeave
+        btnEliminarAsignatura.BackgroundImage = My.Resources.borrar_normal()
+        pnlAyudabtnEliminarAsignatura.Visible = False
+    End Sub
+
+    Private Sub Animacion_2_E(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.MouseEnter
+        btnEliminarAsignatura.BackgroundImage = My.Resources.borrar_hover()
+        pnlAyudabtnEliminarAsignatura.Visible = True
     End Sub
 End Class

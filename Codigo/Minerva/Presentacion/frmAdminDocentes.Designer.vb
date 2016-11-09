@@ -38,7 +38,7 @@ Partial Class frmAdminDocentes
         Me.lblAsignaturas = New System.Windows.Forms.Label()
         Me.cmbGrupo = New System.Windows.Forms.ComboBox()
         Me.lblGrupo = New System.Windows.Forms.Label()
-        Me.btnAgregarMateria = New System.Windows.Forms.Button()
+        Me.btnAgregarAsignatura = New System.Windows.Forms.Button()
         Me.pnlFondo = New System.Windows.Forms.Panel()
         Me.pnlDocentePlantilla = New System.Windows.Forms.Panel()
         Me.btnDocentePlantilla = New System.Windows.Forms.Button()
@@ -59,9 +59,9 @@ Partial Class frmAdminDocentes
         Me.cmbAsignatura = New System.Windows.Forms.ComboBox()
         Me.mnuEdicionDocente = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.DatosDelDocenteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MateriasDelDocenteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AsignaturasDelDocenteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnEliminarAsignatura = New System.Windows.Forms.PictureBox()
-        Me.btnAgregarAsignatura = New System.Windows.Forms.PictureBox()
+        Me.btnLimpiarAsignatura = New System.Windows.Forms.PictureBox()
         Me.numGrado = New System.Windows.Forms.NumericUpDown()
         Me.imgLogoMAITs = New System.Windows.Forms.PictureBox()
         Me.pnlAyudabtnEliminarAsignatura = New System.Windows.Forms.Panel()
@@ -75,7 +75,7 @@ Partial Class frmAdminDocentes
         CType(Me.numGradoArea, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mnuEdicionDocente.SuspendLayout()
         CType(Me.btnEliminarAsignatura, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btnAgregarAsignatura, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnLimpiarAsignatura, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numGrado, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlAyudabtnEliminarAsignatura.SuspendLayout()
@@ -247,17 +247,17 @@ Partial Class frmAdminDocentes
         Me.lblGrupo.TabIndex = 94
         Me.lblGrupo.Text = "Grupo"
         '
-        'btnAgregarMateria
+        'btnAgregarAsignatura
         '
-        Me.btnAgregarMateria.Cursor = System.Windows.Forms.Cursors.Default
-        Me.btnAgregarMateria.Font = New System.Drawing.Font("Corbel", 12.0!)
-        Me.btnAgregarMateria.Location = New System.Drawing.Point(448, 458)
-        Me.btnAgregarMateria.Name = "btnAgregarMateria"
-        Me.btnAgregarMateria.Size = New System.Drawing.Size(164, 29)
-        Me.btnAgregarMateria.TabIndex = 11
-        Me.btnAgregarMateria.Text = "Confirmar agregación"
-        Me.btnAgregarMateria.UseVisualStyleBackColor = True
-        Me.btnAgregarMateria.Visible = False
+        Me.btnAgregarAsignatura.Cursor = System.Windows.Forms.Cursors.Default
+        Me.btnAgregarAsignatura.Font = New System.Drawing.Font("Corbel", 12.0!)
+        Me.btnAgregarAsignatura.Location = New System.Drawing.Point(448, 458)
+        Me.btnAgregarAsignatura.Name = "btnAgregarAsignatura"
+        Me.btnAgregarAsignatura.Size = New System.Drawing.Size(164, 29)
+        Me.btnAgregarAsignatura.TabIndex = 11
+        Me.btnAgregarAsignatura.Text = "Confirmar agregación"
+        Me.btnAgregarAsignatura.UseVisualStyleBackColor = True
+        Me.btnAgregarAsignatura.Visible = False
         '
         'pnlFondo
         '
@@ -466,7 +466,7 @@ Partial Class frmAdminDocentes
         '
         'mnuEdicionDocente
         '
-        Me.mnuEdicionDocente.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatosDelDocenteToolStripMenuItem, Me.MateriasDelDocenteToolStripMenuItem})
+        Me.mnuEdicionDocente.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatosDelDocenteToolStripMenuItem, Me.AsignaturasDelDocenteToolStripMenuItem})
         Me.mnuEdicionDocente.Name = "ContextMenuStrip1"
         Me.mnuEdicionDocente.Size = New System.Drawing.Size(202, 48)
         '
@@ -476,11 +476,11 @@ Partial Class frmAdminDocentes
         Me.DatosDelDocenteToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
         Me.DatosDelDocenteToolStripMenuItem.Text = "Datos del docente"
         '
-        'MateriasDelDocenteToolStripMenuItem
+        'AsignaturasDelDocenteToolStripMenuItem
         '
-        Me.MateriasDelDocenteToolStripMenuItem.Name = "MateriasDelDocenteToolStripMenuItem"
-        Me.MateriasDelDocenteToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
-        Me.MateriasDelDocenteToolStripMenuItem.Text = "Asignaturas del docente"
+        Me.AsignaturasDelDocenteToolStripMenuItem.Name = "AsignaturasDelDocenteToolStripMenuItem"
+        Me.AsignaturasDelDocenteToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
+        Me.AsignaturasDelDocenteToolStripMenuItem.Text = "Asignaturas del docente"
         '
         'btnEliminarAsignatura
         '
@@ -496,19 +496,19 @@ Partial Class frmAdminDocentes
         Me.btnEliminarAsignatura.TabStop = False
         Me.btnEliminarAsignatura.Visible = False
         '
-        'btnAgregarAsignatura
+        'btnLimpiarAsignatura
         '
-        Me.btnAgregarAsignatura.BackColor = System.Drawing.Color.Transparent
-        Me.btnAgregarAsignatura.BackgroundImage = Global.Minerva.My.Resources.Resources.agregar_normal
-        Me.btnAgregarAsignatura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.btnAgregarAsignatura.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnAgregarAsignatura.Enabled = False
-        Me.btnAgregarAsignatura.Location = New System.Drawing.Point(608, 376)
-        Me.btnAgregarAsignatura.Name = "btnAgregarAsignatura"
-        Me.btnAgregarAsignatura.Size = New System.Drawing.Size(25, 25)
-        Me.btnAgregarAsignatura.TabIndex = 119
-        Me.btnAgregarAsignatura.TabStop = False
-        Me.btnAgregarAsignatura.Visible = False
+        Me.btnLimpiarAsignatura.BackColor = System.Drawing.Color.Transparent
+        Me.btnLimpiarAsignatura.BackgroundImage = Global.Minerva.My.Resources.Resources.agregar_normal
+        Me.btnLimpiarAsignatura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btnLimpiarAsignatura.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnLimpiarAsignatura.Enabled = False
+        Me.btnLimpiarAsignatura.Location = New System.Drawing.Point(608, 376)
+        Me.btnLimpiarAsignatura.Name = "btnLimpiarAsignatura"
+        Me.btnLimpiarAsignatura.Size = New System.Drawing.Size(25, 25)
+        Me.btnLimpiarAsignatura.TabIndex = 119
+        Me.btnLimpiarAsignatura.TabStop = False
+        Me.btnLimpiarAsignatura.Visible = False
         '
         'numGrado
         '
@@ -597,7 +597,7 @@ Partial Class frmAdminDocentes
         Me.Controls.Add(Me.cmbArea)
         Me.Controls.Add(Me.btnAgregarDocente)
         Me.Controls.Add(Me.lstAsignaturas)
-        Me.Controls.Add(Me.btnAgregarAsignatura)
+        Me.Controls.Add(Me.btnLimpiarAsignatura)
         Me.Controls.Add(Me.lblGrupo)
         Me.Controls.Add(Me.cmbGrupo)
         Me.Controls.Add(Me.lblArea)
@@ -605,7 +605,7 @@ Partial Class frmAdminDocentes
         Me.Controls.Add(Me.btnNuevoDocente)
         Me.Controls.Add(Me.lblHsSemanales)
         Me.Controls.Add(Me.lblNuevoDocente)
-        Me.Controls.Add(Me.btnAgregarMateria)
+        Me.Controls.Add(Me.btnAgregarAsignatura)
         Me.Controls.Add(lblTitulo)
         Me.Controls.Add(Me.txtApellido)
         Me.Controls.Add(Me.lblCargo)
@@ -623,7 +623,7 @@ Partial Class frmAdminDocentes
         CType(Me.numGradoArea, System.ComponentModel.ISupportInitialize).EndInit()
         Me.mnuEdicionDocente.ResumeLayout(False)
         CType(Me.btnEliminarAsignatura, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btnAgregarAsignatura, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnLimpiarAsignatura, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numGrado, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.imgLogoMAITs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlAyudabtnEliminarAsignatura.ResumeLayout(False)
@@ -645,7 +645,7 @@ Partial Class frmAdminDocentes
     Friend WithEvents lblAsignaturas As System.Windows.Forms.Label
     Friend WithEvents cmbGrupo As System.Windows.Forms.ComboBox
     Friend WithEvents lblGrupo As System.Windows.Forms.Label
-    Friend WithEvents btnAgregarMateria As System.Windows.Forms.Button
+    Friend WithEvents btnAgregarAsignatura As System.Windows.Forms.Button
     Friend WithEvents pnlFondo As System.Windows.Forms.Panel
     Friend WithEvents lblCantidadDocentes As System.Windows.Forms.Label
     Friend WithEvents pnlDocentePlantilla As System.Windows.Forms.Panel
@@ -663,11 +663,11 @@ Partial Class frmAdminDocentes
     Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
     Friend WithEvents cmbArea As System.Windows.Forms.ComboBox
     Friend WithEvents cmbAsignatura As System.Windows.Forms.ComboBox
-    Friend WithEvents btnAgregarAsignatura As System.Windows.Forms.PictureBox
+    Friend WithEvents btnLimpiarAsignatura As System.Windows.Forms.PictureBox
     Friend WithEvents btnEliminarAsignatura As System.Windows.Forms.PictureBox
     Friend WithEvents mnuEdicionDocente As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents DatosDelDocenteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents MateriasDelDocenteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents AsignaturasDelDocenteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents numGrado As System.Windows.Forms.NumericUpDown
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
     Friend WithEvents imgLogoMAITs As System.Windows.Forms.PictureBox

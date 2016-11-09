@@ -79,13 +79,36 @@ Public Class PersistenciaGrupos
         Using cmd As New MySqlCommand()
             With cmd
                 .Connection = conexion.Conn
-                .CommandText = "SELECT *, Curso.NombreCurso, Orientacion.NombreOrientacion, CONCAT(Adscriptos.CiPersona, ' - ', Adscripto) as NombreAdscripto FROM `Grupo`, `Curso`, `Orientacion`, `Adscriptos` WHERE Grupo.CiPersona=Adscriptos.CiPersona and Grupo.NroGrupo=@NroGrupo and Orientacion.IdCurso=Curso.IdCurso and Grupo.IdOrientacion=Orientacion.IdOrientacion;"
+                .CommandText = "SELECT Grupo.*, Curso.*, Orientacion.*, CONCAT(Adscriptos.CiPersona, ' - ', Adscripto) as NombreAdscripto FROM `Grupo`, `Curso`, `Orientacion`, `Adscriptos` WHERE Grupo.CiPersona=Adscriptos.CiPersona and Grupo.NroGrupo=@NroGrupo and Orientacion.IdCurso=Curso.IdCurso and Grupo.IdOrientacion=Orientacion.IdOrientacion;"
                 .CommandType = CommandType.Text
                 .Parameters.AddWithValue("@NroGrupo", nroGrupo)
             End With
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             Return {reader, conexion}
+        End Using
+    End Function
+
+    Public Shared Function GetNroGrupo(ByVal Grupo As String) As String
+        Dim NroGrupo As String = Nothing
+
+        Dim conexion As New Conexion()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "select * from Grupo where CONCAT(Grado, ' ', IdGrupo)=@Grupo;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@Grupo", Grupo)
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                NroGrupo = reader("NroGrupo")
+            End While
+            reader.Close()
+            conexion.Close()
+
+            Return NroGrupo
         End Using
     End Function
 
@@ -110,5 +133,53 @@ Public Class PersistenciaGrupos
         conexion.Close()
 
         Return existe
+    End Function
+
+    Public Shared Function GetOrientacion(ByVal IdGrupo As String, Grado As String) As String
+        Dim IdOrientacion As String = Nothing
+
+        Dim conexion As New Conexion()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT IdOrientacion from Grupo where IdGrupo=@IdGrupo and Grado=@Grado;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@IdGrupo", IdGrupo)
+                .Parameters.AddWithValue("@Grado", Grado)
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                IdOrientacion = reader("IdOrientacion")
+            End While
+            reader.Close()
+            conexion.Close()
+
+            Return IdOrientacion
+        End Using
+    End Function
+
+    Public Shared Function GetAsignaturaTomada(ByVal IdAsignatura As String, NroGrupo As String) As Boolean
+        Dim AsignaturaTomada As Boolean = False
+
+        Dim conexion As New Conexion()
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "SELECT * from `Tiene_Ag` WHERE IdAsignatura=@IdAsignatura and Tiene_Ag.NroGrupo=@NroGrupo;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@IdAsignatura", IdAsignatura)
+                .Parameters.AddWithValue("@NroGrupo", NroGrupo)
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                AsignaturaTomada = True
+            End While
+            reader.Close()
+            conexion.Close()
+
+            Return AsignaturaTomada
+        End Using
     End Function
 End Class

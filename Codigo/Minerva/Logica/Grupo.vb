@@ -285,5 +285,4 @@ Public Class Grupo
         backupMaterias(0).Close()
         backupMaterias(1).Close()
     End Sub
-
 End Class
