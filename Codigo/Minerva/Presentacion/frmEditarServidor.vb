@@ -64,8 +64,8 @@ Public Class frmEditarServidor
 
     Private Sub _TextChanged(sender As Object, e As EventArgs) Handles txtServidor.TextChanged, txtPasswd.TextChanged, txtUsuario.TextChanged, txtDB.TextChanged
         testeado = False
-        lblEstado1.ForeColor = Color.Blue
-        lblEstado2.ForeColor = Color.Blue
+        lblEstado1.ForeColor = Color.SkyBlue
+        lblEstado2.ForeColor = Color.SkyBlue
         lblEstado2.Text = "Conexión sin probar"
     End Sub
 End Class

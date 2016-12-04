@@ -41,21 +41,27 @@ Public Class Usuario
 
         Try
             PersistenciaPersonas.Add(frm.txtCi.Text)
+
             Dim UsuarioAprobado As Boolean = False
             Dim TipoUsuario As String = ""
+
             If cantidadAdministradores <= 0 Then
                 UsuarioAprobado = True
                 TipoUsuario = "Administrador"
             Else
                 If frm.radFuncionario.Checked Then
                     TipoUsuario = "Funcionario"
+
                 ElseIf frm.radAdscripto.Checked Then
                     TipoUsuario = "Adscripto"
+
                 ElseIf frm.radAdministrador.Checked Then
                     TipoUsuario = "Administrador"
                 End If
+
                 UsuarioAprobado = False
             End If
+
             PersistenciaUsuarios.Add(frm.txtCi.Text, TipoUsuario, frm.txtContraseña.Text, UsuarioAprobado)
 
             If cantidadAdministradores <= 0 Then
@@ -63,6 +69,7 @@ Public Class Usuario
             Else
                 MsgBox("Gracias por registrarse. " & vbCrLf & "El administrador deberá confirmar su registro", MsgBoxStyle.Information, "Minerva · Confirmación de registro")
             End If
+
             frm.Hide()
             frmIngresarRegistro.Show()
             frmIngresarRegistro.BringToFront()
@@ -82,6 +89,7 @@ Public Class Usuario
     Public Shared Sub CargarUsuarios(frm As frmAdminUsuarios)
         frm.pnlUsuarios.Controls.Clear()
         frm.totalUsuarios = 0
+
         Dim resultadosPersistencia As Object = InformacionDB.GetUsuarios()
         Dim reader As MySqlDataReader = resultadosPersistencia(0)
         While reader.Read()
@@ -182,7 +190,7 @@ Public Class Usuario
         End If
 
         Dim cantidadAprobar As Integer = PersistenciaUsuarios.CantSinAprobar()
-
+        Dim notificaciones As Object = {notificacion_1, notificacion_2, notificacion_3, notificacion_4, notificacion_5, notificacion_6, notificacion_7, notificacion_8, notificacion_9, notificacion_10, notificacion_max}
         If cantidadAprobar = 1 Then
             frm.lblCantidadUsuariosAprobacion.Text = "1 usuario está esperando la aprobación de un administrador para poder ingresar."
         Else
@@ -192,29 +200,10 @@ Public Class Usuario
             frm.alertaAprobacion.Visible = False
         Else
             frm.alertaAprobacion.Visible = True
-            If cantidadAprobar = 1 Then
-                frm.alertaAprobacion.BackgroundImage = notificacion_1
-            ElseIf cantidadAprobar = 2 Then
-                frm.alertaAprobacion.BackgroundImage = notificacion_2
-            ElseIf cantidadAprobar = 3 Then
-                frm.alertaAprobacion.BackgroundImage = notificacion_3
-            ElseIf cantidadAprobar = 4 Then
-                frm.alertaAprobacion.BackgroundImage = notificacion_4
-            ElseIf cantidadAprobar = 5 Then
-                frm.alertaAprobacion.BackgroundImage = notificacion_5
-            ElseIf cantidadAprobar = 6 Then
-                frm.alertaAprobacion.BackgroundImage = notificacion_6
-            ElseIf cantidadAprobar = 7 Then
-                frm.alertaAprobacion.BackgroundImage = notificacion_7
-            ElseIf cantidadAprobar = 8 Then
-                frm.alertaAprobacion.BackgroundImage = notificacion_8
-            ElseIf cantidadAprobar = 9 Then
-                frm.alertaAprobacion.BackgroundImage = notificacion_9
-            ElseIf cantidadAprobar = 10 Then
-                frm.alertaAprobacion.BackgroundImage = notificacion_10
-            ElseIf cantidadAprobar >= 10 Then
-                frm.alertaAprobacion.BackgroundImage = notificacion_max
+            If cantidadAprobar > 10 Then
+                cantidadAprobar = 11
             End If
+            frm.alertaAprobacion.BackgroundImage = notificaciones(cantidadAprobar - 1)
         End If
     End Sub
 End Class

@@ -123,6 +123,8 @@
         txtCI.Enabled = False
         HabilitarControlesAsignaturas(False)
         Docente.CargarAsignaturas(sender.Tag(1), Me)
+
+        btnHorariosDocente.Visible = False
     End Sub
 
     Private Sub HabilitarControles(habilitado As Boolean)
@@ -160,6 +162,7 @@
 
         lstAsignaturas.Enabled = True
         Docente.CargarAsignaturas(sender.Tag, Me)
+        btnHorariosDocente.Visible = True
     End Sub
 
     Public Sub InterfazPrevisualizarDocente(ci As String)
@@ -188,6 +191,7 @@
             Next
         Next
         docentePreview.Enabled = False
+        btnHorariosDocente.Visible = True
     End Sub
 
     Public Sub InterfazNuevoDocente(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnNuevoDocente.Click, btnCancelarEdicion.Click
@@ -204,13 +208,14 @@
         docentePreview = New Button()
         LimpiarDatosAsignatura()
         HabilitarControlesAsignaturas(False)
+        btnHorariosDocente.Visible = False
     End Sub
 
     Private Sub EditarDatosDelDocente_Click(sender As Object, e As EventArgs) Handles DatosDelDocenteToolStripMenuItem.Click
         InterfazEditarDocente(sender)
     End Sub
 
-    Private Sub LimpiarDatosAsignatura(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnLimpiarAsignatura.Click
+    Public Sub LimpiarDatosAsignatura(Optional sender As Object = Nothing, Optional e As EventArgs = Nothing) Handles btnLimpiarAsignatura.Click
         cmbArea.SelectedIndex = -1
         cmbGrupo.SelectedIndex = -1
         numGradoArea.Value = 1
@@ -284,10 +289,11 @@
         btnEliminarAsignatura.Visible = False
         lstAsignaturas.Enabled = True
         Docente.CargarAsignaturas(CI, Me)
-        lblNuevoDocente.Text = "Editar ms del docente"
+        lblNuevoDocente.Text = "Editar asignaturas del docente"
         docentePreview.Enabled = True
         docentePreview = docentePreview.Parent
         docentePreview.Enabled = False
+        btnHorariosDocente.Visible = True
     End Sub
 
     Private Sub EliminarAsignatura(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.Click
@@ -349,5 +355,9 @@
     Private Sub Animacion_2_E(sender As Object, e As EventArgs) Handles btnEliminarAsignatura.MouseEnter
         btnEliminarAsignatura.BackgroundImage = My.Resources.borrar_hover()
         pnlAyudabtnEliminarAsignatura.Visible = True
+    End Sub
+
+    Private Sub btnHorariosDocente_click(sender As Object, e As EventArgs) Handles btnHorariosDocente.Click
+        Docente.CrearGrillaHorariosDocente(Me)
     End Sub
 End Class

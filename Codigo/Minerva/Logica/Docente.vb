@@ -180,7 +180,7 @@ Public Class Docente
             PersistenciaHorarios.Edit(Ci, IdAsignatura, NroGrupo)
             CargarAsignaturas(Ci, frm)
             frm.lblNuevoDocente.Text = "Editar asignaturas del docente"
-            frm.InterfazNuevoDocente()
+            frm.LimpiarDatosAsignatura()
         Catch ex As Exception
             MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK)
         End Try
@@ -207,5 +207,142 @@ Public Class Docente
 
         reader.Close()
         resultadosPersistencia(1).Close()
+    End Sub
+
+    Public Shared Sub CrearGrillaHorariosDocente(frm As frmAdminDocentes)
+        Dim Dias As Object = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"}
+        Dim frmHorariosExterno As New frmHorariosExternos(Nothing, frm.ParentForm, frm.txtNombre.Text & " " & frm.txtApellido.Text)
+
+        For Turno As Integer = 1 To 3
+
+            Dim Horarios(0) As String
+
+            If Turno = 3 Then
+                ReDim Horarios(5)
+            Else
+                ReDim Horarios(6)
+            End If
+
+            Dim Row_Primera(8) As String
+            Dim Row_Segunda(8) As String
+            Dim Row_Tercera(8) As String
+            Dim Row_Cuarta(8) As String
+            Dim Row_Quinta(8) As String
+            Dim Row_Sexta(8) As String
+            Dim Row_Extra(8) As String
+
+            Dim Rows As Object = {Row_Primera, Row_Segunda, Row_Tercera, Row_Cuarta, Row_Quinta, Row_Sexta, Row_Extra}
+
+            Dim resultadosPersistenciaHorariosTurno As Object = PersistenciaHorarios.GetHorariosTurno(Turno)
+            Dim readerHorariosTurno As MySqlDataReader = resultadosPersistenciaHorariosTurno(0)
+            Dim pos As Integer = 0
+            While readerHorariosTurno.Read()
+                Horarios(pos) = readerHorariosTurno("HoraInicio").ToString()
+                Rows(pos)(0) = readerHorariosTurno("HoraInicio").ToString()
+                Rows(pos)(0) = Rows(pos)(0).Substring(0, Rows(pos)(0).Length - 3)
+                pos += 1
+            End While
+            readerHorariosTurno.Close()
+            resultadosPersistenciaHorariosTurno(1).Close()
+
+            Dim resultadosPersistencia As Object = PersistenciaHorarios.GetForProfesor(frm.txtCI.Text, Turno)
+            Dim reader As MySqlDataReader = resultadosPersistencia(0)
+
+            While reader.Read()
+                Dim PosHora As Integer = Array.IndexOf(Horarios, reader("HoraInicio").ToString())
+                Dim PosDia As Integer = Array.IndexOf(Dias, reader("Dia"))
+                Rows(PosHora)(PosDia + 1) = reader("Materia") & vbCrLf & reader("NombreProfesor")
+            End While
+
+            reader.Close()
+            resultadosPersistencia(1).Close()
+
+            Dim primeraVacia As Boolean = True
+            Dim segundaVacia As Boolean = True
+            Dim terceraVacia As Boolean = True
+            Dim cuartaVacia As Boolean = True
+            Dim quintaVacia As Boolean = True
+            Dim sextaVacia As Boolean = True
+            Dim extraVacia As Boolean = True
+
+            pos = 0
+            For Each Horario In Row_Primera
+                If (Not IsNothing(Horario) And Not String.IsNullOrEmpty(Horario)) And Not pos = 0 Then
+                    primeraVacia = False
+                End If
+                pos += 1
+            Next
+
+            pos = 0
+            For Each Horario In Row_Segunda
+                If (Not IsNothing(Horario) And Not String.IsNullOrEmpty(Horario)) And Not pos = 0 Then
+                    segundaVacia = False
+                End If
+                pos += 1
+            Next
+
+            pos = 0
+            For Each Horario In Row_Tercera
+                If (Not IsNothing(Horario) And Not String.IsNullOrEmpty(Horario)) And Not pos = 0 Then
+                    terceraVacia = False
+                End If
+                pos += 1
+            Next
+
+            pos = 0
+            For Each Horario In Row_Cuarta
+                If (Not IsNothing(Horario) And Not String.IsNullOrEmpty(Horario)) And Not pos = 0 Then
+                    cuartaVacia = False
+                End If
+                pos += 1
+            Next
+
+            pos = 0
+            For Each Horario In Row_Quinta
+                If (Not IsNothing(Horario) And Not String.IsNullOrEmpty(Horario)) And Not pos = 0 Then
+                    quintaVacia = False
+                End If
+                pos += 1
+            Next
+
+            pos = 0
+            For Each Horario In Row_Sexta
+                If (Not IsNothing(Horario) And Not String.IsNullOrEmpty(Horario)) And Not pos = 0 Then
+                    sextaVacia = False
+                End If
+                pos += 1
+            Next
+
+            pos = 0
+            For Each Horario In Row_Extra
+                If (Not IsNothing(Horario) And Not String.IsNullOrEmpty(Horario)) And Not pos = 0 Then
+                    extraVacia = False
+                End If
+                pos += 1
+            Next
+
+            If Not primeraVacia Then
+                frmHorariosExterno.Grilla.dgvMaterias.Rows.Add(Row_Primera)
+            End If
+            If Not segundaVacia Then
+                frmHorariosExterno.Grilla.dgvMaterias.Rows.Add(Row_Segunda)
+            End If
+            If Not terceraVacia Then
+                frmHorariosExterno.Grilla.dgvMaterias.Rows.Add(Row_Tercera)
+            End If
+            If Not cuartaVacia Then
+                frmHorariosExterno.Grilla.dgvMaterias.Rows.Add(Row_Cuarta)
+            End If
+            If Not quintaVacia Then
+                frmHorariosExterno.Grilla.dgvMaterias.Rows.Add(Row_Quinta)
+            End If
+            If Not sextaVacia Then
+                frmHorariosExterno.Grilla.dgvMaterias.Rows.Add(Row_Sexta)
+            End If
+            If Not extraVacia Then
+                frmHorariosExterno.Grilla.dgvMaterias.Rows.Add(Row_Extra)
+            End If
+        Next
+        frmHorariosExterno.ShowDialog(frm)
     End Sub
 End Class

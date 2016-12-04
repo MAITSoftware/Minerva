@@ -68,6 +68,7 @@ Partial Class frmAdminDocentes
         Me.Label1 = New System.Windows.Forms.Label()
         Me.pnlAyudabtnAgregarAsignatura = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.btnHorariosDocente = New System.Windows.Forms.Button()
         lblDocentes = New System.Windows.Forms.Label()
         lblTitulo = New System.Windows.Forms.Label()
         Me.pnlFondo.SuspendLayout()
@@ -581,10 +582,22 @@ Partial Class frmAdminDocentes
         Me.Label2.Text = "Limpia las selecciones de las listas"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'btnHorariosDocente
+        '
+        Me.btnHorariosDocente.Font = New System.Drawing.Font("Corbel", 12.0!)
+        Me.btnHorariosDocente.Location = New System.Drawing.Point(492, 180)
+        Me.btnHorariosDocente.Name = "btnHorariosDocente"
+        Me.btnHorariosDocente.Size = New System.Drawing.Size(97, 56)
+        Me.btnHorariosDocente.TabIndex = 134
+        Me.btnHorariosDocente.Text = "Horarios del docente"
+        Me.btnHorariosDocente.UseVisualStyleBackColor = True
+        Me.btnHorariosDocente.Visible = False
+        '
         'frmAdminDocentes
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.Controls.Add(Me.btnHorariosDocente)
         Me.Controls.Add(Me.pnlAyudabtnAgregarAsignatura)
         Me.Controls.Add(Me.pnlAyudabtnEliminarAsignatura)
         Me.Controls.Add(Me.imgLogoMAITs)
@@ -675,5 +688,6 @@ Partial Class frmAdminDocentes
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents pnlAyudabtnAgregarAsignatura As System.Windows.Forms.Panel
     Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents btnHorariosDocente As System.Windows.Forms.Button
 
 End Class

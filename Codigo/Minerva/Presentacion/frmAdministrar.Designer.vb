@@ -247,6 +247,7 @@ Partial Class frmAdministrar
         '
         'btnLimpiar
         '
+        Me.btnLimpiar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnLimpiar.Location = New System.Drawing.Point(850, 4)
         Me.btnLimpiar.Name = "btnLimpiar"
         Me.btnLimpiar.Size = New System.Drawing.Size(95, 34)

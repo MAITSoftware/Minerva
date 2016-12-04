@@ -179,11 +179,13 @@ Public Class FuncionesMinerva
         Dim Row_Extra(8) As String
 
         Dim Rows As Object = {Row_Primera, Row_Segunda, Row_Tercera, Row_Cuarta, Row_Quinta, Row_Sexta, Row_Extra}
+        Dim WidgetDias As Object = {frm.Lunes, frm.Martes, frm.Miércoles, frm.Jueves, frm.Viernes, frm.Sábado}
 
         Dim pos As Integer = 0
         While readerHorariosTurno.Read()
             Horarios(pos) = readerHorariosTurno("HoraInicio").ToString()
             Rows(pos)(0) = readerHorariosTurno("HoraInicio").ToString()
+            Rows(pos)(0) = Rows(pos)(0).Substring(0, Rows(pos)(0).Length - 3)
             pos += 1
         End While
 
@@ -192,57 +194,17 @@ Public Class FuncionesMinerva
             Dim reader As MySqlDataReader = resultadoPersistencia(0)
 
             While reader.Read()
-                Dim PosDia As Integer = Array.IndexOf(Horarios, reader("HoraInicio").ToString())
+                Dim PosHora As Integer = Array.IndexOf(Horarios, reader("HoraInicio").ToString())
+                Dim PosDia As Integer = Array.IndexOf(Dias, Dia)
+                Dim WidgetDia As Object = WidgetDias(PosDia)
 
-                If Dia.Equals("Lunes") Then
-                    If reader("Materia").Equals("Sin asignar") Then
-                        Rows(PosDia)(1) = "Sin definir" & vbCrLf & ""
-                        Continue While
-                    End If
-
-                    frm.Lunes.agregarHora(reader("HoraOrden"), reader("Materia"))
-                    Rows(PosDia)(1) = reader("Materia") & vbCrLf & reader("NombreProfesor")
-
-                ElseIf Dia.Equals("Martes") Then
-                    If reader("Materia").Equals("Sin asignar") Then
-                        Rows(PosDia)(2) = "Sin definir" & vbCrLf & ""
-                        Continue While
-                    End If
-                    frm.Martes.agregarHora(reader("HoraOrden"), reader("Materia"))
-                    Rows(PosDia)(2) = reader("Materia") & vbCrLf & reader("NombreProfesor")
-
-                ElseIf Dia.Equals("Miércoles") Then
-                    If reader("Materia").Equals("Sin asignar") Then
-                        Rows(PosDia)(3) = "Sin definir" & vbCrLf & ""
-                        Continue While
-                    End If
-                    frm.Miércoles.agregarHora(reader("HoraOrden"), reader("Materia"))
-                    Rows(PosDia)(3) = reader("Materia") & vbCrLf & reader("NombreProfesor")
-
-                ElseIf Dia.Equals("Jueves") Then
-                    If reader("Materia").Equals("Sin asignar") Then
-                        Rows(PosDia)(4) = "Sin definir" & vbCrLf & ""
-                        Continue While
-                    End If
-                    frm.Jueves.agregarHora(reader("HoraOrden"), reader("Materia"))
-                    Rows(PosDia)(4) = reader("Materia") & vbCrLf & reader("NombreProfesor")
-
-                ElseIf Dia.Equals("Viernes") Then
-                    If reader("Materia").Equals("Sin asignar") Then
-                        Rows(PosDia)(5) = "Sin definir" & vbCrLf & ""
-                        Continue While
-                    End If
-                    frm.Viernes.agregarHora(reader("HoraOrden"), reader("Materia"))
-                    Rows(PosDia)(5) = reader("Materia") & vbCrLf & reader("NombreProfesor")
-
-                ElseIf Dia.Equals("Sábado") Then
-                    If reader("Materia").Equals("Sin asignar") Then
-                        Rows(PosDia)(6) = "Sin definir" & vbCrLf & ""
-                        Continue While
-                    End If
-                    frm.Sábado.agregarHora(reader("HoraOrden"), reader("Materia"))
-                    Rows(PosDia)(6) = reader("Materia") & vbCrLf & reader("NombreProfesor")
+                If reader("Materia").Equals("Sin asignar") Then
+                    Rows(PosHora)(PosDia + 1) = "Sin definir" & vbCrLf & ""
+                    Continue While
                 End If
+
+                WidgetDia.agregarHora(reader("HoraOrden"), reader("Materia"))
+                Rows(PosHora)(PosDia + 1) = reader("Materia") & vbCrLf & reader("NombreProfesor")
             End While
 
             reader.Close()

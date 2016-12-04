@@ -175,7 +175,20 @@ Public Class PersistenciaHorarios
 
     End Function
 
-    Public Shared Function GetConflicto()
-        Return "asd"
+    Public Shared Function GetForProfesor(CiProfesor As String, IdTurno As Integer) As Object
+        Dim conexion As New Conexion()
+
+        Using cmd As New MySqlCommand()
+            With cmd
+                .Connection = conexion.Conn
+                .CommandText = "select Calendario.* from Calendario, Grupo where CONCAT(Grupo.Grado, ' ', Grupo.IdGrupo)=Calendario.Grupo and Calendario.CiPersona=@CiPersona and Grupo.IdTurno=@IdTurno;"
+                .CommandType = CommandType.Text
+                .Parameters.AddWithValue("@CiPersona", CiProfesor)
+                .Parameters.AddWithValue("@IdTurno", IdTurno)
+            End With
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            Return {reader, conexion}
+        End Using
     End Function
 End Class

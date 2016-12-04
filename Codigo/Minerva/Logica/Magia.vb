@@ -25,7 +25,7 @@ Public Class Magia
         ReDim Preserve materias_auxiliares(pos - 1)
     End Sub
 
-    Public Sub CrearModulos()
+    Private Sub CrearModulos()
         Dim pos As Integer = 0
 
         For Each materia As Object In materias_auxiliares
@@ -59,14 +59,6 @@ Public Class Magia
     End Sub
 
     Public Sub RepartirHorarios(frm As frmAdminGrupos)
-        ReDim Me.materias_auxiliares(1)
-        ReDim Me.materias_ordenadas(1)
-        ReDim Me.asignacionLunes(1)
-        ReDim Me.asignacionMartes(1)
-        ReDim Me.asignacionMiercoles(1)
-        ReDim Me.asignacionJueves(1)
-        ReDim Me.asignacionViernes(1)
-        ReDim Me.asignacionSabado(1)
         Try
             RepartirHorariosAutomagicamente(frm)
         Catch ex As Exception
@@ -91,6 +83,15 @@ Public Class Magia
         Dim posSabado As Integer = 0
         Dim pos As Integer = 0
 
+        If IdTurno = 1 Then
+            posLunes = 1
+            posMartes = 1
+            posMiercoles = 1
+            posJueves = 1
+            posViernes = 1
+            posSabado = 1
+        End If
+
         For value As Integer = 0 To 50
             For Each materia As Object In materias_ordenadas
                 If materias_asignadas.Contains(materia) Then
@@ -102,6 +103,7 @@ Public Class Magia
                 Else
                     max_horas_diarias = 7
                 End If
+
 
                 If max_horas_diarias > asignacionLunes.Length - 1 + materia(1) And Not asignacionLunes.Contains(materia(0)) Then
                     Dim x As Integer = 0
@@ -240,6 +242,7 @@ Public Class Magia
                 Continue For
             End If
             Try
+                Dim IdAsignatura As String = materia(0)
                 Throw New System.Exception("No se pueden asignar :(")
             Catch ex As Exception
                 If ex.ToString().Contains("No se pueden") Then

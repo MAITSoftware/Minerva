@@ -22,7 +22,7 @@ Partial Class frmHorariosExternos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.lblHorario = New System.Windows.Forms.Label()
+        Me.lblTitulo = New System.Windows.Forms.Label()
         Me.cboGrupo = New System.Windows.Forms.ComboBox()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.btnAceptar = New System.Windows.Forms.PictureBox()
@@ -38,19 +38,19 @@ Partial Class frmHorariosExternos
         Me.pnlAyudabtnAceptar.SuspendLayout()
         Me.SuspendLayout()
         '
-        'lblHorario
+        'lblTitulo
         '
-        Me.lblHorario.AutoSize = True
-        Me.lblHorario.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
-        Me.lblHorario.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblHorario.Font = New System.Drawing.Font("Corbel", 36.0!, System.Drawing.FontStyle.Bold)
-        Me.lblHorario.ForeColor = System.Drawing.Color.White
-        Me.lblHorario.Location = New System.Drawing.Point(0, 0)
-        Me.lblHorario.Name = "lblHorario"
-        Me.lblHorario.Padding = New System.Windows.Forms.Padding(0, 0, 0, 20)
-        Me.lblHorario.Size = New System.Drawing.Size(410, 79)
-        Me.lblHorario.TabIndex = 3
-        Me.lblHorario.Text = "Horarios del grupo"
+        Me.lblTitulo.AutoSize = True
+        Me.lblTitulo.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.lblTitulo.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblTitulo.Font = New System.Drawing.Font("Corbel", 36.0!, System.Drawing.FontStyle.Bold)
+        Me.lblTitulo.ForeColor = System.Drawing.Color.White
+        Me.lblTitulo.Location = New System.Drawing.Point(0, 0)
+        Me.lblTitulo.Name = "lblTitulo"
+        Me.lblTitulo.Padding = New System.Windows.Forms.Padding(0, 0, 0, 20)
+        Me.lblTitulo.Size = New System.Drawing.Size(410, 79)
+        Me.lblTitulo.TabIndex = 3
+        Me.lblTitulo.Text = "Horarios del grupo"
         '
         'cboGrupo
         '
@@ -168,7 +168,7 @@ Partial Class frmHorariosExternos
         Me.Controls.Add(Me.btnGuardarPdf)
         Me.Controls.Add(Me.cboGrupo)
         Me.Controls.Add(Me.Grilla)
-        Me.Controls.Add(Me.lblHorario)
+        Me.Controls.Add(Me.lblTitulo)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -186,7 +186,7 @@ Partial Class frmHorariosExternos
 
     End Sub
     Friend WithEvents Grilla As Minerva.frmVistaGrilla
-    Friend WithEvents lblHorario As System.Windows.Forms.Label
+    Friend WithEvents lblTitulo As System.Windows.Forms.Label
     Friend WithEvents cboGrupo As System.Windows.Forms.ComboBox
     Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
     Friend WithEvents btnGuardarPdf As System.Windows.Forms.PictureBox

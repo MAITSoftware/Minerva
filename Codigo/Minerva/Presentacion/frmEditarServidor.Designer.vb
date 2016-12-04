@@ -47,6 +47,7 @@ Partial Class frmEditarServidor
         'btnAceptar
         '
         Me.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnAceptar.Font = New System.Drawing.Font("Corbel", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAceptar.Location = New System.Drawing.Point(391, 228)
         Me.btnAceptar.Name = "btnAceptar"
         Me.btnAceptar.Size = New System.Drawing.Size(75, 23)
@@ -57,6 +58,7 @@ Partial Class frmEditarServidor
         'btnCancelar
         '
         Me.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnCancelar.Font = New System.Drawing.Font("Corbel", 9.75!)
         Me.btnCancelar.Location = New System.Drawing.Point(476, 228)
         Me.btnCancelar.Name = "btnCancelar"
         Me.btnCancelar.Size = New System.Drawing.Size(75, 23)
@@ -67,6 +69,7 @@ Partial Class frmEditarServidor
         'btnProbar
         '
         Me.btnProbar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnProbar.Font = New System.Drawing.Font("Corbel", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnProbar.Location = New System.Drawing.Point(12, 208)
         Me.btnProbar.Name = "btnProbar"
         Me.btnProbar.Size = New System.Drawing.Size(103, 44)
@@ -182,11 +185,11 @@ Partial Class frmEditarServidor
         '
         Me.lblEstado1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
         Me.lblEstado1.ForeColor = System.Drawing.Color.GreenYellow
-        Me.lblEstado1.Location = New System.Drawing.Point(121, 207)
+        Me.lblEstado1.Location = New System.Drawing.Point(125, 219)
         Me.lblEstado1.Name = "lblEstado1"
-        Me.lblEstado1.Size = New System.Drawing.Size(23, 44)
+        Me.lblEstado1.Size = New System.Drawing.Size(18, 21)
         Me.lblEstado1.TabIndex = 9
-        Me.lblEstado1.Text = "⬤ "
+        Me.lblEstado1.Text = "● "
         Me.lblEstado1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'frmEditarServidor

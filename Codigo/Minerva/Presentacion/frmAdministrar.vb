@@ -32,7 +32,7 @@ Public Class frmAdministrar
             btnHorarios.Visible = True
             btnUsuarios.Visible = True
             btnBackup.Visible = True
-            btnLimpiar.Visible = True
+            btnLimpiar.Visible = False
         ElseIf tipoUsuario.Equals("Funcionario") Then
             btnSalones.Visible = True
             btnGrupos.Visible = True
@@ -137,12 +137,13 @@ Public Class frmAdministrar
 
         Me.Text = "Minerva · Administración de salones"
         Me.Controls.Remove(pnlTrabajo)
-        acomodarDiseño()
         pnlTrabajo = New frmAdminSalones(Me.tipoUsuario)
         Me.Controls.Add(pnlTrabajo)
+        Me.Size = New Point(1024, 575)
         pnlTrabajo.Location = New Point(2, 42)
         pnlTrabajo.BringToFront()
         sender.BringToFront()
+        acomodarDiseño()
         Centrar()
     End Sub
 
